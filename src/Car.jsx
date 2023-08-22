@@ -1,44 +1,35 @@
 import React, { useEffect, useState } from "react";
-import "font-awesome/css/font-awesome.min.css";
-import { Link } from "react-router-dom";
-import { Navbar } from "../components/Navbar";
-import "../styles/homePage.css";
-import { Offers } from "../components/Offers";
-import { HomeSliders } from "../components/HomeSliders";
-import $ from "jquery";
-import { Footer } from "../components/Footer";
-import axios from "axios";
-import { cookieStorageManager } from "@chakra-ui/react";
-import { HomePageComponent } from "../components/homePageComponent";
-import { HomePageComponent2 } from "../components/homePageComponent2";
+import { HomePageComponent } from './components/homePageComponent';
+import { HomePageComponent2 } from './components/homePageComponent2';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import $ from "jquery";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
-import image from "../media/imh.webp"
-import "../styles/homeOffers.css";
-import cut from "../media/cut.png";
-import cut1 from "../media/cut1.png";
-import cut2 from "../media/cut2.png";
-import cut3 from "../media/cut3.png";
-import save from "../media/save.avif";
-import save1 from "../media/save1.avif";
-import save2 from "../media/save2.avif";
-import save3 from "../media/save3.avif";
-import save4 from "../media/save4.avif";
-import save5 from "../media/save5.avif";
-import save6 from "../media/save6.avif";
-import save7 from "../media/save7.avif";
-import save8 from "../media/save8.avif";
-import save9 from "../media/save9.avif";
-import save10 from "../media/save10.avif";
-import save11 from "../media/save11.avif";
-import save12 from "../media/save12.avif";
-import save13 from "../media/save13.avif";
-import save14 from "../media/save14.avif";
+import image from "./media/imh.webp"
+import "./styles/homeOffers.css";
+import cut from "./media/car1.1.webp";
+import cut1 from "./media/car1.2.avif";
+import cut2 from "./media/car1.3.jpg";
+import cut3 from "./media/car1.4.avif";
+import save from "./media/car1.webp";
+import save1 from "./media/car2.webp";
+import save2 from "./media/car3.webp";
+import save3 from "./media/car4.webp";
+import save4 from "./media/car5.webp";
+import save5 from "./media/car6.webp";
+import save6 from "./media/car7.webp";
+import save7 from "./media/car8.webp";
+import save8 from "./media/save8.avif";
+import save9 from "./media/save9.avif";
+import save10 from "./media/car10.webp";
+import save11 from "./media/car11.webp";
+import save12 from "./media/car12.webp";
+import save13 from "./media/car13.webp";
+import save14 from "./media/car8.webp";
 
-
-export const HomePage = () => {
-  const [whatToShow, setWhatToshow] = useState("flight");
+export default function Car() {
+    const [whatToShow, setWhatToshow] = useState("flight");
   const handleFlight = () => {
     setWhatToshow("flight");
   };
@@ -58,11 +49,9 @@ export const HomePage = () => {
     slidesToShow: 5,
     slidesToScroll: 1
   };
-
   return (
     <>
-      {/* <Navbar /> */}
-      <div className="homeTop">
+       <div className="homeTop1">
         <div className="homeTopCard">
           <div className="secondHeader">
             <Link to="/flight" className="iconCard" onClick={handleFlight}>
@@ -155,7 +144,7 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-    <div className="deg">
+      <div className="deg">
       
       <div className="container mt-5">
       <h1 className="had">Dubai Summer Delights</h1>
@@ -269,7 +258,7 @@ export const HomePage = () => {
     </Slider>
     </div>
     </div>
-  <div className="weg">
+    <div className="weg">
     <div className="container mt-5 mb-5">
       <div className="weg1">
         <h1>Top Cities to Visit</h1>
@@ -302,8 +291,7 @@ export const HomePage = () => {
 
     </div>
     </div>
-
-   <div className="container">
+    <div className="container">
    <div className="weg1">
         <h1>Most Popular Experiences in Dubai</h1>
         <p> Culture, nature, thrills, and record-breaking experiences—Dubai is the place to seek out everything you imagine and beyond. Find it all here!</p>
@@ -679,9 +667,6 @@ export const HomePage = () => {
     </div>
 
    </div>
-      {/* <Offers  /> */}
-      {/* <HomeSliders /> */}
-      <Footer />
     </>
-  );
-};
+  )
+}

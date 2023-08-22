@@ -63,7 +63,7 @@ export const Navbar = () => {
           <i className="fa fa-bus"></i>
           <h1>Bus</h1>
         </Link>
-        <Link to="" className="iconCard">
+        <Link to="/car" className="iconCard">
           <i className="fa fa-car"></i>
           <h1>Car</h1>
         </Link>

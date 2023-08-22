@@ -15,7 +15,8 @@ import Hotel from "./Hotel/Hotel";
 import HotelDetails from "./Hotel/HotelDetails";
 import { Login } from "./Login";
 import { Register } from "./Register";
-
+import { Footer } from "../components/Footer";
+import Car from "../Car";
 export const AllRoutes = () => {
   return (
     <>
@@ -27,6 +28,17 @@ export const AllRoutes = () => {
             <>
               <Navbar />
               <HomePage />
+            </>
+          }
+        />
+         <Route
+          path="/car"
+          element={
+            <>
+              <Navbar />
+              <Car />
+            <Footer/>
+              
             </>
           }
         />

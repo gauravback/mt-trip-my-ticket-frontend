@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
-import { Heading, RadioGroup, Stack, Radio, useSafeLayoutEffect } from "@chakra-ui/react";
-import { Footer } from "../../components/Footer";
+import {
+  Heading,
+  RadioGroup,
+  Stack,
+  Radio,
+  useSafeLayoutEffect,
+} from "@chakra-ui/react";
+
 import { useState } from "react";
 import "font-awesome/css/font-awesome.min.css";
 import "../../styles/homePage.css";
 import { Box, Image } from "@chakra-ui/react";
 import FlightList from "./FlightList";
-import { Flex, Button, } from "@chakra-ui/react"
+import { Flex, Button } from "@chakra-ui/react";
 const initialState = {
   from: "",
   to: "",
@@ -18,9 +24,9 @@ const initialState = {
 export default function Flights() {
   const [PassengerData, setPassengerData] = useState(initialState);
   const [priceValue, setPriceValue] = useState(8);
-  const [classes, setClasses] = useState("")
-  const [page, setPage] = useState(1)
-  const [Packaging, setpackaging] = useState("")
+  const [classes, setClasses] = useState("");
+  const [page, setPage] = useState(1);
+  const [Packaging, setpackaging] = useState("");
 
   const handleChange = (e) => {
     setPassengerData({ ...PassengerData, [e.target.name]: e.target.value });
@@ -252,7 +258,9 @@ export default function Flights() {
           padding="20px"
           textAlign={"center"}
         >
-          <h1 style={{ fontSize: "20px", fontWeight: "bold" }}>Sorting & Filtering</h1>
+          <h1 style={{ fontSize: "20px", fontWeight: "bold" }}>
+            Sorting & Filtering
+          </h1>
 
           <Box>
             <Heading as="h5" size="sm" m="3">
@@ -334,7 +342,6 @@ export default function Flights() {
           <FlightList page={page} priceValue={priceValue} />
         </Box>
       </Box>
-      <Footer />
     </div>
   );
 }

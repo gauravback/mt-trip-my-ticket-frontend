@@ -1,41 +1,34 @@
 import React, { useEffect, useState } from "react";
-import "font-awesome/css/font-awesome.min.css";
-import { Link } from "react-router-dom";
-import { Navbar } from "../components/Navbar";
-import "../styles/homePage.css";
-import { Offers } from "../components/Offers";
-import { HomeSliders } from "../components/HomeSliders";
-import $ from "jquery";
-import axios from "axios";
-import { cookieStorageManager } from "@chakra-ui/react";
-import { HomePageComponent } from "../components/homePageComponent";
-import { HomePageComponent2 } from "../components/homePageComponent2";
+import { HomePageComponent } from "../../components/homePageComponent";
+import { HomePageComponent2 } from "../../components/homePageComponent2";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import $ from "jquery";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
-import image from "../media/imh.webp";
-import "../styles/homeOffers.css";
-import cut from "../media/cut.png";
-import cut1 from "../media/cut1.png";
-import cut2 from "../media/cut2.png";
-import cut3 from "../media/cut3.png";
-import save from "../media/save.avif";
-import save1 from "../media/save1.avif";
-import save2 from "../media/save2.avif";
-import save3 from "../media/save3.avif";
-import save4 from "../media/save4.avif";
-import save5 from "../media/save5.avif";
-import save6 from "../media/save6.avif";
-import save7 from "../media/save7.avif";
-import save8 from "../media/save8.avif";
-import save9 from "../media/save9.avif";
-import save10 from "../media/save10.avif";
-import save11 from "../media/save11.avif";
-import save12 from "../media/save12.avif";
-import save13 from "../media/save13.avif";
-import save14 from "../media/save14.avif";
+import image from "../../media/imh.webp";
+import "../../styles/homeOffers.css";
+import cut from "../../media/car1.1.webp";
+import cut1 from "../../media/car1.2.avif";
+import cut2 from "../../media/car1.3.jpg";
+import cut3 from "../../media/car1.4.avif";
+import save from "../../media/car1.webp";
+import save1 from "../../media/car2.webp";
+import save2 from "../../media/car3.webp";
+import save3 from "../../media/car4.webp";
+import save4 from "../../media/car5.webp";
+import save5 from "../../media/car6.webp";
+import save6 from "../../media/car7.webp";
+import save7 from "../../media/car8.webp";
+import save8 from "../../media/save8.avif";
+import save9 from "../../media/save9.avif";
+import save10 from "../../media/car10.webp";
+import save11 from "../../media/car11.webp";
+import save12 from "../../media/car12.webp";
+import save13 from "../../media/car13.webp";
+import save14 from "../../media/car8.webp";
 
-export const HomePage = () => {
+export default function Car() {
   const [whatToShow, setWhatToshow] = useState("flight");
   const handleFlight = () => {
     setWhatToshow("flight");
@@ -55,11 +48,9 @@ export const HomePage = () => {
     slidesToShow: 5,
     slidesToScroll: 1,
   };
-
   return (
     <>
-      {/* <Navbar /> */}
-      <div className="homeTop">
+      <div className="homeTop1">
         <div className="homeTopCard">
           <div className="secondHeader">
             <Link to="/flight" className="iconCard" onClick={handleFlight}>
@@ -160,17 +151,17 @@ export const HomePage = () => {
             Create unforgettable memories with your family in Dubai this summer
           </p>
           <Slider {...settings}>
-            <div className="">
+            <div>
               <div className="slide-card">
                 <img src={image} alt="" />
-                <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+                <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
                 <div className="container-fluid mt-5 text-center mb-3">
                   <div className="row ">
                     <div className="col-lg-6">
-                      <h6 className="mb-3 ">86 Reviews</h6>
+                      <h2 className="mb-3 ">86 Reviews</h2>
                     </div>
                     <div className="col-lg-6">
-                      <h6>AED 275.00</h6>
+                      <h2>AED 275.00</h2>
                     </div>
                   </div>
                 </div>
@@ -179,14 +170,14 @@ export const HomePage = () => {
             <div>
               <div className="slide-card">
                 <img src={save5} alt="" />
-                <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+                <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
                 <div className="container-fluid mt-5 text-center mb-3">
                   <div className="row ">
                     <div className="col-lg-6">
-                      <h6 className="mb-3 ">86 Reviews</h6>
+                      <h2 className="mb-3 ">86 Reviews</h2>
                     </div>
                     <div className="col-lg-6">
-                      <h6>AED 275.00</h6>
+                      <h2>AED 275.00</h2>
                     </div>
                   </div>
                 </div>
@@ -195,14 +186,14 @@ export const HomePage = () => {
             <div>
               <div className="slide-card">
                 <img src={save6} alt="" />
-                <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+                <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
                 <div className="container-fluid mt-5 text-center mb-3">
                   <div className="row ">
                     <div className="col-lg-6">
-                      <h6 className="mb-3 ">86 Reviews</h6>
+                      <h2 className="mb-3 ">86 Reviews</h2>
                     </div>
                     <div className="col-lg-6">
-                      <h6>AED 275.00</h6>
+                      <h2>AED 275.00</h2>
                     </div>
                   </div>
                 </div>
@@ -210,32 +201,31 @@ export const HomePage = () => {
             </div>
             <div>
               <div className="slide-card">
-                <img src={save6} alt="" />
-                <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+                <img src={save12} alt="" />
+                <h1 className="text-center mt-2">Skydive Abu Dhabi</h1>
                 <div className="container-fluid mt-5 text-center mb-3">
                   <div className="row ">
                     <div className="col-lg-6">
-                      <h6 className="mb-3 ">86 Reviews</h6>
+                      <h2 className="mb-3 ">86 Reviews</h2>
                     </div>
                     <div className="col-lg-6">
-                      <h6>AED 275.00</h6>
+                      <h2>AED 1600</h2>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
             <div>
               <div className="slide-card">
                 <img src={save14} alt="" />
-                <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+                <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
                 <div className="container-fluid mt-5 text-center mb-3">
                   <div className="row ">
                     <div className="col-lg-6">
-                      <h6 className="mb-3 ">86 Reviews</h6>
+                      <h2 className="mb-3 ">86 Reviews</h2>
                     </div>
                     <div className="col-lg-6">
-                      <h6>AED 275.00</h6>
+                      <h2>AED 275.00</h2>
                     </div>
                   </div>
                 </div>
@@ -244,14 +234,14 @@ export const HomePage = () => {
             <div>
               <div className="slide-card">
                 <img src={save6} alt="" />
-                <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+                <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
                 <div className="container-fluid mt-5 text-center mb-3">
                   <div className="row ">
                     <div className="col-lg-6">
-                      <h6 className="mb-3 ">86 Reviews</h6>
+                      <h2 className="mb-3 ">86 Reviews</h2>
                     </div>
                     <div className="col-lg-6">
-                      <h6>AED 275.00</h6>
+                      <h2>AED 275.00</h2>
                     </div>
                   </div>
                 </div>
@@ -295,7 +285,6 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-
       <div className="container">
         <div className="weg1">
           <h1>Most Popular Experiences in Dubai</h1>
@@ -310,14 +299,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -326,14 +315,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save1} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -342,14 +331,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save2} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -358,14 +347,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save3} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -374,14 +363,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save4} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -394,14 +383,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save6} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -410,14 +399,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save7} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -426,14 +415,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save8} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -442,14 +431,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save9} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -458,14 +447,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save10} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -485,14 +474,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save11} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -501,14 +490,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save12} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -517,14 +506,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save13} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -533,14 +522,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save14} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -549,14 +538,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save1} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -569,14 +558,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save11} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -585,14 +574,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save10} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -601,14 +590,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save9} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -617,14 +606,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save7} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -633,14 +622,14 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save8} alt="" />
-              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
                   <div className="col-lg-6">
-                    <h6 className="mb-3 ">86 Reviews</h6>
+                    <h2 className="mb-3 ">86 Reviews</h2>
                   </div>
                   <div className="col-lg-6">
-                    <h6>AED 275.00</h6>
+                    <h2>AED 275.00</h2>
                   </div>
                 </div>
               </div>
@@ -648,8 +637,6 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-      {/* <Offers  /> */}
-      {/* <HomeSliders /> */}
     </>
   );
-};
+}

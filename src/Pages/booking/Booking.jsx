@@ -1,5 +1,4 @@
 import React from "react";
-import { Footer } from "../../components/Footer";
 import { Navbar } from "../../components/Navbar";
 import "./Booking.Module.css";
 import { BookingDetails } from "./bookingDetails";
@@ -17,7 +16,6 @@ export const Booking = () => {
           <BookingDetails />
         </div>
       </div>
-      <Footer />
     </>
   );
 };

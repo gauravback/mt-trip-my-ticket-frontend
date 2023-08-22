@@ -13,32 +13,29 @@ import Flights from "./Flights/Flight";
 import { HomePage } from "./HomePage";
 import Hotel from "./Hotel/Hotel";
 import HotelDetails from "./Hotel/HotelDetails";
-import { Login } from "./Login";
-import { Register } from "./Register";
-import { Footer } from "../components/Footer";
-import Car from "../Car";
+import Login from "./Login";
+import Register from "./Register";
+import Footer from "../components/Footer";
+import Car from "./Car/Car";
+import Navbar2 from "../components/Navbar2";
 export const AllRoutes = () => {
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar2 />
       <Routes>
         <Route
           path="/"
           element={
             <>
-              <Navbar />
               <HomePage />
             </>
           }
         />
-         <Route
+        <Route
           path="/car"
           element={
             <>
-              <Navbar />
               <Car />
-            <Footer/>
-              
             </>
           }
         />
@@ -46,7 +43,6 @@ export const AllRoutes = () => {
           path="/hotel"
           element={
             <>
-              <Navbar />
               <Hotel />
             </>
           }
@@ -55,7 +51,6 @@ export const AllRoutes = () => {
           path="hotel/:id"
           element={
             <>
-              <Navbar />
               <HotelDetails />
             </>
           }
@@ -64,7 +59,6 @@ export const AllRoutes = () => {
           path="/flight"
           element={
             <>
-              <Navbar />
               <Flights />
             </>
           }
@@ -73,7 +67,6 @@ export const AllRoutes = () => {
           path="/login"
           element={
             <>
-              <Navbar />
               <Login />
             </>
           }
@@ -82,7 +75,6 @@ export const AllRoutes = () => {
           path="/register"
           element={
             <>
-              <Navbar />
               <Register />
             </>
           }
@@ -91,7 +83,6 @@ export const AllRoutes = () => {
           path="/cart"
           element={
             <>
-              <Navbar />
               <Cart />
             </>
           }
@@ -103,6 +94,7 @@ export const AllRoutes = () => {
         <Route path="/admin/hotels" element={<AllHotels />} />
         <Route path="/admin" element={<AdminLandingPage />} />
       </Routes>
+      <Footer />
     </>
   );
 };

@@ -8,37 +8,48 @@ import Hotel from "../Pages/Hotel/Hotel";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { logout_user } from "../Redux/Authantication/auth.action";
 import image from "../media/Logo-in-png.png";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Heading,
+  Highlight,
+  IconButton,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
+import { FaRegUser } from "react-icons/fa6";
 
 export const Navbar = () => {
-  const dispatch = useDispatch()
-  const {isAuth, activeUser, isLoading} = useSelector((store) => {
+  const dispatch = useDispatch();
+  const { isAuth, activeUser, isLoading } = useSelector((store) => {
     // console.log(store)
     return {
       isAuth: store.LoginReducer.isAuth,
       activeUser: store.LoginReducer.activeUser,
-      isLoading: store.LoginReducer.isLoading
-    }
-  },shallowEqual) 
+      isLoading: store.LoginReducer.isLoading,
+    };
+  }, shallowEqual);
 
   $(document).on("click", ".iconCard", function () {
     $(".icons >.iconCard").removeClass("active");
     $(this).addClass("active");
   });
 
-
-  $(document).on('click','#activePopup',function(){
+  $(document).on("click", "#activePopup", function () {
     $(this).toggleClass("active");
-  })
+  });
 
   const handleLogout = () => {
-    dispatch(logout_user)
-  }
+    dispatch(logout_user);
+  };
 
   return (
     <header>
       <div className="logo">
         <Link to="/">
-          <img src={image} alt="not visible" />
+          <img width={120} src={image} alt="not visible" />
         </Link>
       </div>
       <div className="icons">
@@ -54,7 +65,7 @@ export const Navbar = () => {
           <i className="fa fa-home"></i>
           <h1>Home Style</h1>
         </Link>
-     
+
         <Link to="" className="iconCard">
           <i className="fa fa-train"></i>
           <h1>Train</h1>
@@ -75,19 +86,25 @@ export const Navbar = () => {
           <i className="fa fa-plane"></i>
           <h1>Charter Plane</h1>
         </Link>
-      
       </div>
 
       <div className="login" id="loginpro">
-        {!isAuth ? 
-            <Link to="/login">
-            <div className="ball"></div>
-            Login 
+        {!isAuth ? (
+          <Link to="/login">
+            <Text fontSize={18}>
+              <Flex alignItems={"center"} gap={"1"}>
+                <FaRegUser fontSize={18} />
+                Login
+              </Flex>
+            </Text>
           </Link>
-        :
+        ) : (
           <Link id="activePopup">
             <div className="ball">
-              <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                alt=""
+              />
             </div>
             {activeUser.user_name}
             <div className="navbarPopup">
@@ -95,116 +112,67 @@ export const Navbar = () => {
               <Link onClick={handleLogout}>Logout</Link>
             </div>
           </Link>
-        }
-      
+        )}
       </div>
 
+      {/* menu button for smallscreens */}
 
+      <div className="Menu">
+        <input type="checkbox" id="check" />
+        <label htmlFor="check">
+          <i className="fa fa-bars"></i>
+        </label>
 
+        <ul className="dropmenu">
+          <li>
+            <Link to="/flight" className="iconCard">
+              <i className="fa fa-plane">
+                <span>Flight</span>
+              </i>
+            </Link>
+          </li>
 
-{/* menu button for smallscreens */}
+          <li>
+            <Link to="/hotel" className="iconCard">
+              <i className="fa fa-hotel">
+                <span>Hotel</span>
+              </i>
+            </Link>
+          </li>
 
+          <li>
+            <Link to="" className="iconCard">
+              <i className="fa fa-home">
+                <span>Home Style</span>
+              </i>
+            </Link>
+          </li>
 
-<div className="Menu">
+          <li>
+            <Link to="" className="iconCard">
+              <i className="fa fa-train">
+                <span>Train</span>
+              </i>
+            </Link>
+          </li>
 
-  <input type="checkbox" id="check" />
-  <label htmlFor="check">
+          <li>
+            <Link to="" className="iconCard">
+              <i className="fa fa-bus">
+                <span>Bus</span>
+              </i>
+            </Link>
+          </li>
 
-  <i className="fa fa-bars">
-</i>
-  </label>
-
-
-
-<ul className="dropmenu">
-
-<li>
-<Link to="/flight" className="iconCard">
-          <i className="fa fa-plane">
-            <span>Flight</span>
-          </i>
-          
-        </Link>
-</li>
-
-
-<li>
-<Link to="/hotel" className="iconCard">
-          <i className="fa fa-hotel">
-            <span>
-            Hotel
-            </span>
-          </i>
-          
-        </Link>
-</li>
-
-
-
-        
-      
-  
-
-        <li>
-        <Link to="" className="iconCard">
-          <i className="fa fa-home">
-          <span>Home Style</span>
-          </i>
-         
-        </Link>
-        </li>
-      
-
-     
-
-        <li>
-        <Link to="" className="iconCard">
-          <i className="fa fa-train">
-          <span>Train</span>
-          </i>
-          
-        </Link>
-        </li>
-     
-    
-
-       
-
-        <li>
-        <Link to="" className="iconCard">
-          <i className="fa fa-bus">
-          <span>Bus</span>
-          </i>
-          
-        </Link>
-
-        </li>
-     
-     
-
-        <li>
-        <Link to="" className="iconCard">
-          <i className="fa fa-car"><span>Car</span></i>
-          
-        </Link>
-        </li>
-
-       
-
-       
-</ul>
-
-
- 
-      
-
-
-</div>
-
-
-
-
-
+          <li>
+            <Link to="" className="iconCard">
+              <i className="fa fa-car">
+                <span>Car</span>
+              </i>
+            </Link>
+          </li>
+        </ul>
+      </div>
     </header>
   );
 };

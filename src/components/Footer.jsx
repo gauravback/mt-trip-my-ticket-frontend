@@ -1,55 +1,131 @@
-import React from 'react'
-import "../styles/footer.css";
+import {
+  Box,
+  Container,
+  SimpleGrid,
+  Stack,
+  Text,
+  Flex,
+  useColorModeValue,
+  Image,
+} from "@chakra-ui/react";
+import image from "../media/Logo-in-png.png";
 
-export const Footer = () => {
+const ListHeader = ({ children }) => {
   return (
-    <footer>
-       
-      
+    <Text fontWeight={"500"} fontSize={"lg"} mb={2}>
+      {children}
+    </Text>
+  );
+};
 
-        <div className="footerTerms" id='fotdetails'>
-            <div className="footerCard">
-                <h1>Why MytripMyticket?</h1>
-                <p>
-                    Established in 2000, MytripMyticket has since positioned itself as one of the leading companies, providing great offers, competitive airfares, 
-                    exclusive discounts, and a seamless online booking experience to many of its customers. The experience of booking your flight tickets, hotel stay, 
-                    and holiday package through our desktop site or mobile app can be done with complete ease and no hassles at all. We also deliver amazing offers, 
-                    such as Instant Discounts, Fare Calendar, MyRewardsProgram, MyWallet, and many more while updating them from time to time to better suit our customers’ 
-                    evolving needs and demands.
-                </p>
-            </div>
-            <div className="footerCard">
-                <h1>Booking Flights with MytripMyticket</h1>
-                <p>
-                    At MytripMyticket, you can find the best of deals and cheap air tickets to any place you want by booking your tickets on our website or app. 
-                    Being India’s leading website for hotel, flight, and holiday bookings, MytripMyticket helps you book flight tickets that are affordable and customized 
-                    to your convenience. With customer satisfaction being our ultimate goal, we also have a 24/7 dedicated helpline to cater to our customer’s 
-                    queries and concerns. Serving over 5 million happy customers, we at MytripMyticket are glad to fulfill the dreams of folks who need a quick and easy 
-                    means to find air tickets. You can get a hold of the cheapest flight of your choice today while also enjoying the other available options for your 
-                    travel needs with us.
-                </p>
-            </div>
-            <div className="footerCard">
-                <h1>Domestic Flights with MytripMyticket</h1>
-                <p>
-                    MytripMyticket is India's leading player for flight bookings. With the cheapest fare guarantee, experience great value at the lowest price. 
-                    Instant notifications ensure current flight status, instant fare drops, amazing discounts, instant refunds and rebook options, 
-                    price comparisons and many more interesting features.
-                </p>
-            </div>
-        </div>
-
-        <div className="footerLastBx">
-            <div className="footerIcons">
-                <i className="fa fa-twitter"></i>
-                <i className="fa fa-facebook"></i>
-            </div>
-            <div className="footerCopyrightbx">
-                <h1>© 2023 MytripMyticket PVT. LTD.</h1>
-                <h2>Country <b>India USA UAE</b></h2>
-            </div>
-        </div>
-
-    </footer>
-  )
+export default function LargeWithLogoCentered() {
+  return (
+    <Box
+      bg={useColorModeValue("gray.50", "gray.900")}
+      color={useColorModeValue("gray.700", "gray.200")}
+    >
+      <Container as={Stack} maxW={"6xl"} py={10}>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
+          <Stack align={"flex-start"}>
+            <ListHeader>Product</ListHeader>
+            <Box as="a" href={"#"}>
+              Overview
+            </Box>
+            <Stack direction={"row"} align={"center"} spacing={2}>
+              <Box as="a" href={"#"}>
+                Features
+              </Box>
+            </Stack>
+            <Box as="a" href={"#"}>
+              Tutorials
+            </Box>
+            <Box as="a" href={"#"}>
+              Pricing
+            </Box>
+            <Box as="a" href={"#"}>
+              Releases
+            </Box>
+          </Stack>
+          <Stack align={"flex-start"}>
+            <ListHeader>Company</ListHeader>
+            <Box as="a" href={"#"}>
+              About Us
+            </Box>
+            <Box as="a" href={"#"}>
+              Press
+            </Box>
+            <Box as="a" href={"#"}>
+              Careers
+            </Box>
+            <Box as="a" href={"#"}>
+              Contact Us
+            </Box>
+            <Box as="a" href={"#"}>
+              Partners
+            </Box>
+          </Stack>
+          <Stack align={"flex-start"}>
+            <ListHeader>Legal</ListHeader>
+            <Box as="a" href={"#"}>
+              Cookies Policy
+            </Box>
+            <Box as="a" href={"#"}>
+              Privacy Policy
+            </Box>
+            <Box as="a" href={"#"}>
+              Terms of Service
+            </Box>
+            <Box as="a" href={"#"}>
+              Law Enforcement
+            </Box>
+            <Box as="a" href={"#"}>
+              Status
+            </Box>
+          </Stack>
+          <Stack align={"flex-start"}>
+            <ListHeader>Follow Us</ListHeader>
+            <Box as="a" href={"#"}>
+              Facebook
+            </Box>
+            <Box as="a" href={"#"}>
+              Twitter
+            </Box>
+            <Box as="a" href={"#"}>
+              Dribbble
+            </Box>
+            <Box as="a" href={"#"}>
+              Instagram
+            </Box>
+            <Box as="a" href={"#"}>
+              LinkedIn
+            </Box>
+          </Stack>
+        </SimpleGrid>
+      </Container>
+      <Box py={10}>
+        <Flex
+          align={"center"}
+          _before={{
+            content: '""',
+            borderBottom: "1px solid",
+            borderColor: useColorModeValue("gray.200", "gray.700"),
+            flexGrow: 1,
+            mr: 8,
+          }}
+          _after={{
+            content: '""',
+            borderBottom: "1px solid",
+            borderColor: useColorModeValue("gray.200", "gray.700"),
+            flexGrow: 1,
+            ml: 8,
+          }}
+        >
+          <Image sx={{ width: "120px" }} src={image} alt="logo" />
+        </Flex>
+        <Text pt={6} fontSize={"sm"} textAlign={"center"}>
+          © 2023 My Trip My Ticket. All rights reserved
+        </Text>
+      </Box>
+    </Box>
+  );
 }

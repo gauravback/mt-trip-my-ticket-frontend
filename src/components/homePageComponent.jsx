@@ -21,15 +21,15 @@ export const HomePageComponent = () => {
             <div>
             <div className="homeInputs">
                 <input name="type" type="radio" id='inputs' />
-                <label for='inputs'>ONE WAY</label>
+                <label for='inputs' className='mt-2'>ONE WAY</label>
             </div>
             <div className="homeInputs">
                 <input checked name="type" type="radio" id='inputs2' />
-                <label for='inputs2'>ROUND TRIP</label>
+                <label for='inputs2' className='mt-2'>ROUND TRIP</label>
             </div>
             <div className="homeInputs">
                 <input name="type" type="radio" id='inputs3' />
-                <label for='inputs3'>MULTI CITY</label>
+                <label for='inputs3' className='mt-2'>MULTI CITY</label>
             </div>
             </div>
             <p>Book International and Domestic Flights</p>
@@ -63,27 +63,27 @@ export const HomePageComponent = () => {
             <h3>Select A <br /> Fare Type: </h3>
             <div className="optionsInputBx">
             <input type="radio" name='fares' />
-            <p>Regular Fares</p>
+            <p className='mt-3'>Regular Fares</p>
             </div>
             <div className="optionsInputBx">
             <input type="radio" name='fares' />
-            <p>Armed Forces Fares</p>
+            <p className='mt-3'>Armed Forces Fares</p>
             </div>
             <div className="optionsInputBx">
             <input type="radio" name='fares' />
-            <p>Student Fares</p>
+            <p className='mt-3'>Student Fares</p>
             </div>
             <div className="optionsInputBx">
             <input type="radio" name='fares' />
-            <p>Seniour Citizen Fares</p>
+            <p className='mt-3'>Seniour Citizen Fares</p>
             </div>
             <div className="optionsInputBx">
             <input type="radio" name='fares' />
-            <p>Doctor & Nurse Fares</p>
+            <p className='mt-3'>Doctor & Nurse Fares</p>
             </div>
             <div className="optionsInputBx">
             <input disabled type="radio" name='fares' />
-            <p>Double Seat fares</p>
+            <p className='mt-3'>Double Seat fares</p>
             </div>
         </div>
     </>

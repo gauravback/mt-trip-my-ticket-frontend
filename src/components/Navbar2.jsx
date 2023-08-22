@@ -9,12 +9,14 @@ import {
   VStack,
   useColorModeValue,
   useDisclosure,
-  Link,
+  
   SimpleGrid,
   Stack,
   Image,
 } from "@chakra-ui/react";
+
 import { useViewportScroll } from "framer-motion";
+import { Link } from "react-router-dom";
 import React from "react";
 import { AiFillHome, AiOutlineInbox, AiOutlineMenu } from "react-icons/ai";
 import { BsFillCameraVideoFill } from "react-icons/bs";
@@ -138,7 +140,7 @@ const Navbar2 = () => {
             justifyContent="space-between"
           >
             <Flex align="flex-start">
-              <Link href="/">
+              <Link to="/">
                 <HStack>
                   <Image src={logo} sx={{ width: "120px" }} />
                 </HStack>
@@ -200,6 +202,7 @@ const Navbar2 = () => {
                 >
                   Bus
                 </Button>
+                <Link to="/car" className="iconCard">
                 <Button
                   color="gray.600"
                   display="inline-flex"
@@ -216,6 +219,7 @@ const Navbar2 = () => {
                 >
                   Car
                 </Button>
+                </Link>
                 <Button
                   color="gray.600"
                   display="inline-flex"

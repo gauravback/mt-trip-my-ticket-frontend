@@ -307,7 +307,7 @@ function HotelDetails({ person }) {
           </Stack>
         </SimpleGrid>
       </Container>
-      <HotelFooter />
+      
     </>
   );
 }

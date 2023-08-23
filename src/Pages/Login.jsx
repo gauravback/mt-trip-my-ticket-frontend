@@ -14,7 +14,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import { login } from "../redux/slices/AuthSlice";
+import { login } from "../Redux/slices/AuthSlice";
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

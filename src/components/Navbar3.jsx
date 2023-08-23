@@ -28,7 +28,7 @@ import Logo from "../media/Logo-in-png.png";
 import { FaBus, FaCar, FaSuitcaseRolling, FaBed } from "react-icons/fa";
 import { FaPlaneUp } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/slices/AuthSlice";
+import { logout } from "../Redux/slices/AuthSlice";
 
 export default function WithSubnavigation() {
   const user = useSelector((state) => state.authReducer?.value);

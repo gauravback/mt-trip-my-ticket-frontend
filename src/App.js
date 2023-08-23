@@ -1,17 +1,13 @@
+import { Toaster } from "react-hot-toast";
 import "./App.css";
-import { Admin } from "./Pages/Admin/AdminFlight";
-import { AdminHotel } from "./Pages/Admin/AdminHotel";
 import { AllRoutes } from "./Pages/AllRoutes";
-import { Booking } from "./Pages/booking/Booking";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 function App() {
   return (
     <>
+      <Toaster />
       <AllRoutes />
-      {/* <Admin /> */}
-      {/* <AdminHotel /> */}
-
-      {/* <Booking/> */}
     </>
   );
 }

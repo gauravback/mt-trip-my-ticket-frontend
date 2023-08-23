@@ -1,315 +1,137 @@
-import {
-  Box,
-  chakra,
-  Container,
-  Stack,
-  Text,
-  Image,
-  Flex,
-  VStack,
-  Button,
-  Heading,
-  SimpleGrid,
-  StackDivider,
-  useColorModeValue,
-  VisuallyHidden,
-  List,
-  ListItem,
-  HStack,
-} from "@chakra-ui/react";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
-import { MdLocalShipping } from "react-icons/md";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
-import Carousel from "better-react-carousel";
-import { useDisclosure } from "@chakra-ui/react";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
-import { Link as RouteLink } from "react-router-dom";
-import { HotelFooter } from "./HotelFooter";
-import { useSelector } from "react-redux";
+import Slider from "react-slick";
 
-function HotelDetails({ person }) {
-  const [singleHotel, setSingleHotel] = useState([]);
+const Hoteldetails = () => {
+  const settings = {
+    dots: true,
+    arrows: true,
+    fade: true,
+    infinite: true,
+    autoplay: true,
+    speed: 500,
+    autoplaySpeed: 5000,
+    slidsToShow: 1,
+    slidesToScroll: 1,
+  };
+
   const { id } = useParams();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [hotel, setHotel] = useState();
+  const fetchHotelDetails = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/api/hotels/${id}/`
+    );
+    const result = await response.json();
+    const status = await response.status;
 
-  const { isAuth } = useSelector((store) => {
-    console.log(store);
-    return {
-      isAuth: store.LoginReducer.isAuth,
-    };
-  });
-
-  const SingleData = () => {
-    axios
-      .get(`https://makemytrip-api-data.onrender.com/hotel/${id}`)
-      .then((res) => {
-        // console.log(res.data);
-        setSingleHotel(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (status === 200) {
+      setHotel(result);
+    } else {
+      toast.error("Something went wrong.", { id: "1" });
+    }
   };
 
   useEffect(() => {
-    SingleData();
-  }, []);
-
-  const {
-    image,
-    img1,
-    img2,
-    img3,
-    img4,
-    rating,
-    ratingText,
-    name,
-    place,
-    description,
-    additional,
-    taxes,
-    price,
-  } = singleHotel;
+    fetchHotelDetails();
+  }, [id]);
 
   return (
-    <>
-      <Container maxW={"7xl"}>
-        <SimpleGrid
-          columns={{ base: 1, lg: 2 }}
-          spacing={{ base: 8, md: 10 }}
-          py={{ base: 18, md: 24 }}
-        >
-          <Flex>
-            <Image
-              rounded={"md"}
-              alt={"product image"}
-              src={image}
-              fit={"cover"}
-              align={"center"}
-              w={"100%"}
-              h={{ base: "100%", sm: "400px", lg: "500px" }}
-            />
-          </Flex>
-
-          <Stack spacing={{ base: 6, md: 10 }}>
-            <Box bg="gray.100" p="5" borderRadius="5" textAlign="center">
-              <Heading
-                lineHeight={1.1}
-                fontWeight={500}
-                fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
-              >
-                {name}
-              </Heading>
-              <Text
-                bg="blue.100"
-                m="5"
-                color={useColorModeValue("gray.900", "gray.400")}
-                fontWeight={500}
-                fontSize={"2xl"}
-              >
-                Place : {place}
-              </Text>
-            </Box>
-            <HStack>
-              <Box>
-                <Carousel cols={2} rows={1} gap={10} loop>
-                  <Carousel.Item>
-                    <img width="100%" src={img1} />
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img width="100%" src={img2} />
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img width="100%" src={img3} />
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img width="100%" src={img4} />
-                  </Carousel.Item>
-                </Carousel>
-              </Box>
-            </HStack>
-            <Stack
-              spacing={{ base: 4, sm: 6 }}
-              direction={"column"}
-              divider={
-                <StackDivider
-                  borderColor={useColorModeValue("gray.200", "gray.600")}
-                />
-              }
-            >
-              <VStack spacing={{ base: 4, sm: 6 }}>
-                <Text
-                  color={useColorModeValue("gray.500", "gray.400")}
-                  fontSize={"2xl"}
-                  fontWeight={"300"}
-                >
-                  {additional}
-                </Text>
-                <Text fontSize={"lg"}>{description}</Text>
-              </VStack>
-              <Box>
-                <Text
-                  fontSize={{ base: "16px", lg: "18px" }}
-                  color={useColorModeValue("yellow.500", "yellow.300")}
-                  fontWeight={"500"}
-                  textTransform={"uppercase"}
-                  mb={"4"}
-                >
-                  Features
-                </Text>
-
-                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                  <List spacing={2}>
-                    <ListItem>WiFi</ListItem>
-                    <ListItem>Parking</ListItem>{" "}
-                    <ListItem>Breakfast Included</ListItem>
-                  </List>
-                  <List spacing={2}>
-                    <ListItem>Laundry</ListItem>
-                    <ListItem>Pick-up and drop</ListItem>
-                    <ListItem>Early Check-In</ListItem>
-                  </List>
-                </SimpleGrid>
-              </Box>
-              <Box>
-                <Text
-                  fontSize={{ base: "16px", lg: "18px" }}
-                  color={useColorModeValue("yellow.500", "yellow.300")}
-                  fontWeight={"500"}
-                  textTransform={"uppercase"}
-                  mb={"4"}
-                >
-                  Price Details
-                </Text>
-
-                <List spacing={2}>
-                  <ListItem>
-                    <Text as={"span"} fontWeight={"bold"}>
-                      Base Price:
-                    </Text>{" "}
-                    ₹ {price}
-                  </ListItem>
-                  <ListItem>
-                    <Text as={"span"} fontWeight={"bold"}>
-                      for 2 adults:
-                    </Text>{" "}
-                    ₹ {price * 2}
-                  </ListItem>
-                  <ListItem>
-                    <Text as={"span"} fontWeight={"bold"}>
-                      Room:
-                    </Text>{" "}
-                    Steel
-                  </ListItem>
-                  <ListItem>
-                    <Text as={"span"} fontWeight={"bold"}>
-                      Taxes & Fees
-                    </Text>{" "}
-                    ₹ {taxes}
-                  </ListItem>
-                  <ListItem>
-                    <Text as={"span"} fontWeight={"bold"}>
-                      Total:
-                    </Text>{" "}
-                    ₹ {taxes + price * 2}
-                  </ListItem>
-
-                  <ListItem color="red">Non Refundable</ListItem>
-                </List>
-              </Box>
-            </Stack>
-
-            {isAuth ? (
-              <Button
-                variant="solid"
-                colorScheme="blue"
-                onClick={onOpen}
-                rounded={"none"}
-                w={"full"}
-                mt={8}
-                size={"lg"}
-                py={"7"}
-                // color={useColorModeValue("white", "gray.900")}
-                borderRadius="5"
-                textTransform={"uppercase"}
-                _hover={{
-                  transform: "translateY(2px)",
-                  boxShadow: "lg",
-                }}
-              >
-                Proceed to Payment
-              </Button>
-            ) : (
-              <Button
-                variant="solid"
-                colorScheme="blue"
-                // onClick={onOpen}
-                rounded={"none"}
-                w={"full"}
-                mt={8}
-                size={"lg"}
-                py={"7"}
-                // color={useColorModeValue("white", "gray.900")}
-                borderRadius="5"
-                textTransform={"uppercase"}
-                _hover={{
-                  transform: "translateY(2px)",
-                  boxShadow: "lg",
-                }}
-              >
-                Proceed to Payment
-              </Button>
-            )}
-
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Payment Successful</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                  <Text>
-                    Your payment has been successfully processed, and we are
-                    grateful for your business. Our team is dedicated to
-                    ensuring your satisfaction, and we will work hard to exceed
-                    your expectations at every step of the way.
-                  </Text>
-                </ModalBody>
-
-                <ModalFooter>
-                  <RouteLink to="/">
-                    <Button colorScheme="blue" mr={3} onClick={onClose}>
-                      Close
-                    </Button>
-                  </RouteLink>
-                  <Button variant="ghost">Secondary Action</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent={"center"}
-            >
-              <MdLocalShipping />
-              <Text>Thank You For Choosing us</Text>
-            </Stack>
-          </Stack>
-        </SimpleGrid>
-      </Container>
-      
-    </>
+    <div>
+      <div className="bg-white">
+        {hotel && (
+          <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+            {/* Product */}
+            <div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
+              {/* Product image */}
+              <div className="lg:col-span-4 lg:row-end-1">
+                <div className="aspect-w-4 aspect-h-3 overflow-hidden rounded-lg bg-gray-100">
+                  <Slider {...settings}>
+                    <div>
+                      <img
+                        src={hotel.image}
+                        alt="Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles."
+                        className="object-cover object-center w-full h-[23rem]"
+                      />
+                    </div>
+                    {hotel.hotel_images.map((image) => (
+                      <div key={image.image}>
+                        <img
+                          src={`https://phoenixdev.online` + image.image}
+                          alt="Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles."
+                          className="object-cover object-center w-full h-[23rem]"
+                        />
+                      </div>
+                    ))}
+                  </Slider>
+                </div>
+              </div>
+              {/* Product details */}
+              <div className="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
+                <div className="flex flex-col-reverse">
+                  <div className="mt-4">
+                    <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                      {hotel.name}
+                    </h1>
+                    <p className="mt-2 text-gray-700 font-semibold">
+                      Address : {hotel.address}
+                    </p>
+                    <p className="mt-2 text-gray-700 font-semibold">
+                      City : {hotel.city}, {hotel.pin}
+                    </p>
+                    <p className="mt-2 text-gray-700 font-semibold">
+                      Country : {hotel.country}
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-6 text-gray-700 text-lg font-bold">
+                  Amenities -
+                </p>{" "}
+                <div className="prose prose-sm text-gray-500 pl-4">
+                  <ul role="list">
+                    {hotel.amenities.map((amenity) => (
+                      <li className="list-disc" key={amenity.id}>
+                        {amenity.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 py-3 px-8 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                  >
+                    Book Now &#8377; {hotel.price}
+                  </button>
+                </div>
+                <div className="mt-10 border-t border-gray-200 pt-10">
+                  <h3 className="text-lg font-bold text-gray-900">
+                    Other Details
+                  </h3>
+                  <div className="prose prose-sm mt-4 text-gray-700 font-semibold">
+                    <ul role="list">
+                      <li className="list-disc">
+                        Hotel Rating : {hotel.star_category} stars
+                      </li>
+                      <li className="list-disc">
+                        Available Rooms : {hotel.available_rooms}
+                      </li>
+                      <li className="list-disc">
+                        Contact :{" "}
+                        <a href={`tel:${hotel.phone_number}`}>
+                          {hotel.phone_number}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
-}
+};
 
-export default HotelDetails;
+export default Hoteldetails;

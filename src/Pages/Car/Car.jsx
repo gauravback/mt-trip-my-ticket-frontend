@@ -149,6 +149,7 @@ export default function Car() {
             city has to offer.
           </p>
         </div>
+        {cars && 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mx-auto gap-3">
           {cars.map((car) => (
             <div className="block rounded-lg p-4 shadow-sm shadow-indigo-100 border">
@@ -179,7 +180,7 @@ export default function Car() {
               </div>
             </div>
           ))}
-        </div>
+        </div>}
       </div>
     </>
   );

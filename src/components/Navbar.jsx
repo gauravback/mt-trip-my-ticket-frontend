@@ -4,9 +4,7 @@ import "font-awesome/css/font-awesome.min.css";
 import "../styles/navbar.css";
 import { Link } from "react-router-dom";
 import $ from "jquery";
-import Hotel from "../Pages/Hotel/Hotel";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { logout_user } from "../Redux/Authantication/auth.action";
 import image from "../media/Logo-in-png.png";
 import {
   Box,
@@ -41,9 +39,7 @@ export const Navbar = () => {
     $(this).toggleClass("active");
   });
 
-  const handleLogout = () => {
-    dispatch(logout_user);
-  };
+  const handleLogout = () => {};
 
   return (
     <header>

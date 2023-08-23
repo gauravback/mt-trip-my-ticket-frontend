@@ -5,28 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import $ from "jquery";
 import { Link } from "react-router-dom";
-import Slider from "react-slick";
-import image from "../../media/imh.webp";
-import "../../styles/homeOffers.css";
-import cut from "../../media/car1.1.webp";
-import cut1 from "../../media/car1.2.avif";
-import cut2 from "../../media/car1.3.jpg";
-import cut3 from "../../media/car1.4.avif";
-import save from "../../media/car1.webp";
-import save1 from "../../media/car2.webp";
-import save2 from "../../media/car3.webp";
-import save3 from "../../media/car4.webp";
-import save4 from "../../media/car5.webp";
-import save5 from "../../media/car6.webp";
-import save6 from "../../media/car7.webp";
-import save7 from "../../media/car8.webp";
-import save8 from "../../media/save8.avif";
-import save9 from "../../media/save9.avif";
-import save10 from "../../media/car10.webp";
-import save11 from "../../media/car11.webp";
-import save12 from "../../media/car12.webp";
-import save13 from "../../media/car13.webp";
-import save14 from "../../media/car8.webp";
+import toast from "react-hot-toast";
 
 export default function Car() {
   const [whatToShow, setWhatToshow] = useState("flight");
@@ -48,6 +27,24 @@ export default function Car() {
     slidesToShow: 5,
     slidesToScroll: 1,
   };
+
+  const [cars, setCars] = useState();
+  const fetchCars = async () => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/cars/`);
+    const result = await response.json();
+    const status = await response.status;
+
+    if (status === 200) {
+      setCars(result);
+    } else {
+      toast.error("Something went wrong.", { id: "1" });
+    }
+  };
+
+  useEffect(() => {
+    fetchCars();
+  }, []);
+  console.log(cars);
   return (
     <>
       <div className="homeTop1">
@@ -143,326 +140,8 @@ export default function Car() {
           </div>
         </div>
       </div>
-      <div className="deg">
-        <div className="container mt-5">
-          <h1 className="had">Dubai Summer Delights</h1>
-          <p className="had1">
-            {" "}
-            Create unforgettable memories with your family in Dubai this summer
-          </p>
-          <Slider {...settings}>
-            <div>
-              <div className="slide-card">
-                <img src={image} alt="" />
-                <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-                <div className="container-fluid mt-5 text-center mb-3">
-                  <div className="row ">
-                    <div className="col-lg-6">
-                      <h2 className="mb-3 ">86 Reviews</h2>
-                    </div>
-                    <div className="col-lg-6">
-                      <h2>AED 275.00</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="slide-card">
-                <img src={save5} alt="" />
-                <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-                <div className="container-fluid mt-5 text-center mb-3">
-                  <div className="row ">
-                    <div className="col-lg-6">
-                      <h2 className="mb-3 ">86 Reviews</h2>
-                    </div>
-                    <div className="col-lg-6">
-                      <h2>AED 275.00</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="slide-card">
-                <img src={save6} alt="" />
-                <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-                <div className="container-fluid mt-5 text-center mb-3">
-                  <div className="row ">
-                    <div className="col-lg-6">
-                      <h2 className="mb-3 ">86 Reviews</h2>
-                    </div>
-                    <div className="col-lg-6">
-                      <h2>AED 275.00</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="slide-card">
-                <img src={save12} alt="" />
-                <h1 className="text-center mt-2">Skydive Abu Dhabi</h1>
-                <div className="container-fluid mt-5 text-center mb-3">
-                  <div className="row ">
-                    <div className="col-lg-6">
-                      <h2 className="mb-3 ">86 Reviews</h2>
-                    </div>
-                    <div className="col-lg-6">
-                      <h2>AED 1600</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="slide-card">
-                <img src={save14} alt="" />
-                <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-                <div className="container-fluid mt-5 text-center mb-3">
-                  <div className="row ">
-                    <div className="col-lg-6">
-                      <h2 className="mb-3 ">86 Reviews</h2>
-                    </div>
-                    <div className="col-lg-6">
-                      <h2>AED 275.00</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="slide-card">
-                <img src={save6} alt="" />
-                <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-                <div className="container-fluid mt-5 text-center mb-3">
-                  <div className="row ">
-                    <div className="col-lg-6">
-                      <h2 className="mb-3 ">86 Reviews</h2>
-                    </div>
-                    <div className="col-lg-6">
-                      <h2>AED 275.00</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Slider>
-        </div>
-      </div>
-      <div className="weg">
-        <div className="container mt-5 mb-5">
-          <div className="weg1">
-            <h1>Top Cities to Visit</h1>
-            <p>
-              {" "}
-              Experience the thrill of discovering off-the-beaten-path gems and
-              famous landmarks in top destinations worldwide - your wanderlust
-              awaits!
-            </p>
-          </div>
-          <div className="row">
-            <div className="col-lg-3">
-              <div className="dev">
-                <img src={cut} alt="" />
-              </div>
-            </div>
-            <div className="col-lg-3">
-              <div className="dev">
-                <img src={cut1} alt="" />
-              </div>
-            </div>
-            <div className="col-lg-3">
-              <div className="dev">
-                <img src={cut2} alt="" />
-              </div>
-            </div>
-            <div className="col-lg-3">
-              <div className="dev">
-                <img src={cut3} alt="" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        <div className="weg1">
-          <h1>Most Popular Experiences in Dubai</h1>
-          <p>
-            {" "}
-            Culture, nature, thrills, and record-breaking experiences—Dubai is
-            the place to seek out everything you imagine and beyond. Find it all
-            here!
-          </p>
-        </div>
-        <div className="d-lg-flex d-block">
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save1} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save2} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save3} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save4} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        <div className="d-lg-flex d-block">
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save6} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save7} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save8} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save9} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save10} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container mt-5">
+
+      <div className="container mt-5 mx-auto pb-12">
         <div className="weg1">
           <h1>Top Experiences in Abu Dhabi</h1>
           <p>
@@ -470,171 +149,36 @@ export default function Car() {
             city has to offer.
           </p>
         </div>
-        <div className="d-lg-flex d-block">
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save11} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mx-auto gap-3">
+          {cars.map((car) => (
+            <div className="block rounded-lg p-4 shadow-sm shadow-indigo-100 border">
+              <img
+                alt={car.model}
+                src={car.images}
+                className="h-56 w-full rounded-md object-contain"
+              />
+              <div className="mt-2">
+                <dl>
+                  <div>
+                    <dt className="sr-only">Price</dt>
+                    <dd className=" text-gray-800 font-semibold">
+                      Rent : &#8377; {car.price}/ Day
+                    </dd>
                   </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
+                  <div>
+                    <dt className="sr-only">Address</dt>
+                    <dd className="font-bold text-lg">
+                      {car.make} {car.model}
+                    </dd>
                   </div>
-                </div>
+                  <div>
+                    <dt className="sr-only">Address</dt>
+                    <dd className="">Passengers : {car.passengers}</dd>
+                  </div>
+                </dl>
               </div>
             </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save12} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save13} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save14} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save1} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        <div className="d-lg-flex d-block">
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save11} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save10} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save9} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save7} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slide-card ms-3">
-              <img src={save8} alt="" />
-              <h1 className="text-center mt-2">Dubai Parks And Resorts</h1>
-              <div className="container-fluid mt-5 text-center mb-3">
-                <div className="row ">
-                  <div className="col-lg-6">
-                    <h2 className="mb-3 ">86 Reviews</h2>
-                  </div>
-                  <div className="col-lg-6">
-                    <h2>AED 275.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

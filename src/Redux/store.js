@@ -1,18 +1,24 @@
-import { applyMiddleware, combineReducers, legacy_createStore } from "redux";
-import thunk from "redux-thunk";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import authReducer from "./slices/AuthSlice";
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
 
-import { FlightReducer } from "./AdminFlights/reducer";
-import { HotelReducer } from "./AdminHotel/reducer";
-import { OfferReducer } from "./Offers/offer.reducer";
-import { LoginReducer } from "./Authantication/auth.reducer";
-import { reducerHotel } from "./HotelRedux/reducerHotel";
+const persistConfig = {
+  key: "data",
+  version: 1,
+  storage,
+};
 
-const rootReducer = combineReducers({
-  FlightReducer,
-  HotelReducer,
-  OfferReducer,
-  LoginReducer,
-  reducerHotel,
+const reducer = combineReducers({
+  authReducer,
 });
 
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});

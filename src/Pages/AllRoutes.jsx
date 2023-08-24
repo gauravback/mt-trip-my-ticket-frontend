@@ -10,6 +10,7 @@ import Navbar3 from "../components/Navbar3";
 import Hotels from "./Hotel/Hotels";
 import Flights from "./Flight/Flights";
 import Hoteldetails from "./Hotel/HotelDetails";
+import CarDetails from "./Car/CarDetails";
 export const AllRoutes = () => {
   return (
     <>
@@ -20,14 +21,6 @@ export const AllRoutes = () => {
           element={
             <>
               <HomePage />
-            </>
-          }
-        />
-        <Route
-          path="/car"
-          element={
-            <>
-              <Car />
             </>
           }
         />
@@ -51,6 +44,8 @@ export const AllRoutes = () => {
         <Route path="/hotel" element={<Hotels />} />
         <Route path="/hotel/:id" element={<Hoteldetails />} />
         <Route path="/flight" element={<Flights />} />
+        <Route path="/car" element={<Car />} />
+        <Route path="/car/:id" element={<CarDetails />} />
       </Routes>
       <Footer />
     </>

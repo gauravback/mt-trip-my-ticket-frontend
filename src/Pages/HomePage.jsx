@@ -325,6 +325,22 @@ export const HomePage = () => {
           </div>
           <div>
             <div className="slide-card ms-3">
+              <img src={save} alt="" />
+              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <div className="container-fluid mt-5 text-center mb-3">
+                <div className="row ">
+                  <div className="col-lg-6">
+                    <h6 className="mb-3 ">86 Reviews</h6>
+                  </div>
+                  <div className="col-lg-6">
+                    <h6>AED 275.00</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="slide-card ms-3">
               <img src={save1} alt="" />
               <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
               <div className="container-fluid mt-5 text-center mb-3">
@@ -394,6 +410,22 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save6} alt="" />
+              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <div className="container-fluid mt-5 text-center mb-3">
+                <div className="row ">
+                  <div className="col-lg-6">
+                    <h6 className="mb-3 ">86 Reviews</h6>
+                  </div>
+                  <div className="col-lg-6">
+                    <h6>AED 275.00</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="slide-card ms-3">
+              <img src={save} alt="" />
               <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">
@@ -500,6 +532,22 @@ export const HomePage = () => {
           </div>
           <div>
             <div className="slide-card ms-3">
+              <img src={save} alt="" />
+              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <div className="container-fluid mt-5 text-center mb-3">
+                <div className="row ">
+                  <div className="col-lg-6">
+                    <h6 className="mb-3 ">86 Reviews</h6>
+                  </div>
+                  <div className="col-lg-6">
+                    <h6>AED 275.00</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="slide-card ms-3">
               <img src={save12} alt="" />
               <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
               <div className="container-fluid mt-5 text-center mb-3">
@@ -569,6 +617,22 @@ export const HomePage = () => {
           <div>
             <div className="slide-card ms-3">
               <img src={save11} alt="" />
+              <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
+              <div className="container-fluid mt-5 text-center mb-3">
+                <div className="row ">
+                  <div className="col-lg-6">
+                    <h6 className="mb-3 ">86 Reviews</h6>
+                  </div>
+                  <div className="col-lg-6">
+                    <h6>AED 275.00</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="slide-card ms-3">
+              <img src={save} alt="" />
               <h4 className="text-center mt-2">Dubai Parks And Resorts</h4>
               <div className="container-fluid mt-5 text-center mb-3">
                 <div className="row ">

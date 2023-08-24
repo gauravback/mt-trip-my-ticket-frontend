@@ -55,9 +55,9 @@ const Hoteldetails = () => {
                       />
                     </div>
                     {hotel.hotel_images.map((image) => (
-                      <div key={image.image}>
+                      <div key={image}>
                         <img
-                          src={`https://phoenixdev.online` + image.image}
+                          src={image}
                           alt="Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles."
                           className="object-cover object-center w-full h-[23rem]"
                         />

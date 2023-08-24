@@ -45,142 +45,72 @@ export default function Car() {
     fetchCars();
   }, []);
   console.log(cars);
+
   return (
     <>
-      <div className="homeTop1">
-        <div className="homeTopCard">
-          <div className="secondHeader">
-            <Link to="/flight" className="iconCard" onClick={handleFlight}>
-              <i className="fa fa-plane"></i>
-              <h1>Flight</h1>
-            </Link>
-            <Link to="/hotel" className="iconCard" onClick={handleHotel}>
-              <i className="fa fa-hotel"></i>
-              <h1>Hotel</h1>
-            </Link>
-            <Link to="" className="iconCard">
-              <i className="fa fa-home"></i>
-              <h1>Home Style</h1>
-            </Link>
-            {/* <Link to="" className="iconCard">
-                <i className="fa fa-balloon"></i>
-                <i className="fa fa-car"></i>
-                <h1>Holiday Packages</h1>
-              </Link> */}
-            <Link to="" className="iconCard">
-              <i className="fa fa-train"></i>
-              <h1>Train</h1>
-            </Link>
-            <Link to="" className="iconCard">
-              <i className="fa fa-bus"></i>
-              <h1>Bus</h1>
-            </Link>
-            <Link to="" className="iconCard">
-              <i className="fa fa-car"></i>
-              <h1>Car</h1>
-            </Link>
-            <Link to="" className="iconCard">
-              <i className="fa fa-money"></i>
-              <h1>Forex</h1>
-            </Link>
-            <Link to="" className="iconCard">
-              <i className="fa fa-plane"></i>
-              <h1>Charter Plane</h1>
-            </Link>
-          </div>
-          {/*  */}
-          {whatToShow == "flight" ? (
-            <HomePageComponent />
-          ) : (
-            <HomePageComponent2 />
-          )}
-
-          {/*  */}
-          <div className="homeSearchButtonBx">
-            <button>Search</button>
-          </div>
-        </div>
-
-        {/*  */}
-        <div className="homeExplore">
-          <div className="exploreCard">
-            <img
-              src="https://promos.makemytrip.com/appfest/2x/icon-wheretogo-23062022.png"
-              alt=""
-            />
-            <p>Where2Go</p>
-          </div>
-          <div className="exploreCard">
-            <img
-              src="https://promos.makemytrip.com/appfest/2x/trip-money-1.png"
-              alt=""
-            />
-            <p>TripMoney</p>
-          </div>
-          <div className="exploreCard">
-            <img
-              src="https://promos.makemytrip.com/Growth/Images/B2C/2x/dt_tert_flights.png"
-              alt=""
-            />
-            <p>Explore Enternational Flights</p>
-          </div>
-          <div className="exploreCard">
-            <img
-              src="https://promos.makemytrip.com/images/myBiz/MICE/mice%20icon%20-%20square.png"
-              alt=""
-            />
-            <p>MICE</p>
-          </div>
-          <div className="exploreCard">
-            <img
-              src="https://promos.makemytrip.com/appfest/2x/gift%20card%201.png"
-              alt=""
-            />
-            <p>Gift Cards</p>
-          </div>
-        </div>
-      </div>
-
       <div className="container mt-5 mx-auto pb-12">
         <div className="weg1">
-          <h1>Top Experiences in Abu Dhabi</h1>
-          <p>
-            Discover the best attractions and activities that the UAE's capital
-            city has to offer.
-          </p>
+          <h1>Cars</h1>
         </div>
-        {cars && 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mx-auto gap-3">
-          {cars.map((car) => (
-            <div className="block rounded-lg p-4 shadow-sm shadow-indigo-100 border">
-              <img
-                alt={car.model}
-                src={car.images}
-                className="h-56 w-full rounded-md object-contain"
-              />
-              <div className="mt-2">
-                <dl>
-                  <div>
-                    <dt className="sr-only">Price</dt>
-                    <dd className=" text-gray-800 font-semibold">
-                      Rent : &#8377; {car.price}/ Day
-                    </dd>
+        {cars && (
+          <div className="grid grid-cols-1 mx-auto gap-3">
+            {cars.map((car) => (
+              <div
+                key={car.id}
+                className="border-t border-b border-gray-200 bg-white shadow-sm sm:rounded-lg sm:border"
+              >
+                <div className="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
+                  <div className="sm:flex lg:col-span-6">
+                    <div className="aspect-w-1 aspect-h-1 w-full flex-shrink-0 overflow-hidden rounded-lg sm:aspect-none sm:h-48 sm:w-3/5">
+                      <img
+                        src={car.images}
+                        alt="Insulated bottle with white base and black snap lid."
+                        className="h-full w-full object-contain object-center sm:h-full sm:w-full"
+                      />
+                    </div>
+                    <div className="mt-6 sm:mt-0 sm:ml-6">
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {car.make} {car.model}
+                      </h3>
+                      <p className="mt-2 text-2xl font-medium text-gray-900">
+                        &#8377; {Math.trunc(car.price)}
+                      </p>
+                      <div className="mt-3 text-gray-700">
+                        <p className="font-semibold text-lg">
+                          Passengers: {car.passengers}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <dt className="sr-only">Address</dt>
-                    <dd className="font-bold text-lg">
-                      {car.make} {car.model}
-                    </dd>
+                  <div className="mt-6 lg:col-span-6 lg:mt-0">
+                    <div className="grid grid-cols-1 gap-x-6 text-sm space-y-6">
+                      <div>
+                        <div className="font-semibold text-xl  text-gray-900">
+                          Transmission: {car.transmission}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-xl  text-gray-900">
+                          AC Avalable: {car.ac ? "Yes" : "No"}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-xl  text-gray-900">
+                          Air Bags: {car.bags ? "Yes" : "No"}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex justify-end items-center mt-6">
+                      <button className="py-2 px-5 rounded-md bg-red-600 text-white">
+                        Book Now
+                      </button>
+                    </div>
                   </div>
-                  <div>
-                    <dt className="sr-only">Address</dt>
-                    <dd className="">Passengers : {car.passengers}</dd>
-                  </div>
-                </dl>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>}
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

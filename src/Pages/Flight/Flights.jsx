@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
+import PlaneImage from "../../media/plane.png";
 const Flights = () => {
   const [flights, setFlights] = useState();
   const fetchFlights = async () => {
@@ -65,11 +66,11 @@ const Flights = () => {
                 >
                   <div className="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
                     <div className="sm:flex lg:col-span-6">
-                      <div className="aspect-w-1 aspect-h-1 w-full flex-shrink-0 overflow-hidden rounded-lg sm:aspect-none sm:h-40 sm:w-40">
+                      <div className="aspect-w-1 aspect-h-1 w-full flex-shrink-0 overflow-hidden rounded-lg sm:aspect-none sm:h-48 sm:w-48">
                         <img
-                          src={flight.image}
-                          alt="Insulated bottle with white base and black snap lid."
-                          className="h-full w-full object-cover object-center sm:h-full sm:w-full"
+                          src={PlaneImage}
+                          alt={flight.name}
+                          className="h-full w-full object-contain object-center sm:h-full sm:w-full"
                         />
                       </div>
                       <div className="mt-6 sm:mt-0 sm:ml-6">
@@ -161,7 +162,7 @@ const Flights = () => {
                         </div>
                       </div>
                       <div className="flex justify-end items-center mt-6">
-                        <button className="py-2 px-5 rounded-md bg-red-600 text-white">
+                        <button className="py-2 px-5 rounded-md btn-gradient">
                           Book Now
                         </button>
                       </div>

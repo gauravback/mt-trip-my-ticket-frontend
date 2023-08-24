@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import CarImage from "../../media/car.png";
 
 export default function Car() {
   const [whatToShow, setWhatToshow] = useState("flight");
@@ -61,47 +62,48 @@ export default function Car() {
               >
                 <div className="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
                   <div className="sm:flex lg:col-span-6">
-                    <div className="aspect-w-1 aspect-h-1 w-full flex-shrink-0 overflow-hidden rounded-lg sm:aspect-none sm:h-48 sm:w-3/5">
+                    <div className="w-full flex-shrink-0 overflow-hidden rounded-lg sm:aspect-none sm:h-48 sm:w-3/5">
                       <img
                         src={car.images}
-                        alt="Insulated bottle with white base and black snap lid."
-                        className="h-full w-full object-contain object-center sm:h-full sm:w-full"
+                        width={300}
+                        alt={car.name}
+                        className="object-contain object-center"
                       />
                     </div>
                     <div className="mt-6 sm:mt-0 sm:ml-6">
                       <h3 className="text-xl font-bold text-gray-900">
                         {car.make} {car.model}
                       </h3>
-                      <p className="mt-2 text-2xl font-medium text-gray-900">
-                        &#8377; {Math.trunc(car.price)}
+                      <p className="mt-2 text-xl font-medium text-gray-900">
+                        &#8377; {Math.trunc(car.price)} / Day
                       </p>
-                      <div className="mt-3 text-gray-700">
-                        <p className="font-semibold text-lg">
-                          Passengers: {car.passengers}
-                        </p>
-                      </div>
                     </div>
                   </div>
                   <div className="mt-6 lg:col-span-6 lg:mt-0">
-                    <div className="grid grid-cols-1 gap-x-6 text-sm space-y-6">
+                    <div className="grid grid-cols-2 gap-y-8">
                       <div>
-                        <div className="font-semibold text-xl  text-gray-900">
+                        <div className="font-semibold  text-gray-900">
+                          Passengers: {car.passengers}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-semibold  text-gray-900">
                           Transmission: {car.transmission}
                         </div>
                       </div>
                       <div>
-                        <div className="font-semibold text-xl  text-gray-900">
+                        <div className="font-semibold  text-gray-900">
                           AC Avalable: {car.ac ? "Yes" : "No"}
                         </div>
                       </div>
                       <div>
-                        <div className="font-semibold text-xl  text-gray-900">
+                        <div className="font-semibold  text-gray-900">
                           Air Bags: {car.bags ? "Yes" : "No"}
                         </div>
                       </div>
                     </div>
                     <div className="flex justify-end items-center mt-6">
-                      <button className="py-2 px-5 rounded-md bg-red-600 text-white">
+                      <button className="py-2 px-5 rounded-md btn-gradient">
                         Book Now
                       </button>
                     </div>

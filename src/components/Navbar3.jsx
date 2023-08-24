@@ -71,6 +71,10 @@ export default function WithSubnavigation() {
           >
             <DesktopNav />
           </Flex>
+          <select className="py-2 px-3 pr-9 block  rounded-md text-sm focus:outline-none focus:ring-0">
+            <option selected>EN</option>
+            <option>HI</option>
+          </select>
           <HStack
             spacing="5"
             display={{
@@ -367,6 +371,13 @@ const MobileNav = () => {
                 Travel Packages
               </Button>
             </Link>
+            <select className="py-2 px-3 pr-9 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500">
+              <option selected>Open this select menu</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+
             <Link to="/login">
               <Button colorScheme="red" size="md">
                 Sign in

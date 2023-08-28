@@ -15,15 +15,27 @@ const OfferSection = ({ title, offers }) => {
           {title} Offers
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2.5 lg:gap-x-6 lg:gap-y-4 mt-6">
-          {offers?.map(({ id, title, image, description, end_date }) => (
-            <OfferCards
-              key={id}
-              title={title}
-              image={image}
-              description={description}
-              endDate={end_date}
-            />
-          ))}
+          {offers?.map(
+            ({
+              id,
+              code,
+              title,
+              image,
+              description,
+              discount_percent,
+              end_date,
+            }) => (
+              <OfferCards
+                key={id}
+                title={title}
+                image={image}
+                description={description}
+                endDate={end_date}
+                code={code}
+                discountPercent={discount_percent}
+              />
+            )
+          )}
         </div>
       </div>
     </div>

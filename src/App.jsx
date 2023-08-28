@@ -38,18 +38,20 @@ const App = () => {
   //   }
   // }, [token]);
   return (
-    <div className="min-h-screen mx-auto max-w-[85rem]">
-      <Toaster />
+    <div className="bg-greyIsh">
       <Navbar />
-      <Routes>
-        <Route path="/" exact element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/flight" element={<Flight />} />
-        <Route path="/car" element={<Car />} />
-        <Route path="/hotel" element={<Hotel />} />
-        <Route path="/payment-verify/:id" element={<PaymentVerification />} />
-      </Routes>
+      <div className="min-h-screen mx-auto">
+        <Toaster />
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/flight" element={<Flight />} />
+          <Route path="/car" element={<Car />} />
+          <Route path="/hotel" element={<Hotel />} />
+          <Route path="/payment-verify/:id" element={<PaymentVerification />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );

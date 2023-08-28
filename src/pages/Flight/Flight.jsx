@@ -2,24 +2,50 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
 import api from "@/api/api";
-import FlightFilter from "@/components/FlightFilter/FlightFilter";
+import Filter from "@/components/FlightFilter/Filter";
+import { useLocation, useSearchParams } from "react-router-dom";
 const Flights = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const [message, setMessage] = useState("");
+  const origin = searchParams.get("origin");
+  const destination = searchParams.get("destination");
+  const departure = searchParams.get("departure");
+  const arrival = searchParams.get("return");
+  const travellers = searchParams.get("travellers");
   const [flights, setFlights] = useState();
   const fetchFlights = async () => {
-    const response = await api.get(`/api/flights/`);
+    const response = await api.get(
+      `/api/flights/?departure_airport_city=${
+        origin ? origin.replace(" ", "+") : ""
+      }&arrival_airport_city=${
+        destination ? destination.replace(" ", "+") : ""
+      }&departure_time=${departure ? departure : ""}&arrival_time=${
+        arrival ? arrival : ""
+      }&available_seats_min=${travellers ? travellers : 1}&available_seats_max=`
+    );
     const result = await response.data;
     const status = await response.status;
 
     if (status === 200) {
-      setFlights(result);
+      if (result.length > 0) {
+        setFlights(result);
+      } else {
+        setMessage("No flights available");
+      }
     } else {
       toast.error("Something went wrong.", { id: "1" });
     }
   };
-
   useEffect(() => {
-    fetchFlights();
-  }, []);
+    if (searchParams.size > 0) {
+      if (origin || destination || departure || arrival || travellers) {
+        fetchFlights();
+      } else {
+        setMessage("No flights available");
+      }
+    }
+  }, [location.search]);
 
   const [tickets, setTickets] = useState([]);
 
@@ -42,21 +68,19 @@ const Flights = () => {
 
   return (
     <div>
-      <main className="mx-auto pt-8 pb-24 sm:pt-16">
-        <div className="space-y-2 px-4 sm:flex sm:items-baseline sm:justify-between sm:space-y-0 sm:px-0">
-          <div className="flex sm:items-baseline sm:space-x-4">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-              Flights
-            </h1>
-          </div>
+      <main className="">
+        <div style={{ backgroundImage: `url("/bg2.jpg")` }}>
+          <Filter />
         </div>
-        <FlightFilter />
         {/* Products */}
-        <section aria-labelledby="flight-heading" className="mt-6">
+        <section
+          aria-labelledby="flight-heading"
+          className="mt-6 max-w-[85rem] mx-auto"
+        >
           <h2 id="flight-heading" className="sr-only">
             Flights
           </h2>
-          {flights && (
+          {flights ? (
             <div className="space-y-8">
               {/* Card */}
               {flights.map((flight) => (
@@ -172,6 +196,12 @@ const Flights = () => {
               ))}
 
               {/* Card End */}
+            </div>
+          ) : (
+            <div className="w-full text-center my-12">
+              <h1 className="text-2xl font-semibold">
+                {message ? message : ""}
+              </h1>
             </div>
           )}
         </section>

@@ -11,13 +11,40 @@
   @apply bg-gradient-to-r from-red-500 to-red-800 text-white;
 }
 
+.blue-gradient {
+  @apply bg-gradient-to-r from-gray-100 to-gray-300;
+}
+
 .icon {
   cursor: pointer;
 }
+
 select::-ms-expand {
   display: none;
 }
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+.active-link {
+  @apply bg-gray-50 text-gray-900 rounded-full sm:py-0 p-0.5;
+}
+
+.navigation-active-link-icon {
+  @apply bg-blue-100 md:bg-white text-blue-700 md:text-gray-900  rounded-full;
+}
+.navigation-active-link {
+  @apply text-blue-700 md:text-gray-900;
+}
+
+.custom-theme .flatpickr-calendar {
+  /* Example styles */
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-theme .flatpickr-day.selected {
+  background-color: #4299e1;
+  color: white;
 }

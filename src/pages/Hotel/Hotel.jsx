@@ -1,37 +1,57 @@
 import api from "@/api/api";
-import HotelFilter from "@/components/HotelFilter/HotelFilter";
+import Filter from "@/components/HotelFilter/Filter";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Hotels = () => {
   const [hotels, setHotels] = useState();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const [message, setMessage] = useState("");
+  const city = searchParams.get("city");
+  const rooms = searchParams.get("rooms");
+  const minPrice = searchParams.get("min-price");
+  const maxPrice = searchParams.get("max-price");
+  const checkIn = searchParams.get("checkin");
+  const checkOut = searchParams.get("checkout");
   const fetchHotels = async () => {
-    const response = await api.get(`/api/hotels/`);
+    const response = await api.get(
+      `/api/hotels/?city=${city}&available_rooms_min=${
+        rooms ? rooms : ""
+      }&price_min=${minPrice ? minPrice : ""}&price_max=${
+        maxPrice ? maxPrice : ""
+      }&available_from=${checkIn}&available_to=${checkOut}`
+    );
     const result = await response.data;
     const status = await response.status;
 
     if (status === 200) {
-      setHotels(result);
+      if (result.length > 0) {
+        setHotels(result);
+      } else {
+        setMessage("No hotels available");
+      }
     } else {
       toast.error("Something went wrong.", { id: "1" });
     }
   };
 
   useEffect(() => {
-    fetchHotels();
-  }, []);
-
-  console.log(hotels);
+    if (searchParams.size > 0) {
+      if (city || rooms || minPrice || maxPrice || checkIn || checkOut) {
+        fetchHotels();
+      } else {
+        setMessage("No hotels available");
+      }
+    }
+  }, [location.search]);
 
   return (
     <div>
-      <div className="mx-auto max-w-2xl py-16 px-4 sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div className="flex items-center justify-between space-x-4">
-          <h2 className="text-2xl  font-bold text-gray-900">Hotels</h2>
-        </div>
-        <HotelFilter />
-        {hotels && (
+      <Filter />
+      <div className="mx-auto max-w-2xl  sm:px-6 lg:max-w-7xl lg:px-8">
+        {hotels ? (
           <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-1 sm:gap-y-10">
             {/* Card */}
             {hotels.map((hotel) => (
@@ -107,6 +127,10 @@ const Hotels = () => {
               </Link>
             ))}
             {/* Card End */}
+          </div>
+        ) : (
+          <div className="w-full text-center my-12">
+            <h1 className="text-2xl font-semibold">{message ? message : ""}</h1>
           </div>
         )}
       </div>

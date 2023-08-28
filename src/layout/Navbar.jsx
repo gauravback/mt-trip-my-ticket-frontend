@@ -1,53 +1,67 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { logout } from "../redux/slices/AuthSlice";
 import { HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineFlight, MdDirectionsBus } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
 import { AiOutlineCar } from "react-icons/ai";
 import { RiHotelBedLine } from "react-icons/ri";
+import { TbAirBalloon } from "react-icons/tb";
 const Navbar = () => {
   const user = useSelector((state) => state.authReducer?.value);
 
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Get the current URL
+    const currentURL = location.pathname;
+
+    // Get all the anchor elements in the menu
+    const menuItems = document.querySelectorAll("#navbar li a");
+
+    // Loop through the anchor elements and compare href with the current URL
+    menuItems.forEach((item) => {
+      if (item.getAttribute("href") === currentURL) {
+        item.children[0].children[0].classList.add("active-link");
+      } else {
+        item.children[0].children[0].classList.remove("active-link");
+      }
+    });
+  }, [location]);
 
   return (
     <div>
-      <nav className="bg-white w-full">
-        <div className="max-w-[85rem] flex flex-wrap items-center justify-between mx-auto">
+      <nav className="w-full sticky top-0  bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+        <div className="md:mx-8 flex flex-wrap items-center justify-between mx-auto">
           <div className="flex items-center">
             <Link to="/">
-              <img src="/logo.png" alt="logo" width={120} />
+              <img src="/logo-white.png" alt="logo" width={120} />
             </Link>
           </div>
-          <div className="flex md:order-2">
+          <div className="flex md:order-2 mx-4">
             {user ? (
               <div
-                className="hs-dropdown inline-flex"
+                className="hs-dropdown inline-flex mr-2"
                 data-hs-dropdown-placement="bottom-right"
               >
                 <button
                   id="hs-dropdown-with-header"
                   type="button"
-                  className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] rounded-full font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs"
+                  className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] rounded-full font-medium bg- align-middle hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs"
                 >
-                  {/* <img
-                    className="inline-block h-[2.375rem] w-[2.375rem] rounded-full ring-2 ring-white"
-                    src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                    alt="Image Description"
-                  /> */}
-                  <div className="h-[2.375rem] w-[2.375rem] rounded-full bg-gray-900 text-white flex items-center justify-center text-lg">
+                  <div className="h-[2.375rem] w-[2.375rem] rounded-full bg-gray-50 text-gray-950 flex items-center justify-center text-lg">
                     {user?.email.slice(0, 1).toUpperCase()}
                   </div>
                 </button>
                 <div
-                  className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] z-10 bg-white shadow-md rounded-lg p-2"
+                  className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] z-10 bg-gray-950 shadow-md rounded-lg p-2"
                   aria-labelledby="hs-dropdown-with-header"
                 >
-                  <div className="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg">
-                    <p className="text-sm text-gray-500">Signed in as</p>
-                    <p className="text-sm font-medium text-gray-800">
+                  <div className="py-3 px-5 -m-2 bg-gray-900 rounded-t-lg">
+                    <p className="text-sm text-gray-50">Signed in as</p>
+                    <p className="text-sm font-medium text-gray-50">
                       {user?.email}
                     </p>
                   </div>
@@ -56,7 +70,7 @@ const Navbar = () => {
                       onClick={() => {
                         dispatch(logout());
                       }}
-                      className="flex w-full items-center gap-x-3.5 py-2 px-3 rounded-md  text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
+                      className="flex w-full items-center gap-x-3.5 py-2 px-3 rounded-md  text-gray-50 hover:bg-gray-50 hover:text-gray-900 focus:ring-2 focus:ring-blue-500"
                     >
                       <HiOutlineLogout fontSize={24} />
                       Logout
@@ -66,7 +80,7 @@ const Navbar = () => {
               </div>
             ) : (
               <Link to="/login">
-                <button className="flex items-center gap-x-2 font-medium text-red-600 transition-all duration-500 px-3 py-1 rounded-full hover:text-red-700">
+                <button className="flex items-center gap-x-2 font-medium text-gray-50 transition-all duration-500 px-3 py-1 rounded-full hover:text-gray-100">
                   <svg
                     className="w-4 h-4 font-bold"
                     xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +100,7 @@ const Navbar = () => {
             <div className="sm:hidden">
               <button
                 type="button"
-                className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm"
+                className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-600 transition-all text-sm"
                 data-hs-collapse="#navbar-collapse-with-animation"
                 aria-controls="navbar-collapse-with-animation"
                 aria-label="Toggle navigation"
@@ -119,45 +133,48 @@ const Navbar = () => {
             id="navbar-collapse-with-animation"
             className="hs-collapse transition-all duration-300 items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           >
-            <ul className="flex flex-col p-2 md:p-0 mt-4 font-semibold border border-gray-100 rounded-lg md:flex-row md:space-x-10 md:mt-0 md:border-0">
+            <ul
+              id="navbar"
+              className="flex p-2 md:p-0 mt-4 font-semibold justify-evenly md:flex-row md:gap-x-10 md:mt-0 md:border-0"
+            >
               <li>
-                <Link to="/flight">
-                  <p className="flex text-lg gap-x-1 items-center text-gray-700 hover:text-red-600 sm:py-2">
-                    <MdOutlineFlight fontSize={24} />
+                <Link to="/flight/">
+                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <MdOutlineFlight fontSize={28} className="mx-auto" />
                     Flight
-                  </p>
+                  </div>
                 </Link>
               </li>
               <li>
-                <Link to="/hotel">
-                  <p className="flex text-lg gap-x-1 items-center text-gray-700 hover:text-red-600 sm:py-2">
-                    <RiHotelLine fontSize={24} />
+                <Link to="/hotel/">
+                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <RiHotelLine fontSize={28} className="mx-auto" />
                     Hotel
-                  </p>
+                  </div>
                 </Link>
               </li>
               <li>
-                <Link to="/car">
-                  <p className="flex text-lg gap-x-1 items-center text-gray-700 hover:text-red-600 sm:py-2">
-                    <AiOutlineCar fontSize={24} />
+                <Link to="/car/">
+                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <AiOutlineCar fontSize={28} className="mx-auto" />
                     Car
-                  </p>
+                  </div>
                 </Link>
               </li>
               <li>
-                <Link to="/bus">
-                  <p className="flex text-lg gap-x-1 items-center text-gray-700 hover:text-red-600 sm:py-2">
-                    <MdDirectionsBus fontSize={24} />
+                <Link to="/bus/">
+                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <MdDirectionsBus fontSize={28} className="mx-auto" />
                     Bus
-                  </p>
+                  </div>
                 </Link>
               </li>
               <li>
-                <Link to="/package">
-                  <p className="flex text-lg gap-x-1 items-center text-gray-700 hover:text-red-600 sm:py-2">
-                    <RiHotelLine fontSize={24} />
-                    Travel Package
-                  </p>
+                <Link to="/package/">
+                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <TbAirBalloon fontSize={28} className="mx-auto" />
+                    Packages
+                  </div>
                 </Link>
               </li>
             </ul>

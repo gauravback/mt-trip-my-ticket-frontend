@@ -1,41 +1,53 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import api from "@/api/api";
+import Filter from "@/components/CarFilter/CarFilter";
+import { useLocation } from "react-router-dom";
 
 export default function Car() {
-  var settings = {
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-  };
-
   const [cars, setCars] = useState();
+  const [message, setMessage] = useState("");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const origin = searchParams.get("origin");
+  const destination = searchParams.get("destination");
+  const departure = searchParams.get("departure");
+
   const fetchCars = async () => {
-    const response = await api.get(`/api/cars/`);
+    const response = await api.get(
+      `/api/cars/?origin_city=${origin ? origin : ""}&destination_city=${
+        destination ? destination : ""
+      }&available_from_before=${departure ? departure : ""}`
+    );
     const result = await response.data;
     const status = await response.status;
 
     if (status === 200) {
-      setCars(result);
+      if (result.length > 0) {
+        setCars(result);
+      } else {
+        setMessage("No cars available");
+      }
     } else {
       toast.error("Something went wrong.", { id: "1" });
     }
   };
 
   useEffect(() => {
-    fetchCars();
-  }, []);
-  console.log(cars);
+    if (searchParams.size > 0) {
+      if (origin || destination || departure) {
+        fetchCars();
+      } else {
+        setMessage("No cars available");
+      }
+    }
+  }, [location.search]);
 
   return (
     <>
-      <div className="mx-auto max-w-2xl py-16 px-4 sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div className="flex items-center justify-between space-x-4">
-          <h2 className="text-2xl font-bold text-gray-900">Cars</h2>
-        </div>
-        {cars && (
+      <Filter />
+      <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        {cars ? (
           <div className="mt-6 grid grid-cols-1 mx-auto gap-3">
             {cars.map((car) => (
               <div
@@ -138,6 +150,10 @@ export default function Car() {
               //   </div>
               // </div>
             ))}
+          </div>
+        ) : (
+          <div className="w-full text-center my-12">
+            <h1 className="text-2xl font-semibold">{message ? message : ""}</h1>
           </div>
         )}
       </div>

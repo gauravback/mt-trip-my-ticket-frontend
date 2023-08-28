@@ -61,7 +61,9 @@ const Filter = () => {
                       id="city"
                       className="px-4 py-4 block w-full text-lg border border-gray-200 shadow-sm rounded-lg focus:outline-none focus:ring-0"
                     >
-                      <option value="">City</option>
+                      <option value="" selected hidden>
+                        City
+                      </option>
                       {cities ? (
                         cities.map(({ id, city }) => (
                           <option

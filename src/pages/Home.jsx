@@ -4,20 +4,10 @@ import "slick-carousel/slick/slick-theme.css";
 import api from "@/api/api";
 import toast from "react-hot-toast";
 import Filter from "@/components/FlightFilter/Filter";
+import OfferSection from "@/components/Offers/OfferSection";
 const Home = () => {
-  const settings = {
-    dots: true,
-    arrows: true,
-    fade: true,
-    infinite: true,
-    autoplay: true,
-    speed: 500,
-    autoplaySpeed: 5000,
-    slidsToShow: 1,
-    slidesToScroll: 1,
-  };
-
   const [cars, setCars] = useState();
+  const [offers, setOffers] = useState();
 
   const getCars = async () => {
     const response = await api.get("/api/cars/");
@@ -29,10 +19,44 @@ const Home = () => {
       toast.error("Something went wrong");
     }
   };
+  const getOffers = async () => {
+    const response = await api.get("/api/offers/");
+    var result = await response.data;
+    const status = await response.status;
+    if (status === 200) {
+      setOffers(result);
+    } else {
+      toast.error("Something went wrong");
+    }
+  };
 
   useEffect(() => {
     getCars();
+    getOffers();
   }, []);
+
+  const categorizedOffers = {
+    flights: [],
+    cars: [],
+    hotels: [],
+    buses: [],
+    packages: [],
+  };
+
+  offers?.forEach((offer) => {
+    if (offer.flights.length > 0) {
+      categorizedOffers.flights.push(offer);
+    } else if (offer.cars.length > 0) {
+      categorizedOffers.cars.push(offer);
+    } else if (offer.hotels.length > 0) {
+      categorizedOffers.hotels.push(offer);
+    } else if (offer.buses.length > 0) {
+      categorizedOffers.buses.push(offer);
+    } else if (offer.packages.length > 0) {
+      categorizedOffers.packages.push(offer);
+    }
+  });
+
   return (
     <div className="">
       <main>
@@ -41,13 +65,13 @@ const Home = () => {
         </div>
         <section
           aria-labelledby="collections-heading"
-          className="mt-12 max-w-[85rem] mx-auto"
+          className="mt-12 max-w-[85rem] md:max-w-[80%] mx-auto"
         >
           <div className="mx-auto px-4 sm:px-6 lg:px-8">
             {cars && (
               <div className="mx-auto lg:max-w-none">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Cars</h2>
-                <div className="lg:grid lg:grid-cols-4 lg:gap-x-6 lg:gap-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-x-2.5 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-4">
                   {cars.map((car) => (
                     <div key={car.id}>
                       <div className="relative">
@@ -83,152 +107,10 @@ const Home = () => {
                 </div>
               </div>
             )}
-            <div className="mx-auto  pt-16 sm:py-24 lg:max-w-none">
-              <h2
-                id="collections-heading"
-                className="text-2xl font-bold text-gray-900"
-              >
-                Offers
-              </h2>
-              <div className="lg:grid lg:grid-cols-3 lg:gap-x-6 lg:gap-y-4">
-                <div className="flex bg-white transition hover:shadow-xl border rounded-lg">
-                  <div className="hidden sm:block sm:basis-56 p-1">
-                    <img
-                      alt="Guitar"
-                      src="/offer.jpg"
-                      className="aspect-square h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col justify-between">
-                    <div className="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
-                      <a href="#">
-                        <h3 className="font-bold uppercase text-gray-900">
-                          30% off on family travel packages.
-                        </h3>
-                      </a>
-                      <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Recusandae dolores, possimus pariatur animi
-                        temporibus nesciunt praesentium dolore sed nulla ipsum
-                        eveniet corporis quidem, mollitia itaque minus soluta,
-                        voluptates neque explicabo tempora nisi culpa eius atque
-                        dignissimos. Molestias explicabo corporis voluptatem?
-                      </p>
-                    </div>
-                    <div className="sm:flex sm:items-end sm:justify-end">
-                      <a
-                        href="#"
-                        className="block bg-red-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-red-400"
-                      >
-                        Apply Now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex bg-white transition hover:shadow-xl border rounded-lg">
-                  <div className="hidden sm:block sm:basis-56 p-1">
-                    <img
-                      alt="Guitar"
-                      src="/offer.jpg"
-                      className="aspect-square h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col justify-between">
-                    <div className="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
-                      <a href="#">
-                        <h3 className="font-bold uppercase text-gray-900">
-                          30% off on family travel packages.
-                        </h3>
-                      </a>
-                      <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Recusandae dolores, possimus pariatur animi
-                        temporibus nesciunt praesentium dolore sed nulla ipsum
-                        eveniet corporis quidem, mollitia itaque minus soluta,
-                        voluptates neque explicabo tempora nisi culpa eius atque
-                        dignissimos. Molestias explicabo corporis voluptatem?
-                      </p>
-                    </div>
-                    <div className="sm:flex sm:items-end sm:justify-end">
-                      <a
-                        href="#"
-                        className="block bg-red-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-red-400"
-                      >
-                        Apply Now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex bg-white transition hover:shadow-xl border rounded-lg">
-                  <div className="hidden sm:block sm:basis-56 p-1">
-                    <img
-                      alt="Guitar"
-                      src="/offer.jpg"
-                      className="aspect-square h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col justify-between">
-                    <div className="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
-                      <a href="#">
-                        <h3 className="font-bold uppercase text-gray-900">
-                          30% off on family travel packages.
-                        </h3>
-                      </a>
-                      <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Recusandae dolores, possimus pariatur animi
-                        temporibus nesciunt praesentium dolore sed nulla ipsum
-                        eveniet corporis quidem, mollitia itaque minus soluta,
-                        voluptates neque explicabo tempora nisi culpa eius atque
-                        dignissimos. Molestias explicabo corporis voluptatem?
-                      </p>
-                    </div>
-                    <div className="sm:flex sm:items-end sm:justify-end">
-                      <a
-                        href="#"
-                        className="block bg-red-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-red-400"
-                      >
-                        Apply Now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex bg-white transition hover:shadow-xl border rounded-lg">
-                  <div className="hidden sm:block sm:basis-56 p-1">
-                    <img
-                      alt="Guitar"
-                      src="/offer.jpg"
-                      className="aspect-square h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col justify-between">
-                    <div className="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
-                      <a href="#">
-                        <h3 className="font-bold uppercase text-gray-900">
-                          30% off on family travel packages.
-                        </h3>
-                      </a>
-                      <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Recusandae dolores, possimus pariatur animi
-                        temporibus nesciunt praesentium dolore sed nulla ipsum
-                        eveniet corporis quidem, mollitia itaque minus soluta,
-                        voluptates neque explicabo tempora nisi culpa eius atque
-                        dignissimos. Molestias explicabo corporis voluptatem?
-                      </p>
-                    </div>
-                    <div className="sm:flex sm:items-end sm:justify-end">
-                      <a
-                        href="#"
-                        className="block bg-red-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-red-400"
-                      >
-                        Apply Now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <OfferSection offers={categorizedOffers.flights} title="Flights" />
+            <OfferSection offers={categorizedOffers.cars} title="Cars" />
+            <OfferSection offers={categorizedOffers.hotels} title="Hotels" />
+            <OfferSection offers={categorizedOffers.buses} title="Buses" />
           </div>
         </section>
       </main>

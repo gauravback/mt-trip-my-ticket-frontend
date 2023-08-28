@@ -57,7 +57,9 @@ const Filter = () => {
                       name="from"
                       className="px-4 py-4 block w-full text-xl border border-gray-200 shadow-sm rounded-lg focus:outline-none focus:ring-0 font-bold"
                     >
-                      <option value="">Origin</option>
+                      <option value="" selected hidden>
+                        Origin
+                      </option>
                       {cities ? (
                         cities.map(({ id, origin_city }) =>
                           origin_city !== "" ? (
@@ -92,7 +94,9 @@ const Filter = () => {
                     name="to"
                     className="px-4 py-4  block w-full text-xl border border-gray-200 shadow-sm rounded-lg focus:outline-none focus:ring-0 font-bold"
                   >
-                    <option value="">Destination</option>
+                    <option selected hidden value="">
+                      Destination
+                    </option>
                     {cities ? (
                       cities.map(({ id, destination_city }) =>
                         destination_city !== "" ? (

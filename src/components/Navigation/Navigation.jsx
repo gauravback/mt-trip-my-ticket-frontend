@@ -32,7 +32,7 @@ const Navigation = () => {
         <div className="container">
           <div
             id="navigation"
-            className="grid grid-cols-3 md:grid-cols-auto gap-6 p-3 justify-center lg:justify-between bg-white rounded-t-lg"
+            className="grid grid-cols-3 md:grid-cols-5 gap-6 p-3 justify-center lg:justify-between bg-white rounded-t-lg"
           >
             <Link to="/flight/">
               <div className="flex flex-col items-center">
@@ -58,7 +58,7 @@ const Navigation = () => {
                 <span className="">Car</span>
               </div>
             </Link>
-            {/* <Link to="/bus">
+            <Link to="/bus">
               <div className="flex flex-col items-center">
                 <div className="py-1.5 px-3 text-sm md:text-base">
                   <MdDirectionsBus fontSize={24} />
@@ -73,7 +73,7 @@ const Navigation = () => {
                 </div>
                 <span className="">Packages</span>
               </div>
-            </Link> */}
+            </Link>
           </div>
         </div>
       </section>

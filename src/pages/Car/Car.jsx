@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import api from "@/api/api";
 import Filter from "@/components/CarFilter/CarFilter";
 import { useLocation } from "react-router-dom";
+import Offers from "@/components/Offers/Offers";
 
 export default function Car() {
   const [cars, setCars] = useState();
@@ -156,6 +157,7 @@ export default function Car() {
             <h1 className="text-2xl font-semibold">{message ? message : ""}</h1>
           </div>
         )}
+        <Offers />
       </div>
     </>
   );

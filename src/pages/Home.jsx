@@ -4,10 +4,9 @@ import "slick-carousel/slick/slick-theme.css";
 import api from "@/api/api";
 import toast from "react-hot-toast";
 import Filter from "@/components/FlightFilter/Filter";
-import OfferSection from "@/components/Offers/OfferSection";
+import Offers from "@/components/Offers/Offers";
 const Home = () => {
   const [cars, setCars] = useState();
-  const [offers, setOffers] = useState();
 
   const getCars = async () => {
     const response = await api.get("/api/cars/");
@@ -19,43 +18,10 @@ const Home = () => {
       toast.error("Something went wrong");
     }
   };
-  const getOffers = async () => {
-    const response = await api.get("/api/offers/");
-    var result = await response.data;
-    const status = await response.status;
-    if (status === 200) {
-      setOffers(result);
-    } else {
-      toast.error("Something went wrong");
-    }
-  };
 
   useEffect(() => {
     getCars();
-    getOffers();
   }, []);
-
-  const categorizedOffers = {
-    flights: [],
-    cars: [],
-    hotels: [],
-    buses: [],
-    packages: [],
-  };
-
-  offers?.forEach((offer) => {
-    if (offer.flights.length > 0) {
-      categorizedOffers.flights.push(offer);
-    } else if (offer.cars.length > 0) {
-      categorizedOffers.cars.push(offer);
-    } else if (offer.hotels.length > 0) {
-      categorizedOffers.hotels.push(offer);
-    } else if (offer.buses.length > 0) {
-      categorizedOffers.buses.push(offer);
-    } else if (offer.packages.length > 0) {
-      categorizedOffers.packages.push(offer);
-    }
-  });
 
   return (
     <div className="">
@@ -107,10 +73,7 @@ const Home = () => {
                 </div>
               </div>
             )}
-            <OfferSection offers={categorizedOffers.flights} title="Flights" />
-            <OfferSection offers={categorizedOffers.cars} title="Cars" />
-            <OfferSection offers={categorizedOffers.hotels} title="Hotels" />
-            <OfferSection offers={categorizedOffers.buses} title="Buses" />
+            <Offers />
           </div>
         </section>
       </main>

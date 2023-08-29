@@ -9,34 +9,40 @@ import { logout } from "./redux/slices/AuthSlice";
 import PaymentVerification from "./pages/PaymentVerification";
 import { Car, Flight, Hotel, Login, Register } from "./pages";
 import api from "./api/api";
+import Package from "./pages/Package/Package";
+import Bus from "./pages/Bus/Bus";
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.authReducer?.value?.token);
-  // const checkToken = async () => {
-  //   try {
-  //     const response = await api.get(`/user/check-token/`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
+  const checkToken = async () => {
+    try {
+      const response = await api.get(`/user/check-token/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  //     const status = await response.status;
-  //     if (status !== 200) {
-  //       dispatch(logout());
-  //       navigate("/login");
-  //     }
-  //   } catch {
-  //     toast.error("Server error", { id: "1" });
-  //   }
-  // };
+      const status = await response.status;
+      if (status !== 200) {
+        dispatch(logout());
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error("Server error", { id: "1" });
+      if (error.response.status === 403) {
+        dispatch(logout());
+        navigate("/login");
+      }
+    }
+  };
 
-  // useEffect(() => {
-  //   if (token) {
-  //     checkToken();
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (token) {
+      checkToken();
+    }
+  }, [token]);
   return (
     <div className="bg-greyIsh">
       <Navbar />
@@ -48,8 +54,9 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/flight" element={<Flight />} />
           <Route path="/car" element={<Car />} />
+          <Route path="/bus" element={<Bus />} />
           <Route path="/hotel" element={<Hotel />} />
-          <Route path="/payment-verify/:id" element={<PaymentVerification />} />
+          <Route path="/package" element={<Package />} />
         </Routes>
       </div>
       <Footer />

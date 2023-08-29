@@ -34,7 +34,7 @@ const Login = () => {
   };
   return (
     <div>
-      <section className="bg-white max-w-[85rem] mx-auto min-h-screen">
+      <section className="max-w-[85rem] mx-auto min-h-screen">
         <div className="container px-6 py-24 mx-auto lg:py-32">
           <div className="lg:flex">
             <div className="lg:w-1/2">
@@ -44,7 +44,7 @@ const Login = () => {
               <p className="text-lg">
                 Or
                 <Link to="/register">
-                  <span className="ml-2 text-red-500 font-medium">
+                  <span className="ml-2 text-gradientfont-medium">
                     Create new account
                   </span>
                 </Link>
@@ -87,7 +87,7 @@ const Login = () => {
                 <div className="mt-8">
                   <button
                     type="submit"
-                    className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg  hover:bg-red-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+                    className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform  rounded-lg btn-gradient focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
                   >
                     Login
                   </button>

@@ -14,7 +14,7 @@ const OfferSection = ({ title, offers }) => {
         >
           {title} Offers
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2.5 lg:gap-x-6 lg:gap-y-4 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2.5 lg:gap-x-6 gap-y-4 mt-6">
           {offers?.map(
             ({
               id,

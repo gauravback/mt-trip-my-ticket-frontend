@@ -10,7 +10,7 @@ const OfferCards = ({
 }) => {
   return (
     <div>
-      <div className="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+      <div className="flex w-full mx-auto md:mx-0 max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
         <a className="mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
           <img className="object-cover" src={image} alt={title} />
         </a>
@@ -19,7 +19,7 @@ const OfferCards = ({
             {title}
           </h5>
 
-          <div className="mt-2 mb-5 flex items-center justify-between">
+          <div className="space-y-2">
             <p>
               <span className="text-xl font-bold text-slate-900">
                 {Math.trunc(discountPercent)}% Off

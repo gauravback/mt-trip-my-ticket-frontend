@@ -1,5 +1,6 @@
 import api from "@/api/api";
 import Filter from "@/components/HotelFilter/Filter";
+import Offers from "@/components/Offers/Offers";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useLocation } from "react-router-dom";
@@ -133,6 +134,7 @@ const Hotels = () => {
             <h1 className="text-2xl font-semibold">{message ? message : ""}</h1>
           </div>
         )}
+        <Offers />
       </div>
     </div>
   );

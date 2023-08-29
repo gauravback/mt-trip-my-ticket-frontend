@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import api from "@/api/api";
 import Filter from "@/components/FlightFilter/Filter";
 import { useLocation, useSearchParams } from "react-router-dom";
+import Offers from "@/components/Offers/Offers";
 const Flights = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -204,6 +205,7 @@ const Flights = () => {
               </h1>
             </div>
           )}
+          <Offers />
         </section>
       </main>
     </div>

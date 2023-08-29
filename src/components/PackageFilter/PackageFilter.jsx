@@ -6,39 +6,40 @@ import { useNavigate } from "react-router-dom";
 import DateInput from "../DatePicker/DateInput";
 
 const Filter = () => {
-  const [airports, setAirports] = useState();
-  const fetchAirports = async () => {
-    const response = await api.get(`/api/airports/`);
+  const [cities, setCities] = useState();
+
+  const fetchHotelCities = async () => {
+    const response = await api.get(`/api/packages/`);
     const result = await response.data;
     const status = await response.status;
 
     if (status === 200) {
-      setAirports(result);
+      setCities(result);
     } else {
       toast.error("Something went wrong.", { id: "1" });
     }
   };
 
   useEffect(() => {
-    fetchAirports();
+    fetchHotelCities();
   }, []);
 
   const [departureDate, setDepartureDate] = useState();
-  const [returnDate, setReturnDate] = useState();
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { from, to, travellers } = e.target;
+    const { from, to, with_flights, rooms } = e.target;
+
     navigate(
-      `/flight/?origin=${from.value}&destination=${to.value}&departure=${
+      `/package/?origin=${from.value}&destination=${to.value}&departure=${
         departureDate ? departureDate : ""
-      }&return=${returnDate ? returnDate : ""}&travellers=${travellers.value}`
+      }&with_flights=${with_flights.value}&rooms=${rooms.value}`
     );
   };
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto " style={{ backgroundImage: `url("/bg2.jpg")` }}>
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
         <Navigation />
         <form onSubmit={handleSubmit}>
@@ -56,19 +57,20 @@ const Filter = () => {
                     <select
                       id="from"
                       name="from"
+                      required
                       className="px-4 py-4 block w-full text-xl border border-gray-200 shadow-sm rounded-lg focus:outline-none focus:ring-0 font-bold"
                     >
                       <option value="" selected hidden>
                         Origin
                       </option>
-                      {airports ? (
-                        airports.map(({ id, city }) => (
+                      {cities ? (
+                        cities.map(({ id, origin_city }) => (
                           <option
                             key={id}
-                            value={city.toLowerCase()}
+                            value={origin_city.split(",")[0].toLowerCase()}
                             className=""
                           >
-                            {city}
+                            {origin_city.split(",")[0]}
                           </option>
                         ))
                       ) : (
@@ -91,19 +93,20 @@ const Filter = () => {
                   <select
                     id="to"
                     name="to"
+                    required
                     className="px-4 py-4  block w-full text-xl border border-gray-200 shadow-sm rounded-lg focus:outline-none focus:ring-0 font-bold capitalize"
                   >
                     <option value="" selected hidden>
                       Destination
                     </option>
-                    {airports ? (
-                      airports.map(({ id, city }) => (
+                    {cities ? (
+                      cities.map(({ id, destination_city }) => (
                         <option
                           key={id}
-                          value={city.toLowerCase()}
+                          value={destination_city.split(",")[0].toLowerCase()}
                           className=""
                         >
-                          {city}
+                          {destination_city.split(",")[0]}
                         </option>
                       ))
                     ) : (
@@ -127,25 +130,38 @@ const Filter = () => {
 
                 <div className="">
                   <label
-                    htmlFor="return_date"
+                    htmlFor="with_flights"
                     className="inline-block text-lg font-semibold text-gray-800 my-2.5"
                   >
-                    Return Date
+                    With Flights
                   </label>
-                  <DateInput id="return_date" setDate={setReturnDate} />
+                  <select
+                    id="with_flights"
+                    name="with_flights"
+                    required
+                    className="p-3 block w-full text-lg border border-gray-200 shadow-sm rounded-lg focus:outline-none focus:ring-0 "
+                  >
+                    <option value="" disabled hidden></option>
+                    <option value={true}>Yes</option>
+                    <option value={false}>No</option>
+                  </select>
                 </div>
                 <div className="">
                   <label
-                    htmlFor="travellers"
+                    htmlFor="rooms"
                     className="inline-block text-lg font-semibold text-gray-800 my-2.5"
                   >
-                    Travellers
+                    Rooms
                   </label>
                   <select
-                    id="travellers"
+                    id="rooms"
+                    name="rooms"
+                    required
                     className="p-3 block w-full text-lg border border-gray-200 shadow-sm rounded-lg focus:outline-none focus:ring-0 "
                   >
-                    <option value="">No. of travellers</option>
+                    <option value="" disabled hidden>
+                      No. of rooms
+                    </option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>

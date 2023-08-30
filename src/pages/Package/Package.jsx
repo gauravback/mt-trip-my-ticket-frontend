@@ -8,6 +8,8 @@ import { RiHotelLine } from "react-icons/ri";
 import Filter from "@/components/PackageFilter/PackageFilter";
 import { useLocation } from "react-router-dom";
 import { AiOutlineCar } from "react-icons/ai";
+import { showRazorpay } from "@/components/Payment/Payment";
+import { useSelector } from "react-redux";
 const Package = () => {
   const [packages, setPackages] = useState();
   const [message, setMessage] = useState("");
@@ -17,6 +19,7 @@ const Package = () => {
   const destination = searchParams.get("destination");
   const departure = searchParams.get("departure");
   const with_flights = searchParams.get("with_flights");
+  const token = useSelector((state) => state.authReducer?.value?.token);
   const rooms = searchParams.get("rooms");
   const fetchPackags = async () => {
     const response = await api.get(
@@ -108,6 +111,9 @@ const Package = () => {
                     <div className="flex items-center justify-between rounded-md mt-2 pt-1 text-center text-sm font-medium text-gray-950 focus:outline-none focus:ring-4 focus:ring-blue-300">
                       <div className="">
                         <button
+                          onClick={() => {
+                            showRazorpay(token, "package", pkg.id);
+                          }}
                           type="button"
                           className="py-2 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold btn-gradient focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 transition-all text-sm"
                         >

@@ -6,7 +6,7 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineFlight, MdDirectionsBus } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
 import { AiOutlineCar } from "react-icons/ai";
-import { RiHotelBedLine } from "react-icons/ri";
+import { LuLayoutDashboard } from "react-icons/lu";
 import { TbAirBalloon } from "react-icons/tb";
 const Navbar = () => {
   const user = useSelector((state) => state.authReducer?.value);
@@ -33,7 +33,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="w-full sticky top-0  bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+      <nav className="w-full fixed md:static top-0 z-10  bg-gradient-to-r from-gray-700 via-gray-900 to-black">
         <div className="md:mx-8 flex flex-wrap items-center justify-between mx-auto">
           <div className="flex items-center">
             <Link to="/">
@@ -65,7 +65,13 @@ const Navbar = () => {
                       {user?.email}
                     </p>
                   </div>
-                  <div className="mt-2 py-2 first:pt-0 last:pb-0">
+                  <div className="mt-2 py-2 first:pt-0 last:pb-0 space-y-2">
+                    <Link to="/dashboard">
+                      <button className="flex w-full items-center gap-x-3.5 py-2 px-3 rounded-md  text-gray-50 hover:bg-gray-50 hover:text-gray-900 focus:ring-2 focus:ring-blue-500">
+                        <LuLayoutDashboard fontSize={22} />
+                        Dashboard
+                      </button>
+                    </Link>
                     <button
                       onClick={() => {
                         dispatch(logout());

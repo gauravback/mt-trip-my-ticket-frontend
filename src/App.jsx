@@ -10,6 +10,10 @@ import { Car, Flight, Hotel, Login, Register } from "./pages";
 import api from "./api/api";
 import Package from "./pages/Package/Package";
 import Bus from "./pages/Bus/Bus";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import BookingDetails from "./pages/Booking/BookingDetails";
+import HotelDetails from "./pages/Hotel/HotelDetails";
+import getIpAndCountry from "./utils/getIpAndCountry";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -41,10 +45,13 @@ const App = () => {
   //     checkToken();
   //   }
   // }, [token]);
+  useEffect(() => {
+    getIpAndCountry(dispatch);
+  }, []);
   return (
-    <div className="bg-greyIsh">
+    <div className="">
       <Navbar />
-      <div className="min-h-screen mx-auto">
+      <div className="min-h-screen mx-auto mt-16 md:mt-0">
         <Toaster />
         <Routes>
           <Route path="/" exact element={<Home />} />
@@ -54,7 +61,10 @@ const App = () => {
           <Route path="/car" element={<Car />} />
           <Route path="/bus" element={<Bus />} />
           <Route path="/hotel" element={<Hotel />} />
+          <Route path="/hotel/:id" element={<HotelDetails />} />
           <Route path="/package" element={<Package />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/booking/:id" element={<BookingDetails />} />
         </Routes>
       </div>
       <Footer />

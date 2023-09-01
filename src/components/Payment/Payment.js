@@ -12,6 +12,7 @@ const handlePaymentVerification = async (response) => {
     const status = await res.status;
     if (status === 200) {
       toast.success("payment successful", { id: "1" });
+      window.location.href = "/dashboard";
     } else {
       toast.error("Something went wrong");
     }
@@ -48,7 +49,7 @@ export const showRazorpay = async (
 
   const result = await response.data;
   var options = {
-    key: import.meta.env.VITE_APP_RZP_KEY,
+    key: "",
     amount: result.payment.amount,
     currency: result.payment.currency,
     name: "My Trip My Ticket",

@@ -1,17 +1,15 @@
 import api from "@/api/api";
 import Filter from "@/components/HotelFilter/Filter";
 import Offers from "@/components/Offers/Offers";
-import { showRazorpay } from "@/components/Payment/Payment";
+
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 const Hotels = () => {
   const [hotels, setHotels] = useState();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const token = useSelector((state) => state.authReducer?.value?.token);
   const [message, setMessage] = useState("");
   const city = searchParams.get("city");
   const rooms = searchParams.get("rooms");
@@ -119,16 +117,16 @@ const Hotels = () => {
                         </div>
                       </div>
                     </div>
+
                     <div className="flex justify-end items-center mt-6">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          showRazorpay(token, "hotel", hotel.id);
-                        }}
-                        className="py-2 px-5 rounded-md btn-gradient"
-                      >
-                        Book Now
-                      </button>
+                      <Link to={`/hotel/${hotel.id}`}>
+                        <button
+                          type="button"
+                          className="py-2 px-5 rounded-md btn-gradient"
+                        >
+                          View Details
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

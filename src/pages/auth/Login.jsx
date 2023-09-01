@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/slices/AuthSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { RiLockLine, RiMailLine } from "react-icons/ri";
 import api from "@/api/api";
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     toast.loading("Processing...", { id: "1" });
@@ -19,7 +21,6 @@ const Login = () => {
 
       const result = await response.data;
       const status = await response.status;
-      console.log(result);
       toast.success("Done...", { id: "1" });
       if (status === 200) {
         dispatch(login({ token: result.access, email: result.email }));
@@ -32,71 +33,78 @@ const Login = () => {
       toast.error("Server error.", { id: "1" });
     }
   };
+
   return (
-    <div>
-      <section className="max-w-[85rem] mx-auto min-h-screen">
-        <div className="container px-6 py-24 mx-auto lg:py-32">
-          <div className="lg:flex">
-            <div className="lg:w-1/2">
-              <h1 className="mt-4 text-2xl font-medium text-gray-800 capitalize lg:text-3xl">
-                Login to your account
-              </h1>
-              <p className="text-lg">
-                Or
-                <Link to="/register">
-                  <span className="ml-2 text-gradientfont-medium">
-                    Create new account
-                  </span>
-                </Link>
-              </p>
-            </div>
-            <div className="mt-8 lg:w-1/2 lg:mt-0">
-              <form
-                method="POST"
-                onSubmit={handleSubmit}
-                className="w-full lg:max-w-xl space-y-4"
-              >
-                {/* Email */}
-                <div className="relative flex items-center">
-                  <span className="absolute">
-                    <RiMailLine className="w-6 h-6 mx-3 text-gray-300" />
-                  </span>
-                  <input
-                    type="email"
-                    required
-                    name="email"
-                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                    placeholder="Email Address"
-                  />
-                </div>
-
-                {/* Password */}
-                <div className="relative flex items-center">
-                  <span className="absolute">
-                    <RiLockLine className="w-6 h-6 mx-3 text-gray-300" />
-                  </span>
-                  <input
-                    type="password"
-                    required
-                    name="password"
-                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                    placeholder="Password"
-                  />
-                </div>
-
-                <div className="mt-8">
-                  <button
-                    type="submit"
-                    className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform  rounded-lg btn-gradient focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
-                  >
-                    Login
-                  </button>
-                </div>
-              </form>
+    <div className="flex items-center justify-center w-full pt-16">
+      <div className="mx-auto max-w-screen-xl w-full px-4  sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-xl text-center">
+          <h1 className="text-2xl font-bold sm:text-3xl">Welcome Back!</h1>
+          <p className="mt-4 text-gray-700 font-medium">
+            Don't have an account?{" "}
+            <Link to="/register" className="text-blue-500">
+              Create new one
+            </Link>
+          </p>
+        </div>
+        <form
+          onSubmit={handleSubmit}
+          method="POST"
+          className="mx-auto mb-0 mt-8 max-w-md space-y-4"
+        >
+          <div>
+            <label htmlFor="email" className="sr-only">
+              Email
+            </label>
+            <div className="">
+              <input
+                type="email"
+                name="email"
+                className="w-full rounded-lg border border-gray-200 p-4 text-sm shadow-sm focus:outline-none"
+                placeholder="Enter email"
+              />
+             
             </div>
           </div>
-        </div>
-      </section>
+          <div>
+            <label htmlFor="password" className="sr-only">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm  focus:outline-none"
+                placeholder="Enter password"
+              />
+              <button
+                onClick={() => setShowPassword(!showPassword)}
+                type="button"
+                className="absolute inset-y-0 end-0 grid place-content-center px-4"
+              >
+                {showPassword ? (
+                  <VscEyeClosed
+                    fontSize={20}
+                    className="transition-all duration-700 ease-in-out delay-300"
+                  />
+                ) : (
+                  <VscEye
+                    fontSize={20}
+                    className="transition-all duration-700 ease-in-out delay-300"
+                  />
+                )}
+              </button>
+            </div>
+          </div>
+          <div className="w-full">
+            <button
+              type="submit"
+              className="inline-block w-full rounded-lg  px-5 py-3 text-sm font-medium btn-gradient"
+            >
+              Sign in
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

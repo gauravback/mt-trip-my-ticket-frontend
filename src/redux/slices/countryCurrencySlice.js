@@ -24,7 +24,7 @@ const countryCurrencySlice = createSlice({
       state.country = action.payload;
       const countryData = getCurrencyAndSymbolCode(action.payload);
       state.currency = countryData.currency;
-      state.symbol = countryData.symbol;
+      state.symbol = countryData.symbolCode;
       state.abbreviation = countryData.abbreviation;
     },
     updateField: (state, action) => {

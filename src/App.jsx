@@ -15,6 +15,8 @@ import BookingDetails from "./pages/Booking/BookingDetails";
 import HotelDetails from "./pages/Hotel/HotelDetails";
 import getIpAndCountry from "./utils/getIpAndCountry";
 import Contact from "./pages/Contact/Contact";
+import axios from "axios";
+import { add } from "./redux/slices/currencyRateSlice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -48,9 +50,27 @@ const App = () => {
       checkToken();
     }
   }, [token]);
+  const ipAddress = useSelector((state) => state.IPReducer?.ip);
+  const currency = useSelector(
+    (state) => state.countryCurrencyReducer?.abbreviation
+  );
+
+  const currencyConvert = async (currency) => {
+    try {
+      const response = await axios.get(
+        `https://forex-tracker.vercel.app/convert/${currency.toLowerCase()}`
+      );
+      const result = await response.data;
+      const actionDispatch = await dispatch(add(result.exchangeRate));
+    } catch (error) {
+      console.error("Error converting currency:", error);
+    }
+  };
   useEffect(() => {
-    getIpAndCountry(dispatch);
-  }, []);
+    getIpAndCountry(dispatch, ipAddress);
+    currencyConvert(currency);
+  }, [currency, ipAddress]);
+
   return (
     <div className="">
       <Navbar />

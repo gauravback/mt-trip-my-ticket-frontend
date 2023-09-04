@@ -22,19 +22,24 @@ const countryCurrencySlice = createSlice({
     },
     setCountry: (state, action) => {
       state.country = action.payload;
-      const countryData = getCurrencyAndSymbolCode(action.payload);
+      const countryData = getCurrencyAndSymbolCode(action.payload, "country");
       state.currency = countryData.currency;
       state.symbol = countryData.symbolCode;
       state.abbreviation = countryData.abbreviation;
     },
-    updateField: (state, action) => {
-      const { field, value } = action.payload;
-      state[field] = value;
+    setCurrency: (state, action) => {
+      state.abbreviation = action.payload;
+      const currencyData = getCurrencyAndSymbolCode(
+        action.payload,
+        "abbreviation"
+      );
+      state.currency = currencyData.currency;
+      state.symbol = currencyData.symbolCode;
     },
   },
 });
 
-export const { setCountryCurrency, setCountry, updateField } =
+export const { setCountryCurrency, setCountry, setCurrency } =
   countryCurrencySlice.actions;
 
 export default countryCurrencySlice.reducer;

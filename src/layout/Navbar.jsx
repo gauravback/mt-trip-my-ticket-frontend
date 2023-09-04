@@ -9,11 +9,8 @@ import { AiOutlineCar } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { TbAirBalloon } from "react-icons/tb";
 import { countryCurrencySymbols } from "@/utils/countryCurrencySymbols";
-import {
-  setCountry,
-  setCountryCurrency,
-  updateField,
-} from "@/redux/slices/countryCurrencySlice";
+import { setCountry, setCurrency } from "@/redux/slices/countryCurrencySlice";
+
 const Navbar = () => {
   const user = useSelector((state) => state.authReducer?.value);
   const { country, abbreviation } = useSelector(
@@ -56,28 +53,13 @@ const Navbar = () => {
                 type="button"
                 className="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-transparent text-gray-50 shadow-sm align-middle  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm"
               >
-                Actions
-                <svg
-                  className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600"
-                  width={16}
-                  height={16}
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                  />
-                </svg>
+                {country} - {abbreviation}
               </button>
               <div
                 className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-56 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
                 aria-labelledby="hs-dropdown-default"
               >
-                <div className="gap-3">
+                <div className="space-y-3">
                   <div className="w-full">
                     <label className="block text-sm font-medium mb-2">
                       Country
@@ -107,23 +89,29 @@ const Navbar = () => {
                     <label className="block text-sm font-medium mb-2">
                       Currency
                     </label>
-                    <select className="py-3 px-4 pr-9 block w-full border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-0">
-                      <option>{abbreviation}</option>
-                      {countryCurrencySymbols?.map((elem) => (
-                        <option
-                          key={elem.country}
-                          value={elem.abbreviation}
-                          style={{
-                            display:
-                              elem.abbreviation === country ? "none" : "block",
-                          }}
-                        >
-                          {elem.abbreviation}
+                    <select
+                      onChange={(e) => {
+                        dispatch(setCurrency(e.target.value));
+                      }}
+                      className="py-3 px-4 pr-9 block w-full border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-0"
+                    >
+                      <option selected value={abbreviation}>
+                        {abbreviation}
+                      </option>
+                      {Array.from(
+                        new Set(
+                          countryCurrencySymbols.map(
+                            (elem) => elem.abbreviation
+                          )
+                        )
+                      ).map((abbreviation) => (
+                        <option key={abbreviation} value={abbreviation}>
+                          {abbreviation}
                         </option>
                       ))}
                     </select>
                   </div>
-                  <div className="w-full">
+                  {/* <div className="w-full">
                     <label className="block text-sm font-medium mb-2">
                       Language
                     </label>
@@ -132,7 +120,7 @@ const Navbar = () => {
                       <option value="hindi">Hindi</option>
                       <option value="arabic">Arabic</option>
                     </select>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

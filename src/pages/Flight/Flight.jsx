@@ -14,6 +14,8 @@ const Flights = () => {
   const currencySymbol = useSelector(
     (state) => state.countryCurrencyReducer?.symbol
   );
+  const priceRate = useSelector((state) => state.currencyRateReducer?.rate);
+
   const [message, setMessage] = useState("");
   const origin = searchParams.get("origin");
   const destination = searchParams.get("destination");
@@ -456,7 +458,7 @@ const Flights = () => {
                                 __html: currencySymbol || "",
                               }}
                             />
-                            {flight.price}
+                            {flight.price * priceRate}
                           </p>
                           <button
                             className="btn-gradient px-4 py-1 rounded-full "

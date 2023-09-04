@@ -88,7 +88,7 @@ const Home = () => {
           <img src={image} alt="" />
         </div>
       </Slider>
-      <div className="banner-text">
+      <div className="banner-text hidden md:block">
         <h2>Your world of joy</h2>
         <p>
           From local escapes to far-flung adventures, find what makes you happy
@@ -152,24 +152,24 @@ const Home = () => {
           </div>
           {/* End Title */}
           {/* Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
             {/* Card */}
             <a
-              className="group flex flex-col h-full border border-gray-200 hover:border-transparent hover:shadow-lg transition-all duration-300 rounded-xl p-5 dark:border-gray-700 dark:hover:border-transparent dark:hover:shadow-black/[.4]"
+              className="group flex flex-col h-full border border-gray-200 hover:border-transparent hover:shadow-lg transition-all duration-300 rounded-xl p-5"
               href="#"
             >
               <div className="aspect-w-16 aspect-h-11">
                 <img
-                  className="w-full object-cover rounded-xl"
+                  className="w-full mx-auto object-cover rounded-xl"
                   src={abu2}
                   alt="Image Description"
                 />
               </div>
               <div className="my-6">
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:group-hover:text-white">
+                <h3 className="text-sm sm:text-xl font-semibold text-gray-800 ">
                   Burj Khalifa At The Top Ticket
                 </h3>
-                <p className="mt-5 text-gray-600 dark:text-gray-400">
+                <p className="mt-2 sm:mt-5 text-xs sm:text-base text-gray-600">
                   At The Top ticket allows you to explore the 124th without any
                   time restraint.
                 </p>
@@ -181,16 +181,16 @@ const Home = () => {
             >
               <div className="aspect-w-16 aspect-h-11">
                 <img
-                  className="w-full object-cover rounded-xl"
+                  className="w-full mx-auto object-cover rounded-xl"
                   src={act}
                   alt="Image Description"
                 />
               </div>
               <div className="my-6">
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:group-hover:text-white">
+                <h3 className="text-sm sm:text-xl font-semibold text-gray-800 ">
                   Dubai Aquarium and Underwater Zoo
                 </h3>
-                <p className="mt-5 text-gray-600 dark:text-gray-400">
+                <p className="mt-2 sm:mt-5 text-xs sm:text-base text-gray-600">
                   At Wake, our mission has always been focused on bringing
                   openness.
                 </p>
@@ -205,16 +205,16 @@ const Home = () => {
             >
               <div className="aspect-w-16 aspect-h-11">
                 <img
-                  className="w-full object-cover rounded-xl"
+                  className="w-full mx-auto object-cover rounded-xl"
                   src={act1}
                   alt="Image Description"
                 />
               </div>
               <div className="my-6">
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:group-hover:text-white">
+                <h3 className="text-sm sm:text-xl font-semibold text-gray-800 ">
                   Dubai Parks and Resorts
                 </h3>
-                <p className="mt-5 text-gray-600 dark:text-gray-400">
+                <p className="mt-2 sm:mt-5 text-xs sm:text-base text-gray-600">
                   Google is constantly updating its consumer AI, Google
                   Assistant, with new features.
                 </p>
@@ -228,16 +228,17 @@ const Home = () => {
             >
               <div className="aspect-w-16 aspect-h-11">
                 <img
-                  className="w-full object-cover rounded-xl"
+                  className="w-full mx-auto object-cover rounded-xl"
                   src={act2}
+                  width={200}
                   alt="Image Description"
                 />
               </div>
               <div className="my-6">
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:group-hover:text-white">
+                <h3 className="text-sm sm:text-xl font-semibold text-gray-800 ">
                   Ski Dubai Tickets
                 </h3>
-                <p className="mt-5 text-gray-600 dark:text-gray-400">
+                <p className="mt-2 sm:mt-5 text-xs sm:text-base text-gray-600">
                   Are you an accountant? Are you a company formation advisor?
                 </p>
               </div>
@@ -245,31 +246,6 @@ const Home = () => {
             {/* End Card */}
           </div>
           {/* End Grid */}
-
-          {/* Card */}
-          <div className="mt-12 text-center">
-            <a
-              className="inline-flex justify-center items-center gap-x-2 text-center bg-white border hover:border-gray-300 text-sm text-blue-600 hover:text-blue-700 font-medium hover:shadow-sm rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition py-3 px-4 dark:bg-slate-900 dark:border-gray-700 dark:hover:border-gray-600 dark:text-blue-500 dark:hover:text-blue-400 dark:hover:shadow-slate-700/[.7] dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
-              href="#"
-            >
-              More
-              <svg
-                className="w-2.5 h-2.5"
-                width={16}
-                height={16}
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <path
-                  d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                />
-              </svg>
-            </a>
-          </div>
-          {/* End Card */}
         </div>
         {/* End Card Blog */}
 

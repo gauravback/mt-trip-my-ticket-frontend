@@ -1,29 +1,27 @@
-
-body{
+body {
   background-color: white !important;
 }
 
-.banner-text  {
-    
-    font-weight: 700;
-    position: absolute;
-    top: 30%;
-    left: 20%;
-    color: white;
+.banner-text {
+  font-weight: 700;
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  color: white;
 }
 
 .banner-text h2 {
-    font-size: 60px;
+  font-size: 60px;
 }
 .banner-text p {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .sec-offer1 h1 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-top: 3%;
-    font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 3%;
+  font-family: "Poppins", sans-serif;
 }
 
 .hi img {
@@ -31,61 +29,59 @@ body{
   border-radius: 10px;
 }
 
-
 .solt-cont h1 {
-    font-size: 24px;
-    font-weight: 700;
+  font-size: 24px;
+  font-weight: 700;
 }
 .hi-cont-2 {
-    margin-top: 5%;
+  margin-top: 5%;
 }
 
 .hi-cont1 img {
-    border-radius: 20px;
-
+  border-radius: 20px;
 }
 
 .hi-cont-2 h1 {
-    font-size: 28px;
-    font-weight: 700;
+  font-size: 28px;
+  font-weight: 700;
 }
 .hi-cont1 {
-    position: relative;
-    width: 50%;
-  }
-  
-  .image {
-    opacity: 1;
-    display: block;
-    
-    height: auto;
-    transition: .5s ease;
-    backface-visibility: hidden;
-  }
-  
-  .middle {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: center;
-  }
-  
-  .hi-cont1:hover .image {
-    opacity: 0.3;
-  }
-  
-  .hi-cont1:hover .middle {
-    opacity: 1;
-  }
-  
-  .text {
-    background-color: #f8a5bf;
-    color: white;
-    font-size: 1vw;
-    padding: 16px 32px;
-    font-weight: 700;
-  }
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+
+  height: auto;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.hi-cont1:hover .image {
+  opacity: 0.3;
+}
+
+.hi-cont1:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #f8a5bf;
+  color: white;
+  font-size: 1vw;
+  padding: 16px 32px;
+  font-weight: 700;
+}

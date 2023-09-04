@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { logout } from "../redux/slices/AuthSlice";
@@ -12,12 +12,7 @@ import { countryCurrencySymbols } from "@/utils/countryCurrencySymbols";
 
 import { setCountry, setCurrency } from "@/redux/slices/countryCurrencySlice";
 
-import { RiStackFill} from "react-icons/ri";
-import {
-  setCountry,
-  setCountryCurrency,
-  updateField,
-} from "@/redux/slices/countryCurrencySlice";
+import { RiStackFill } from "react-icons/ri";
 
 const Navbar = () => {
   const user = useSelector((state) => state.authReducer?.value);
@@ -26,6 +21,19 @@ const Navbar = () => {
   );
   const dispatch = useDispatch();
   const location = useLocation();
+  const [isFixed, setIsFixed] = useState(false);
+
+  const handleScroll = () => {
+    const scrollY = window.scrollY;
+
+    const threshold = 100;
+
+    if (scrollY > threshold) {
+      setIsFixed(true);
+    } else {
+      setIsFixed(false);
+    }
+  };
 
   useEffect(() => {
     // Get the current URL
@@ -42,11 +50,28 @@ const Navbar = () => {
         item.children[0].children[0].classList.remove("active-link");
       }
     });
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [location]);
+
+  const navbarStyle = {
+    position: isFixed ? "fixed" : "static",
+    top: isFixed ? 0 : "auto",
+    zIndex: isFixed ? 1000 : "auto",
+  };
 
   return (
     <div>
-      <nav className="w-full fixed md:static top-0 z-10  bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+      <nav
+        style={navbarStyle}
+        className={`w-full ${
+          isFixed ? "fixed" : ""
+        } top-0 z-10 bg-gradient-to-r from-gray-700 via-gray-900 to-black`}
+      >
         <div className="md:mx-8 flex flex-wrap items-center justify-between mx-auto">
           <div className="flex items-center">
             <Link to="/">

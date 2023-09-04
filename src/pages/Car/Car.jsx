@@ -13,6 +13,7 @@ export default function Car() {
   const origin = searchParams.get("origin");
   const destination = searchParams.get("destination");
   const departure = searchParams.get("departure");
+  console.log(cars);
 
   const fetchCars = async () => {
     const response = await api.get(

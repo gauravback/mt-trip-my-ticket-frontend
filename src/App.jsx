@@ -17,6 +17,8 @@ import getIpAndCountry from "./utils/getIpAndCountry";
 import Contact from "./pages/Contact/Contact";
 import axios from "axios";
 import { add } from "./redux/slices/currencyRateSlice";
+import Forex from "./pages/Forex/Forex";
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -89,6 +91,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/booking/:id" element={<BookingDetails />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/forex" element={<Forex />} />
         </Routes>
       </div>
       <Footer />

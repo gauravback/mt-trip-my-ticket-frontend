@@ -7,6 +7,8 @@ import authReducer from "./slices/AuthSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import countryCurrencyReducer from "./slices/countryCurrencySlice";
+import IPReducer from "./slices/IPSlice";
+import currencyRateReducer from "./slices/currencyRateSlice";
 const persistConfig = {
   key: "data",
   version: 1,
@@ -16,6 +18,8 @@ const persistConfig = {
 const reducer = combineReducers({
   authReducer,
   countryCurrencyReducer,
+  IPReducer,
+  currencyRateReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

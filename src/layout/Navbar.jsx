@@ -9,6 +9,7 @@ import { AiOutlineCar } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { TbAirBalloon } from "react-icons/tb";
 import { countryCurrencySymbols } from "@/utils/countryCurrencySymbols";
+import { RiStackFill} from "react-icons/ri";
 import {
   setCountry,
   setCountryCurrency,
@@ -277,6 +278,14 @@ const Navbar = () => {
                   <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
                     <TbAirBalloon fontSize={28} className="mx-auto" />
                     Packages
+                  </div>
+                </Link>
+              </li>
+              <li>
+                <Link to="/forex">
+                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <RiStackFill fontSize={28} className="mx-auto" />
+                    Forex
                   </div>
                 </Link>
               </li>

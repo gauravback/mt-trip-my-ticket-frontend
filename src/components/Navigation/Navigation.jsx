@@ -4,6 +4,7 @@ import { MdOutlineFlight, MdDirectionsBus } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
 import { AiOutlineCar } from "react-icons/ai";
 import { TbAirBalloon } from "react-icons/tb";
+import { RiStackFill} from "react-icons/ri";
 const Navigation = () => {
   const location = useLocation();
   useEffect(() => {
@@ -32,7 +33,7 @@ const Navigation = () => {
         <div className="container">
           <div
             id="navigation"
-            className="grid grid-cols-3 md:grid-cols-5 gap-3 p-3 justify-center lg:justify-between bg-white rounded-t-lg"
+            className="grid grid-cols-3 md:grid-cols-6 gap-3 p-3 justify-center lg:justify-between bg-white rounded-t-lg"
           >
             <Link to="/flight/">
               <div className="flex flex-col items-center">
@@ -72,6 +73,14 @@ const Navigation = () => {
                   <TbAirBalloon fontSize={20} />
                 </div>
                 <span className="">Packages</span>
+              </div>
+            </Link>
+            <Link to="/package">
+              <div className="flex flex-col items-center">
+                <div className="py-1.5 px-3 text-sm">
+                  <RiStackFill fontSize={20} />
+                </div>
+                <span className="">Forex</span>
               </div>
             </Link>
           </div>

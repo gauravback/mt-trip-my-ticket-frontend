@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TbArrowsExchange } from "react-icons/tb";
 import Datepicker from "react-tailwindcss-datepicker";
-import Navigation from "../Navigation/Navigation";
+import Navigation from "../../Navigation/Navigation";
 import { useNavigate } from "react-router-dom";
 import api from "@/api/api";
 import DateInput from "../DatePicker/DateInput";
@@ -14,7 +14,7 @@ const Filter = () => {
     e.preventDefault();
     const { from, to } = e.target;
     naviagte(
-      `/car/?origin=${from.value ? from.value : ""}&destination=${
+      `/bus/?origin=${from.value ? from.value : ""}&destination=${
         to.value ? to.value : ""
       }&departure=${departureDate ? departureDate : ""}`
     );
@@ -23,7 +23,7 @@ const Filter = () => {
   const [cities, setCities] = useState();
 
   const fetchCities = async () => {
-    const response = await api.get(`/api/cars/`);
+    const response = await api.get(`/api/buses/`);
     const result = await response.data;
     const status = await response.status;
 
@@ -55,20 +55,21 @@ const Filter = () => {
                     <select
                       id="from"
                       name="from"
+                      required
                       className="px-4 py-4 block w-full text-xl border border-gray-200 shadow-sm rounded-lg focus:outline-none focus:ring-0 font-bold"
                     >
                       <option value="" selected hidden>
                         Origin
                       </option>
                       {cities ? (
-                        cities.map(({ id, origin_city }) =>
-                          origin_city !== "" ? (
+                        cities.map(({ id, departure_city }) =>
+                          departure_city !== "" ? (
                             <option
                               key={id}
-                              value={origin_city.toLowerCase()}
+                              value={departure_city.toLowerCase()}
                               className=""
                             >
-                              {origin_city}
+                              {departure_city}
                             </option>
                           ) : null
                         )
@@ -92,20 +93,21 @@ const Filter = () => {
                   <select
                     id="to"
                     name="to"
+                    required
                     className="px-4 py-4  block w-full text-xl border border-gray-200 shadow-sm rounded-lg focus:outline-none focus:ring-0 font-bold"
                   >
                     <option selected hidden value="">
                       Destination
                     </option>
                     {cities ? (
-                      cities.map(({ id, destination_city }) =>
-                        destination_city !== "" ? (
+                      cities.map(({ id, arrival_city }) =>
+                        arrival_city !== "" ? (
                           <option
                             key={id}
-                            value={destination_city.toLowerCase()}
+                            value={arrival_city.toLowerCase()}
                             className=""
                           >
-                            {destination_city}
+                            {arrival_city}
                           </option>
                         ) : null
                       )
@@ -125,25 +127,6 @@ const Filter = () => {
 
                   <DateInput id="departure" setDate={setDepartureDate} />
                 </div>
-
-                {/* <div className="">
-                  <label
-                    htmlFor="return"
-                    className="inline-block text-lg font-semibold text-gray-800 my-2.5"
-                  >
-                    Return
-                  </label>
-                  <Datepicker
-                    asSingle={true}
-                    primaryColor="blue"
-                    value={returnDate}
-                    onChange={handleReturnDateChange}
-                    inputClassName="focus:outline-none focus:ring-0 p-3 block w-full text-lg border border-gray-200 shadow-sm rounded-lg focus:outline-none focus:ring-0 overflow-hidden"
-                    useRange={false}
-                    displayFormat={"DD-MM-YYYY"}
-                    containerClassName="overflow-hidden"
-                  />
-                </div> */}
               </div>
 
               <div className="mt-5 flex justify-center gap-x-2">

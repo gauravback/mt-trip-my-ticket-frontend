@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import BookingDetails from "./pages/Booking/BookingDetails";
 import HotelDetails from "./pages/Hotel/HotelDetails";
 import getIpAndCountry from "./utils/getIpAndCountry";
+import Contact from "./pages/Contact/Contact";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ const App = () => {
           <Route path="/package" element={<Package />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/booking/:id" element={<BookingDetails />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
       <Footer />

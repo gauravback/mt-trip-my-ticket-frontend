@@ -2,28 +2,37 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
 import api from "@/api/api";
-import Filter from "@/components/FlightFilter/Filter";
+import Filter from "@/components/SearchComponents/FlightFilter/Filter";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Offers from "@/components/Offers/Offers";
+import NewFilter from "@/components/NewFilter/NewFilter";
+import FlightFilter from "@/components/FilterComponents/FlightFilter";
+import { BsArrowRight } from "react-icons/bs";
+import { useSelector } from "react-redux";
 const Flights = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const currencySymbol = useSelector(
+    (state) => state.countryCurrencyReducer?.symbol
+  );
   const [message, setMessage] = useState("");
   const origin = searchParams.get("origin");
   const destination = searchParams.get("destination");
   const departure = searchParams.get("departure");
   const arrival = searchParams.get("return");
   const travellers = searchParams.get("travellers");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [flights, setFlights] = useState();
   const fetchFlights = async () => {
     const response = await api.get(
-      `/api/flights/?departure_airport_city=${
-        origin ? origin.replace(" ", "+") : ""
-      }&arrival_airport_city=${
-        destination ? destination.replace(" ", "+") : ""
-      }&departure_time=${departure ? departure : ""}&arrival_time=${
-        arrival ? arrival : ""
-      }&available_seats_min=${travellers ? travellers : 1}&available_seats_max=`
+      // `/api/flights/?departure_airport_city=${
+      //   origin ? origin.replace(" ", "+") : ""
+      // }&arrival_airport_city=${
+      //   destination ? destination.replace(" ", "+") : ""
+      // }&departure_time=${departure ? departure : ""}&arrival_time=${
+      //   arrival ? arrival : ""
+      // }&available_seats_min=${travellers ? travellers : 1}&available_seats_max=`
+      `/api/flights/`
     );
     const result = await response.data;
     const status = await response.status;
@@ -39,13 +48,14 @@ const Flights = () => {
     }
   };
   useEffect(() => {
-    if (searchParams.size > 0) {
-      if (origin || destination || departure || arrival || travellers) {
-        fetchFlights();
-      } else {
-        setMessage("No flights available");
-      }
-    }
+    // if (searchParams.size > 0) {
+    //   if (origin || destination || departure || arrival || travellers) {
+    //     fetchFlights();
+    //   } else {
+    //     setMessage("No flights available");
+    //   }
+    // }
+    fetchFlights();
   }, [location.search]);
 
   const [tickets, setTickets] = useState([]);
@@ -66,147 +76,405 @@ const Flights = () => {
       return updatedTickets;
     });
   };
-
+  console.log(flights);
   return (
     <div>
       <main className="">
         <div style={{ backgroundImage: `url("/bg2.jpg")` }}>
           <Filter />
+          {/* <NewFilter /> */}
         </div>
         {/* Products */}
-        <section
-          aria-labelledby="flight-heading"
-          className="mt-6 max-w-[85rem] mx-auto"
-        >
-          <h2 id="flight-heading" className="sr-only">
-            Flights
-          </h2>
-          {flights ? (
-            <div className="space-y-8">
-              {/* Card */}
-              {flights.map((flight) => (
-                <div
-                  key={flight.id}
-                  className="border-t border-b border-gray-200 bg-white shadow-sm sm:rounded-lg sm:border"
+        <div className="mx-auto max-w-2xl pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div className="pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+            <aside>
+              <h2 className="sr-only">Filters</h2>
+              {/* Mobile filter dialog toggle, controls the 'mobileFilterDialogOpen' state. */}
+              <button
+                type="button"
+                className="inline-flex items-center lg:hidden"
+                onClick={() => {
+                  setMenuOpen(!menuOpen);
+                }}
+              >
+                <span className="text-sm font-medium text-gray-700">
+                  Filters
+                </span>
+                {/* Heroicon name: mini/plus */}
+                <svg
+                  className="ml-1 h-5 w-5 flex-shrink-0 text-gray-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
-                  <div className="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
-                    <div className="sm:flex lg:col-span-6">
-                      <div className="aspect-w-1 aspect-h-1 w-full flex-shrink-0 overflow-hidden rounded-lg sm:aspect-none sm:h-48 sm:w-48">
-                        <img
-                          src="/plane.png"
-                          alt={flight.name}
-                          className="h-full w-full object-contain object-center sm:h-full sm:w-full"
-                        />
-                      </div>
-                      <div className="mt-6 sm:mt-0 sm:ml-6">
-                        <h3 className="text-xl font-bold text-gray-900">
-                          {flight.name}
-                        </h3>
-                        <p className="mt-2 text-2xl font-medium text-gray-900">
-                          &#8377; {Math.trunc(flight.price)}
-                        </p>
-                        <div className="mt-3 text-gray-700">
-                          Available Seats:
-                          <p className="font-semibold text-lg">
-                            {flight.available_seats}
-                          </p>
+                  <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                </svg>
+              </button>
+              <div className={`${menuOpen ? "block" : "hidden"} lg:block`}>
+                <form className="space-y-10 divide-y divide-gray-200">
+                  <div>
+                    <fieldset>
+                      <legend className="block text-sm font-medium text-gray-900">
+                        Color
+                      </legend>
+                      <div className="space-y-3 pt-6">
+                        <div className="flex items-center">
+                          <input
+                            id="color-0"
+                            name="color[]"
+                            defaultValue="white"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="color-0"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            White
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="color-1"
+                            name="color[]"
+                            defaultValue="beige"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="color-1"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            Beige
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="color-2"
+                            name="color[]"
+                            defaultValue="blue"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="color-2"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            Blue
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="color-3"
+                            name="color[]"
+                            defaultValue="brown"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="color-3"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            Brown
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="color-4"
+                            name="color[]"
+                            defaultValue="green"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="color-4"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            Green
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="color-5"
+                            name="color[]"
+                            defaultValue="purple"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="color-5"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            Purple
+                          </label>
                         </div>
                       </div>
-                    </div>
-                    <div className="mt-6 lg:col-span-6 lg:mt-0">
-                      <div className="grid grid-cols-2 gap-x-6 text-sm">
-                        <div>
-                          <div className="font-semibold text-xl  text-gray-900">
-                            Departure
-                          </div>
-                          <div className="mt-3 text-gray-700">
-                            <p className="font-medium">
-                              {flight.departure_airport.name} (
-                              {flight.departure_airport.code})
-                            </p>
+                    </fieldset>
+                  </div>
+                  <div className="pt-10">
+                    <fieldset>
+                      <legend className="block text-sm font-medium text-gray-900">
+                        Category
+                      </legend>
+                      <div className="space-y-3 pt-6">
+                        <div className="flex items-center">
+                          <input
+                            id="category-0"
+                            name="category[]"
+                            defaultValue="new-arrivals"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="category-0"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            All New Arrivals
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="category-1"
+                            name="category[]"
+                            defaultValue="tees"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="category-1"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            Tees
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="category-2"
+                            name="category[]"
+                            defaultValue="crewnecks"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="category-2"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            Crewnecks
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="category-3"
+                            name="category[]"
+                            defaultValue="sweatshirts"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="category-3"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            Sweatshirts
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="category-4"
+                            name="category[]"
+                            defaultValue="pants-shorts"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="category-4"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            Pants &amp; Shorts
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div className="pt-10">
+                    <fieldset>
+                      <legend className="block text-sm font-medium text-gray-900">
+                        Sizes
+                      </legend>
+                      <div className="space-y-3 pt-6">
+                        <div className="flex items-center">
+                          <input
+                            id="sizes-0"
+                            name="sizes[]"
+                            defaultValue="xs"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="sizes-0"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            XS
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="sizes-1"
+                            name="sizes[]"
+                            defaultValue="s"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="sizes-1"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            S
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="sizes-2"
+                            name="sizes[]"
+                            defaultValue="m"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="sizes-2"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            M
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="sizes-3"
+                            name="sizes[]"
+                            defaultValue="l"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="sizes-3"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            L
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="sizes-4"
+                            name="sizes[]"
+                            defaultValue="xl"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="sizes-4"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            XL
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="sizes-5"
+                            name="sizes[]"
+                            defaultValue="2xl"
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="sizes-5"
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            2XL
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </form>
+              </div>
+            </aside>
+            {/* Product grid */}
+            <div className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3">
+              {/* Replace with your content */}
+              <div className="border-l border-gray-200 lg:h-full">
+                <div className="grid grid-cols-1 w-full px-4">
+                  {/* Card */}
+                  {flights?.map((flight) => (
+                    <div className="mx-2 mt-4 grid grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 transition sm:mx-auto">
+                      <div className="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4">
+                        <div className="h-16 w-16 overflow-hidden rounded-lg">
+                          <img
+                            src="/plane.png"
+                            alt
+                            className="h-full w-full object-cover text-gray-700"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
+                        <h3 className=" text-gray-600">
+                          {flight.airline.name}
+                        </h3>
+                        <div className="mb-3 overflow-hidden pr-7 text-lg font-semibold">
+                          {flight.name}
+                        </div>
 
-                            <p className="">{flight.departure_airport.city}</p>
-
-                            <p className="">
+                        <div className="flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-4 sm:justify-between">
+                          <div className="">
+                            <span className="font-bold sm:text-lg rounded-full bg-green-100 px-2 py-0.5 text-green-900">
                               {format(
                                 new Date(flight.departure_time),
-                                "dd MMMM, yyyy hh:mm a"
+                                "dd MMM"
                               )}
-                            </p>
+                            </span>
+                            <span className="ml-2 mr-3">
+                              {flight.departure_airport.city}
+                            </span>
+                          </div>
+                          {/* <div className="text-center inline-flex items-center justify-center"> */}
+                          {/* <BsArrowRight className="mx-auto text-center" /> */}
+                          {/* </div> */}
+                          <div className="">
+                            <span className="font-bold sm:text-lg rounded-full bg-green-100 px-2 py-0.5 text-green-900">
+                              {format(new Date(flight.arrival_time), "dd MMM")}
+                            </span>
+                            <span className="ml-2 mr-3">
+                              {flight.arrival_airport.city}
+                            </span>
                           </div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-lg  text-gray-900">
-                            Arrival
-                          </div>
-                          <div className="mt-3 text-gray-700">
-                            <p className="font-medium">
-                              {flight.arrival_airport.name} (
-                              {flight.arrival_airport.code})
-                            </p>
-                            <p className="">{flight.arrival_airport.city}</p>
-                            <p className="">
-                              {format(
-                                new Date(flight.arrival_time),
-                                "dd MMMM, yyyy hh:mm a"
-                              )}
-                            </p>
-                          </div>
+                        <div className="flex justify-between mt-5 items-center">
+                          <p className="text-lg font-semibold">
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: currencySymbol || "",
+                              }}
+                            />
+                            {flight.price}
+                          </p>
+                          <button
+                            className="btn-gradient px-4 py-1 rounded-full "
+                            type="button"
+                          >
+                            Book Now
+                          </button>
                         </div>
-                      </div>
-                      <div className="flex justify-end items-center mt-6">
-                        <div className="mr-2">
-                          <div className="inline-flex rounded-md ">
-                            <button
-                              type="button"
-                              onClick={() => decreaseTicket(flight.id)}
-                              className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
-                            >
-                              -
-                            </button>
-                            <button
-                              type="button"
-                              className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
-                            >
-                              {tickets[flight.id] || 1}
-                            </button>
-                            <button
-                              onClick={() => increaseTicket(flight.id)}
-                              type="button"
-                              className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
-                            >
-                              +
-                            </button>
-                          </div>
-                        </div>
-                        <div className="mr-4 text-lg font-semibold">
-                          Total: &#8377;
-                          {(
-                            flight.price * (tickets[flight.id] || 1)
-                          ).toLocaleString()}
-                        </div>
-                      </div>
-                      <div className="flex justify-end items-center mt-6">
-                        <button className="py-2 px-5 rounded-md btn-gradient">
-                          Book Now
-                        </button>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  ))}
 
-              {/* Card End */}
+                  {/* Card End */}
+                </div>
+              </div>
+              {/* /End replace */}
             </div>
-          ) : (
-            <div className="w-full text-center my-12">
-              <h1 className="text-2xl font-semibold">
-                {message ? message : ""}
-              </h1>
-            </div>
-          )}
+          </div>
           <Offers />
-        </section>
+        </div>
       </main>
     </div>
   );

@@ -42,7 +42,9 @@ const Dashboard = () => {
       const status = await response.status;
 
       if (status === 200) {
-        setBookings(result);
+        if (result.length > 0) {
+          setBookings(result);
+        }
       } else {
         toast.error("Something went wrong.", { id: "1" });
       }
@@ -362,7 +364,12 @@ const Dashboard = () => {
                   {/* Booking End */}
                 </div>
               ) : (
-                ""
+                <div className="text-center w-full">
+                  <h1 className="font-semibold text-2xl">
+                    {" "}
+                    You don't have any trips.
+                  </h1>
+                </div>
               )}
             </div>
           </div>

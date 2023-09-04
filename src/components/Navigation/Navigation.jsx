@@ -27,49 +27,49 @@ const Navigation = () => {
     });
   }, [location]);
   return (
-    <div className="max-w-xl mx-auto w-[90%]">
+    <div className="max-w-xl mx-auto w-[70%]">
       <section className="">
         <div className="container">
           <div
             id="navigation"
-            className="grid grid-cols-3 md:grid-cols-5 gap-6 p-3 justify-center lg:justify-between bg-white rounded-t-lg"
+            className="grid grid-cols-3 md:grid-cols-5 gap-3 p-3 justify-center lg:justify-between bg-white rounded-t-lg"
           >
             <Link to="/flight/">
               <div className="flex flex-col items-center">
-                <div className=" py-1.5 px-3 text-sm md:text-base">
-                  <MdOutlineFlight fontSize={24} />
+                <div className=" py-1.5 px-3 text-sm">
+                  <MdOutlineFlight fontSize={20} />
                 </div>
                 <span className="">Flight</span>
               </div>
             </Link>
             <Link to="/hotel/">
               <div className="flex flex-col items-center">
-                <div className="py-1.5 px-3 text-sm md:text-base">
-                  <RiHotelLine fontSize={24} />
+                <div className="py-1.5 px-3 text-sm">
+                  <RiHotelLine fontSize={20} />
                 </div>
                 <span className="">Hotel</span>
               </div>
             </Link>
             <Link to="/car/">
               <div className="flex flex-col items-center">
-                <div className="py-1.5 px-3 text-sm md:text-base">
-                  <AiOutlineCar fontSize={24} />
+                <div className="py-1.5 px-3 text-sm">
+                  <AiOutlineCar fontSize={20} />
                 </div>
                 <span className="">Car</span>
               </div>
             </Link>
             <Link to="/bus">
               <div className="flex flex-col items-center">
-                <div className="py-1.5 px-3 text-sm md:text-base">
-                  <MdDirectionsBus fontSize={24} />
+                <div className="py-1.5 px-3 text-sm">
+                  <MdDirectionsBus fontSize={20} />
                 </div>
                 <span className="">Bus</span>
               </div>
             </Link>
             <Link to="/package">
               <div className="flex flex-col items-center">
-                <div className="py-1.5 px-3 text-sm md:text-base">
-                  <TbAirBalloon fontSize={24} />
+                <div className="py-1.5 px-3 text-sm">
+                  <TbAirBalloon fontSize={20} />
                 </div>
                 <span className="">Packages</span>
               </div>

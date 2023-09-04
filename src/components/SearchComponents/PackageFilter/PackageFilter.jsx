@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TbArrowsExchange } from "react-icons/tb";
-import Navigation from "../Navigation/Navigation";
+import Navigation from "../../Navigation/Navigation";
 import api from "@/api/api";
 import { useNavigate } from "react-router-dom";
 import DateInput from "../DatePicker/DateInput";

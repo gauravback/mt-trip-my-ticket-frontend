@@ -144,6 +144,14 @@ const Navbar = () => {
               className="flex p-2 md:p-0 mt-4 font-semibold justify-evenly md:flex-row md:gap-x-10 md:mt-0 md:border-0"
             >
               <li>
+                <Link to="/car/">
+                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <AiOutlineCar fontSize={28} className="mx-auto" />
+                    Car Rental
+                  </div>
+                </Link>
+              </li>
+              <li>
                 <Link to="/flight/">
                   <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
                     <MdOutlineFlight fontSize={28} className="mx-auto" />
@@ -159,14 +167,7 @@ const Navbar = () => {
                   </div>
                 </Link>
               </li>
-              <li>
-                <Link to="/car/">
-                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <AiOutlineCar fontSize={28} className="mx-auto" />
-                    Car
-                  </div>
-                </Link>
-              </li>
+
               <li>
                 <Link to="/bus/">
                   <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">

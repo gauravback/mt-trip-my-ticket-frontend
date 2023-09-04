@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import api from "@/api/api";
-import Filter from "@/components/CarFilter/CarFilter";
+import Filter from "@/components/SearchComponents/CarFilter/CarFilter";
 import { useLocation } from "react-router-dom";
 import Offers from "@/components/Offers/Offers";
 
@@ -47,116 +47,371 @@ export default function Car() {
   return (
     <>
       <Filter />
-      <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        {cars ? (
-          <div className="mt-6 grid grid-cols-1 mx-auto gap-3">
-            {cars.map((car) => (
-              <div
-                key={car.id}
-                className="border-t border-b border-gray-200 bg-white shadow-sm sm:rounded-lg sm:border"
+      {/* Products */}
+      <div className="mx-auto max-w-2xl pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+          <aside>
+            <h2 className="sr-only">Filters</h2>
+            {/* Mobile filter dialog toggle, controls the 'mobileFilterDialogOpen' state. */}
+            <button
+              type="button"
+              className="inline-flex items-center lg:hidden"
+            >
+              <span className="text-sm font-medium text-gray-700">Filters</span>
+              {/* Heroicon name: mini/plus */}
+              <svg
+                className="ml-1 h-5 w-5 flex-shrink-0 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
               >
-                <div className="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
-                  <div className="sm:flex lg:col-span-6">
-                    <div className="w-full flex-shrink-0 overflow-hidden rounded-lg sm:aspect-none sm:h-48 sm:w-3/5">
+                <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+              </svg>
+            </button>
+            <div className="hidden lg:block">
+              <form className="space-y-10 divide-y divide-gray-200">
+                <div>
+                  <fieldset>
+                    <legend className="block text-sm font-medium text-gray-900">
+                      Color
+                    </legend>
+                    <div className="space-y-3 pt-6">
+                      <div className="flex items-center">
+                        <input
+                          id="color-0"
+                          name="color[]"
+                          defaultValue="white"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="color-0"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          White
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="color-1"
+                          name="color[]"
+                          defaultValue="beige"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="color-1"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          Beige
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="color-2"
+                          name="color[]"
+                          defaultValue="blue"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="color-2"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          Blue
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="color-3"
+                          name="color[]"
+                          defaultValue="brown"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="color-3"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          Brown
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="color-4"
+                          name="color[]"
+                          defaultValue="green"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="color-4"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          Green
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="color-5"
+                          name="color[]"
+                          defaultValue="purple"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="color-5"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          Purple
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div className="pt-10">
+                  <fieldset>
+                    <legend className="block text-sm font-medium text-gray-900">
+                      Category
+                    </legend>
+                    <div className="space-y-3 pt-6">
+                      <div className="flex items-center">
+                        <input
+                          id="category-0"
+                          name="category[]"
+                          defaultValue="new-arrivals"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="category-0"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          All New Arrivals
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="category-1"
+                          name="category[]"
+                          defaultValue="tees"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="category-1"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          Tees
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="category-2"
+                          name="category[]"
+                          defaultValue="crewnecks"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="category-2"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          Crewnecks
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="category-3"
+                          name="category[]"
+                          defaultValue="sweatshirts"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="category-3"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          Sweatshirts
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="category-4"
+                          name="category[]"
+                          defaultValue="pants-shorts"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="category-4"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          Pants &amp; Shorts
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div className="pt-10">
+                  <fieldset>
+                    <legend className="block text-sm font-medium text-gray-900">
+                      Sizes
+                    </legend>
+                    <div className="space-y-3 pt-6">
+                      <div className="flex items-center">
+                        <input
+                          id="sizes-0"
+                          name="sizes[]"
+                          defaultValue="xs"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="sizes-0"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          XS
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="sizes-1"
+                          name="sizes[]"
+                          defaultValue="s"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="sizes-1"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          S
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="sizes-2"
+                          name="sizes[]"
+                          defaultValue="m"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="sizes-2"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          M
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="sizes-3"
+                          name="sizes[]"
+                          defaultValue="l"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="sizes-3"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          L
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="sizes-4"
+                          name="sizes[]"
+                          defaultValue="xl"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="sizes-4"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          XL
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="sizes-5"
+                          name="sizes[]"
+                          defaultValue="2xl"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor="sizes-5"
+                          className="ml-3 text-sm text-gray-600"
+                        >
+                          2XL
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </form>
+            </div>
+          </aside>
+          {/* Product grid */}
+          <div className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3">
+            {/* Replace with your content */}
+            <div className="h-96 rounded-lg border-l border-gray-200 lg:h-full border">
+              <div className="grid grid-cols-1 w-full px-4">
+                {/* Card */}
+                <div className="mx-2 mt-4 grid grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 transition sm:mx-auto">
+                  <a
+                    href="#"
+                    className="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4"
+                  >
+                    <div className="h-16 w-16 overflow-hidden rounded-lg">
                       <img
-                        src={car.images}
-                        width={300}
-                        alt={car.name}
-                        className="object-contain object-center"
+                        src="/plane.png"
+                        alt
+                        className="h-full w-full object-cover text-gray-700"
                       />
                     </div>
-                    <div className="mt-6 sm:mt-0 sm:ml-6">
-                      <h3 className="text-xl font-bold text-gray-900">
-                        {car.make} {car.model}
-                      </h3>
-                      <p className="mt-2 text-xl font-medium text-gray-900">
-                        &#8377; {Math.trunc(car.price)} / Day
-                      </p>
-                    </div>
-                  </div>
-                  <div className="mt-6 lg:col-span-6 lg:mt-0">
-                    <div className="grid grid-cols-2 gap-y-8">
-                      <div>
-                        <div className="font-semibold  text-gray-900">
-                          Passengers: {car.passengers}
-                        </div>
+                  </a>
+                  <div className="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
+                    <h3 className="text-sm text-gray-600">Invision</h3>
+                    <a
+                      href="#"
+                      className="mb-3 overflow-hidden pr-7 text-lg font-semibold sm:text-xl"
+                    >
+                      {" "}
+                      Sr. Frontend Engineer{" "}
+                    </a>
+                    <p className="overflow-hidden pr-7 text-sm">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                      sed diam nonummy nibh euismod tincidunt ut laoreet dolore
+                      magna .
+                    </p>
+                    <div className="mt-5 flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
+                      <div className>
+                        Experience:
+                        <span className="ml-2 mr-3 rounded-full bg-green-100 px-2 py-0.5 text-green-900">
+                          {" "}
+                          2 Years{" "}
+                        </span>
                       </div>
-                      <div>
-                        <div className="font-semibold  text-gray-900">
-                          Transmission: {car.transmission}
-                        </div>
+                      <div className>
+                        Salary:
+                        <span className="ml-2 mr-3 rounded-full bg-blue-100 px-2 py-0.5 text-blue-900">
+                          180-250k
+                        </span>
                       </div>
-                      <div>
-                        <div className="font-semibold  text-gray-900">
-                          AC Avalable: {car.ac ? "Yes" : "No"}
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-semibold  text-gray-900">
-                          Air Bags: {car.bags ? "Yes" : "No"}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex justify-end items-center mt-6">
-                      <button className="py-2 px-5 rounded-md btn-gradient">
-                        Book Now
-                      </button>
                     </div>
                   </div>
                 </div>
+                {/* Card End */}
               </div>
-
-              // <div className="flex bg-white transition hover:shadow-xl">
-              //   <div className="rotate-180 p-2 [writing-mode:_vertical-lr]">
-              //     <time
-              //       dateTime="2022-10-10"
-              //       className="flex items-center justify-between gap-4 text-xs font-bold uppercase text-gray-900"
-              //     >
-              //       <span>2022</span>
-              //       <span className="w-px flex-1 bg-gray-900/10" />
-              //       <span>Oct 10</span>
-              //     </time>
-              //   </div>
-              //   <div className="hidden sm:block sm:basis-56">
-              //     <img
-              //       alt="Guitar"
-              //       src="https://images.unsplash.com/photo-1609557927087-f9cf8e88de18?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-              //       className="aspect-square h-full w-full object-cover"
-              //     />
-              //   </div>
-              //   <div className="flex flex-1 flex-col justify-between">
-              //     <div className="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
-              //       <a href="#">
-              //         <h3 className="font-bold uppercase text-gray-900">
-              //           Finding the right guitar for your style - 5 tips
-              //         </h3>
-              //       </a>
-              //       <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">
-              //         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              //         Recusandae dolores, possimus pariatur animi temporibus
-              //         nesciunt praesentium dolore sed nulla ipsum eveniet
-              //         corporis quidem, mollitia itaque minus soluta, voluptates
-              //         neque explicabo tempora nisi culpa eius atque dignissimos.
-              //         Molestias explicabo corporis voluptatem?
-              //       </p>
-              //     </div>
-              //     <div className="sm:flex sm:items-end sm:justify-end">
-              //       <a
-              //         href="#"
-              //         className="block bg-yellow-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-400"
-              //       >
-              //         Read Blog
-              //       </a>
-              //     </div>
-              //   </div>
-              // </div>
-            ))}
+            </div>
+            {/* /End replace */}
           </div>
-        ) : (
-          <div className="w-full text-center my-12">
-            <h1 className="text-2xl font-semibold">{message ? message : ""}</h1>
-          </div>
-        )}
+        </div>
         <Offers />
       </div>
     </>

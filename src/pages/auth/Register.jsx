@@ -68,11 +68,21 @@ const Register = () => {
         toast.success("Account created successfully", { id: "1" });
         navigate("/login");
       } else {
-        toast.error("Something went wrong", { id: "1" });
+        toast.error(Object.values(result)[0], { id: "1" });
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Server error", { id: "1" });
+      if (error.response.data.email) {
+        toast.error(
+          error.response.data.email[0].slice(0, 1).toUpperCase() +
+            error.response.data.email[0].slice(
+              1,
+              error.response.data.email[0].length
+            ),
+          { id: "1" }
+        );
+      } else {
+        toast.error("Something went wrong.", { id: "1" });
+      }
     }
   };
 

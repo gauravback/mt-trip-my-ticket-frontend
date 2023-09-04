@@ -29,8 +29,8 @@ const Login = () => {
       } else {
         toast.error("Invalid credentials", { id: "1" });
       }
-    } catch {
-      toast.error("Server error.", { id: "1" });
+    } catch (error) {
+      toast.error("Something went wrong", { id: "1" });
     }
   };
 
@@ -62,7 +62,6 @@ const Login = () => {
                 className="w-full rounded-lg border border-gray-200 p-4 text-sm shadow-sm focus:outline-none"
                 placeholder="Enter email"
               />
-             
             </div>
           </div>
           <div>

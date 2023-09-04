@@ -19,7 +19,6 @@ import axios from "axios";
 import { add } from "./redux/slices/currencyRateSlice";
 import Forex from "./pages/Forex/Forex";
 
-
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -76,7 +75,7 @@ const App = () => {
   return (
     <div className="">
       <Navbar />
-      <div className="min-h-screen mx-auto mt-16 md:mt-0">
+      <div className="min-h-screen mx-auto">
         <Toaster />
         <Routes>
           <Route path="/" exact element={<Home />} />

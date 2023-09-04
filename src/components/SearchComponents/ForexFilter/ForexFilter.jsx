@@ -50,7 +50,7 @@ const Filter = () => {
                       htmlFor="from"
                       className="inline-block text-lg font-semibold text-gray-800 my-2.5"
                     >
-                      From
+                      Visa For
                     </label>
                     <select
                       id="from"
@@ -87,7 +87,7 @@ const Filter = () => {
                     htmlFor="to"
                     className="inline-block text-lg font-semibold text-gray-800 my-2.5"
                   >
-                    To
+                    Slect Nationalty
                   </label>
                   <select
                     id="to"

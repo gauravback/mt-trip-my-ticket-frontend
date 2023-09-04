@@ -6,7 +6,6 @@ import Filter from "@/components/SearchComponents/FlightFilter/Filter";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Offers from "@/components/Offers/Offers";
 import NewFilter from "@/components/NewFilter/NewFilter";
-import FlightFilter from "@/components/FilterComponents/FlightFilter";
 import { BsArrowRight } from "react-icons/bs";
 import { useSelector } from "react-redux";
 const Flights = () => {
@@ -399,13 +398,16 @@ const Flights = () => {
               </div>
             </aside>
             {/* Product grid */}
-            <div className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3">
+            <div className="mt-4 lg:col-span-2 lg:mt-0 xl:col-span-3">
               {/* Replace with your content */}
               <div className="border-l border-gray-200 lg:h-full">
                 <div className="grid grid-cols-1 w-full px-4">
                   {/* Card */}
                   {flights?.map((flight) => (
-                    <div className="mx-2 mt-4 grid grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 transition sm:mx-auto">
+                    <div
+                      key={flight.id}
+                      className="mx-2 mt-4 grid grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 transition sm:mx-auto"
+                    >
                       <div className="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4">
                         <div className="h-16 w-16 overflow-hidden rounded-lg">
                           <img

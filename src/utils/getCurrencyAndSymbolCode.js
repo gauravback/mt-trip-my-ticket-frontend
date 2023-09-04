@@ -8,7 +8,8 @@ function getCurrencyAndSymbolCode(countryName) {
   if (entry) {
     const currency = entry.currency;
     const symbolCode = entry.symbolCode;
-    return { currency, symbolCode };
+    const abbreviation = entry.abbreviation;
+    return { currency, symbolCode, abbreviation };
   } else {
     return null; // Country not found in the array
   }

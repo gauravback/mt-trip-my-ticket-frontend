@@ -78,6 +78,7 @@ const Login = () => {
               <button
                 onClick={() => setShowPassword(!showPassword)}
                 type="button"
+                tabIndex="-1"
                 className="absolute inset-y-0 end-0 grid place-content-center px-4"
               >
                 {showPassword ? (

@@ -376,60 +376,52 @@ const Hotels = () => {
           <div className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3">
             {/* Replace with your content */}
             <div className="border-l border-gray-200 lg:h-full">
-              <div className="grid grid-cols-1  w-full px-4 gap-4">
+              <div className="grid grid-cols-1 w-full px-4 gap-4">
                 {/* Card */}
                 {hotels?.map((hotel) => (
-                  <div className="mx-auto w-full flex flex-col items-center rounded-xl border px-4 py-4 text-center md:flex-row md:items-start md:text-left">
-                    <div className="mb-4 md:mr-6 md:mb-0">
-                      <img
-                        className="h-56 rounded-lg object-cover md:w-56"
-                        src={hotel.image}
-                        alt
-                      />
-                    </div>
-                    <div className>
-                      <p className="text-xl font-medium text-gray-700">
-                        {hotel.name}
-                      </p>
-                      <p className="mb-4 text-sm font-medium text-gray-500">
-                        {hotel.city}
-                      </p>
-                      <div className="flex space-x-2 items-center">
-                        <div className="flex flex-col items-center rounded-xl bg-gray-100 px-4 py-2">
-                          <p className="text-3xl font-medium text-gray-600 flex items-center gap-x-0.5">
-                            {hotel.star_category}
+                  <div
+                    key={hotel.id}
+                    className="mx-2 w-full  max-w-screen-xl rounded-md border border-gray-100 text-gray-700  md:mx-auto"
+                  >
+                    <div className="flex flex-col md:flex-row">
+                      <div className="p-5 md:w-4/6 md:p-8">
+                        <span className="rounded-md bg-blue-50 px-2 py-1 text-xs uppercase text-blue-900">
+                          {hotel.city}
+                        </span>
+                        <p className="mt-2 text-lg font-black md:mt-4 md:text-xl flex items-center gap-x-2">
+                          {hotel.name} (
+                          <span className="flex items-center font-medium">
+                            {hotel.star_category} Star
                             <MdStar className="text-yellow-500" />
-                          </p>
-                          <p className="text- font-medium text-gray-500">
-                            Stars
-                          </p>
-                        </div>
-                        <div className="flex flex-col items-center rounded-xl bg-gray-100 px-4 py-2">
-                          <p className="text-3xl font-medium text-gray-600">
-                            13
-                          </p>
-                          <p className="text-sm font-medium text-gray-500">
-                            Articles
-                          </p>
-                        </div>
-                        <div className="flex flex-col items-center rounded-xl bg-gray-100 px-4 py-2">
-                          <p className="text-3xl font-medium text-gray-600">
-                            13
-                          </p>
-                          <p className="text-sm font-medium text-gray-500">
-                            Articles
+                          </span>
+                          )
+                        </p>
+                        <div class="flex flex-col md:flex-row md:items-end">
+                          <p class="mt-3 text-2xl font-black">
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: currencySymbol || "",
+                              }}
+                            />
+                            {Math.trunc(hotel.price)}
                           </p>
                         </div>
-                        <div className />
+                        <p className="mt-3 text-gray-600">
+                          Rooms Available: {hotel.available_rooms}
+                        </p>
+                        <Link to={`/hotel/${hotel.id}`}>
+                          <button className="mt-4 mr-2 flex items-center justify-center rounded-md bg-sky-400 px-8 py-2 text-center text-white duration-150 md:mb-4 hover:-translate-y-1 hover:bg-sky-500">
+                            View Details
+                          </button>
+                        </Link>
                       </div>
-                      <div className="mb-3" />
-                      <div className="flex space-x-2">
-                        <button className="w-full rounded-lg border-2 bg-white px-4 py-2 font-medium text-gray-500">
-                          Message
-                        </button>
-                        <button className="w-full rounded-lg border-2 border-transparent bg-blue-600 px-4 py-2 font-medium text-white">
-                          Follow
-                        </button>
+                      <div className="mx-auto hidden items-center px-5 md:flex md:p-8">
+                        <img
+                          className="rounded-md shadow-lg object-cover"
+                          src={hotel.image}
+                          alt={hotel.name}
+                          width={300}
+                        />
                       </div>
                     </div>
                   </div>

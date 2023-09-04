@@ -20,32 +20,34 @@ const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.authReducer?.value?.token);
-  // const checkToken = async () => {
-  //   try {
-  //     const response = await api.get(`/user/check-token/`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
+  const checkToken = async () => {
+    try {
+      const response = await api.get(`/user/check-token/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  //     const status = await response.status;
-  //     if (status !== 200) {
-  //       dispatch(logout());
-  //       navigate("/login");
-  //     }
-  //   } catch (error) {
-  //     if (error.response.status === 403) {
-  //       dispatch(logout());
-  //       navigate("/login");
-  //     }else{toast.error("Server error", { id: "1" });}
-  //   }
-  // };
+      const status = await response.status;
+      if (status !== 200) {
+        dispatch(logout());
+        navigate("/login");
+      }
+    } catch (error) {
+      if (error.response.status === 403) {
+        dispatch(logout());
+        navigate("/login");
+      } else {
+        toast.error("Server error", { id: "1" });
+      }
+    }
+  };
 
-  // useEffect(() => {
-  //   if (token) {
-  //     checkToken();
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (token) {
+      checkToken();
+    }
+  }, [token]);
   useEffect(() => {
     getIpAndCountry(dispatch);
   }, []);

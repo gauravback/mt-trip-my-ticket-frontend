@@ -30,7 +30,6 @@ import safe2 from "../components/Media/safe2.jpg";
 import "./Home.css";
 const Home = () => {
   const [cars, setCars] = useState();
-
   const getCars = async () => {
     const response = await api.get("/api/cars/");
     var result = await response.data;
@@ -89,7 +88,7 @@ const Home = () => {
           <img src={image} alt="" />
         </div>
       </Slider>
-      <div className="banner-text ">
+      <div className="banner-text">
         <h2>Your world of joy</h2>
         <p>
           From local escapes to far-flung adventures, find what makes you happy
@@ -99,14 +98,14 @@ const Home = () => {
         <form>
           <label
             htmlFor="default-search"
-            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+            className="mb-2 text-sm font-medium text-gray-900 sr-only"
           >
             Search
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg
-                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                className="w-4 h-4 text-gray-500"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -124,13 +123,13 @@ const Home = () => {
             <input
               type="search"
               id="default-search"
-              className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Search Mockups, Logos..."
               required
             />
             <button
               type="submit"
-              className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
             >
               Search
             </button>
@@ -143,10 +142,10 @@ const Home = () => {
         <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
           {/* Title */}
           <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-            <h2 className="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">
+            <h2 className="text-2xl font-bold md:text-4xl md:leading-tight">
               Dubai Summer Delights
             </h2>
-            <p className="mt-1 text-gray-600 dark:text-gray-400">
+            <p className="mt-1 text-gray-600">
               Create unforgettable memories with your family in Dubai this
               summer
             </p>

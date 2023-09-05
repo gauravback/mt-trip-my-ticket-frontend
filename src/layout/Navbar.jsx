@@ -64,6 +64,14 @@ const Navbar = () => {
     zIndex: isFixed ? 1000 : "auto",
   };
 
+  const countryIcon = countryCurrencySymbols.find(
+    (elem) => elem.country === country
+  )?.icon;
+
+  const currencySymbol = countryCurrencySymbols.find(
+    (elem) => elem.abbreviation === abbreviation
+  )?.symbolCode;
+
   return (
     <div>
       <nav
@@ -73,90 +81,136 @@ const Navbar = () => {
         } top-0 z-10 bg-gradient-to-r from-gray-700 via-gray-900 to-black`}
       >
         <div className="md:mx-8 flex flex-wrap items-center justify-between mx-auto">
-          <div className="flex items-center">
+          <div className="flex items-center justify-center md:justify-normal w-full md:w-auto">
             <Link to="/">
               <img src="/logo-white.png" alt="logo" width={120} />
             </Link>
           </div>
-          <div className="flex md:order-2 mx-4 space-x-3">
+          <div className="flex md:order-2 mx-4 gap-3 items-center justify-center w-full md:w-auto pb-4 md:pb-2 lg:pb-0">
             {/* Language And Country */}
-            <div className="hs-dropdown relative inline-flex  [--auto-close:false]">
+            <div className="hs-dropdown relative inline-flex [--placement:bottom-right]">
               <button
                 id="hs-dropdown-default"
                 type="button"
-                className="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-transparent text-gray-50 shadow-sm align-middle  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm"
+                className="hs-dropdown-toggle py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm text-white border"
               >
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: currencySymbol || "",
+                  }}
+                />
+
                 {abbreviation}
+
+                <svg
+                  className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-white"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
               </button>
               <div
-                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-56 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
+                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-[21rem] md:w-96 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
                 aria-labelledby="hs-dropdown-default"
               >
-                <div className="space-y-3">
-                  <div className="w-full">
-                    <label className="block text-sm font-medium mb-2">
-                      Country
-                    </label>
-                    <select
-                      onChange={(e) => {
-                        dispatch(setCountry(e.target.value));
-                      }}
-                      className="py-3 px-4 pr-9 block w-full border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-0"
-                    >
-                      <option>{country}</option>
-                      {countryCurrencySymbols?.map((elem) => (
-                        <option
-                          value={elem.country}
-                          key={elem.country}
-                          style={{
-                            display:
-                              elem.country === country ? "none" : "block",
+                <div className="grid grid-cols-2 gap-2">
+                  {Array.from(
+                    new Set(
+                      countryCurrencySymbols.map((entry) => entry.abbreviation)
+                    )
+                  )?.map((elem) => {
+                    const matchingEntry = countryCurrencySymbols.find(
+                      (entry) => entry.abbreviation === elem
+                    );
+
+                    return (
+                      <button
+                        key={elem}
+                        onClick={(e) => {
+                          dispatch(setCurrency(matchingEntry.abbreviation));
+                        }}
+                        className="flex items-center bg-white hover:bg-gray-100"
+                      >
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: matchingEntry.symbolCode || "",
                           }}
-                        >
-                          {elem.country}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="w-full">
-                    <label className="block text-sm font-medium mb-2">
-                      Currency
-                    </label>
-                    <select
-                      onChange={(e) => {
-                        dispatch(setCurrency(e.target.value));
-                      }}
-                      className="py-3 px-4 pr-9 block w-full border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-0"
-                    >
-                      <option selected value={abbreviation}>
-                        {abbreviation}
-                      </option>
-                      {Array.from(
-                        new Set(
-                          countryCurrencySymbols.map(
-                            (elem) => elem.abbreviation
-                          )
-                        )
-                      ).map((abbreviation) => (
-                        <option key={abbreviation} value={abbreviation}>
-                          {abbreviation}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  {/* <div className="w-full">
-                    <label className="block text-sm font-medium mb-2">
-                      Language
-                    </label>
-                    <select className="py-3 px-4 pr-9 block w-full border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-0">
-                      <option value="english">English</option>
-                      <option value="hindi">Hindi</option>
-                      <option value="arabic">Arabic</option>
-                    </select>
-                  </div> */}
+                        />
+                        <span className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm focus:ring-2 focus:ring-blue-500">
+                          {matchingEntry.abbreviation}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
+            <div className="hs-dropdown relative inline-flex [--placement:bottom-right]">
+              <button
+                id="hs-dropdown-default"
+                type="button"
+                className="hs-dropdown-toggle py-1.5 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm text-white border"
+              >
+                <img
+                  src={countryIcon}
+                  alt={country}
+                  className="rounded-full"
+                  width={24}
+                />
+                {country}
+                <svg
+                  className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-white"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+              <div
+                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-[21rem] md:w-96 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
+                aria-labelledby="hs-dropdown-default"
+              >
+                <div className="grid grid-cols-2 gap-2">
+                  {countryCurrencySymbols?.map((elem) => (
+                    <button
+                      key={elem.country}
+                      onClick={(e) => {
+                        dispatch(setCountry(elem.country));
+                      }}
+                      className="flex items-center bg-white hover:bg-gray-100"
+                    >
+                      <img
+                        src={elem.icon}
+                        alt={elem.country}
+                        className="rounded-full"
+                        width={24}
+                      />
+                      <span className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm focus:ring-2 focus:ring-blue-500">
+                        {elem.country}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             {/* Language And Country End */}
             {user ? (
               <div
@@ -166,10 +220,21 @@ const Navbar = () => {
                 <button
                   id="hs-dropdown-with-header"
                   type="button"
-                  className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] rounded-full font-medium bg- align-middle hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs"
+                  className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-md font-medium bg- align-middle hover:bg-gray-800 focus:outline-none focus:ring-0 transition-all text-xs"
                 >
-                  <div className="h-[2.375rem] w-[2.375rem] rounded-full bg-gray-50 text-gray-950 flex items-center justify-center text-lg">
-                    {user?.email.slice(0, 1).toUpperCase()}
+                  <div className="truncate overflow-ellipsis rounded-md gap-1 btn-gradient flex items-center justify-center text-sm px-3 py-2 focus:outline-none focus:ring-0">
+                    <svg
+                      className="w-4 h-4 font-bold"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={16}
+                      height={16}
+                      fontWeight="700"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                    </svg>
+                    Account
                   </div>
                 </button>
                 <div
@@ -178,7 +243,7 @@ const Navbar = () => {
                 >
                   <div className="py-3 px-5 -m-2 bg-gray-900 rounded-t-lg">
                     <p className="text-sm text-gray-50">Signed in as</p>
-                    <p className="text-sm font-medium text-gray-50">
+                    <p className="text-sm font-semibold text-gray-50">
                       {user?.email}
                     </p>
                   </div>
@@ -193,7 +258,7 @@ const Navbar = () => {
                       onClick={() => {
                         dispatch(logout());
                       }}
-                      className="flex w-full items-center gap-x-3.5 py-2 px-3 rounded-md  text-gray-50 hover:bg-gray-50 hover:text-gray-900 focus:ring-2 focus:ring-blue-500"
+                      className="flex w-full items-center gap-x-3.5 focus:ring-0 focus:outline-none px-3 py-2 rounded-md btn-gradient"
                     >
                       <HiOutlineLogout fontSize={24} />
                       Logout
@@ -203,7 +268,7 @@ const Navbar = () => {
               </div>
             ) : (
               <Link to="/login">
-                <button className="flex items-center gap-x-2 font-medium text-gray-50 transition-all duration-500 px-3 py-1 rounded-full hover:text-gray-100">
+                <button className="flex items-center gap-x-2 font-medium transition-all duration-500 px-3 py-3 md:py-2 rounded-md btn-gradient">
                   <svg
                     className="w-4 h-4 font-bold"
                     xmlns="http://www.w3.org/2000/svg"
@@ -215,12 +280,12 @@ const Navbar = () => {
                   >
                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                   </svg>
-                  Login
+                  <span className="hidden md:block">Login</span>
                 </button>
               </Link>
             )}
 
-            <div className="sm:hidden">
+            <div className="hidden">
               <button
                 type="button"
                 className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-600 transition-all text-sm"

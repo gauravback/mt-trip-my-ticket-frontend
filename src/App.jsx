@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
@@ -18,11 +18,17 @@ import Contact from "./pages/Contact/Contact";
 import axios from "axios";
 import { add } from "./redux/slices/currencyRateSlice";
 import Forex from "./pages/Forex/Forex";
+import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
+import RefundPolicy from "./pages/RefundPolicy/RefundPolicy";
+import TermsOfService from "./pages/TermsOfService/TermsOfService";
+import About from "./pages/About/About";
+import ProtectedRoute from "./components/Routes/ProtectedRoute";
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.authReducer?.value?.token);
+  console.log("token", token);
   const checkToken = async () => {
     try {
       const response = await api.get(`/user/check-token/`, {
@@ -72,6 +78,9 @@ const App = () => {
     currencyConvert(currency);
   }, [currency, ipAddress]);
 
+  const location = useLocation();
+  const pathname = location.pathname;
+
   return (
     <div className="">
       <Navbar />
@@ -79,18 +88,31 @@ const App = () => {
         <Toaster />
         <Routes>
           <Route path="/" exact element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/flight" element={<Flight />} />
           <Route path="/car" element={<Car />} />
           <Route path="/bus" element={<Bus />} />
           <Route path="/hotel" element={<Hotel />} />
           <Route path="/hotel/:id" element={<HotelDetails />} />
           <Route path="/package" element={<Package />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/booking/:id" element={<BookingDetails />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/forex" element={<Forex />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/about" element={<About />} />
+          <Route element={<ProtectedRoute token={token} pathname={pathname} />}>
+            <Route
+              path="/login"
+              element={
+                // <ProtectedRoute token={token} pathname={pathname}>
+                <Login />
+                // </ProtectedRoute>
+              }
+            />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
         </Routes>
       </div>
       <Footer />

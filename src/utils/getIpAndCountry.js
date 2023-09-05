@@ -10,7 +10,9 @@ async function getIpAndCountry(dispatch, ipAddress = null) {
     const ip = response.data.ip;
 
     if (!ip || ip != ipAddress) {
-      const countryResponse = await axios.get(`http://ip-api.com/json/${ip}`);
+      const countryResponse = await axios.get(
+        `https://ip-country-checker.vercel.app/${ip}`
+      );
       const country = countryResponse.data.country;
       const { currency, symbolCode, abbreviation } = getCurrencyAndSymbolCode(
         country,

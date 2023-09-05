@@ -9,14 +9,14 @@ import image from "../components/Media/caro1.webp";
 import image1 from "../components/Media/caro2.webp";
 import image2 from "../components/Media/ocen1.jpg";
 import image3 from "../components/Media/ocen2.jpg";
-import image4 from "../components/Media/ocen3.jpg";
+import image4 from "../components/Media/ocen3.jpg"; 
 import image5 from "../components/Media/ocen4.jpg";
 import abu1 from "../components/Media/abu1.png";
 import abu2 from "../components/Media/abu2.png";
 import abu3 from "../components/Media/abu3.png";
 import abu4 from "../components/Media/abu4.png";
 import act from "../components/Media/1.avif";
-import act1 from "../components/Media/2.avif";
+import act1 from "../components/Media/2.avif"; 
 import act2 from "../components/Media/3.avif";
 import most from "../components/Media/most.avif";
 import most1 from "../components/Media/most1.avif";
@@ -174,6 +174,7 @@ const Home = () => {
                   time restraint.
                 </p>
               </div>
+             
             </a>
             <a
               className="group flex flex-col h-full border border-gray-200 hover:border-transparent hover:shadow-lg transition-all duration-300 rounded-xl p-5 dark:border-gray-700 dark:hover:border-transparent dark:hover:shadow-black/[.4]"
@@ -1433,6 +1434,11 @@ const Home = () => {
           {/* End Grid */}
         </div>
         {/* End Features */}
+      </div>
+
+      <div className="row">
+    <div className="col-lg-6">heloo</div>
+    <div className="col-lg-6">heloo</div>
       </div>
     </>
   );

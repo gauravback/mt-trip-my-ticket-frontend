@@ -14,6 +14,7 @@ const DateInput = ({ id, setDate }) => {
   });
   return (
     <div>
+      
       <input
         onChange={(e) => {
           console.log(e.target.value);

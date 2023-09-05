@@ -18,6 +18,9 @@ import Contact from "./pages/Contact/Contact";
 import axios from "axios";
 import { add } from "./redux/slices/currencyRateSlice";
 import Forex from "./pages/Forex/Forex";
+import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
+import RefundPolicy from "./pages/RefundPolicy/RefundPolicy";
+import TermsOfService from "./pages/TermsOfService/TermsOfService";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -91,6 +94,9 @@ const App = () => {
           <Route path="/booking/:id" element={<BookingDetails />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/forex" element={<Forex />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
         </Routes>
       </div>
       <Footer />

@@ -77,7 +77,6 @@ const Flights = () => {
       return updatedTickets;
     });
   };
-  console.log(flights);
   return (
     <div>
       <main className="">
@@ -414,7 +413,7 @@ const Flights = () => {
                         <div className="h-16 w-16 overflow-hidden rounded-lg">
                           <img
                             src="/plane.png"
-                            alt
+                            alt={flight.name}
                             className="h-full w-full object-cover text-gray-700"
                           />
                         </div>

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import React, { Suspense, useEffect, useState } from "react";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
@@ -18,6 +18,14 @@ import Contact from "./pages/Contact/Contact";
 import axios from "axios";
 import { add } from "./redux/slices/currencyRateSlice";
 import Forex from "./pages/Forex/Forex";
+import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
+import RefundPolicy from "./pages/RefundPolicy/RefundPolicy";
+import TermsOfService from "./pages/TermsOfService/TermsOfService";
+import About from "./pages/About/About";
+import ProtectedRoute from "./components/Routes/ProtectedRoute";
+import { AnimatePresence } from "framer-motion";
+import AnimatedPage from "./components/AnimatedPage/AnimatedPage";
+import Loader from "./components/Loader/Loader";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -72,28 +80,165 @@ const App = () => {
     currencyConvert(currency);
   }, [currency, ipAddress]);
 
+  const location = useLocation();
+  const pathname = location.pathname;
+
   return (
     <div className="">
-      <Navbar />
-      <div className="min-h-screen mx-auto">
-        <Toaster />
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/flight" element={<Flight />} />
-          <Route path="/car" element={<Car />} />
-          <Route path="/bus" element={<Bus />} />
-          <Route path="/hotel" element={<Hotel />} />
-          <Route path="/hotel/:id" element={<HotelDetails />} />
-          <Route path="/package" element={<Package />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/booking/:id" element={<BookingDetails />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/forex" element={<Forex />} />
-        </Routes>
-      </div>
-      <Footer />
+      <>
+        <Suspense fallback={<Loader />}>
+          <Navbar />
+          <div className="min-h-screen mx-auto">
+            <Toaster />
+            <AnimatePresence mode="wait">
+              <Routes key={pathname} location={location}>
+                <Route
+                  path="/"
+                  exact
+                  element={
+                    <AnimatedPage>
+                      <Home />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/flight"
+                  element={
+                    <AnimatedPage>
+                      <Flight />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/car"
+                  element={
+                    <AnimatedPage>
+                      <Car />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/bus"
+                  element={
+                    <AnimatedPage>
+                      <Bus />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/hotel"
+                  element={
+                    <AnimatedPage>
+                      <Hotel />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/hotel/:id"
+                  element={
+                    <AnimatedPage>
+                      <HotelDetails />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/package"
+                  element={
+                    <AnimatedPage>
+                      <Package />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/booking/:id"
+                  element={
+                    <AnimatedPage>
+                      <BookingDetails />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/contact"
+                  element={
+                    <AnimatedPage>
+                      <Contact />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/forex"
+                  element={
+                    <AnimatedPage>
+                      <Forex />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/privacy-policy"
+                  element={
+                    <AnimatedPage>
+                      <PrivacyPolicy />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/refund-policy"
+                  element={
+                    <AnimatedPage>
+                      <RefundPolicy />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/terms-of-service"
+                  element={
+                    <AnimatedPage>
+                      <TermsOfService />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/about"
+                  element={
+                    <AnimatedPage>
+                      <About />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  element={<ProtectedRoute token={token} pathname={pathname} />}
+                >
+                  <Route
+                    path="/login"
+                    element={
+                      <AnimatedPage>
+                        <Login />
+                      </AnimatedPage>
+                    }
+                  />
+                  <Route
+                    path="/register"
+                    element={
+                      <AnimatedPage>
+                        <Register />
+                      </AnimatedPage>
+                    }
+                  />
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <AnimatedPage>
+                        <Dashboard />
+                      </AnimatedPage>
+                    }
+                  />
+                </Route>
+              </Routes>
+            </AnimatePresence>
+          </div>
+          <Footer />
+        </Suspense>
+      </>
     </div>
   );
 };

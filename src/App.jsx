@@ -1,5 +1,11 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
@@ -82,12 +88,14 @@ const App = () => {
 
   const location = useLocation();
   const pathname = location.pathname;
-
   return (
     <div className="">
       <>
         <Suspense fallback={<Loader />}>
-          <Navbar />
+          <div className="w-full bg-prime">
+            <Navbar />
+          </div>
+          <Login />
           <div className="min-h-screen mx-auto">
             <Toaster />
             <AnimatePresence mode="wait">
@@ -209,22 +217,6 @@ const App = () => {
                   element={<ProtectedRoute token={token} pathname={pathname} />}
                 >
                   <Route
-                    path="/login"
-                    element={
-                      <AnimatedPage>
-                        <Login />
-                      </AnimatedPage>
-                    }
-                  />
-                  <Route
-                    path="/register"
-                    element={
-                      <AnimatedPage>
-                        <Register />
-                      </AnimatedPage>
-                    }
-                  />
-                  <Route
                     path="/dashboard"
                     element={
                       <AnimatedPage>
@@ -233,6 +225,7 @@ const App = () => {
                     }
                   />
                 </Route>
+                <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </AnimatePresence>
           </div>

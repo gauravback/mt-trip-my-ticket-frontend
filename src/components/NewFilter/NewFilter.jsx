@@ -4,12 +4,10 @@ import Navigation from "../Navigation/Navigation";
 const NewFilter = () => {
   return (
     <div>
-      <div className="mx-auto max-w-screen-xl py-12">
+      <div className="mx-auto max-w-screen-xl sm:py-12">
         <Navigation />
-        <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
-          {/* <h2 className="text-stone-700 text-xl font-bold">Apply filters</h2>
-          <p className="mt-1 text-sm">Use filters to further refine search</p> */}
-          <div className="mt-8 grid grid-cols-1 gap-0.5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="sm:rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
+          <div className="mt-8 grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             <div className="flex flex-col">
               <label
                 htmlFor="name"

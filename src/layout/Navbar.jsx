@@ -61,7 +61,7 @@ const Navbar = () => {
   const navbarStyle = {
     position: isFixed ? "fixed" : "static",
     top: isFixed ? 0 : "auto",
-    zIndex: isFixed ? 1000 : "auto",
+    zIndex: isFixed ? 500 : "auto",
   };
 
   const countryIcon = countryCurrencySymbols.find(
@@ -73,12 +73,14 @@ const Navbar = () => {
   )?.symbolCode;
 
   return (
-    <div>
+    <div className="w-full">
       <nav
         style={navbarStyle}
-        className={`w-full ${
-          isFixed ? "fixed" : ""
-        } top-0 z-10 bg-gradient-to-r from-gray-700 via-gray-900 to-black`}
+        className={`${
+          isFixed
+            ? "fixed min-w-[70%] left-50 w-full mx-auto"
+            : "max-w-7xl mx-auto w-full"
+        } top-0 z-10 bg-prime `}
       >
         <div className="md:mx-8 flex flex-wrap items-center justify-between mx-auto">
           <div className="flex items-center justify-center md:justify-normal w-full md:w-auto">
@@ -267,22 +269,25 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <Link to="/login">
-                <button className="flex items-center gap-x-2 font-medium transition-all duration-500 px-3 py-3 md:py-2 rounded-md btn-gradient">
-                  <svg
-                    className="w-4 h-4 font-bold"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={16}
-                    height={16}
-                    fontWeight="700"
-                    fill="currentColor"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                  </svg>
-                  <span className="hidden md:block">Login</span>
-                </button>
-              </Link>
+              <button
+                type="button"
+                id="login-btn"
+                data-hs-overlay="#hs-modal-signin"
+                className="flex items-center gap-x-2 font-medium transition-all duration-500 px-3 py-3 md:py-2 rounded-md btn-gradient"
+              >
+                <svg
+                  className="w-4 h-4 font-bold"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={16}
+                  height={16}
+                  fontWeight="700"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                </svg>
+                <span className="hidden md:block">Login</span>
+              </button>
             )}
 
             <div className="hidden">
@@ -319,7 +324,9 @@ const Navbar = () => {
           </div>
           <div
             id="navbar-collapse-with-animation"
-            className="hs-collapse transition-all duration-300 items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+            className={`hs-collapse transition-all duration-300 items-center justify-between ${
+              isFixed ? "" : "hidden"
+            } w-full md:w-auto md:order-1`}
           >
             <ul
               id="navbar"
@@ -327,24 +334,27 @@ const Navbar = () => {
             >
               <li>
                 <Link to="/car/">
-                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <AiOutlineCar fontSize={28} className="mx-auto" />
+                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <AiOutlineCar fontSize={24} className="mx-auto" />
                     Car Rental
                   </div>
                 </Link>
               </li>
               <li>
                 <Link to="/flight/">
-                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <MdOutlineFlight fontSize={28} className="mx-auto" />
+                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <MdOutlineFlight
+                      fontSize={24}
+                      className="mx-auto rotate-45"
+                    />
                     Flight
                   </div>
                 </Link>
               </li>
               <li>
                 <Link to="/hotel/">
-                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <RiHotelLine fontSize={28} className="mx-auto" />
+                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <RiHotelLine fontSize={24} className="mx-auto" />
                     Hotel
                   </div>
                 </Link>
@@ -352,24 +362,24 @@ const Navbar = () => {
 
               <li>
                 <Link to="/bus/">
-                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <MdDirectionsBus fontSize={28} className="mx-auto" />
+                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <MdDirectionsBus fontSize={24} className="mx-auto" />
                     Bus
                   </div>
                 </Link>
               </li>
               <li>
                 <Link to="/package/">
-                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <TbAirBalloon fontSize={28} className="mx-auto" />
+                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <TbAirBalloon fontSize={24} className="mx-auto" />
                     Packages
                   </div>
                 </Link>
               </li>
               <li>
                 <Link to="/forex">
-                  <div className="text-center text-sm gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <RiStackFill fontSize={28} className="mx-auto" />
+                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
+                    <RiStackFill fontSize={24} className="mx-auto" />
                     Forex
                   </div>
                 </Link>

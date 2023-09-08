@@ -1,176 +1,87 @@
 import React from "react";
+import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div>
-      <footer className="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
-        {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-10">
-          <div className="col-span-full hidden lg:col-span-1 lg:block">
-            <div className="flex-none text-xl font-semibold">
-              <Link to="/">
-                <img src="/logo.png" alt="logo" width={120} />
-              </Link>
+      <footer className="bg-white" aria-labelledby="footer-heading">
+        <h2 id="footer-heading" className="sr-only">
+          Footer
+        </h2>
+        <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+          <div className="md:flex items-center justify-center md:justify-between">
+            <div className="flex space-x-6 justify-center md:justify-normal">
+              <a href="#" className="text-gray-400 hover:text-gray-500">
+                <span className="sr-only">Facebook</span>
+                <BsFacebook fontSize={26} />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-gray-500">
+                <span className="sr-only">Facebook</span>
+                <BsTwitter fontSize={26} />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-gray-500">
+                <span className="sr-only">Facebook</span>
+                <BsInstagram fontSize={26} />
+              </a>
             </div>
-            <p className="mt-3 text-xs sm:text-sm text-gray-600">
-              © 2023 All rights reserved.
+            <div className="space-y-4 xl:ml-auto mt-7 md:mt-0">
+              <div className="flex items-center justify-center md:justify-end flex-wrap gap-x-3">
+                <h1 className="text-sm md:text-base font-medium text-center mb-2">
+                  We Accept:
+                </h1>
+                <div className="flex items-center gap-3 flex-wrap justify-center md:justify-end">
+                  <img
+                    className="h-4 md:h-6"
+                    src="/visa.png"
+                    alt="Company name"
+                  />
+                  <img
+                    className="h-5 md:h-8"
+                    src="/mastercard.png"
+                    alt="Company name"
+                  />
+                  <img
+                    className="h-5 md:h-8"
+                    src="/diners-club.png"
+                    alt="Company name"
+                  />
+                  <img
+                    className="h-5 md:h-8"
+                    src="/american-express.png"
+                    alt="Company name"
+                  />
+                  <img
+                    className="h-4 md:h-6"
+                    src="/rupay.png"
+                    alt="Company name"
+                  />
+                  <img
+                    className="h-4 md:h-6"
+                    src="/UPI.svg"
+                    alt="Company name"
+                  />
+                </div>
+              </div>
+              <div className="md:flex items-center gap-x-3 justify-end">
+                <h1 className="text-sm md:text-base font-medium text-center mb-2">
+                  Powered By:
+                </h1>
+                <div className="flex items-center justify-center">
+                  <img
+                    className="h-6 md:h-8 justify-center md:justify-end"
+                    src="/razorpay.png"
+                    alt="Company name"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 border-t border-gray-200 pt-8">
+            <p className="text-base text-gray-400 xl:text-center">
+              Copyright © 2023 My Trip My Ticket, All rights reserved.
             </p>
           </div>
-          {/* End Col */}
-          <div>
-            <h4 className="text-xs font-semibold text-gray-900 uppercase">
-              Product
-            </h4>
-            <div className="mt-3 grid space-y-3 text-sm">
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Pricing
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Changelog
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Docs
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Download
-                </a>
-              </p>
-            </div>
-          </div>
-          {/* End Col */}
-          <div>
-            <h4 className="text-xs font-semibold text-gray-900 uppercase">
-              Company
-            </h4>
-            <div className="mt-3 grid space-y-3 text-sm">
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  About us
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Blog
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Careers
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Customers
-                </a>
-              </p>
-            </div>
-          </div>
-          {/* End Col */}
-          <div>
-            <h4 className="text-xs font-semibold text-gray-900 uppercase">
-              Resources
-            </h4>
-            <div className="mt-3 grid space-y-3 text-sm">
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Community
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Help &amp; Support
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  eBook
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  What's New
-                </a>
-              </p>
-            </div>
-          </div>
-          {/* End Col */}
-          <div>
-            <h4 className="text-xs font-semibold text-gray-900 uppercase">
-              Developers
-            </h4>
-            <div className="mt-3 grid space-y-3 text-sm">
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Api
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  Status
-                </a>
-              </p>
-              <p>
-                <a
-                  className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800"
-                  href="#"
-                >
-                  GitHub
-                </a>
-              </p>
-            </div>
-          </div>
-          {/* End Col */}
         </div>
-        {/* End Grid */}
       </footer>
     </div>
   );

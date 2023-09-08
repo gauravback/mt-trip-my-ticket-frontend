@@ -80,9 +80,9 @@ const Flights = () => {
   return (
     <div>
       <main className="">
-        <div style={{ backgroundImage: `url("/bg2.jpg")` }}>
-          <Filter />
-          {/* <NewFilter /> */}
+        <div className="bg-[#07162d]">
+          {/* <Filter /> */}
+          <NewFilter />
         </div>
         {/* Products */}
         <div className="mx-auto max-w-2xl pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">

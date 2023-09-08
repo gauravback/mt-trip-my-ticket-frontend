@@ -88,7 +88,7 @@ const Home = () => {
           <img src={image} alt="" />
         </div>
       </Slider>
-      <div className="banner-text hidden md:block">
+      <div className="banner-text hidden lg:block">
         <h2>Your world of joy</h2>
         <p>
           From local escapes to far-flung adventures, find what makes you happy

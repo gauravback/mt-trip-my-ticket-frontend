@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -7,10 +7,8 @@ import { ReduxProvider } from "./redux/Provider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ReduxProvider>
-    <Suspense fallback="loading">
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Suspense>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </ReduxProvider>
 );

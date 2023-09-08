@@ -24,7 +24,7 @@ const Navigation = () => {
     });
   }, [location]);
   return (
-    <div className="max-w-5xl mx-auto  sm:w-[60%]">
+    <div className="max-w-5xl mx-auto  sm:w-[60%] md:absolute top-1 left-48">
       <section className="">
         <div className="container">
           <div
@@ -34,49 +34,49 @@ const Navigation = () => {
             <Link to="/car/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
-                  <AiOutlineCar className="w-7 sm:h-8 h-7 sm:w-8" />
+                  <AiOutlineCar className="w-7 h-7" />
                 </div>
-                <p className="pb-1.5 text-sm sm:text-lg">Car Rental</p>
+                <p className="pb-1.5 text-sm font-semibold">Car Rental</p>
               </div>
             </Link>
             <Link to="/flight/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
-                  <MdOutlineFlight className="w-7 sm:h-8 h-7 sm:w-8 rotate-45" />
+                  <MdOutlineFlight className="w-7 h-7 rotate-45" />
                 </div>
-                <p className="pb-1.5 text-sm sm:text-lg">Flight</p>
+                <p className="pb-1.5 text-sm font-semibold">Flight</p>
               </div>
             </Link>
             <Link to="/hotel/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
-                  <RiHotelLine className="w-7 sm:h-8 h-7 sm:w-8" />
+                  <RiHotelLine className="w-7 h-7" />
                 </div>
-                <p className="pb-1.5 text-sm sm:text-lg">Hotel</p>
+                <p className="pb-1.5 text-sm font-semibold">Hotel</p>
               </div>
             </Link>
             <Link to="/bus/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
-                  <MdDirectionsBus className="w-7 sm:h-8 h-7 sm:w-8" />
+                  <MdDirectionsBus className="w-7 h-7 " />
                 </div>
-                <p className="pb-1.5 text-sm sm:text-lg">Bus</p>
+                <p className="pb-1.5 text-sm font-semibold">Bus</p>
               </div>
             </Link>
             <Link to="/package/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
-                  <TbAirBalloon className="w-7 sm:h-8 h-7 sm:w-8" />
+                  <TbAirBalloon className="w-7 h-7" />
                 </div>
-                <p className="pb-1.5 text-sm sm:text-lg">Packages</p>
+                <p className="pb-1.5 text-sm font-semibold">Packages</p>
               </div>
             </Link>
             <Link to="/forex/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
-                  <RiStackFill className="w-7 sm:h-8 h-7 sm:w-8" />
+                  <RiStackFill className="w-7 h-7" />
                 </div>
-                <p className="pb-1.5 text-sm sm:text-lg">Forex</p>
+                <p className="pb-1.5 text-sm font-semibold">Forex</p>
               </div>
             </Link>
           </div>

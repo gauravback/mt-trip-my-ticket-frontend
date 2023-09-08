@@ -9,7 +9,7 @@ import { AiOutlineCar } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { TbAirBalloon } from "react-icons/tb";
 import { countryCurrencySymbols } from "@/utils/countryCurrencySymbols";
-
+import { BiSolidDownArrow } from "react-icons/bi";
 import { setCountry, setCurrency } from "@/redux/slices/countryCurrencySlice";
 
 import { RiStackFill } from "react-icons/ri";
@@ -94,7 +94,7 @@ const Navbar = () => {
               <button
                 id="hs-dropdown-default"
                 type="button"
-                className="hs-dropdown-toggle py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm text-white border"
+                className="hs-dropdown-toggle py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-800 text-white"
               >
                 <span
                   dangerouslySetInnerHTML={{
@@ -104,21 +104,7 @@ const Navbar = () => {
 
                 {abbreviation}
 
-                <svg
-                  className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-white"
-                  width={16}
-                  height={16}
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <BiSolidDownArrow />
               </button>
               <div
                 className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-[21rem] md:w-96 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
@@ -160,7 +146,7 @@ const Navbar = () => {
               <button
                 id="hs-dropdown-default"
                 type="button"
-                className="hs-dropdown-toggle py-1.5 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm text-white border"
+                className="hs-dropdown-toggle py-1.5 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-800 text-white"
               >
                 <img
                   src={countryIcon}
@@ -169,21 +155,7 @@ const Navbar = () => {
                   width={24}
                 />
                 {country}
-                <svg
-                  className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-white"
-                  width={16}
-                  height={16}
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <BiSolidDownArrow className="text-white" />
               </button>
               <div
                 className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-[21rem] md:w-96 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"

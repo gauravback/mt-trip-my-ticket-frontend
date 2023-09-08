@@ -4,6 +4,7 @@ import api from "@/api/api";
 import Filter from "@/components/SearchComponents/CarFilter/CarFilter";
 import { useLocation } from "react-router-dom";
 import Offers from "@/components/Offers/Offers";
+import NewFilter from "@/components/NewFilter/NewFilter";
 
 export default function Car() {
   const [cars, setCars] = useState();
@@ -47,7 +48,7 @@ export default function Car() {
 
   return (
     <>
-      <Filter />
+      <NewFilter />
       {/* Products */}
       <div className="mx-auto max-w-2xl pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">

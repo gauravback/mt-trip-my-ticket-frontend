@@ -96,7 +96,7 @@ const App = () => {
             <Navbar />
           </div>
           <Login />
-          <div className="min-h-screen mx-auto">
+          <div className="min-h-screen mx-auto bg-gray-50">
             <Toaster />
             <AnimatePresence mode="wait">
               <Routes key={pathname} location={location}>

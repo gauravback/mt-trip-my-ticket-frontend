@@ -4,8 +4,9 @@ import api from "@/api/api";
 import Filter from "@/components/SearchComponents/CarFilter/CarFilter";
 import { useLocation } from "react-router-dom";
 import Offers from "@/components/Offers/Offers";
-import NewFilter from "@/components/NewFilter/NewFilter";
-
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import { TbArmchair, TbWindmill } from "react-icons/tb";
 export default function Car() {
   const [cars, setCars] = useState();
   const [message, setMessage] = useState("");
@@ -14,7 +15,10 @@ export default function Car() {
   const origin = searchParams.get("origin");
   const destination = searchParams.get("destination");
   const departure = searchParams.get("departure");
-  console.log(cars);
+  const currencySymbol = useSelector(
+    (state) => state.countryCurrencyReducer?.symbol
+  );
+  const priceRate = useSelector((state) => state.currencyRateReducer?.rate);
 
   const fetchCars = async () => {
     const response = await api.get(
@@ -37,20 +41,16 @@ export default function Car() {
   };
 
   useEffect(() => {
-    if (searchParams.size > 0) {
-      if (origin || destination || departure) {
-        fetchCars();
-      } else {
-        setMessage("No cars available");
-      }
-    }
-  }, [location.search]);
+    fetchCars();
+  }, []);
 
   return (
     <>
-      <NewFilter />
+      <div className="bg-prime">
+        <Filter />
+      </div>
       {/* Products */}
-      <div className="mx-auto max-w-2xl pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto max-w-2xl pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8 min-h-screen">
         <div className="pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
           <aside>
             <h2 className="sr-only">Filters</h2>
@@ -359,55 +359,152 @@ export default function Car() {
             </div>
           </aside>
           {/* Product grid */}
-          <div className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3">
+          <div className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3 min-h-full">
             {/* Replace with your content */}
-            <div className="h-96 rounded-lg border-l border-gray-200 lg:h-full border">
-              <div className="grid grid-cols-1 w-full px-4">
+            <div className="h-96 rounded-lg border-l border-gray-200 lg:h-full">
+              <div className="grid grid-cols-1 w-full px-4 gap-y-3">
                 {/* Card */}
-                <div className="mx-2 mt-4 grid grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 transition sm:mx-auto">
-                  <a
-                    href="#"
-                    className="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4"
-                  >
-                    <div className="h-16 w-16 overflow-hidden rounded-lg">
+                {cars?.map((car) => (
+                  <div className="bg-white border flex items-center border-gray-300 rounded-lg overflow-hidden">
+                    <div className="border h-full hidden  md:flex items-center justify-center bg-white p-4">
                       <img
-                        src="/plane.png"
-                        alt
-                        className="h-full w-full object-cover text-gray-700"
+                        src={car.images}
+                        width={250}
+                        alt={car.make + " " + car.model}
+                        className="rounded-md mix-blend-darken"
                       />
                     </div>
-                  </a>
-                  <div className="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
-                    <h3 className="text-sm text-gray-600">Invision</h3>
-                    <a
-                      href="#"
-                      className="mb-3 overflow-hidden pr-7 text-lg font-semibold sm:text-xl"
-                    >
-                      {" "}
-                      Sr. Frontend Engineer{" "}
-                    </a>
-                    <p className="overflow-hidden pr-7 text-sm">
-                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                      sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                      magna .
-                    </p>
-                    <div className="mt-5 flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
-                      <div className>
-                        Experience:
-                        <span className="ml-2 mr-3 rounded-full bg-green-100 px-2 py-0.5 text-green-900">
-                          {" "}
-                          2 Years{" "}
-                        </span>
+                    <div className="w-full">
+                      <div className="flex">
+                        <div className="text-sm mx-2 flex items-center justify-between p-1 rounded text-gray-950 font-bold mt-1 ">
+                          <div className="flex items-center space-x-1">
+                            <HiOutlineLocationMarker />
+                            <span>{car.origin_city}</span>
+                          </div>
+                          <div className="mx-3">--&gt;</div>
+                          <div className="flex items-center space-x-1">
+                            <HiOutlineLocationMarker />
+                            <span>{car.destination_city}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className>
-                        Salary:
-                        <span className="ml-2 mr-3 rounded-full bg-blue-100 px-2 py-0.5 text-blue-900">
-                          180-250k
-                        </span>
+                      <div className="px-3 text-gray-700 md:flex justify-between">
+                        <div>
+                          <p className="text-2xl text-gray-900 font-semibold">
+                            {car.make + " " + car.model}{" "}
+                            <span className="text-sm">
+                              ({car.car_type.type})
+                            </span>
+                          </p>
+                        </div>
+                        <div className="leading-loose text-sm">
+                          <p className="flex items-center md:justify-end space-x-1">
+                            <span className="text-xs">Transmission: </span>
+                            <span className="font-semibold">
+                              {car.transmission_type}
+                            </span>
+                          </p>
+                          <p className="flex items-center md:justify-end space-x-1">
+                            <span className="text-xs">Fuel: </span>
+                            <span className="font-semibold">
+                              {car.fuel_type}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center p-4  text-gray-600">
+                        <div className="flex items-center">
+                          <p className="flex items-center space-x-1 ">
+                            <span className="text-gray-900 font-bold">
+                              <TbArmchair fontSize={20} fontWeight={"bold"} />
+                            </span>
+                            <span className="text-sm font-bold">
+                              {car.seats} Seats
+                            </span>
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <p className="flex items-center space-x-1 ">
+                            <span className="text-gray-900 font-bold">
+                              <TbWindmill fontSize={20} fontWeight={"bold"} />
+                            </span>
+                            <span className="text-sm font-bold">
+                              AC: {car.ac ? "Yes" : "No"}
+                            </span>
+                          </p>
+                        </div>
+
+                        <div className="flex items-center">
+                          <p className="flex items-center space-x-1 ">
+                            <span className="text-gray-900 font-bold">
+                              <svg
+                                fill="#000000"
+                                height="16"
+                                width="16"
+                                version="1.1"
+                                id="Capa_1"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlnsXlink="http://www.w3.org/1999/xlink"
+                                viewBox="0 0 181.43 181.43"
+                                xmlSpace="preserve"
+                                stroke="#000000"
+                                strokeWidth="5.080012000000001"
+                                transform="rotate(0)"
+                              >
+                                <g id="SVGRepo_bgCarrier" strokeWidth={0} />
+                                <g
+                                  id="SVGRepo_tracerCarrier"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  stroke="#CCCCCC"
+                                  strokeWidth="0.362858"
+                                />
+                                <g id="SVGRepo_iconCarrier">
+                                  {" "}
+                                  <g>
+                                    {" "}
+                                    <path d="M134.045,66.614c-3.707-1.853-8.211-0.35-10.063,3.354l-23.078,46.156H75.92c-2.841,0-5.438,1.605-6.708,4.146 l-25.151,50.302c-1.853,3.705-0.351,8.21,3.354,10.062c1.077,0.539,2.221,0.794,3.348,0.794c2.751,0,5.4-1.52,6.714-4.148 l23.079-46.156h24.985c2.841,0,5.438-1.605,6.708-4.146l25.15-50.302C139.252,72.972,137.75,68.467,134.045,66.614z" />{" "}
+                                    <path d="M143.162,0.718c-13.832,0-25.045,11.212-25.045,25.044c0,13.831,11.213,25.043,25.045,25.043 c13.831,0,25.043-11.212,25.043-25.043C168.205,11.931,156.993,0.718,143.162,0.718z M143.162,35.806 c-5.539,0-10.045-4.505-10.045-10.043c0-5.538,4.506-10.044,10.045-10.044c5.538,0,10.043,4.506,10.043,10.044 C153.205,31.3,148.7,35.806,143.162,35.806z" />{" "}
+                                    <path d="M104.121,45.446C104.121,20.387,83.732,0,58.671,0c-25.06,0-45.447,20.387-45.447,45.446 c0,25.061,20.388,45.449,45.447,45.449C83.732,90.895,104.121,70.507,104.121,45.446z M28.224,45.446 C28.224,28.658,41.883,15,58.671,15c16.79,0,30.449,13.658,30.449,30.446c0,16.79-13.66,30.449-30.449,30.449 C41.883,75.895,28.224,62.236,28.224,45.446z" />{" "}
+                                  </g>{" "}
+                                </g>
+                              </svg>
+                            </span>
+                            <span className="text-sm font-bold">
+                              Airbags: {car.bags ? "Yes" : "No"}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center py-1 px-4  text-gray-900">
+                        <div className="flex items-center">
+                          <p className="flex items-center space-x-1 ">
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: currencySymbol,
+                              }}
+                              className="text-xl"
+                            ></span>
+                            <span className="text-xl font-bold">
+                              {Math.round(car.price * priceRate * 100) / 100}
+                            </span>
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <p className="flex items-center space-x-1 ">
+                            <button
+                              type="button"
+                              className="btn-gradient px-2 p-0.5 rounded-md"
+                            >
+                              Book Now
+                            </button>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ))}
+
                 {/* Card End */}
               </div>
             </div>

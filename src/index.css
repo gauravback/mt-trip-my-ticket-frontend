@@ -43,6 +43,9 @@ select {
 .navigation-active-link {
   @apply bg-theme text-white shadow-md shadow-theme;
 }
+.nav-active-link {
+  @apply bg-theme text-white shadow-md shadow-theme;
+}
 
 .custom-theme .flatpickr-calendar {
   /* Example styles */

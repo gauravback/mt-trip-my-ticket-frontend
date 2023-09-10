@@ -1,5 +1,4 @@
 import api from "@/api/api";
-import NewFilter from "@/components/NewFilter/NewFilter";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { RiSendPlaneFill } from "react-icons/ri";
@@ -8,6 +7,7 @@ import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Filter from "@/components/SearchComponents/FlightFilter/Filter";
 const Home = () => {
   const [cars, setCars] = useState();
   const currencySymbol = useSelector(
@@ -77,7 +77,7 @@ const Home = () => {
   return (
     <div>
       <div className="bg-prime">
-        <NewFilter />
+        <Filter />
       </div>
 
       {/*  Cars  */}
@@ -633,10 +633,10 @@ const Home = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 ml-6 md:ml-0 md:gap-24 px-12 mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 ml-6 md:ml-0 md:gap-24 md:px-12 mx-auto">
           {/* Card */}
-          <div>
-            <div className="flex relative w-full h-48 border border-gray-200 shadow-md rounded-md">
+          <div className="mx-4">
+            <div className="flex relative w-[90%] md:w-full h-48 border border-gray-200 shadow-md rounded-md">
               <img
                 alt="Lava"
                 src="https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
@@ -656,7 +656,6 @@ const Home = () => {
                 <div>
                   <p className="w-full text-xs text-gray-500">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Recusandae dolores.
                   </p>
                 </div>
                 <div className="">
@@ -678,8 +677,8 @@ const Home = () => {
           </div>
           {/* Card End */}
           {/* Card */}
-          <div>
-            <div className="flex relative w-full h-48 border border-gray-200 shadow-md rounded-md">
+          <div className="mx-4">
+            <div className="flex relative w-[90%] md:w-full h-48 border border-gray-200 shadow-md rounded-md">
               <img
                 alt="Lava"
                 src="https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
@@ -699,7 +698,6 @@ const Home = () => {
                 <div>
                   <p className="w-full text-xs text-gray-500">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Recusandae dolores.
                   </p>
                 </div>
                 <div className="">
@@ -721,8 +719,8 @@ const Home = () => {
           </div>
           {/* Card End */}
           {/* Card */}
-          <div>
-            <div className="flex relative w-full h-48 border border-gray-200 shadow-md rounded-md">
+          <div className="mx-4">
+            <div className="flex relative w-[90%] md:w-full h-48 border border-gray-200 shadow-md rounded-md">
               <img
                 alt="Lava"
                 src="https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
@@ -742,7 +740,6 @@ const Home = () => {
                 <div>
                   <p className="w-full text-xs text-gray-500">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Recusandae dolores.
                   </p>
                 </div>
                 <div className="">

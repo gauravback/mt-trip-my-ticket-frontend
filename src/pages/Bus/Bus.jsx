@@ -7,6 +7,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { MdHiking, MdOutlineFlight } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
 import { useLocation } from "react-router-dom";
+import { FaBus } from "react-icons/fa";
 
 const Bus = () => {
   const [buses, setBuses] = useState();
@@ -49,7 +50,9 @@ const Bus = () => {
   return (
     <div>
       <div>
-        <Filter />
+        <div className="bg-prime">
+          <Filter />
+        </div>
         {/* Products */}
         <div className="mx-auto max-w-2xl pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
@@ -367,47 +370,48 @@ const Bus = () => {
               <div className="h-96 rounded-lg border-l border-gray-200 lg:h-full border">
                 <div className="grid grid-cols-1 w-full px-4">
                   {/* Card */}
-                  <div className="mx-2 mt-4 grid grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 transition sm:mx-auto">
-                    <a
-                      href="#"
-                      className="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4"
-                    >
-                      <div className="h-16 w-16 overflow-hidden rounded-lg">
-                        <img
-                          src="/plane.png"
-                          alt
-                          className="h-full w-full object-cover text-gray-700"
-                        />
+                  <div className="bg-white border rounded-lg overflow-hidden">
+                    <div className="px-4 pb-3 pt-4 border-b border-gray-300 bg-gray-100 flex justify-between">
+                      <div className="text-lg uppercase font-bold text-gray-900 tracking-wide flex items-center gap-x-2">
+                        <FaBus fontSize={28} />
+                        Bus Number
                       </div>
-                    </a>
-                    <div className="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
-                      <h3 className="text-sm text-gray-600">Invision</h3>
-                      <a
-                        href="#"
-                        className="mb-3 overflow-hidden pr-7 text-lg font-semibold sm:text-xl"
-                      >
-                        {" "}
-                        Sr. Frontend Engineer{" "}
-                      </a>
-                      <p className="overflow-hidden pr-7 text-sm">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing
-                        elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-                        dolore magna .
+                      <p className="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg">
+                        DFW <span className="tracking-normal">--&gt;</span> SEA
                       </p>
-                      <div className="mt-5 flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
-                        <div className>
-                          Experience:
-                          <span className="ml-2 mr-3 rounded-full bg-green-100 px-2 py-0.5 text-green-900">
-                            {" "}
-                            2 Years{" "}
+                    </div>
+                    <div className="p-4 text-gray-700 flex justify-between items-start">
+                      <div>
+                        <p className="text-2xl text-gray-900 leading-none my-1">
+                          AA 792
+                        </p>
+                        <p className="text-xs w-56">American Airlines</p>
+                        <p className="text-sm w-56">7:11 am --&gt; 10:10 am</p>
+                      </div>
+                      <button className="leading-loose btn-gradient p-1 px-2 rounded-lg uppercase text-xs tracking-wider">
+                        Book Now
+                      </button>
+                    </div>
+                    <div className="flex justify-between items-center p-4 border-t border-gray-300 text-gray-600">
+                      <div className="flex items-center">
+                        <p>
+                          <span className="text-sm pr-1">Terminal</span>{" "}
+                          <span className="text-gray-900 font-bold">C</span>
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p>
+                          <span className="text-sm pr-1">Gate</span>{" "}
+                          <span className="text-gray-900 font-bold">C24</span>
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p>
+                          <span className="text-sm pr-1">Seats</span>{" "}
+                          <span className="text-gray-900 font-bold">
+                            12D, 12E
                           </span>
-                        </div>
-                        <div className>
-                          Salary:
-                          <span className="ml-2 mr-3 rounded-full bg-blue-100 px-2 py-0.5 text-blue-900">
-                            180-250k
-                          </span>
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </div>

@@ -51,7 +51,9 @@ const Package = () => {
   return (
     <div>
       <div>
-        <Filter />
+        <div className="bg-prime">
+          <Filter />
+        </div>
         {/* Products */}
         <div className="mx-auto max-w-2xl pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
@@ -369,46 +371,63 @@ const Package = () => {
               <div className="h-96 rounded-lg border-l border-gray-200 lg:h-full border">
                 <div className="grid grid-cols-1 w-full px-4">
                   {/* Card */}
-                  <div className="mx-2 mt-4 grid grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 transition sm:mx-auto">
-                    <a
-                      href="#"
-                      className="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4"
-                    >
-                      <div className="h-16 w-16 overflow-hidden rounded-lg">
-                        <img
-                          src="/plane.png"
-                          alt
-                          className="h-full w-full object-cover text-gray-700"
-                        />
-                      </div>
-                    </a>
-                    <div className="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
-                      <h3 className="text-sm text-gray-600">Invision</h3>
-                      <a
-                        href="#"
-                        className="mb-3 overflow-hidden pr-7 text-lg font-semibold sm:text-xl"
-                      >
-                        {" "}
-                        Sr. Frontend Engineer{" "}
-                      </a>
-                      <p className="overflow-hidden pr-7 text-sm">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing
-                        elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-                        dolore magna .
-                      </p>
-                      <div className="mt-5 flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
-                        <div className>
-                          Experience:
-                          <span className="ml-2 mr-3 rounded-full bg-green-100 px-2 py-0.5 text-green-900">
-                            {" "}
-                            2 Years{" "}
+                  <div className="flex w-full max-w-xs mx-auto md:mx-0 flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+                    <div className="mx-3 mt-3 flex h-60 overflow-hidden rounded-xl">
+                      <img
+                        className="object-cover"
+                        src="/1.jpg"
+                        alt="pkg.name"
+                      />
+                    </div>
+                    <div className="mt-4 px-5 pb-3">
+                      <h5 className="text-lg tracking-tight font-semibold text-slate-900">
+                        pkg.name
+                      </h5>
+                      <div className="space-y-4 mt-2">
+                        <p>
+                          <span className="text-sm inline-flex items-center gap-x-2 font-medium px-2 rounded py-0.5 bg-amber-100 text-slate-900">
+                            {/* {pkg?.origin_city?.split(",")[0]} <BsArrowRight />
+                          {pkg?.destination_city.split(",")[0]} */}
+                            Origin --&gt; Destination
                           </span>
+                        </p>
+                        <div className="mt-5 flex justify-between">
+                          <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
+                            <MdOutlineFlight />
+                            <span className="text-xs font-normal">Flights</span>
+                          </div>
+                          <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
+                            <RiHotelLine />
+                            <span className="text-xs font-normal">Hotels</span>
+                          </div>
+                          <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
+                            <MdHiking />
+                            <span className="text-xs font-normal">
+                              {/* {(pkg.activities.match(/\n/g) || []).length + 1}{" "} */}
+                              {""}
+                              activites
+                            </span>
+                          </div>
+                          <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
+                            <AiOutlineCar />
+                            <span className="text-xs font-normal">
+                              pkg.cars.length
+                            </span>
+                          </div>
                         </div>
-                        <div className>
-                          Salary:
-                          <span className="ml-2 mr-3 rounded-full bg-blue-100 px-2 py-0.5 text-blue-900">
-                            180-250k
-                          </span>
+                      </div>
+                      <div className="flex items-center justify-between rounded-md mt-2 pt-1 text-center text-sm font-medium text-gray-950 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                        <div className="">
+                          <button
+                            type="button"
+                            className="py-2 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold btn-gradient focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 transition-all text-sm"
+                          >
+                            Book Now
+                          </button>
+                        </div>
+                        <div className="font-semibold ml-1 text-xl">
+                          pkg.price
+                          <p className="text-sm font-normal">per person</p>
                         </div>
                       </div>
                     </div>

@@ -3,8 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { logout } from "../redux/slices/AuthSlice";
 import { HiOutlineLogout } from "react-icons/hi";
-import { MdOutlineFlight, MdDirectionsBus } from "react-icons/md";
-import { RiHotelLine } from "react-icons/ri";
+import {
+  MdOutlineFlight,
+  MdDirectionsBus,
+  MdOutlineModeOfTravel,
+} from "react-icons/md";
+import { RiHotelLine, RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineCar } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { TbAirBalloon } from "react-icons/tb";
@@ -13,6 +17,8 @@ import { BiSolidDownArrow } from "react-icons/bi";
 import { setCountry, setCurrency } from "@/redux/slices/countryCurrencySlice";
 
 import { RiStackFill } from "react-icons/ri";
+import { FaRegUser } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
   const user = useSelector((state) => state.authReducer?.value);
@@ -211,34 +217,56 @@ const Navbar = () => {
                     Account
                   </div>
                 </button>
+
+                {/* New Menu */}
                 <div
-                  className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] z-10 bg-gray-950 shadow-md rounded-lg p-2"
                   aria-labelledby="hs-dropdown-with-header"
+                  className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow "
+                  id="dropdown"
                 >
-                  <div className="py-3 px-5 -m-2 bg-gray-900 rounded-t-lg">
-                    <p className="text-sm text-gray-50">Signed in as</p>
-                    <p className="text-sm font-semibold text-gray-50">
+                  <div className="py-3 px-4">
+                    <span className="block text-sm font-semibold text-gray-900">
                       {user?.email}
-                    </p>
+                    </span>
                   </div>
-                  <div className="mt-2 py-2 first:pt-0 last:pb-0 space-y-2">
-                    <Link to="/dashboard">
-                      <button className="flex w-full items-center gap-x-3.5 py-2 px-3 rounded-md  text-gray-50 hover:bg-gray-50 hover:text-gray-900 focus:ring-2 focus:ring-blue-500">
-                        <LuLayoutDashboard fontSize={22} />
-                        Dashboard
-                      </button>
+                  <div
+                    className="py-1 text-gray-800"
+                    aria-labelledby="dropdown"
+                  >
+                    <Link to="/profile">
+                      <p className="flex items-center gap-x-1 py-2 px-4 text-sm hover:bg-gray-100">
+                        <FaRegUser /> My Profile
+                      </p>
                     </Link>
-                    <button
-                      onClick={() => {
-                        dispatch(logout());
-                      }}
-                      className="flex w-full items-center gap-x-3.5 focus:ring-0 focus:outline-none px-3 py-2 rounded-md btn-gradient"
-                    >
-                      <HiOutlineLogout fontSize={24} />
-                      Logout
-                    </button>
+                    <Link to="/my-trips">
+                      <p className="flex items-center gap-x-1 py-2 px-4 text-sm hover:bg-gray-100">
+                        <MdOutlineModeOfTravel /> My Trips
+                      </p>
+                    </Link>
+                    <Link to="/change-password">
+                      <p className="flex items-center gap-x-1 py-2 px-4 text-sm hover:bg-gray-100">
+                        <RiLockPasswordLine /> Change Password
+                      </p>
+                    </Link>
+                  </div>
+                  <div
+                    className="py-1 text-gray-800"
+                    aria-labelledby="dropdown"
+                  >
+                    <div>
+                      <button
+                        onClick={() => {
+                          dispatch(logout());
+                        }}
+                        className="flex w-full items-center gap-x-1 py-2 px-4 text-sm hover:bg-gray-100"
+                      >
+                        <FiLogOut /> Sign out
+                      </button>
+                    </div>
                   </div>
                 </div>
+
+                {/* New Menu End */}
               </div>
             ) : (
               <button
@@ -296,7 +324,7 @@ const Navbar = () => {
           </div>
           <div
             id="navbar-collapse-with-animation"
-            className={`hs-collapse transition-all duration-300 items-center justify-between ${
+            className={`hs-collapse transition-all ease-in-out duration-300 items-center justify-between ${
               isFixed ? "" : "hidden"
             } w-full md:w-auto md:order-1`}
           >

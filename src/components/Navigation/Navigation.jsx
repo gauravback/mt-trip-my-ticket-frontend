@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MdOutlineFlight, MdDirectionsBus } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
@@ -6,10 +6,17 @@ import { AiOutlineCar } from "react-icons/ai";
 import { TbAirBalloon } from "react-icons/tb";
 import { RiStackFill } from "react-icons/ri";
 const Navigation = () => {
+  const flightNavBtnRef = useRef();
   const location = useLocation();
   useEffect(() => {
     // Get the current URL
     const currentURL = location.pathname;
+
+    if (currentURL === "/") {
+      flightNavBtnRef.current.classList.add("nav-active-link");
+    } else {
+      flightNavBtnRef.current.classList.remove("nav-active-link");
+    }
 
     // Get all the anchor elements in the menu
     const menuItems = document.querySelectorAll("#navigation a");
@@ -40,7 +47,11 @@ const Navigation = () => {
               </div>
             </Link>
             <Link to="/flight/">
-              <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
+              <div
+                ref={flightNavBtnRef}
+                id="flight-nav-btn"
+                className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white"
+              >
                 <div className="pt-1.5 text-sm">
                   <MdOutlineFlight className="w-7 h-7 rotate-45" />
                 </div>

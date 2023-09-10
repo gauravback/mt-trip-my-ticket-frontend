@@ -5,9 +5,9 @@ import api from "@/api/api";
 import Filter from "@/components/SearchComponents/FlightFilter/Filter";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Offers from "@/components/Offers/Offers";
-import NewFilter from "@/components/NewFilter/NewFilter";
 import { BsArrowRight } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { FaPlaneDeparture } from "react-icons/fa";
 const Flights = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -23,66 +23,12 @@ const Flights = () => {
   const arrival = searchParams.get("return");
   const travellers = searchParams.get("travellers");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [flights, setFlights] = useState();
-  const fetchFlights = async () => {
-    const response = await api.get(
-      // `/api/flights/?departure_airport_city=${
-      //   origin ? origin.replace(" ", "+") : ""
-      // }&arrival_airport_city=${
-      //   destination ? destination.replace(" ", "+") : ""
-      // }&departure_time=${departure ? departure : ""}&arrival_time=${
-      //   arrival ? arrival : ""
-      // }&available_seats_min=${travellers ? travellers : 1}&available_seats_max=`
-      `/api/flights/`
-    );
-    const result = await response.data;
-    const status = await response.status;
 
-    if (status === 200) {
-      if (result.length > 0) {
-        setFlights(result);
-      } else {
-        setMessage("No flights available");
-      }
-    } else {
-      toast.error("Something went wrong.", { id: "1" });
-    }
-  };
-  useEffect(() => {
-    // if (searchParams.size > 0) {
-    //   if (origin || destination || departure || arrival || travellers) {
-    //     fetchFlights();
-    //   } else {
-    //     setMessage("No flights available");
-    //   }
-    // }
-    fetchFlights();
-  }, [location.search]);
-
-  const [tickets, setTickets] = useState([]);
-
-  const increaseTicket = (flightId) => {
-    setTickets((prevTickets) => ({
-      ...prevTickets,
-      [flightId]: (prevTickets[flightId] || 1) + 1,
-    }));
-  };
-
-  const decreaseTicket = (flightId) => {
-    setTickets((prevTickets) => {
-      const updatedTickets = { ...prevTickets };
-      if (updatedTickets[flightId] > 0) {
-        updatedTickets[flightId]--;
-      }
-      return updatedTickets;
-    });
-  };
   return (
     <div>
       <main className="">
         <div className="bg-[#07162d]">
-          {/* <Filter /> */}
-          <NewFilter />
+          <Filter />
         </div>
         {/* Products */}
         <div className="mx-auto max-w-2xl pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -404,71 +350,51 @@ const Flights = () => {
               <div className="border-l border-gray-200 lg:h-full">
                 <div className="grid grid-cols-1 w-full px-4">
                   {/* Card */}
-                  {flights?.map((flight) => (
-                    <div
-                      key={flight.id}
-                      className="mx-2 mt-4 grid grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 transition sm:mx-auto"
-                    >
-                      <div className="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4">
-                        <div className="h-16 w-16 overflow-hidden rounded-lg">
-                          <img
-                            src="/plane.png"
-                            alt={flight.name}
-                            className="h-full w-full object-cover text-gray-700"
-                          />
-                        </div>
+                  <div className="bg-white border rounded-lg overflow-hidden">
+                    <div className="px-4 pb-3 pt-4 border-b border-gray-300 bg-gray-100 flex justify-between">
+                      <div className="text-lg uppercase font-bold text-gray-900 tracking-wide flex items-center gap-x-2">
+                        <FaPlaneDeparture fontSize={28} />
+                        Flight Name
                       </div>
-                      <div className="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
-                        <h3 className=" text-gray-600">
-                          {flight.airline.name}
-                        </h3>
-                        <div className="mb-3 overflow-hidden pr-7 text-lg font-semibold">
-                          {flight.name}
-                        </div>
-
-                        <div className="flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-4 sm:justify-between">
-                          <div className="">
-                            <span className="font-bold sm:text-lg rounded-full bg-green-100 px-2 py-0.5 text-green-900">
-                              {format(
-                                new Date(flight.departure_time),
-                                "dd MMM"
-                              )}
-                            </span>
-                            <span className="ml-2 mr-3">
-                              {flight.departure_airport.city}
-                            </span>
-                          </div>
-                          {/* <div className="text-center inline-flex items-center justify-center"> */}
-                          {/* <BsArrowRight className="mx-auto text-center" /> */}
-                          {/* </div> */}
-                          <div className="">
-                            <span className="font-bold sm:text-lg rounded-full bg-green-100 px-2 py-0.5 text-green-900">
-                              {format(new Date(flight.arrival_time), "dd MMM")}
-                            </span>
-                            <span className="ml-2 mr-3">
-                              {flight.arrival_airport.city}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="flex justify-between mt-5 items-center">
-                          <p className="text-lg font-semibold">
-                            <span
-                              dangerouslySetInnerHTML={{
-                                __html: currencySymbol || "",
-                              }}
-                            />
-                            {flight.price * priceRate}
-                          </p>
-                          <button
-                            className="btn-gradient px-4 py-1 rounded-full "
-                            type="button"
-                          >
-                            Book Now
-                          </button>
-                        </div>
+                      <p className="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg">
+                        DFW <span className="tracking-normal">--&gt;</span> SEA
+                      </p>
+                    </div>
+                    <div className="p-4 text-gray-700 flex justify-between items-start">
+                      <div>
+                        <p className="text-2xl text-gray-900 leading-none my-1">
+                          AA 792
+                        </p>
+                        <p className="text-xs w-56">American Airlines</p>
+                        <p className="text-sm w-56">7:11 am --&gt; 10:10 am</p>
+                      </div>
+                      <button className="leading-loose btn-gradient p-1 px-2 rounded-lg uppercase text-xs tracking-wider">
+                        Book Now
+                      </button>
+                    </div>
+                    <div className="flex justify-between items-center p-4 border-t border-gray-300 text-gray-600">
+                      <div className="flex items-center">
+                        <p>
+                          <span className="text-sm pr-1">Terminal</span>{" "}
+                          <span className="text-gray-900 font-bold">C</span>
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p>
+                          <span className="text-sm pr-1">Gate</span>{" "}
+                          <span className="text-gray-900 font-bold">C24</span>
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p>
+                          <span className="text-sm pr-1">Seats</span>{" "}
+                          <span className="text-gray-900 font-bold">
+                            12D, 12E
+                          </span>
+                        </p>
                       </div>
                     </div>
-                  ))}
+                  </div>
 
                   {/* Card End */}
                 </div>

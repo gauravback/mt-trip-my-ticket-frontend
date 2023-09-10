@@ -16,7 +16,6 @@ import { Car, Flight, Hotel, Login, Register } from "./pages";
 import api from "./api/api";
 import Package from "./pages/Package/Package";
 import Bus from "./pages/Bus/Bus";
-import Dashboard from "./pages/Dashboard/Dashboard";
 import BookingDetails from "./pages/Booking/BookingDetails";
 import HotelDetails from "./pages/Hotel/HotelDetails";
 import getIpAndCountry from "./utils/getIpAndCountry";
@@ -32,6 +31,10 @@ import ProtectedRoute from "./components/Routes/ProtectedRoute";
 import { AnimatePresence } from "framer-motion";
 import AnimatedPage from "./components/AnimatedPage/AnimatedPage";
 import Loader from "./components/Loader/Loader";
+import Error404 from "./pages/Misc/Error404";
+import Profile from "./pages/User/Profile";
+import MyTrips from "./pages/User/MyTrips";
+import ChangePassword from "./pages/User/ChangePassword";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -96,9 +99,9 @@ const App = () => {
             <Navbar />
           </div>
           <Login />
-          <div className="min-h-screen mx-auto bg-gray-50">
-            <Toaster />
-            <AnimatePresence mode="wait">
+          <Toaster />
+          <AnimatePresence mode="wait">
+            <div className="min-h-screen h-full mx-auto bg-gray-50">
               <Routes key={pathname} location={location}>
                 <Route
                   path="/"
@@ -217,18 +220,34 @@ const App = () => {
                   element={<ProtectedRoute token={token} pathname={pathname} />}
                 >
                   <Route
-                    path="/dashboard"
+                    path="/profile"
                     element={
                       <AnimatedPage>
-                        <Dashboard />
+                        <Profile />
+                      </AnimatedPage>
+                    }
+                  />
+                  <Route
+                    path="/my-trips"
+                    element={
+                      <AnimatedPage>
+                        <MyTrips />
+                      </AnimatedPage>
+                    }
+                  />
+                  <Route
+                    path="/change-password"
+                    element={
+                      <AnimatedPage>
+                        <ChangePassword />
                       </AnimatedPage>
                     }
                   />
                 </Route>
-                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="*" element={<Error404 />} />
               </Routes>
-            </AnimatePresence>
-          </div>
+            </div>
+          </AnimatePresence>
           <Footer />
         </Suspense>
       </>

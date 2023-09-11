@@ -390,7 +390,7 @@ export default function Car() {
                       </div>
                       <div className="px-3 text-gray-700 md:flex justify-between">
                         <div>
-                          <p className="text-2xl text-gray-900 font-semibold">
+                          <p className="text-xl text-gray-900 font-semibold">
                             {car.make + " " + car.model}{" "}
                             <span className="text-sm">
                               ({car.car_type.type})

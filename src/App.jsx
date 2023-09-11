@@ -23,7 +23,7 @@ import Contact from "./pages/Contact/Contact";
 import axios from "axios";
 import { add } from "./redux/slices/currencyRateSlice";
 import Forex from "./pages/Forex/Forex";
-import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
+
 import RefundPolicy from "./pages/RefundPolicy/RefundPolicy";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import About from "./pages/About/About";
@@ -35,6 +35,7 @@ import Error404 from "./pages/Misc/Error404";
 import Profile from "./pages/User/Profile";
 import MyTrips from "./pages/User/MyTrips";
 import ChangePassword from "./pages/User/ChangePassword";
+import Privacy from "./pages/Privacy/Privacy";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -184,11 +185,12 @@ const App = () => {
                     </AnimatedPage>
                   }
                 />
+                
                 <Route
                   path="/privacy-policy"
                   element={
                     <AnimatedPage>
-                      <PrivacyPolicy />
+                      <Privacy />
                     </AnimatedPage>
                   }
                 />

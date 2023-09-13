@@ -1,26 +1,74 @@
+import api from "@/api/api";
 import Navigation from "@/components/Navigation/Navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { MdStarRate } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const PackageFilter = () => {
+  const [rooms, setRooms] = useState(1);
+  const [withFlights, setWithFlights] = useState(false);
+  const [rating, setRating] = useState(1);
+
+  const [cities, setCities] = useState();
+  const fetchCities = async (e) => {
+    const response = await api.get("/api/packages/");
+    const data = await response.data;
+    const status = await response.status;
+    if (status === 200) {
+      setCities(data);
+    } else {
+      toast.error("Something went wrong.", { id: "1" });
+    }
+  };
+  useEffect(() => {
+    fetchCities();
+  }, []);
+  const navigate = useNavigate();
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const { from, to, departure } = e.target;
+
+    navigate(
+      `/package/?origin=${from.value}&destination=${to.value}&departure=${
+        departure.value
+      }&rooms=${rooms}&rating=${
+        rating ? rating : ""
+      }&withFlights=${withFlights}`
+    );
+  };
   return (
     <div>
       <div className="mx-auto max-w-screen-lg sm:py-12 relative">
         <Navigation />
-        <div className="sm:rounded-xl border border-gray-200 bg-white p-2 shadow-lg">
-          <div className="mt-8 grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 px-3">
+        <form
+          onSubmit={handleSearch}
+          method="POST"
+          className="sm:rounded-xl border border-gray-200 bg-white p-2 shadow-lg"
+        >
+          <div className="mt-8 grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-4 px-3">
             <div className="flex flex-col">
               <label
-                htmlFor="name"
+                htmlFor="from"
                 className="text-stone-600 text-xs font-medium"
               >
                 From
               </label>
-              <input
+              <select
                 type="text"
-                id="name"
-                placeholder="Ahemdabad"
-                className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
-              />
+                id="from"
+                name="from"
+                className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold text-xl font-bold bg-white"
+              >
+                <option value="" selected hidden>
+                  From
+                </option>
+                {cities?.map(({ id, origin_city }) => (
+                  <option key={id} value={origin_city}>
+                    {origin_city}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="flex flex-col">
               <label
@@ -29,12 +77,21 @@ const PackageFilter = () => {
               >
                 To
               </label>
-              <input
+              <select
                 type="text"
-                id="name"
-                placeholder="Delhi"
-                className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
-              />
+                id="to"
+                name="to"
+                className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold text-xl font-bold bg-white"
+              >
+                <option value="" selected hidden>
+                  To
+                </option>
+                {cities?.map(({ id, destination_city }) => (
+                  <option key={id} value={destination_city}>
+                    {destination_city}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="flex flex-col">
               <label
@@ -45,39 +102,27 @@ const PackageFilter = () => {
               </label>
               <input
                 type="date"
-                id="name"
+                id="departure"
+                name="departure"
                 placeholder="Ahemdabad"
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
               />
             </div>
+
             <div className="flex flex-col">
               <label
                 htmlFor="name"
                 className="text-stone-600 text-xs font-medium"
               >
-                Return
-              </label>
-              <input
-                type="date"
-                id="name"
-                placeholder="Ahemdabad"
-                className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gra-900 placeholder:font-bold"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label
-                htmlFor="name"
-                className="text-stone-600 text-xs font-medium"
-              >
-                Travellers
+                Rooms & Ratings
               </label>
               <div className="hs-dropdown  [--auto-close:inside] relative inline-flex">
                 <button
                   id="hs-dropdown-default"
                   type="button"
-                  className="hs-dropdown-toggle mt-2 py-[1.1rem] px-4 w-full inline-flex justify-center items-center gap-2 rounded-md border font-bold bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-0 transition-all text-xl"
+                  className="hs-dropdown-toggle mt-2 py-[1.15rem] px-4 w-full inline-flex justify-center items-center gap-2 rounded-md border font-bold bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-0 transition-all text-lg"
                 >
-                  Travellers
+                  Rooms & Ratings
                   <svg
                     className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600"
                     width={16}
@@ -100,10 +145,15 @@ const PackageFilter = () => {
                   aria-labelledby="hs-dropdown-default"
                 >
                   <div className="flex items-center justify-between  py-2 px-3 rounded-md text-sm text-gray-800 focus:ring-0">
-                    Adults
+                    Rooms
                     <div className="inline-flex rounded-md ">
                       <button
                         type="button"
+                        onClick={() => {
+                          if (rooms > 1) {
+                            setRooms(rooms - 1);
+                          }
+                        }}
                         className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
                         -
@@ -112,10 +162,15 @@ const PackageFilter = () => {
                         type="button"
                         className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
-                        1
+                        {rooms}
                       </button>
                       <button
                         type="button"
+                        onClick={() => {
+                          if (rooms < 10) {
+                            setRooms(rooms + 1);
+                          }
+                        }}
                         className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
                         +
@@ -123,10 +178,15 @@ const PackageFilter = () => {
                     </div>
                   </div>
                   <div className="flex items-center justify-between  py-2 px-3 rounded-md text-sm text-gray-800 focus:ring-0">
-                    Adults
+                    Stars
                     <div className="inline-flex rounded-md ">
                       <button
                         type="button"
+                        onClick={() => {
+                          if (rating > 1) {
+                            setRating(rating - 1);
+                          }
+                        }}
                         className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
                         -
@@ -135,15 +195,49 @@ const PackageFilter = () => {
                         type="button"
                         className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
-                        1
+                        {rating}
                       </button>
                       <button
                         type="button"
+                        onClick={() => {
+                          if (rating < 5) {
+                            setRating(rating + 1);
+                          }
+                        }}
                         className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
                         +
                       </button>
                     </div>
+                  </div>
+                  <div className="flex items-center justify-between  py-2 px-3 rounded-md text-sm text-gray-800 focus:ring-0">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setWithFlights(true);
+                      }}
+                      className={`py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-lg first:ml-0 last:rounded-lg border font-medium ${
+                        withFlights
+                          ? "bg-red-100 text-red-700"
+                          : "bg-white text-gray-700"
+                      }  align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-xs`}
+                    >
+                      With Flights
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setWithFlights(false);
+                      }}
+                      className={`py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-lg first:ml-0 last:rounded-lg border font-medium ${
+                        withFlights
+                          ? "bg-white text-gray-700"
+                          : "bg-red-100 text-red-700"
+                      }  align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-xs`}
+                    >
+                      Without Flights
+                    </button>
                   </div>
                 </div>
               </div>
@@ -157,7 +251,7 @@ const PackageFilter = () => {
               Search
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

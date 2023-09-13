@@ -1,52 +1,91 @@
+import api from "@/api/api";
 import Navigation from "@/components/Navigation/Navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Filter = () => {
+  const [rooms, setRooms] = useState(1);
+  const navigate = useNavigate();
+  const currencySymbol = useSelector(
+    (state) => state.countryCurrencyReducer?.symbol
+  );
+  const priceRate = useSelector((state) => state.currencyRateReducer?.rate);
+
+  const [cities, setCities] = useState();
+
+  const fetchHotelCities = async () => {
+    const response = await api.get(`/api/hotels/`);
+    const result = await response.data;
+    const status = await response.status;
+
+    if (status === 200) {
+      setCities(result);
+    } else {
+      toast.error("Something went wrong.", { id: "1" });
+    }
+  };
+
+  useEffect(() => {
+    fetchHotelCities();
+  }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const { city, checkin, checkout, price } = e.target;
+    navigate(
+      `/hotel/?city=${city.value}&checkin=${checkin.value}&checkout=${checkout.value}&room=${rooms}&price=${price.value}`
+    );
+  };
+
   return (
     <div>
       <div className="mx-auto max-w-screen-lg sm:py-12 relative">
         <Navigation />
-        <div className="sm:rounded-xl border border-gray-200 bg-white p-2 shadow-lg">
-          <div className="mt-8 grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 px-3">
+        <form
+          onSubmit={handleSearch}
+          method="POST"
+          className="sm:rounded-xl border border-gray-200 bg-white p-2 shadow-lg"
+        >
+          <div className="mt-8 grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-4 px-3">
             <div className="flex flex-col">
               <label
-                htmlFor="name"
+                htmlFor="city"
                 className="text-stone-600 text-xs font-medium"
               >
-                From
+                City
               </label>
-              <input
+              <select
                 type="text"
-                id="name"
+                id="city"
+                name="city"
+                required
                 placeholder="Ahemdabad"
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
-              />
+              >
+                <option value="" selected hidden>
+                  City
+                </option>
+                {cities?.map(({ id, city }) => (
+                  <option key={id} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
             </div>
+
             <div className="flex flex-col">
               <label
                 htmlFor="name"
                 className="text-stone-600 text-xs font-medium"
               >
-                To
-              </label>
-              <input
-                type="text"
-                id="name"
-                placeholder="Delhi"
-                className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label
-                htmlFor="name"
-                className="text-stone-600 text-xs font-medium"
-              >
-                Departure
+                Check In
               </label>
               <input
                 type="date"
-                id="name"
-                placeholder="Ahemdabad"
+                id="checkin"
+                required
+                name="checkin"
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
               />
             </div>
@@ -55,12 +94,13 @@ const Filter = () => {
                 htmlFor="name"
                 className="text-stone-600 text-xs font-medium"
               >
-                Return
+                Check Out
               </label>
               <input
                 type="date"
-                id="name"
-                placeholder="Ahemdabad"
+                id="checkout"
+                required
+                name="checkout"
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gra-900 placeholder:font-bold"
               />
             </div>
@@ -69,7 +109,7 @@ const Filter = () => {
                 htmlFor="name"
                 className="text-stone-600 text-xs font-medium"
               >
-                Travellers
+                Rooms & Price
               </label>
               <div className="hs-dropdown  [--auto-close:inside] relative inline-flex">
                 <button
@@ -77,7 +117,7 @@ const Filter = () => {
                   type="button"
                   className="hs-dropdown-toggle mt-2 py-[1.1rem] px-4 w-full inline-flex justify-center items-center gap-2 rounded-md border font-bold bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-0 transition-all text-xl"
                 >
-                  Travellers
+                  Rooms & Price
                   <svg
                     className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600"
                     width={16}
@@ -100,9 +140,14 @@ const Filter = () => {
                   aria-labelledby="hs-dropdown-default"
                 >
                   <div className="flex items-center justify-between  py-2 px-3 rounded-md text-sm text-gray-800 focus:ring-0">
-                    Adults
+                    Rooms
                     <div className="inline-flex rounded-md ">
                       <button
+                        onClick={() => {
+                          if (rooms > 1) {
+                            setRooms(rooms - 1);
+                          }
+                        }}
                         type="button"
                         className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
@@ -112,9 +157,14 @@ const Filter = () => {
                         type="button"
                         className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
-                        1
+                        {rooms}
                       </button>
                       <button
+                        onClick={() => {
+                          if (rooms < 10) {
+                            setRooms(rooms + 1);
+                          }
+                        }}
                         type="button"
                         className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
@@ -123,26 +173,45 @@ const Filter = () => {
                     </div>
                   </div>
                   <div className="flex items-center justify-between  py-2 px-3 rounded-md text-sm text-gray-800 focus:ring-0">
-                    Adults
+                    Price
                     <div className="inline-flex rounded-md ">
-                      <button
-                        type="button"
-                        className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
+                      <select
+                        type="text"
+                        name="price"
+                        required
+                        id="price"
+                        className="py-2 px-4 inline-flex justify-center w-32 items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
-                        -
-                      </button>
-                      <button
-                        type="button"
-                        className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
-                      >
-                        1
-                      </button>
-                      <button
-                        type="button"
-                        className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
-                      >
-                        +
-                      </button>
+                        <option value="0-1499">
+                          <span
+                            dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                          ></span>
+                          0 - {parseFloat(1500 * priceRate).toFixed(0)}
+                        </option>
+                        <option value="1500-1999">
+                          {" "}
+                          <span
+                            dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                          ></span>
+                          {parseFloat(1500 * priceRate).toFixed(0)}-
+                          {parseFloat(2500 * priceRate).toFixed(0)}
+                        </option>
+                        <option value="2500-4999">
+                          {" "}
+                          <span
+                            dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                          ></span>
+                          {parseFloat(2500 * priceRate).toFixed(0)}-
+                          {parseFloat(5000 * priceRate).toFixed(0)}
+                        </option>
+                        <option value="5000-">
+                          {" "}
+                          <span
+                            dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                          ></span>
+                          {parseFloat(5000 * priceRate).toFixed(0)}+
+                        </option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -157,7 +226,7 @@ const Filter = () => {
               Search
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

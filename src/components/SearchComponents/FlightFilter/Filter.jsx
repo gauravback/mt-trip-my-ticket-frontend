@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { TbArrowsExchange } from "react-icons/tb";
 import Navigation from "../../Navigation/Navigation";
 import api from "@/api/api";
 import { useNavigate } from "react-router-dom";
-import DateInput from "../DatePicker/DateInput";
 
 const Filter = () => {
   const [travellers, setTravellers] = useState({
@@ -27,17 +25,17 @@ const Filter = () => {
     fetchAirports();
   }, []);
 
-  const [departureDate, setDepartureDate] = useState();
-  const [returnDate, setReturnDate] = useState();
-
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { from, to, travellers } = e.target;
+
+    const { from, to, departure, arrival } = e.target;
     navigate(
       `/flight/?origin=${from.value}&destination=${to.value}&departure=${
-        departureDate ? departureDate : ""
-      }&return=${returnDate ? returnDate : ""}&travellers=${travellers.value}`
+        departure.value ? departure.value : ""
+      }&returnDate=${arrival.value ? arrival.value : ""}&adults=${
+        travellers.adults
+      }&children=${travellers.children}`
     );
   };
 
@@ -78,60 +76,97 @@ const Filter = () => {
     <div>
       <div className="mx-auto max-w-screen-lg sm:py-12 relative">
         <Navigation />
-        <div className="sm:rounded-xl border border-gray-200 bg-white p-2 shadow-lg">
+        <form
+          onSubmit={handleSubmit}
+          method="POST"
+          className="sm:rounded-xl border border-gray-200 bg-white p-2 shadow-lg"
+        >
           <div className="mt-8 grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 px-3">
             <div className="flex flex-col">
               <label
-                htmlFor="name"
+                htmlFor="from"
                 className="text-stone-600 text-xs font-medium"
               >
                 From
               </label>
-              <input
+              <select
                 type="text"
-                id="name"
-                placeholder="Ahemdabad"
-                className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
-              />
+                id="from"
+                name="from"
+                required
+                placeholder="From"
+                className="mt-2 block w-full rounded-md border bg-white border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring-0 placeholder:text-xl font-bold text-xl placeholder:text-gray-900 placeholder:font-bold"
+              >
+                <option value="" selected hidden>
+                  Origin
+                </option>
+                {airports ? (
+                  airports.map(({ id, city }) => (
+                    <option key={id} value={city.toLowerCase()} className="">
+                      {city}
+                    </option>
+                  ))
+                ) : (
+                  <option className="">Loading...</option>
+                )}
+              </select>
             </div>
             <div className="flex flex-col">
               <label
-                htmlFor="name"
+                htmlFor="to"
                 className="text-stone-600 text-xs font-medium"
               >
                 To
               </label>
-              <input
+              <select
                 type="text"
-                id="name"
-                placeholder="Delhi"
-                className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
-              />
+                id="to"
+                name="to"
+                placeholder="To"
+                required
+                className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold text-xl font-bold bg-white"
+              >
+                <option value="" selected hidden>
+                  Destination
+                </option>
+                {airports ? (
+                  airports.map(({ id, city }) => (
+                    <option key={id} value={city.toLowerCase()} className="">
+                      {city}
+                    </option>
+                  ))
+                ) : (
+                  <option className="">Loading...</option>
+                )}
+              </select>
             </div>
             <div className="flex flex-col">
               <label
-                htmlFor="name"
+                htmlFor="departure"
                 className="text-stone-600 text-xs font-medium"
               >
                 Departure
               </label>
               <input
                 type="date"
-                id="name"
+                id="departure"
+                name="departure"
                 placeholder="Ahemdabad"
+                required
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
               />
             </div>
             <div className="flex flex-col">
               <label
-                htmlFor="name"
+                htmlFor="arrival"
                 className="text-stone-600 text-xs font-medium"
               >
                 Return
               </label>
               <input
                 type="date"
-                id="name"
+                id="arrival"
+                name="arrival"
                 placeholder="Ahemdabad"
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gra-900 placeholder:font-bold"
               />
@@ -233,7 +268,7 @@ const Filter = () => {
               Search
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

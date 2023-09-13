@@ -1,9 +1,11 @@
 import api from "@/api/api";
 import BusFilter from "@/components/SearchComponents/BusFilter/BusFilter";
+import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaBus } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const Bus = () => {
   const [buses, setBuses] = useState();
@@ -11,9 +13,16 @@ const Bus = () => {
     (state) => state.countryCurrencyReducer?.symbol
   );
   const priceRate = useSelector((state) => state.currencyRateReducer?.rate);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const origin = searchParams.get("origin");
+  const destination = searchParams.get("destination");
+  const date = searchParams.get("date");
   const fetchBuses = async () => {
     try {
-      const res = await api.get("/api/buses/");
+      const res = await api.get(
+        `/api/buses/?departure_station=${origin}&arrival_station=${destination}&arrival_date_before=${date}`
+      );
       const data = await res.data;
       const status = await res.status;
       if (status === 200) {
@@ -27,14 +36,13 @@ const Bus = () => {
   };
   useEffect(() => {
     fetchBuses();
-  }, []);
-  console.log(buses);
+  }, [location.search]);
   return (
     <div>
       <div className="bg-prime">
         <BusFilter />
       </div>
-      <div className="flex w-full flex-wrap">
+      <div className="flex w-full flex-wrap max-w-[85rem] mx-auto">
         <div className="w-full md:w-1/3">
           <div className="2xl:container 2xl:mx-auto">
             <div
@@ -103,49 +111,57 @@ const Bus = () => {
         <div className="md:w-2/3 p-3 w-full">
           <div className="grid grid-cols-1 lg:gap-y-4 gap-6">
             {/* Card */}
-            <div className="bg-white border rounded-lg overflow-hidden">
-              <div className="px-4 pb-3 pt-4 border-b border-gray-300 bg-gray-100 flex justify-between">
-                <div className="text-lg uppercase font-bold text-gray-900 tracking-wide flex items-center gap-x-2">
-                  <FaBus fontSize={28} />
-                  Bus Number
+            {buses?.map((bus) => (
+              <div className="bg-white border rounded-lg overflow-hidden">
+                <div className="px-4 pb-3 pt-4 border-b border-gray-300 bg-gray-100 flex justify-between">
+                  <div className="text-lg uppercase font-bold text-gray-900 tracking-wide flex items-center gap-x-2">
+                    <FaBus fontSize={28} />
+                    {bus.bus_number}
+                  </div>
+                  <p className="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg">
+                    {bus.departure_station}{" "}
+                    <span className="tracking-normal">--&gt;</span>{" "}
+                    {bus.arrival_station}
+                  </p>
                 </div>
-                <p className="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg">
-                  DFW <span className="tracking-normal">--&gt;</span> SEA
-                </p>
+                <div className="p-4 text-gray-700 flex justify-between items-start">
+                  <div>
+                    <p className="text-2xl text-gray-900 capitalize leading-none my-1">
+                      {bus.operator}
+                    </p>
+                    <p className="text-sm w-56">
+                      {format(new Date(bus.departure_date), "dd MMM")} --&gt;
+                      {format(new Date(bus.arrival_date), "dd MMM")}
+                    </p>
+                  </div>
+                  <button className="leading-loose btn-gradient p-1 px-2 rounded-lg uppercase text-xs tracking-wider">
+                    Book Now
+                  </button>
+                </div>
+                <div className="flex justify-between items-center p-4 border-t border-gray-300 text-gray-600">
+                  <div className="flex items-center">
+                    <p>
+                      <span className="pr-1">Wifi:</span>{" "}
+                      <span className="text-gray-900 font-bold">
+                        {bus.wifi_available ? "Available" : "Not Available"}
+                      </span>
+                    </p>
+                  </div>
+
+                  <div className="flex items-center">
+                    <div className="inline-flex text-lg items-center">
+                      <span className="pr-1">Price:</span>{" "}
+                      <p className="text-gray-900 font-bold">
+                        <span
+                          dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                        ></span>
+                        {parseFloat(bus.price * priceRate).toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="p-4 text-gray-700 flex justify-between items-start">
-                <div>
-                  <p className="text-2xl text-gray-900 leading-none my-1">
-                    AA 792
-                  </p>
-                  <p className="text-xs w-56">American Airlines</p>
-                  <p className="text-sm w-56">7:11 am --&gt; 10:10 am</p>
-                </div>
-                <button className="leading-loose btn-gradient p-1 px-2 rounded-lg uppercase text-xs tracking-wider">
-                  Book Now
-                </button>
-              </div>
-              <div className="flex justify-between items-center p-4 border-t border-gray-300 text-gray-600">
-                <div className="flex items-center">
-                  <p>
-                    <span className="text-sm pr-1">Terminal</span>{" "}
-                    <span className="text-gray-900 font-bold">C</span>
-                  </p>
-                </div>
-                <div className="flex items-center">
-                  <p>
-                    <span className="text-sm pr-1">Gate</span>{" "}
-                    <span className="text-gray-900 font-bold">C24</span>
-                  </p>
-                </div>
-                <div className="flex items-center">
-                  <p>
-                    <span className="text-sm pr-1">Seats</span>{" "}
-                    <span className="text-gray-900 font-bold">12D, 12E</span>
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
 
             {/* End Card */}
           </div>

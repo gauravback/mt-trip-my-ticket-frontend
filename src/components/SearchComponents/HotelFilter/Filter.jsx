@@ -1,33 +1,77 @@
+import api from "@/api/api";
 import Navigation from "@/components/Navigation/Navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Filter = () => {
   const [rooms, setRooms] = useState(1);
+  const navigate = useNavigate();
   const currencySymbol = useSelector(
     (state) => state.countryCurrencyReducer?.symbol
   );
   const priceRate = useSelector((state) => state.currencyRateReducer?.rate);
 
+  const [cities, setCities] = useState();
+
+  const fetchHotelCities = async () => {
+    const response = await api.get(`/api/hotels/`);
+    const result = await response.data;
+    const status = await response.status;
+
+    if (status === 200) {
+      setCities(result);
+    } else {
+      toast.error("Something went wrong.", { id: "1" });
+    }
+  };
+
+  useEffect(() => {
+    fetchHotelCities();
+  }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const { city, checkin, checkout, price } = e.target;
+    navigate(
+      `/hotel/?city=${city.value}&checkin=${checkin.value}&checkout=${checkout.value}&room=${rooms}&price=${price.value}`
+    );
+  };
+
   return (
     <div>
       <div className="mx-auto max-w-screen-lg sm:py-12 relative">
         <Navigation />
-        <div className="sm:rounded-xl border border-gray-200 bg-white p-2 shadow-lg">
+        <form
+          onSubmit={handleSearch}
+          method="POST"
+          className="sm:rounded-xl border border-gray-200 bg-white p-2 shadow-lg"
+        >
           <div className="mt-8 grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-4 px-3">
             <div className="flex flex-col">
               <label
-                htmlFor="name"
+                htmlFor="city"
                 className="text-stone-600 text-xs font-medium"
               >
                 City
               </label>
-              <input
+              <select
                 type="text"
-                id="name"
+                id="city"
+                name="city"
+                required
                 placeholder="Ahemdabad"
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
-              />
+              >
+                <option value="" selected hidden>
+                  City
+                </option>
+                {cities?.map(({ id, city }) => (
+                  <option key={id} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="flex flex-col">
@@ -39,8 +83,9 @@ const Filter = () => {
               </label>
               <input
                 type="date"
-                id="name"
-                placeholder="Ahemdabad"
+                id="checkin"
+                required
+                name="checkin"
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold"
               />
             </div>
@@ -53,8 +98,9 @@ const Filter = () => {
               </label>
               <input
                 type="date"
-                id="name"
-                placeholder="Ahemdabad"
+                id="checkout"
+                required
+                name="checkout"
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gra-900 placeholder:font-bold"
               />
             </div>
@@ -131,34 +177,39 @@ const Filter = () => {
                     <div className="inline-flex rounded-md ">
                       <select
                         type="text"
-                        className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
+                        name="price"
+                        required
+                        id="price"
+                        className="py-2 px-4 inline-flex justify-center w-32 items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
                       >
                         <option value="0-1499">
                           <span
                             dangerouslySetInnerHTML={{ __html: currencySymbol }}
                           ></span>
-                          - {1500 * priceRate}
+                          0 - {parseFloat(1500 * priceRate).toFixed(0)}
                         </option>
                         <option value="1500-1999">
                           {" "}
                           <span
                             dangerouslySetInnerHTML={{ __html: currencySymbol }}
                           ></span>
-                          1500-2500
+                          {parseFloat(1500 * priceRate).toFixed(0)}-
+                          {parseFloat(2500 * priceRate).toFixed(0)}
                         </option>
                         <option value="2500-4999">
                           {" "}
                           <span
                             dangerouslySetInnerHTML={{ __html: currencySymbol }}
                           ></span>
-                          {2500 * parseInt(priceRate)}-5000
+                          {parseFloat(2500 * priceRate).toFixed(0)}-
+                          {parseFloat(5000 * priceRate).toFixed(0)}
                         </option>
                         <option value="5000-">
                           {" "}
                           <span
                             dangerouslySetInnerHTML={{ __html: currencySymbol }}
                           ></span>
-                          5000+
+                          {parseFloat(5000 * priceRate).toFixed(0)}+
                         </option>
                       </select>
                     </div>
@@ -175,7 +226,7 @@ const Filter = () => {
               Search
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

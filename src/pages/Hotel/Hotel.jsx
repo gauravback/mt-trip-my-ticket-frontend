@@ -3,7 +3,7 @@ import Filter from "@/components/SearchComponents/HotelFilter/Filter";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Hotel = () => {
   const [hotels, setHotels] = useState();
@@ -11,9 +11,23 @@ const Hotel = () => {
     (state) => state.countryCurrencyReducer?.symbol
   );
   const priceRate = useSelector((state) => state.currencyRateReducer?.rate);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const city = searchParams.get("city");
+  const checkin = searchParams.get("checkin");
+  const checkout = searchParams.get("checkout");
+  const room = searchParams.get("room");
+  const price = searchParams.get("price");
+
   const fetchHotels = async () => {
     try {
-      const res = await api.get("/api/hotels/");
+      const res = await api.get(
+        `/api/hotels/?city=${city}&pin=&star_category=&amenities=&tax_type=&tax_percent_min=&tax_percent_max=&total_rooms_min=&total_rooms_max=&available_rooms_min=${room}&available_rooms_max=&price_min=${
+          price?.split("-")[0]
+        }&price_max=${
+          price?.split("-")[1]
+        }&available_from_after=${checkin}&available_from_before=&available_to_after=&available_to_before=${checkout}`
+      );
       const data = await res.data;
       const status = await res.status;
       if (status === 200) {
@@ -28,7 +42,6 @@ const Hotel = () => {
   useEffect(() => {
     fetchHotels();
   }, []);
-  console.log(hotels);
 
   const sliceUntilSecondPeriod = (input) => {
     const firstPeriodIndex = input.indexOf(".");
@@ -45,7 +58,7 @@ const Hotel = () => {
       <div className="bg-prime">
         <Filter />
       </div>
-      <div className="flex w-full flex-wrap">
+      <div className="flex w-full flex-wrap max-w-[85rem] mx-auto">
         <div className="w-full md:w-1/3">
           <div className="2xl:container 2xl:mx-auto">
             <div
@@ -159,13 +172,19 @@ const Hotel = () => {
                   </p>
                   <div className="flex items-center justify-between">
                     <p className="text-lg font-black text-gray-800">
-                      <span
-                        dangerouslySetInnerHTML={{ __html: currencySymbol }}
-                      ></span>
-                      {hotel.price}
-                      <span className="font-normal text-gray-600 text-sm">
-                        /night
-                      </span>
+                      {priceRate === "Loading" ? (
+                        "Loading..."
+                      ) : (
+                        <>
+                          <span
+                            dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                          ></span>
+                          {parseFloat(hotel.price * priceRate).toFixed(2)}
+                          <span className="font-normal text-gray-600 text-sm">
+                            /night
+                          </span>
+                        </>
+                      )}
                     </p>
                     <Link to={`/hotel/${hotel.id}`}>
                       <button

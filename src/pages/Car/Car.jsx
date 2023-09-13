@@ -54,7 +54,7 @@ const Car = () => {
       <div className="bg-prime">
         <CarFilter />
       </div>
-      <div className="flex w-full flex-wrap">
+      <div className="flex w-full flex-wrap max-w-[85rem] mx-auto">
         <div className="w-full md:w-1/3">
           <div className="2xl:container 2xl:mx-auto">
             <div

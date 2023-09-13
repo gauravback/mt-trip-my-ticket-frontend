@@ -36,6 +36,7 @@ import Profile from "./pages/User/Profile";
 import MyTrips from "./pages/User/MyTrips";
 import ChangePassword from "./pages/User/ChangePassword";
 import Privacy from "./pages/Privacy/Privacy";
+import DubaiActivities from "./pages/DubaiActivities/DubaiActivities";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -76,6 +77,7 @@ const App = () => {
 
   const currencyConvert = async (currency) => {
     try {
+      dispatch(add("Loading"));
       const response = await axios.get(
         `https://forex-tracker.vercel.app/convert/${currency.toLowerCase()}`
       );
@@ -185,7 +187,15 @@ const App = () => {
                     </AnimatedPage>
                   }
                 />
-                
+                <Route
+                  path="/dubai-activities"
+                  element={
+                    <AnimatedPage>
+                      <DubaiActivities />
+                    </AnimatedPage>
+                  }
+                />
+
                 <Route
                   path="/privacy-policy"
                   element={

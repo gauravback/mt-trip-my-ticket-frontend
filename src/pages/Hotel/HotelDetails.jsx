@@ -53,7 +53,7 @@ const HotelDetails = () => {
                   className="h-full w-full object-cover object-center"
                 />
               </div>
-              <div className="grid  grid-cols-1 w-full md:grid-cols-2 gap-4">
+              <div className="grid  grid-cols-1 w-full md:grid-cols-auto gap-4">
                 {hotelDetails?.hotel_images.map((image) => (
                   <div key={image.id} className="overflow-hidden rounded-lg">
                     <img

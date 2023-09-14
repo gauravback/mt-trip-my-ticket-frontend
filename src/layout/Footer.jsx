@@ -71,6 +71,9 @@ const Footer = () => {
           <p className="text-base text-gray-400 xl:text-center">
             Copyright © 2023 My Trip My Ticket, All rights reserved.
           </p>
+          <p className="text-sm text-gray-800 xl:text-center">
+            Developed by <a href="https://hysus.com/">Hysus.com</a>
+          </p>
         </div>
       </div>
     </div>

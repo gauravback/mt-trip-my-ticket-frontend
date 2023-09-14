@@ -10,7 +10,6 @@ import {
 } from "react-icons/md";
 import { RiHotelLine, RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineCar } from "react-icons/ai";
-import { LuLayoutDashboard } from "react-icons/lu";
 import { TbAirBalloon } from "react-icons/tb";
 import { countryCurrencySymbols } from "@/utils/countryCurrencySymbols";
 import { BiSolidDownArrow } from "react-icons/bi";
@@ -28,6 +27,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [isFixed, setIsFixed] = useState(false);
+  const [showLinks, setShowLinks] = useState(false);
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
@@ -42,7 +42,11 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    if (location.pathname !== "/forex/") {
+      window.addEventListener("scroll", handleScroll);
+    } else {
+      setIsFixed(true);
+    }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);

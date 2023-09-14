@@ -4,9 +4,6 @@ import Filter from "@/components/SearchComponents/ForexFilter/ForexFilter";
 function Forex() {
   return (
     <>
-      <div className="bg-prime">
-        <Filter />
-      </div>
       <div className="mx-auto max-w-2xl pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <Offers />
       </div>

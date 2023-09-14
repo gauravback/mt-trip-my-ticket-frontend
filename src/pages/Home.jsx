@@ -45,6 +45,7 @@ const Home = () => {
     autoplaySpeed: 2000,
     slidesToShow: 4,
     slidesToScroll: 1,
+
     centerPadding: "50px",
     responsive: [
       {
@@ -73,6 +74,42 @@ const Home = () => {
       },
     ],
   };
+  const Cardsettings = {
+    infinite: true,
+    autoplay: true,
+    speed: 500,
+    autoplaySpeed: 2000,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    arrows: true,
+    centerPadding: "50px",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+    ],
+  };
 
   return (
     <div>
@@ -80,6 +117,93 @@ const Home = () => {
         <Filter />
       </div>
 
+      {/*  Cars  */}
+      <div className="px-4 py-8 sm:px-6 lg:px-8 mx-auto w-full bg-yellow-50">
+        <div className="max-w-[80rem] mx-auto">
+          {/* Grid */}
+          <div className="gap-1">
+            {/* Card */}
+            <Slider {...Cardsettings}>
+              <div className="flex flex-col justify-center ">
+                <img
+                  className="inline-block h-24 w-24 rounded-full ring-2 ring-white"
+                  src="/abu1.png"
+                  alt="Image Description"
+                />
+                <h1 className="font-medium">Lorem, ipsum.</h1>
+              </div>
+              <div className="flex flex-col justify-center ">
+                <img
+                  className="inline-block h-24 w-24 rounded-full ring-2 ring-white"
+                  src="/abu2.png"
+                  alt="Image Description"
+                />
+                <h1 className="font-medium">Lorem, ipsum.</h1>
+              </div>
+              <div className="flex flex-col justify-center ">
+                <img
+                  className="inline-block h-24 w-24 rounded-full ring-2 ring-white"
+                  src="/abu3.png"
+                  alt="Image Description"
+                />
+                <h1 className="font-medium">Lorem, ipsum.</h1>
+              </div>
+              <div className="flex flex-col justify-center ">
+                <img
+                  className="inline-block h-24 w-24 rounded-full ring-2 ring-white"
+                  src="/abu4.png"
+                  alt="Image Description"
+                />
+                <h1 className="font-medium">Lorem, ipsum.</h1>
+              </div>
+              <div className="flex flex-col justify-center ">
+                <img
+                  className="inline-block h-24 w-24 rounded-full ring-2 ring-white"
+                  src="/1.jpg"
+                  alt="Image Description"
+                />
+                <h1 className="font-medium">Lorem, ipsum.</h1>
+              </div>
+              <div className="flex flex-col justify-center ">
+                <img
+                  className="inline-block h-24 w-24 rounded-full ring-2 ring-white"
+                  src="/2.jpg"
+                  alt="Image Description"
+                />
+                <h1 className="font-medium">Lorem, ipsum.</h1>
+              </div>
+              <div className="flex flex-col justify-center ">
+                <img
+                  className="inline-block h-24 w-24 rounded-full ring-2 ring-white"
+                  src="/3.jpg"
+                  alt="Image Description"
+                />
+                <h1 className="font-medium">Lorem, ipsum.</h1>
+              </div>
+              <div className="flex flex-col justify-center ">
+                <img
+                  className="inline-block h-24 w-24 rounded-full ring-2 ring-white"
+                  src="/4.jpg"
+                  alt="Image Description"
+                />
+                <h1 className="font-medium">Lorem, ipsum.</h1>
+              </div>
+              <div className="flex flex-col justify-center ">
+                <img
+                  className="inline-block h-24 w-24 rounded-full ring-2 ring-white"
+                  src="/5.jpg"
+                  alt="Image Description"
+                />
+                <h1 className="font-medium">Lorem, ipsum.</h1>
+              </div>
+            </Slider>
+
+            {/* Card End */}
+          </div>
+        </div>
+        {/* End Grid */}
+      </div>
+      {/*  Cars  End */}
       {/*  Cars  */}
       <div className="max-w-[85rem] px-4 py-8 sm:px-6 lg:px-8 mx-auto w-full">
         <div className="mx-auto text-center mb-10 lg:mb-14 flex items-center space-x-12 w-full">

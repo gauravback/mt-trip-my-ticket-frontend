@@ -4,7 +4,7 @@ import { MdOutlineFlight, MdDirectionsBus } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
 import { AiOutlineCar } from "react-icons/ai";
 import { TbAirBalloon } from "react-icons/tb";
-import { RiStackFill } from "react-icons/ri";
+import { RiStackFill, RiRidingFill } from "react-icons/ri";
 const Navigation = () => {
   const flightNavBtnRef = useRef();
   const location = useLocation();
@@ -31,12 +31,12 @@ const Navigation = () => {
     });
   }, [location]);
   return (
-    <div className="max-w-5xl mx-auto  sm:w-[60%] md:absolute top-1 left-48">
+    <div className="max-w-5xl mx-auto  sm:w-[70%] md:absolute top-1 left-40">
       <section className="">
         <div className="container">
           <div
             id="navigation"
-            className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 sm:gap-5 w-full divide-x sm:divide-x-0 sm:divide-y-0 divide-y divide-gray-200 justify-center lg:justify-between  rounded-t-lg"
+            className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-7 sm:gap-5 w-full divide-x sm:divide-x-0 sm:divide-y-0 divide-y divide-gray-200 justify-center lg:justify-between  rounded-t-lg"
           >
             <Link to="/car/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
@@ -88,6 +88,14 @@ const Navigation = () => {
                   <RiStackFill className="w-7 h-7" />
                 </div>
                 <p className="pb-1.5 text-sm font-semibold">Forex</p>
+              </div>
+            </Link>
+            <Link to="/dubai-activities/">
+              <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
+                <div className="pt-1.5 text-sm">
+                  <RiRidingFill className="w-7 h-7" />
+                </div>
+                <p className="pb-1.5 text-sm font-semibold">Activity</p>
               </div>
             </Link>
           </div>

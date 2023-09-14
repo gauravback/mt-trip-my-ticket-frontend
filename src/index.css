@@ -69,3 +69,7 @@ select {
 .slick-list {
   margin: 0 0px;
 }
+
+#room-grid:last-child {
+  place-self: center;
+}

@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 const PackageFilter = () => {
   const [rooms, setRooms] = useState(1);
   const [withFlights, setWithFlights] = useState(false);
-  const [rating, setRating] = useState(1);
 
   const [cities, setCities] = useState();
   const fetchCities = async (e) => {
@@ -30,11 +29,7 @@ const PackageFilter = () => {
     const { from, to, departure } = e.target;
 
     navigate(
-      `/package/?origin=${from.value}&destination=${to.value}&departure=${
-        departure.value
-      }&rooms=${rooms}&rating=${
-        rating ? rating : ""
-      }&withFlights=${withFlights}`
+      `/package/?origin=${from.value}&destination=${to.value}&departure=${departure.value}&rooms=${rooms}&withFlights=${withFlights}`
     );
   };
   return (
@@ -57,10 +52,11 @@ const PackageFilter = () => {
               <select
                 type="text"
                 id="from"
+                defaultValue=""
                 name="from"
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold text-xl font-bold bg-white"
               >
-                <option value="" selected hidden>
+                <option value="" hidden>
                   From
                 </option>
                 {cities?.map(({ id, origin_city }) => (
@@ -81,9 +77,10 @@ const PackageFilter = () => {
                 type="text"
                 id="to"
                 name="to"
+                defaultValue=""
                 className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold text-xl font-bold bg-white"
               >
-                <option value="" selected hidden>
+                <option value="" hidden>
                   To
                 </option>
                 {cities?.map(({ id, destination_city }) => (
@@ -177,39 +174,7 @@ const PackageFilter = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between  py-2 px-3 rounded-md text-sm text-gray-800 focus:ring-0">
-                    Stars
-                    <div className="inline-flex rounded-md ">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (rating > 1) {
-                            setRating(rating - 1);
-                          }
-                        }}
-                        className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
-                      >
-                        -
-                      </button>
-                      <button
-                        type="button"
-                        className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
-                      >
-                        {rating}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (rating < 5) {
-                            setRating(rating + 1);
-                          }
-                        }}
-                        className="py-2 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 transition-all text-sm"
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
+
                   <div className="flex items-center justify-between  py-2 px-3 rounded-md text-sm text-gray-800 focus:ring-0">
                     <button
                       type="button"

@@ -7,6 +7,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { MdHiking, MdOutlineFlight } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const Package = () => {
   const [packages, setPackages] = useState();
@@ -14,9 +15,18 @@ const Package = () => {
     (state) => state.countryCurrencyReducer?.symbol
   );
   const priceRate = useSelector((state) => state.currencyRateReducer?.rate);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const origin = searchParams.get("origin");
+  const destination = searchParams.get("destination");
+  const departure = searchParams.get("departure");
+  const rooms = searchParams.get("rooms");
+  const withFlights = searchParams.get("withFlights");
   const fetchPackages = async () => {
     try {
-      const res = await api.get("/api/packages/");
+      const res = await api.get(
+        `/api/packages/?origin_city=${origin}&destination_city=${destination}&activities=&departure_after=${departure}&departure_before=&star_category=&price_min=&price_max=&with_flights=${withFlights}&total_rooms_min=${rooms}&total_rooms_max=`
+      );
       const data = await res.data;
       const status = await res.status;
       if (status === 200) {
@@ -30,7 +40,7 @@ const Package = () => {
   };
   useEffect(() => {
     fetchPackages();
-  }, []);
+  }, [location.search]);
   console.log(packages);
   return (
     <div>
@@ -93,10 +103,7 @@ const Package = () => {
               </div>
               {/* Apply Filter Button (Table or lower Screen) */}
               <div className="block md:hidden w-full mt-10">
-                <button
-                  onclick="applyFilters()"
-                  className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4"
-                >
+                <button className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4">
                   Apply Filter
                 </button>
               </div>
@@ -107,7 +114,10 @@ const Package = () => {
           <div className="grid grid-cols-1 md:grid-cols-1 lg:gap-y-4 gap-6">
             {/* Card */}
             {packages?.map((pkg) => (
-              <div className="flex w-full max-w-w-full mx-auto md:mx-0  overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+              <div
+                key={pkg.id}
+                className="flex flex-col md:flex-row w-full max-w-w-full mx-auto md:mx-0  overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md"
+              >
                 <div className="mx-3 mt-3 flex h-60 overflow-hidden rounded-xl">
                   <img
                     className="object-cover w-full"
@@ -129,29 +139,33 @@ const Package = () => {
                       </p>
                     </div>
                     <div className="mt-5 flex justify-between gap-x-10 w-full">
-                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
+                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-sm md:text-xl font-bold">
                         <MdOutlineFlight fontSize={32} />
-                        <span className="text-sm font-normal">Flights</span>
-                      </div>
-                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
-                        <RiHotelLine fontSize={32} />
-                        <span className="text-sm font-normal">Hotels</span>
-                      </div>
-                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
-                        <MdHiking fontSize={32} />
                         <span className="text-sm font-normal">
+                          {pkg.flights?.length} Flights
+                        </span>
+                      </div>
+                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-sm md:text-xl font-bold">
+                        <RiHotelLine fontSize={32} />
+                        <span className="text-xs md;text-sm font-normal">
+                          {pkg.hotels?.length} Hotels
+                        </span>
+                      </div>
+                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-sm md:text-xl font-bold">
+                        <MdHiking fontSize={32} />
+                        <span className="text-xs md;text-sm font-normal">
                           {(pkg.activities.match(/\n|,/g) || []).length + 1}{" "}
                           activites
                         </span>
                       </div>
-                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
+                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-sm md:text-xl font-bold">
                         <AiOutlineCar fontSize={32} />
-                        <span className="text-sm font-normal">
+                        <span className="text-xs md;text-sm font-normal">
                           {pkg.cars.length} Transfers
                         </span>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between rounded-md mt-5 pt-1 text-center text-sm font-medium text-gray-950 focus:outline-none focus:ring-4 focus:ring-blue-30">
+                    <div className="flex items-center justify-between space-x-5 rounded-md mt-5 pt-1 text-center text-sm font-medium text-gray-950 focus:outline-none focus:ring-4 focus:ring-blue-30">
                       <div className="w-full inline-flex justify-start">
                         <button
                           type="button"
@@ -160,7 +174,7 @@ const Package = () => {
                           Book Now
                         </button>
                       </div>
-                      <div className="font-semibold ml-1 text-xl">
+                      <div className="font-semibold ml-1 text-base md:text-xl">
                         <p className="inline-flex items-center gap-x-1">
                           <span
                             dangerouslySetInnerHTML={{ __html: currencySymbol }}

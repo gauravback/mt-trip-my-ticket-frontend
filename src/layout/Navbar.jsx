@@ -41,28 +41,13 @@ const Navbar = () => {
     }
   };
 
-  // useEffect(() => {
-  //   // Get the current URL
-  //   const currentURL = location.pathname;
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
 
-  //   // Get all the anchor elements in the menu
-  //   const menuItems = document.querySelectorAll("#navbar li a");
-
-  //   // Loop through the anchor elements and compare href with the current URL
-  //   menuItems.forEach((item) => {
-  //     if (item.getAttribute("href") === currentURL) {
-  //       item.children[0].children[0].classList.add("active-link");
-  //     } else {
-  //       item.children[0].children[0].classList.remove("active-link");
-  //     }
-  //   });
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [location]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [location]);
 
   const navbarStyle = {
     position: isFixed ? "fixed" : "static",
@@ -333,56 +318,358 @@ const Navbar = () => {
               className="flex p-2 md:p-0 mt-4 font-semibold justify-evenly md:flex-row md:gap-x-10 md:mt-0 md:border-0"
             >
               <li>
-                <Link to="/car/">
-                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <AiOutlineCar fontSize={24} className="mx-auto" />
-                    Car Rental
-                  </div>
-                </Link>
-              </li>
-              <li>
-                <Link to="/flight/">
-                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <MdOutlineFlight
-                      fontSize={24}
-                      className="mx-auto rotate-45"
-                    />
-                    Flight
-                  </div>
-                </Link>
-              </li>
-              <li>
-                <Link to="/hotel/">
-                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <RiHotelLine fontSize={24} className="mx-auto" />
-                    Hotel
-                  </div>
-                </Link>
-              </li>
+                <div class="hs-dropdown relative inline-flex [--trigger:hover]">
+                  <Link to="/car/">
+                    <div
+                      id="hs-dropdown-hover-event"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                    >
+                      <AiOutlineCar fontSize={24} className="mx-auto" />
+                      Car Rental
+                    </div>
+                  </Link>
+                  <div
+                    className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
+                    aria-labelledby="hs-dropdown-hover-event"
+                  >
+                    <Link to="/car/economy-car">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Economy Car
+                      </p>
+                    </Link>
 
-              <li>
-                <Link to="/bus/">
-                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <MdDirectionsBus fontSize={24} className="mx-auto" />
-                    Bus
+                    <Link to="/car/compact-car">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Compact Car
+                      </p>
+                    </Link>
+
+                    <Link to="/car/midsize-car">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Midsize Car
+                      </p>
+                    </Link>
+
+                    <Link to="/car/full-size-car">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Full-Size Car
+                      </p>
+                    </Link>
+
+                    <Link to="/car/suv">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        SUV
+                      </p>
+                    </Link>
+
+                    <Link to="/car/luxury-car">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Luxury Car
+                      </p>
+                    </Link>
+
+                    <Link to="/car/convertible">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Convertible
+                      </p>
+                    </Link>
                   </div>
-                </Link>
+                </div>
               </li>
               <li>
-                <Link to="/package/">
-                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <TbAirBalloon fontSize={24} className="mx-auto" />
-                    Packages
+                <div class="hs-dropdown relative inline-flex [--trigger:hover]">
+                  <Link to="/flight/">
+                    <div
+                      id="hs-dropdown-hover-event"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                    >
+                      <MdOutlineFlight fontSize={24} className="mx-auto" />
+                      Flight
+                    </div>
+                  </Link>
+                  <div
+                    className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
+                    aria-labelledby="hs-dropdown-hover-event"
+                  >
+                    <Link to="/flight/economy-class">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Economy Class
+                      </p>
+                    </Link>
+
+                    <Link to="/flight/premium-economy-class">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Premium Economy Class
+                      </p>
+                    </Link>
+
+                    <Link to="/flight/business-class">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Business Class
+                      </p>
+                    </Link>
+
+                    <Link to="/flight/first-class">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        First Class
+                      </p>
+                    </Link>
+
+                    <Link to="/flight/domestic-flight">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Domestic Flight
+                      </p>
+                    </Link>
+
+                    <Link to="/flight/international-flight">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        International Flight
+                      </p>
+                    </Link>
+
+                    <Link to="/flight/round-trip-flight">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Round-Trip Flight
+                      </p>
+                    </Link>
                   </div>
-                </Link>
+                </div>
               </li>
               <li>
-                <Link to="/forex">
-                  <div className="text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link">
-                    <RiStackFill fontSize={24} className="mx-auto" />
-                    Forex
+                <div class="hs-dropdown relative inline-flex [--trigger:hover]">
+                  <Link to="/hotel/">
+                    <div
+                      id="hs-dropdown-hover-event"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                    >
+                      <RiHotelLine fontSize={24} className="mx-auto" />
+                      Hotel
+                    </div>
+                  </Link>
+                  <div
+                    className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
+                    aria-labelledby="hs-dropdown-hover-event"
+                  >
+                    <Link to="/hotel/budget-hotel">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Budget Hotel
+                      </p>
+                    </Link>
+
+                    <Link to="/hotel/boutique-hotel">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Boutique Hotel
+                      </p>
+                    </Link>
+
+                    <Link to="/hotel/luxury-hotel">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Luxury Hotel
+                      </p>
+                    </Link>
+
+                    <Link to="/hotel/resort">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Resort
+                      </p>
+                    </Link>
+
+                    <Link to="/hotel/motel">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Motel
+                      </p>
+                    </Link>
+
+                    <Link to="/hotel/bed-and-breakfast">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Bed and Breakfast
+                      </p>
+                    </Link>
+
+                    <Link to="/hotel/extended-stay-hotel">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Extended Stay Hotel
+                      </p>
+                    </Link>
                   </div>
-                </Link>
+                </div>
+              </li>
+              <li>
+                <div class="hs-dropdown relative inline-flex [--trigger:hover]">
+                  <Link to="/bus/">
+                    <div
+                      id="hs-dropdown-hover-event"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                    >
+                      <MdDirectionsBus fontSize={24} className="mx-auto" />
+                      Bus
+                    </div>
+                  </Link>
+                  <div
+                    className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
+                    aria-labelledby="hs-dropdown-hover-event"
+                  >
+                    <Link to="/bus/city-bus">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        City Bus
+                      </p>
+                    </Link>
+
+                    <Link to="/bus/intercity-bus">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Intercity Bus
+                      </p>
+                    </Link>
+
+                    <Link to="/bus/sleeper-bus">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Sleeper Bus
+                      </p>
+                    </Link>
+
+                    <Link to="/bus/luxury-bus">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Luxury Bus
+                      </p>
+                    </Link>
+
+                    <Link to="/bus/coach-bus">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Coach Bus
+                      </p>
+                    </Link>
+
+                    <Link to="/bus/double-decker-bus">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Double-Decker Bus
+                      </p>
+                    </Link>
+
+                    <Link to="/bus/shuttle-bus">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Shuttle Bus
+                      </p>
+                    </Link>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="hs-dropdown relative inline-flex [--trigger:hover]">
+                  <Link to="/package/">
+                    <div
+                      id="hs-dropdown-hover-event"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                    >
+                      <TbAirBalloon fontSize={24} className="mx-auto" />
+                      Package
+                    </div>
+                  </Link>
+                  <div
+                    className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
+                    aria-labelledby="hs-dropdown-hover-event"
+                  >
+                    <Link to="/package/beach-vacation-package">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Beach Vacation Package
+                      </p>
+                    </Link>
+
+                    <Link to="/package/adventure-travel-package">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Adventure Travel Package
+                      </p>
+                    </Link>
+
+                    <Link to="/package/honeymoon-package">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover.bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Honeymoon Package
+                      </p>
+                    </Link>
+
+                    <Link to="/package/cultural-tour-package">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Cultural Tour Package
+                      </p>
+                    </Link>
+
+                    <Link to="/package/ski-vacation-package">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Ski Vacation Package
+                      </p>
+                    </Link>
+
+                    <Link to="/package/wildlife-safari-package">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Wildlife Safari Package
+                      </p>
+                    </Link>
+
+                    <Link to="/package/cruise-vacation-package">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover.bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Cruise Vacation Package
+                      </p>
+                    </Link>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="hs-dropdown relative inline-flex [--trigger:hover]">
+                  <Link to="/forex/">
+                    <div
+                      id="hs-dropdown-hover-event"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                    >
+                      <RiStackFill fontSize={24} className="mx-auto" />
+                      Forex
+                    </div>
+                  </Link>
+                  <div
+                    className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
+                    aria-labelledby="hs-dropdown-hover-event"
+                  >
+                    <Link to="/forex/us-dollar">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        US Dollar (USD)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/euro">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Euro (EUR)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/british-pound">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        British Pound (GBP)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/japanese-yen">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Japanese Yen (JPY)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/australian-dollar">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Australian Dollar (AUD)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/canadian-dollar">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Canadian Dollar (CAD)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/swiss-franc">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Swiss Franc (CHF)
+                      </p>
+                    </Link>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>

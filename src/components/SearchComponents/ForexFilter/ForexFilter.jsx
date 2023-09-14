@@ -37,7 +37,7 @@ const Filter = () => {
     fetchCities();
   }, []);
   return (
-    <div className="mx-auto" style={{ backgroundImage: `url("/bg2.jpg")` }}>
+    <div className="mx-auto">
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
         <Navigation />
         <form onSubmit={handleSubmit}>

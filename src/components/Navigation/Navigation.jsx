@@ -10,25 +10,22 @@ const Navigation = () => {
   const location = useLocation();
   useEffect(() => {
     // Get the current URL
-    const currentURL = location.pathname;
-
-    if (currentURL === "/") {
-      flightNavBtnRef.current.classList.add("nav-active-link");
-    } else {
-      flightNavBtnRef.current.classList.remove("nav-active-link");
-    }
-
-    // Get all the anchor elements in the menu
-    const menuItems = document.querySelectorAll("#navigation a");
-
-    // Loop through the anchor elements and compare href with the current URL
-    menuItems.forEach((item) => {
-      if (item.getAttribute("href") === currentURL) {
-        item.children[0].classList.add("navigation-active-link");
-      } else {
-        item.children[0].classList.remove("navigation-active-link");
-      }
-    });
+    // const currentURL = location.pathname;
+    // if (currentURL === "/") {
+    //   flightNavBtnRef.current.classList.add("nav-active-link");
+    // } else {
+    //   flightNavBtnRef.current.classList.remove("nav-active-link");
+    // }
+    // // Get all the anchor elements in the menu
+    // const menuItems = document.querySelectorAll("#navigation a");
+    // // Loop through the anchor elements and compare href with the current URL
+    // menuItems.forEach((item) => {
+    //   if (item.getAttribute("href") === currentURL) {
+    //     item.children[0].classList.add("navigation-active-link");
+    //   } else {
+    //     item.children[0].classList.remove("navigation-active-link");
+    //   }
+    // });
   }, [location]);
   return (
     <div className="max-w-5xl mx-auto  sm:w-[70%] md:absolute top-1 left-40">
@@ -74,14 +71,7 @@ const Navigation = () => {
                 <p className="pb-1.5 text-sm font-semibold">Bus</p>
               </div>
             </Link>
-            <Link to="/package/">
-              <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
-                <div className="pt-1.5 text-sm">
-                  <TbAirBalloon className="w-7 h-7" />
-                </div>
-                <p className="pb-1.5 text-sm font-semibold">Packages</p>
-              </div>
-            </Link>
+
             <Link to="/dubai-activities/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
@@ -90,12 +80,36 @@ const Navigation = () => {
                 <p className="pb-1.5 text-sm font-semibold">Activity</p>
               </div>
             </Link>
-            <div>
-              <div className="flex w-full gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
+            <div class="hs-dropdown relative inline-flex">
+              <div
+                id="hs-dropdown-default"
+                className="hs-dropdown-toggle flex w-full gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500  transition-all duration-500 bg-white"
+              >
                 <div className="pt-1.5 text-sm">
                   <MdMoreHoriz className="w-7 h-7" />
                 </div>
                 <p className="pb-1.5 text-sm font-semibold">More</p>
+              </div>
+              <div
+                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-72 hidden z-10  min-w-[15rem] bg-white shadow-md rounded-lg p-2"
+                aria-labelledby="hs-dropdown-default"
+              >
+                <Link to="/package/">
+                  <div className="flex gap-y-0  text-gray-600 items-center sm:rounded hover:bg-gray-100 transition-all duration-500 bg-white">
+                    <div className="pt-1.5 text-sm">
+                      <TbAirBalloon className="w-7 h-7" />
+                    </div>
+                    <p className="pb-1.5 text-sm font-semibold">Packages</p>
+                  </div>
+                </Link>
+                <Link to="/forex/">
+                  <div className="flex gap-y-0  text-gray-600 items-center sm:rounded hover:bg-gray-100 transition-all duration-500 bg-white">
+                    <div className="pt-1.5 text-sm">
+                      <RiStackFill className="w-7 h-7" />
+                    </div>
+                    <p className="pb-1.5 text-sm font-semibold">Forex</p>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

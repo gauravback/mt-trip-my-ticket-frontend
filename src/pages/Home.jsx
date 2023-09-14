@@ -92,7 +92,7 @@ const Home = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Card */}
           {cars?.map((car) => (
-            <div key={car.id} className="container mx-auto max-w-sm w-full">
+            <div className="container mx-auto max-w-sm w-full">
               <div className="card flex flex-col justify-center p-5 bg-white rounded-lg">
                 <div className="prod-title">
                   <p className="text-2xl uppercase text-gray-900 font-bold">
@@ -373,7 +373,7 @@ const Home = () => {
               />
               <div className="p-4 pl-20 w-full flex flex-col gap-y-2">
                 <div className="flex items-center justify-end">
-                  <div className="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-200 text-gray-800">
+                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-200 text-gray-800">
                     ABC123
                   </div>
                 </div>
@@ -415,7 +415,7 @@ const Home = () => {
               />
               <div className="p-4 pl-20 w-full flex flex-col gap-y-2">
                 <div className="flex items-center justify-end">
-                  <div className="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-200 text-gray-800">
+                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-200 text-gray-800">
                     ABC123
                   </div>
                 </div>
@@ -457,7 +457,7 @@ const Home = () => {
               />
               <div className="p-4 pl-20 w-full flex flex-col gap-y-2">
                 <div className="flex items-center justify-end">
-                  <div className="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-200 text-gray-800">
+                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-200 text-gray-800">
                     ABC123
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { MdOutlineFlight, MdDirectionsBus } from "react-icons/md";
+import { MdOutlineFlight, MdDirectionsBus, MdMoreHoriz } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
 import { AiOutlineCar } from "react-icons/ai";
 import { TbAirBalloon } from "react-icons/tb";
@@ -82,14 +82,6 @@ const Navigation = () => {
                 <p className="pb-1.5 text-sm font-semibold">Packages</p>
               </div>
             </Link>
-            <Link to="/forex/">
-              <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
-                <div className="pt-1.5 text-sm">
-                  <RiStackFill className="w-7 h-7" />
-                </div>
-                <p className="pb-1.5 text-sm font-semibold">Forex</p>
-              </div>
-            </Link>
             <Link to="/dubai-activities/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
@@ -98,6 +90,14 @@ const Navigation = () => {
                 <p className="pb-1.5 text-sm font-semibold">Activity</p>
               </div>
             </Link>
+            <div>
+              <div className="flex w-full gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
+                <div className="pt-1.5 text-sm">
+                  <MdMoreHoriz className="w-7 h-7" />
+                </div>
+                <p className="pb-1.5 text-sm font-semibold">More</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

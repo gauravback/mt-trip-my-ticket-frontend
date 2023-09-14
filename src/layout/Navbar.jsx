@@ -41,28 +41,28 @@ const Navbar = () => {
     }
   };
 
-  useEffect(() => {
-    // Get the current URL
-    const currentURL = location.pathname;
+  // useEffect(() => {
+  //   // Get the current URL
+  //   const currentURL = location.pathname;
 
-    // Get all the anchor elements in the menu
-    const menuItems = document.querySelectorAll("#navbar li a");
+  //   // Get all the anchor elements in the menu
+  //   const menuItems = document.querySelectorAll("#navbar li a");
 
-    // Loop through the anchor elements and compare href with the current URL
-    menuItems.forEach((item) => {
-      if (item.getAttribute("href") === currentURL) {
-        item.children[0].children[0].classList.add("active-link");
-      } else {
-        item.children[0].children[0].classList.remove("active-link");
-      }
-    });
+  //   // Loop through the anchor elements and compare href with the current URL
+  //   menuItems.forEach((item) => {
+  //     if (item.getAttribute("href") === currentURL) {
+  //       item.children[0].children[0].classList.add("active-link");
+  //     } else {
+  //       item.children[0].children[0].classList.remove("active-link");
+  //     }
+  //   });
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [location]);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [location]);
 
   const navbarStyle = {
     position: isFixed ? "fixed" : "static",

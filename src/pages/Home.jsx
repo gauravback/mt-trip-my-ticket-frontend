@@ -130,7 +130,7 @@ const Home = () => {
                   src="/abu1.png"
                   alt="Image Description"
                 />
-                <h1 className="font-medium">Lorem, ipsum.</h1>
+                <h1 className="font-medium">City Tours.</h1>
               </div>
               <div className="flex flex-col justify-center ">
                 <img
@@ -138,7 +138,7 @@ const Home = () => {
                   src="/abu2.png"
                   alt="Image Description"
                 />
-                <h1 className="font-medium">Lorem, ipsum.</h1>
+                <h1 className="font-medium">Dubai Tours</h1>
               </div>
               <div className="flex flex-col justify-center ">
                 <img
@@ -146,7 +146,7 @@ const Home = () => {
                   src="/abu3.png"
                   alt="Image Description"
                 />
-                <h1 className="font-medium">Lorem, ipsum.</h1>
+                <h1 className="font-medium">Desart Safari</h1>
               </div>
               <div className="flex flex-col justify-center ">
                 <img
@@ -154,7 +154,7 @@ const Home = () => {
                   src="/abu4.png"
                   alt="Image Description"
                 />
-                <h1 className="font-medium">Lorem, ipsum.</h1>
+                <h1 className="font-medium">Water Parks</h1>
               </div>
               <div className="flex flex-col justify-center ">
                 <img
@@ -162,7 +162,7 @@ const Home = () => {
                   src="/1.jpg"
                   alt="Image Description"
                 />
-                <h1 className="font-medium">Lorem, ipsum.</h1>
+                <h1 className="font-medium">Luxary Hotels</h1>
               </div>
               <div className="flex flex-col justify-center ">
                 <img
@@ -170,7 +170,7 @@ const Home = () => {
                   src="/2.jpg"
                   alt="Image Description"
                 />
-                <h1 className="font-medium">Lorem, ipsum.</h1>
+                <h1 className="font-medium">Dinner Cruies</h1>
               </div>
               <div className="flex flex-col justify-center ">
                 <img
@@ -178,7 +178,7 @@ const Home = () => {
                   src="/3.jpg"
                   alt="Image Description"
                 />
-                <h1 className="font-medium">Lorem, ipsum.</h1>
+                <h1 className="font-medium">Dubai Malls</h1>
               </div>
               <div className="flex flex-col justify-center ">
                 <img
@@ -186,7 +186,7 @@ const Home = () => {
                   src="/4.jpg"
                   alt="Image Description"
                 />
-                <h1 className="font-medium">Lorem, ipsum.</h1>
+                <h1 className="font-medium">Desert wonder</h1>
               </div>
               <div className="flex flex-col justify-center ">
                 <img
@@ -194,7 +194,7 @@ const Home = () => {
                   src="/5.jpg"
                   alt="Image Description"
                 />
-                <h1 className="font-medium">Lorem, ipsum.</h1>
+                <h1 className="font-medium">Dubai Adventure</h1>
               </div>
             </Slider>
 

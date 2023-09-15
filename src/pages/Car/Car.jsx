@@ -19,7 +19,6 @@ const Car = () => {
   const origin = searchParams.get("origin");
   const destination = searchParams.get("destination");
   const departure = searchParams.get("departure");
-  console.log(departure);
   const fetchCars = async () => {
     try {
       const res = await api.get(
@@ -49,9 +48,35 @@ const Car = () => {
     }
   }, [location.search]);
 
+  const [carsData, setCarsData] = useState();
+  const fetchCarData = async () => {
+    try {
+      const res = await api.get("/api/cars/");
+      const data = await res.data;
+      const status = await res.status;
+      if (status === 200) {
+        setCarsData(data);
+      } else {
+        toast.error("Something went wrong.", { id: 1 });
+      }
+    } catch (error) {
+      toast.error("Something went wrong.", { id: 1 });
+    }
+  };
+
+  useEffect(() => {
+    fetchCarData();
+  }, []);
+
+  const [carType, setCarType] = useState("Sedan");
+  const [fuelType, setFuelType] = useState("");
+  const [transmission, setTransmission] = useState("");
+  const [Ac, setAc] = useState();
+  const [Bags, setBags] = useState();
+  console.log(carType);
   return (
     <div>
-      <div className="bg-prime">
+      <div className="">
         <CarFilter />
       </div>
       <div className="flex w-full flex-wrap max-w-[85rem] mx-auto">
@@ -61,60 +86,169 @@ const Car = () => {
               id="filterSection"
               className="block md:py-10 lg:px-20 md:px-6 py-9 px-4 bg-gray-50 w-full"
             >
-              {/* Material Section */}
+              {/* Car Type Section */}
               <div>
-                <div className="flex space-x-2 text-gray-800 dark:text-white">
-                  <img
-                    className="dark:hidden"
-                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/filter1-svg4.svg"
-                    alt="materials"
-                  />
-                  <img
-                    className="hidden dark:block"
-                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/filter1-svg4dark.svg"
-                    alt="materials"
-                  />
-                  <p className="lg:text-2xl text-xl lg:leading-6 leading-5 font-medium ">
-                    Material
+                <div className="flex space-x-2 text-gray-800">
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    Car Type
                   </p>
                 </div>
                 <div className="mt-8 grid grid-cols-1 gap-y-8 flex-wrap">
-                  <div className="flex items-center gap-x-1">
-                    <input
-                      className="w-4 h-4"
-                      type="checkbox"
-                      id="Leather"
-                      name="Leather"
-                      defaultValue="Leather"
-                    />
-                    <div className="inline-block">
-                      <div className="flex ">
-                        <label
-                          className="mr-2 text-sm leading-3 font-normal text-gray-600"
-                          htmlFor="Leather"
-                        >
-                          Leather
-                        </label>
-                      </div>
+                  {[
+                    ...new Set(carsData?.map(({ car_type }) => car_type.type)),
+                  ].map((uniqueCarType) => (
+                    <div className="flex items-center" key={uniqueCarType}>
+                      <input
+                        type="radio"
+                        name="car_type"
+                        onChange={() => {
+                          setCarType(uniqueCarType);
+                        }}
+                        defaultChecked={carType === uniqueCarType && true}
+                        value={uniqueCarType}
+                        className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out"
+                      />
+                      <p className="ml-3 font-medium text-gray-900">
+                        {uniqueCarType}
+                      </p>
                     </div>
+                  ))}
+                </div>
+              </div>
+              <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
+              <div>
+                <div className="flex space-x-2 text-gray-800">
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    Fuel Type
+                  </p>
+                </div>
+                <div className="mt-4 grid grid-cols-1 gap-y-8 flex-wrap">
+                  {[
+                    ...new Set(carsData?.map(({ fuel_type }) => fuel_type)),
+                  ].map((fuel_type) => (
+                    <div className="flex items-center" key={fuel_type}>
+                      <input
+                        type="radio"
+                        name="fuel_type"
+                        onChange={() => {
+                          setFuelType(fuel_type);
+                        }}
+                        value={fuel_type}
+                        defaultChecked={fuelType === fuel_type && true}
+                        className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out"
+                      />
+                      <p className="ml-3 font-medium text-gray-900">
+                        {fuel_type}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
+              <div>
+                <div className="flex space-x-2 text-gray-800">
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    Transmission
+                  </p>
+                </div>
+                <div className="mt-4 grid grid-cols-1 gap-y-8 flex-wrap">
+                  {[
+                    ...new Set(
+                      carsData?.map(
+                        ({ transmission_type }) => transmission_type
+                      )
+                    ),
+                  ].map((transmission_type) => (
+                    <div className="flex items-center" key={transmission_type}>
+                      <input
+                        type="radio"
+                        name="transmission"
+                        onChange={() => {
+                          setTransmission(transmission_type);
+                        }}
+                        defaultChecked={
+                          transmission === transmission_type && true
+                        }
+                        value={transmission_type}
+                        className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out"
+                      />
+                      <p className="ml-3 font-medium text-gray-900">
+                        {transmission_type}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
+              <div>
+                <div className="flex space-x-2 text-gray-800">
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    Air Conditioner
+                  </p>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-x-3 flex-wrap">
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => setAc(true)}
+                      value={true}
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => setAc(false)}
+                      value={false}
+                      className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      No
+                    </button>
                   </div>
                 </div>
               </div>
-              <hr className="bg-gray-200 lg:w-6/12 w-full md:my-10 my-8" />
-
+              <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
+              <div>
+                <div className="flex space-x-2 text-gray-800">
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    Air Bags
+                  </p>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-x-3 flex-wrap">
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => setBags(true)}
+                      value={true}
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => setBags(false)}
+                      value={false}
+                      className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </div>
               {/* Apply Filter Button (Large Screen) */}
               <div className="hidden w-full md:block mt-7">
                 <button className=" w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4 ">
-                  Apply Filter
+                  Apply
                 </button>
               </div>
               {/* Apply Filter Button (Table or lower Screen) */}
               <div className="block md:hidden w-full mt-10">
-                <button
-                  onclick="applyFilters()"
-                  className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4"
-                >
-                  Apply Filter
+                <button className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4">
+                  Apply
                 </button>
               </div>
             </div>

@@ -98,13 +98,13 @@ const App = () => {
     <div className="">
       <>
         <Suspense fallback={<Loader />}>
-          <div className="w-full bg-prime">
+          <div className="w-full navbar-bg">
             <Navbar />
           </div>
           <Login />
           <Toaster />
           <AnimatePresence mode="wait">
-            <div className="min-h-screen h-full mx-auto bg-gray-50">
+            <div className="min-h-screen h-full mx-auto">
               <Routes key={pathname} location={location}>
                 <Route
                   path="/"

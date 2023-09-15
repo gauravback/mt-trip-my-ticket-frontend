@@ -8,6 +8,7 @@ const Filter = () => {
     adults: 1,
     children: 1,
   });
+  const [route, setRoute] = useState("oneway");
   const [airports, setAirports] = useState();
   const fetchAirports = async () => {
     const response = await api.get(`/api/airports/`);
@@ -33,7 +34,7 @@ const Filter = () => {
     navigate(
       `/flight/?origin=${from.value}&destination=${to.value}&departure=${
         departure.value ? departure.value : ""
-      }&returnDate=${arrival.value ? arrival.value : ""}&adults=${
+      }&returnDate=${arrival ? arrival?.value : ""}&adults=${
         travellers.adults
       }&children=${travellers.children}`
     );
@@ -73,7 +74,7 @@ const Filter = () => {
   };
 
   return (
-    <div>
+    <div className="gradient-bg">
       <div className="mx-auto max-w-screen-lg sm:py-12 relative">
         <Navigation />
         <form
@@ -166,9 +167,12 @@ const Filter = () => {
               <input
                 type="date"
                 id="arrival"
+                disabled={route === "oneway" && true}
                 name="arrival"
                 placeholder="Ahemdabad"
-                className="mt-2 block w-full rounded-md border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gra-900 placeholder:font-bold"
+                className={`mt-2 block w-full rounded-md ${
+                  route === "oneway" && "bg-gray-200"
+                }  border border-gray-200 py-5 px-4 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xl placeholder:text-gra-900 placeholder:font-bold`}
               />
             </div>
             <div className="flex flex-col">
@@ -260,10 +264,43 @@ const Filter = () => {
               </div>
             </div>
           </div>
-          <div className="mt-5 flex justify-center gap-x-2">
+          <div className="mt-5 flex justify-between items-center px-4 gap-x-2">
+            <div className="flex gap-x-6">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="hs-radio-group"
+                  className="shrink-0 p-1  border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 "
+                  id="oneway"
+                  onChange={() => {
+                    setRoute("oneway");
+                  }}
+                  defaultChecked={route === "oneway" && true}
+                />
+                <label htmlFor="oneway" className="text- text-gray-500 ml-2">
+                  One Way
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="hs-radio-group"
+                  className="shrink-0 p-1  border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 "
+                  id="roundtrip"
+                  defaultChecked={route === "roundtrip" && true}
+                  onChange={() => {
+                    setRoute("roundtrip");
+                  }}
+                />
+                <label htmlFor="roundtrip" className="text- text-gray-500 ml-2">
+                  Round Trip
+                </label>
+              </div>
+            </div>
+
             <button
               type="submit"
-              className="py-3 w-full md:w-1/3 px-4 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold btn-gradient focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
+              className="py-3 w-full md:w-1/3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold btn-gradient focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
             >
               Search
             </button>

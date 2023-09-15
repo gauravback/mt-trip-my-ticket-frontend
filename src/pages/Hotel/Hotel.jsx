@@ -2,6 +2,7 @@ import api from "@/api/api";
 import Filter from "@/components/SearchComponents/HotelFilter/Filter";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { MdOutlineStar } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
@@ -19,14 +20,24 @@ const Hotel = () => {
   const room = searchParams.get("room");
   const price = searchParams.get("price");
 
+  const [star, setStar] = useState();
+  const [wifi, setWifi] = useState();
+  const [parking, setParking] = useState();
+
   const fetchHotels = async () => {
     try {
       const res = await api.get(
-        `/api/hotels/?city=${city}&pin=&star_category=&amenities=&tax_type=&tax_percent_min=&tax_percent_max=&total_rooms_min=&total_rooms_max=&available_rooms_min=${room}&available_rooms_max=&price_min=${
-          price?.split("-")[0]
-        }&price_max=${
-          price?.split("-")[1]
-        }&available_from_after=${checkin}&available_from_before=&available_to_after=&available_to_before=${checkout}`
+        `/api/hotels/?city=${
+          city ? city : ""
+        }&pin=&star_category=&amenities=&tax_type=&tax_percent_min=&tax_percent_max=&total_rooms_min=&total_rooms_max=&available_rooms_min=${
+          room ? room : ""
+        }&available_rooms_max=&price_min=${
+          price ? price.split("-")[0] : ""
+        }&price_max=${price ? price.split("-")[1] : ""}&available_from_after=${
+          checkin ? checkin : ""
+        }&available_from_before=&available_to_after=&available_to_before=${
+          checkout ? checkout : ""
+        }`
       );
       const data = await res.data;
       const status = await res.status;
@@ -55,7 +66,7 @@ const Hotel = () => {
   };
   return (
     <div>
-      <div className="bg-prime">
+      <div className="">
         <Filter />
       </div>
       <div className="flex w-full flex-wrap max-w-[85rem] mx-auto">
@@ -65,60 +76,169 @@ const Hotel = () => {
               id="filterSection"
               className="block md:py-10 lg:px-20 md:px-6 py-9 px-4 bg-gray-50 w-full"
             >
-              {/* Material Section */}
               <div>
-                <div className="flex space-x-2 text-gray-800 dark:text-white">
-                  <img
-                    className="dark:hidden"
-                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/filter1-svg4.svg"
-                    alt="materials"
-                  />
-                  <img
-                    className="hidden dark:block"
-                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/filter1-svg4dark.svg"
-                    alt="materials"
-                  />
-                  <p className="lg:text-2xl text-xl lg:leading-6 leading-5 font-medium ">
-                    Material
+                <div className="flex space-x-2 text-gray-800">
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    Star
                   </p>
                 </div>
-                <div className="mt-8 grid grid-cols-1 gap-y-8 flex-wrap">
-                  <div className="flex items-center gap-x-1">
-                    <input
-                      className="w-4 h-4"
-                      type="checkbox"
-                      id="Leather"
-                      name="Leather"
-                      defaultValue="Leather"
-                    />
-                    <div className="inline-block">
-                      <div className="flex ">
-                        <label
-                          className="mr-2 text-sm leading-3 font-normal text-gray-600"
-                          htmlFor="Leather"
-                        >
-                          Leather
-                        </label>
-                      </div>
-                    </div>
+                <div className="mt-4 grid grid-cols-5 gap-x-3 flex-wrap">
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => {
+                        setStar(1);
+                      }}
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out flex items-center justify-center text-"
+                    >
+                      1{" "}
+                      <MdOutlineStar
+                        className="text-yellow-400"
+                        fontSize={18}
+                      />
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      onClick={() => {
+                        setStar(2);
+                      }}
+                      type="text"
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out flex items-center justify-center text-"
+                    >
+                      2{" "}
+                      <MdOutlineStar
+                        className="text-yellow-400"
+                        fontSize={18}
+                      />
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => {
+                        setStar(3);
+                      }}
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out flex items-center justify-center text-"
+                    >
+                      3{" "}
+                      <MdOutlineStar
+                        className="text-yellow-400"
+                        fontSize={18}
+                      />
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => {
+                        setStar(4);
+                      }}
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out flex items-center justify-center text-"
+                    >
+                      4{" "}
+                      <MdOutlineStar
+                        className="text-yellow-400"
+                        fontSize={18}
+                      />
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => {
+                        setStar(5);
+                      }}
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out flex items-center justify-center text-"
+                    >
+                      5{" "}
+                      <MdOutlineStar
+                        className="text-yellow-400"
+                        fontSize={18}
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
-              <hr className="bg-gray-200 lg:w-6/12 w-full md:my-10 my-8" />
+              <hr className="bg-gray-200  w-full md:my-10 my-8" />
+              <div>
+                <div className="flex space-x-2 text-gray-800">
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    WiFi Available
+                  </p>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-x-3 flex-wrap">
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => {
+                        setWifi(true);
+                      }}
+                      value={true}
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => {
+                        setWifi(false);
+                      }}
+                      value={false}
+                      className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <hr className="bg-gray-200  w-full md:my-10 my-8" />
+              <div>
+                <div className="flex space-x-2 text-gray-800">
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    Parking Available
+                  </p>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-x-3 flex-wrap">
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => {
+                        setParking(true);
+                      }}
+                      value={true}
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => {
+                        setParking(false);
+                      }}
+                      value={false}
+                      className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </div>
 
               {/* Apply Filter Button (Large Screen) */}
               <div className="hidden w-full md:block mt-7">
                 <button className=" w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4 ">
-                  Apply Filter
+                  Apply
                 </button>
               </div>
               {/* Apply Filter Button (Table or lower Screen) */}
               <div className="block md:hidden w-full mt-10">
-                <button
-                  onclick="applyFilters()"
-                  className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4"
-                >
-                  Apply Filter
+                <button className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4">
+                  Apply
                 </button>
               </div>
             </div>
@@ -149,6 +269,7 @@ const Hotel = () => {
                         { length: hotel.star_category },
                         (_, index) => (
                           <svg
+                            key={index}
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-5 text-yellow-500"
                             viewBox="0 0 20 20"

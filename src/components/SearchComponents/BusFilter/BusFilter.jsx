@@ -31,7 +31,7 @@ const BusFilter = () => {
     );
   };
   return (
-    <div>
+    <div className="gradient-bg">
       <div className="mx-auto max-w-screen-lg sm:py-12 relative">
         <Navigation />
         <form
@@ -106,10 +106,10 @@ const BusFilter = () => {
               />
             </div>
           </div>
-          <div className="mt-5 flex justify-center gap-x-2">
+          <div className="mt-5 flex justify-end items-center px-4 gap-x-2">
             <button
               type="submit"
-              className="py-3 w-full md:w-1/3 px-4 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold btn-gradient focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
+              className="py-3 w-full md:w-1/3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold btn-gradient focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
             >
               Search
             </button>

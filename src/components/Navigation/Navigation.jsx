@@ -38,7 +38,8 @@ const Navigation = () => {
             <Link to="/car/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
-                  <AiOutlineCar className="w-7 h-7" />
+                  {/* <AiOutlineCar className="w-7 h-7" /> */}
+                  <img src="/icons/car.png" width={28} alt="" />
                 </div>
                 <p className="pb-1.5 text-sm font-semibold">Car Rental</p>
               </div>
@@ -50,7 +51,8 @@ const Navigation = () => {
                 className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white"
               >
                 <div className="pt-1.5 text-sm">
-                  <MdOutlineFlight className="w-7 h-7 rotate-45" />
+                  {/* <MdOutlineFlight className="w-7 h-7 rotate-45" /> */}
+                  <img src="/icons/plane.png" width={28} alt="" />
                 </div>
                 <p className="pb-1.5 text-sm font-semibold">Flight</p>
               </div>
@@ -58,7 +60,8 @@ const Navigation = () => {
             <Link to="/hotel/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
-                  <RiHotelLine className="w-7 h-7" />
+                  {/* <RiHotelLine className="w-7 h-7" /> */}
+                  <img src="/icons/hotel.png" width={28} alt="" />
                 </div>
                 <p className="pb-1.5 text-sm font-semibold">Hotel</p>
               </div>
@@ -66,7 +69,8 @@ const Navigation = () => {
             <Link to="/bus/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
-                  <MdDirectionsBus className="w-7 h-7 " />
+                  {/* <MdDirectionsBus className="w-7 h-7 " /> */}
+                  <img src="/icons/bus.png" width={28} alt="" />
                 </div>
                 <p className="pb-1.5 text-sm font-semibold">Bus</p>
               </div>
@@ -75,7 +79,8 @@ const Navigation = () => {
             <Link to="/dubai-activities/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
-                  <RiRidingFill className="w-7 h-7" />
+                  {/* <RiRidingFill className="w-7 h-7" /> */}
+                  <img src="/icons/adventurer.png" width={28} alt="" />
                 </div>
                 <p className="pb-1.5 text-sm font-semibold">Activity</p>
               </div>
@@ -86,7 +91,8 @@ const Navigation = () => {
                 className="hs-dropdown-toggle flex w-full gap-y-0 flex-col text-gray-600 items-center sm:rounded sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500  transition-all duration-500 bg-white"
               >
                 <div className="pt-1.5 text-sm">
-                  <MdMoreHoriz className="w-7 h-7" />
+                  {/* <MdMoreHoriz className="w-7 h-7" /> */}
+                  <img src="/icons/menu.png" width={28} alt="" />
                 </div>
                 <p className="pb-1.5 text-sm font-semibold">More</p>
               </div>
@@ -95,19 +101,21 @@ const Navigation = () => {
                 aria-labelledby="hs-dropdown-default"
               >
                 <Link to="/package/">
-                  <div className="flex gap-y-0  text-gray-600 items-center sm:rounded hover:bg-gray-100 transition-all duration-500 bg-white">
-                    <div className="pt-1.5 text-sm">
-                      <TbAirBalloon className="w-7 h-7" />
+                  <div className="flex gap-y-0 my-1.5 p-2  text-gray-600 items-center sm:rounded hover:bg-gray-100 transition-all duration-500 bg-white">
+                    <div className="text-sm">
+                      {/* <TbAirBalloon className="w-7 h-7" /> */}
+                      <img src="/icons/luggage.png" width={28} alt="" />
                     </div>
-                    <p className="pb-1.5 text-sm font-semibold">Packages</p>
+                    <p className="pb-1.5 text- font-semibold">Packages</p>
                   </div>
                 </Link>
                 <Link to="/forex/">
-                  <div className="flex gap-y-0  text-gray-600 items-center sm:rounded hover:bg-gray-100 transition-all duration-500 bg-white">
-                    <div className="pt-1.5 text-sm">
-                      <RiStackFill className="w-7 h-7" />
+                  <div className="flex gap-y-0 my-1.5 p-2  text-gray-600 items-center sm:rounded hover:bg-gray-100 transition-all duration-500 bg-white">
+                    <div className="text-sm">
+                      {/* <TbAirBalloon className="w-7 h-7" /> */}
+                      <img src="/icons/forex.png" width={28} alt="" />
                     </div>
-                    <p className="pb-1.5 text-sm font-semibold">Forex</p>
+                    <p className="pb-1.5 text- font-semibold">Forex</p>
                   </div>
                 </Link>
               </div>

@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Filter from "@/components/SearchComponents/FlightFilter/Filter";
+import { IoCopyOutline } from "react-icons/io5";
 const Home = () => {
   const [cars, setCars] = useState();
   const currencySymbol = useSelector(
@@ -36,6 +37,7 @@ const Home = () => {
 
   const copyTextToClipboard = (text) => {
     navigator.clipboard.writeText(text);
+    toast.success("Copied");
   };
 
   const settings = {
@@ -113,7 +115,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="bg-prime">
+      <div className="gradient-bg">
         <Filter />
       </div>
 
@@ -486,7 +488,7 @@ const Home = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 ml-6 md:ml-0 md:gap-24 md:px-12 mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ml-6 md:ml-0 md:gap-24 md:px-12 mx-auto">
           {/* Card */}
           <div className="mx-4">
             <div className="flex relative w-[90%] md:w-full h-48 border border-gray-200 shadow-md rounded-md">
@@ -497,7 +499,7 @@ const Home = () => {
               />
               <div className="p-4 pl-20 w-full flex flex-col gap-y-2">
                 <div className="flex items-center justify-end">
-                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-200 text-gray-800">
+                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-red-100 text-red-700">
                     ABC123
                   </div>
                 </div>
@@ -511,19 +513,34 @@ const Home = () => {
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                   </p>
                 </div>
-                <div className="">
-                  <p className="text-xs font-normal">Coupon Code</p>
-                  <div className="flex items-center">
-                    <input
-                      type="text"
-                      className="py-1 bg-transparent text-gray-500 rounded-md text-xs focus:border-0 focus:outline-none focus:ring-0"
-                      defaultValue="ABC123"
-                      title="Click to copy"
-                      onClick={(e) => {
-                        copyTextToClipboard(e.target.value);
-                      }}
-                    />
+                <div className="flex  justify-between">
+                  <div className="">
+                    <p className="text-[0.6rem] font-normal">Coupon Code</p>
+                    <div className="flex items-center">
+                      <input
+                        type="text"
+                        className="py-1 bg-transparent w-14 text-gray-500 rounded-md text-xs focus:border-0 focus:outline-none focus:ring-0"
+                        defaultValue="ABC123"
+                        title="Click to copy"
+                        disabled={true}
+                      />
+                      <button
+                        onClick={() => {
+                          copyTextToClipboard("AB123");
+                        }}
+                        type="button"
+                        className=""
+                      >
+                        <IoCopyOutline />
+                      </button>
+                    </div>
                   </div>
+                  <button
+                    className="text-sm items-self-end font-semibold text-theme"
+                    type="button"
+                  >
+                    Book Now
+                  </button>
                 </div>
               </div>
             </div>
@@ -539,7 +556,7 @@ const Home = () => {
               />
               <div className="p-4 pl-20 w-full flex flex-col gap-y-2">
                 <div className="flex items-center justify-end">
-                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-200 text-gray-800">
+                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-red-100 text-red-700">
                     ABC123
                   </div>
                 </div>
@@ -553,19 +570,34 @@ const Home = () => {
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                   </p>
                 </div>
-                <div className="">
-                  <p className="text-xs font-normal">Coupon Code</p>
-                  <div className="flex items-center">
-                    <input
-                      type="text"
-                      className="py-1 bg-transparent text-gray-500 rounded-md text-xs focus:border-0 focus:outline-none focus:ring-0"
-                      defaultValue="ABC123"
-                      title="Click to copy"
-                      onClick={(e) => {
-                        copyTextToClipboard(e.target.value);
-                      }}
-                    />
+                <div className="flex  justify-between">
+                  <div className="">
+                    <p className="text-[0.6rem] font-normal">Coupon Code</p>
+                    <div className="flex items-center">
+                      <input
+                        type="text"
+                        className="py-1 bg-transparent w-14 text-gray-500 rounded-md text-xs focus:border-0 focus:outline-none focus:ring-0"
+                        defaultValue="ABC123"
+                        title="Click to copy"
+                        disabled={true}
+                      />
+                      <button
+                        onClick={() => {
+                          copyTextToClipboard("AB123");
+                        }}
+                        type="button"
+                        className=""
+                      >
+                        <IoCopyOutline />
+                      </button>
+                    </div>
                   </div>
+                  <button
+                    className="text-sm items-self-end font-semibold text-theme"
+                    type="button"
+                  >
+                    Book Now
+                  </button>
                 </div>
               </div>
             </div>
@@ -581,7 +613,7 @@ const Home = () => {
               />
               <div className="p-4 pl-20 w-full flex flex-col gap-y-2">
                 <div className="flex items-center justify-end">
-                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-200 text-gray-800">
+                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-red-100 text-red-700">
                     ABC123
                   </div>
                 </div>
@@ -595,19 +627,34 @@ const Home = () => {
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                   </p>
                 </div>
-                <div className="">
-                  <p className="text-xs font-normal">Coupon Code</p>
-                  <div className="flex items-center">
-                    <input
-                      type="text"
-                      className="py-1 bg-transparent text-gray-500 rounded-md text-xs focus:border-0 focus:outline-none focus:ring-0"
-                      defaultValue="ABC123"
-                      title="Click to copy"
-                      onClick={(e) => {
-                        copyTextToClipboard(e.target.value);
-                      }}
-                    />
+                <div className="flex  justify-between">
+                  <div className="">
+                    <p className="text-[0.6rem] font-normal">Coupon Code</p>
+                    <div className="flex items-center">
+                      <input
+                        type="text"
+                        className="py-1 bg-transparent w-14 text-gray-500 rounded-md text-xs focus:border-0 focus:outline-none focus:ring-0"
+                        defaultValue="ABC123"
+                        title="Click to copy"
+                        disabled={true}
+                      />
+                      <button
+                        onClick={() => {
+                          copyTextToClipboard("AB123");
+                        }}
+                        type="button"
+                        className=""
+                      >
+                        <IoCopyOutline />
+                      </button>
+                    </div>
                   </div>
+                  <button
+                    className="text-sm items-self-end font-semibold text-theme"
+                    type="button"
+                  >
+                    Book Now
+                  </button>
                 </div>
               </div>
             </div>
@@ -618,453 +665,454 @@ const Home = () => {
       </div>
       {/* Exclusive Deals End */}
       {/*  Popular Destination  */}
-      <div className="max-w-[85rem] px-4 py-8 sm:px-6 lg:px-8 mx-auto w-full">
-        <div className="mx-auto text-center mb-10 lg:mb-14 flex items-center space-x-12 w-full">
-          <h2 className="text-2xl md:text-4xl md:leading-tight">
-            Popular <span className="font-bold">Destinations</span>
-          </h2>
-          <select class="py-2 px-3 pr-9 block w-auto bg-white border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:hidden">
-            <option>All</option>
-          </select>
-          <div className="hidden sm:flex space-x-6">
-            <button
-              type="button"
-              className="font-semibold inline-flex items-center gap-x-2  border-transparent text-lg whitespace-nowrap text-gray-500 hover:text-theme"
-            >
-              All
-            </button>
+      <div className="bg-gray-100">
+        <div className="max-w-[85rem] px-4 py-8 sm:px-6 lg:px-8 mx-auto w-full bg-white rounded-md">
+          <div className="mx-auto text-center mb-10 lg:mb-14 flex items-center space-x-12 w-full">
+            <h2 className="text-2xl md:text-4xl md:leading-tight">
+              Popular <span className="font-bold">Destinations</span>
+            </h2>
+            <select class="py-2 px-3 pr-9 block w-auto bg-white border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:hidden">
+              <option>All</option>
+            </select>
+            <div className="hidden sm:flex space-x-6">
+              <button
+                type="button"
+                className="font-semibold inline-flex items-center gap-x-2  border-transparent text-lg whitespace-nowrap text-gray-500 hover:text-theme"
+              >
+                All
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Grid */}
-        <div className="md:grid md:grid-cols-2 md:items-center md:gap-12">
-          <div className="grid grid-cols-2 gap-x-5">
-            <div className="">
-              <div>
-                <img
-                  src="/flights.jpg"
-                  className="rounded-xl brightness-75 h-64 w-full"
-                />
+          {/* Grid */}
+          <div className="md:grid md:grid-cols-2 md:items-center md:gap-12">
+            <div className="grid grid-cols-2 gap-x-5">
+              <div className="">
+                <div>
+                  <img
+                    src="/flights.jpg"
+                    className="rounded-xl brightness-75 h-64 w-full"
+                  />
+                </div>
+                <p className="text-xs -translate-y-6 text-white font-semibold sm:-translate-y-8 sm:text-base translate-x-3">
+                  Mumbai, India
+                </p>
               </div>
-              <p className="text-xs -translate-y-6 text-white font-semibold sm:-translate-y-8 sm:text-base translate-x-3">
-                Mumbai, India
-              </p>
+              <div className="">
+                <div>
+                  <img
+                    src="/flights.jpg"
+                    className="rounded-xl h-64 brightness-75 w-full"
+                  />
+                </div>
+                <p className="text-xs -translate-y-6 text-white font-semibold sm:-translate-y-8 sm:text-base translate-x-3">
+                  Mumbai, India
+                </p>
+              </div>
+              <div className="">
+                <div>
+                  <img
+                    src="/flights.jpg"
+                    className="rounded-xl brightness-75 h-64 w-full"
+                  />
+                </div>
+                <p className="text-xs -translate-y-6 text-white font-semibold sm:-translate-y-8 sm:text-base translate-x-3">
+                  Mumbai, India
+                </p>
+              </div>
+              <div className="">
+                <div>
+                  <img
+                    src="/flights.jpg"
+                    className="rounded-xl brightness-75 h-64 w-full"
+                  />
+                </div>
+                <p className="text-xs -translate-y-6 text-white font-semibold sm:-translate-y-8 sm:text-base translate-x-3">
+                  Mumbai, India
+                </p>
+              </div>
             </div>
-            <div className="">
-              <div>
-                <img
-                  src="/flights.jpg"
-                  className="rounded-xl h-64 brightness-75 w-full"
-                />
-              </div>
-              <p className="text-xs -translate-y-6 text-white font-semibold sm:-translate-y-8 sm:text-base translate-x-3">
-                Mumbai, India
-              </p>
-            </div>
-            <div className="">
-              <div>
-                <img
-                  src="/flights.jpg"
-                  className="rounded-xl brightness-75 h-64 w-full"
-                />
-              </div>
-              <p className="text-xs -translate-y-6 text-white font-semibold sm:-translate-y-8 sm:text-base translate-x-3">
-                Mumbai, India
-              </p>
-            </div>
-            <div className="">
-              <div>
-                <img
-                  src="/flights.jpg"
-                  className="rounded-xl brightness-75 h-64 w-full"
-                />
-              </div>
-              <p className="text-xs -translate-y-6 text-white font-semibold sm:-translate-y-8 sm:text-base translate-x-3">
-                Mumbai, India
-              </p>
-            </div>
-          </div>
-          {/* End Col */}
-          <div className="mt-5 md:mt-0 border rounded-md h-[33rem] overflow-y-scroll">
-            <div className="p-4 space-y-3">
-              {/* Card */}
-              <div className="flex flex-col transition bg-white border rounded-md">
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        className="h-14 w-14 rounded-md"
-                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                        alt="Image Description"
-                      />
-                      <div className="ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          London, UK
-                        </h3>
-                      </div>
-                    </div>
-                    {/* Arrow */}
-                    <div className="pl-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-gray-500"
-                        width={16}
-                        height={16}
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
+            {/* End Col */}
+            <div className="mt-5 md:mt-0 border rounded-md h-[33rem] overflow-y-scroll">
+              <div className="p-4 space-y-3">
+                {/* Card */}
+                <div className="flex flex-col transition bg-white border rounded-md">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          className="h-14 w-14 rounded-md"
+                          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                          alt="Image Description"
                         />
-                      </svg>
+                        <div className="ml-3">
+                          <h3 className="font-semibold text-gray-800">
+                            London, UK
+                          </h3>
+                        </div>
+                      </div>
+                      {/* Arrow */}
+                      <div className="pl-3">
+                        <svg
+                          className="w-3.5 h-3.5 text-gray-500"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Card End */}
-              {/* Card */}
-              <div className="flex flex-col transition bg-white border rounded-md">
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        className="h-14 w-14 rounded-md"
-                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                        alt="Image Description"
-                      />
-                      <div className="ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          Mumbai, India
-                        </h3>
-                      </div>
-                    </div>
-                    {/* Arrow */}
-                    <div className="pl-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-gray-500"
-                        width={16}
-                        height={16}
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
+                {/* Card End */}
+                {/* Card */}
+                <div className="flex flex-col transition bg-white border rounded-md">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          className="h-14 w-14 rounded-md"
+                          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                          alt="Image Description"
                         />
-                      </svg>
+                        <div className="ml-3">
+                          <h3 className="font-semibold text-gray-800">
+                            Mumbai, India
+                          </h3>
+                        </div>
+                      </div>
+                      {/* Arrow */}
+                      <div className="pl-3">
+                        <svg
+                          className="w-3.5 h-3.5 text-gray-500"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Card End */}
-              {/* Card */}
-              <div className="flex flex-col transition bg-white border rounded-md">
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        className="h-14 w-14 rounded-md"
-                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                        alt="Image Description"
-                      />
-                      <div className="ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          Delhi, India
-                        </h3>
-                      </div>
-                    </div>
-                    {/* Arrow */}
-                    <div className="pl-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-gray-500"
-                        width={16}
-                        height={16}
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
+                {/* Card End */}
+                {/* Card */}
+                <div className="flex flex-col transition bg-white border rounded-md">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          className="h-14 w-14 rounded-md"
+                          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                          alt="Image Description"
                         />
-                      </svg>
+                        <div className="ml-3">
+                          <h3 className="font-semibold text-gray-800">
+                            Delhi, India
+                          </h3>
+                        </div>
+                      </div>
+                      {/* Arrow */}
+                      <div className="pl-3">
+                        <svg
+                          className="w-3.5 h-3.5 text-gray-500"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Card End */}
-              {/* Card */}
-              <div className="flex flex-col transition bg-white border rounded-md">
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        className="h-14 w-14 rounded-md"
-                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                        alt="Image Description"
-                      />
-                      <div className="ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          Paris, France
-                        </h3>
-                      </div>
-                    </div>
-                    {/* Arrow */}
-                    <div className="pl-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-gray-500"
-                        width={16}
-                        height={16}
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
+                {/* Card End */}
+                {/* Card */}
+                <div className="flex flex-col transition bg-white border rounded-md">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          className="h-14 w-14 rounded-md"
+                          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                          alt="Image Description"
                         />
-                      </svg>
+                        <div className="ml-3">
+                          <h3 className="font-semibold text-gray-800">
+                            Paris, France
+                          </h3>
+                        </div>
+                      </div>
+                      {/* Arrow */}
+                      <div className="pl-3">
+                        <svg
+                          className="w-3.5 h-3.5 text-gray-500"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Card End */}
-              {/* Card */}
-              <div className="flex flex-col transition bg-white border rounded-md">
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        className="h-14 w-14 rounded-md"
-                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                        alt="Image Description"
-                      />
-                      <div className="ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          Rome, Italy
-                        </h3>
-                      </div>
-                    </div>
-                    {/* Arrow */}
-                    <div className="pl-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-gray-500"
-                        width={16}
-                        height={16}
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
+                {/* Card End */}
+                {/* Card */}
+                <div className="flex flex-col transition bg-white border rounded-md">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          className="h-14 w-14 rounded-md"
+                          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                          alt="Image Description"
                         />
-                      </svg>
+                        <div className="ml-3">
+                          <h3 className="font-semibold text-gray-800">
+                            Rome, Italy
+                          </h3>
+                        </div>
+                      </div>
+                      {/* Arrow */}
+                      <div className="pl-3">
+                        <svg
+                          className="w-3.5 h-3.5 text-gray-500"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Card End */}
-              {/* Card */}
-              <div className="flex flex-col transition bg-white border rounded-md">
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        className="h-14 w-14 rounded-md"
-                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                        alt="Image Description"
-                      />
-                      <div className="ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          Canberra, Australia
-                        </h3>
-                      </div>
-                    </div>
-                    {/* Arrow */}
-                    <div className="pl-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-gray-500"
-                        width={16}
-                        height={16}
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
+                {/* Card End */}
+                {/* Card */}
+                <div className="flex flex-col transition bg-white border rounded-md">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          className="h-14 w-14 rounded-md"
+                          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                          alt="Image Description"
                         />
-                      </svg>
+                        <div className="ml-3">
+                          <h3 className="font-semibold text-gray-800">
+                            Canberra, Australia
+                          </h3>
+                        </div>
+                      </div>
+                      {/* Arrow */}
+                      <div className="pl-3">
+                        <svg
+                          className="w-3.5 h-3.5 text-gray-500"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Card End */}
-              {/* Card */}
-              <div className="flex flex-col transition bg-white border rounded-md">
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        className="h-14 w-14 rounded-md"
-                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                        alt="Image Description"
-                      />
-                      <div className="ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          Shimla, Himachal Pradesh
-                        </h3>
-                      </div>
-                    </div>
-                    {/* Arrow */}
-                    <div className="pl-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-gray-500"
-                        width={16}
-                        height={16}
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
+                {/* Card End */}
+                {/* Card */}
+                <div className="flex flex-col transition bg-white border rounded-md">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          className="h-14 w-14 rounded-md"
+                          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                          alt="Image Description"
                         />
-                      </svg>
+                        <div className="ml-3">
+                          <h3 className="font-semibold text-gray-800">
+                            Shimla, Himachal Pradesh
+                          </h3>
+                        </div>
+                      </div>
+                      {/* Arrow */}
+                      <div className="pl-3">
+                        <svg
+                          className="w-3.5 h-3.5 text-gray-500"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Card End */}
-              {/* Card */}
-              <div className="flex flex-col transition bg-white border rounded-md">
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        className="h-14 w-14 rounded-md"
-                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                        alt="Image Description"
-                      />
-                      <div className="ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          Andaman & Nicobar
-                        </h3>
-                      </div>
-                    </div>
-                    {/* Arrow */}
-                    <div className="pl-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-gray-500"
-                        width={16}
-                        height={16}
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
+                {/* Card End */}
+                {/* Card */}
+                <div className="flex flex-col transition bg-white border rounded-md">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          className="h-14 w-14 rounded-md"
+                          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                          alt="Image Description"
                         />
-                      </svg>
+                        <div className="ml-3">
+                          <h3 className="font-semibold text-gray-800">
+                            Andaman & Nicobar
+                          </h3>
+                        </div>
+                      </div>
+                      {/* Arrow */}
+                      <div className="pl-3">
+                        <svg
+                          className="w-3.5 h-3.5 text-gray-500"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Card End */}
-              {/* Card */}
-              <div className="flex flex-col transition bg-white border rounded-md">
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        className="h-14 w-14 rounded-md"
-                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                        alt="Image Description"
-                      />
-                      <div className="ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          Los Angeles, USA
-                        </h3>
-                      </div>
-                    </div>
-                    {/* Arrow */}
-                    <div className="pl-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-gray-500"
-                        width={16}
-                        height={16}
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
+                {/* Card End */}
+                {/* Card */}
+                <div className="flex flex-col transition bg-white border rounded-md">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          className="h-14 w-14 rounded-md"
+                          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                          alt="Image Description"
                         />
-                      </svg>
+                        <div className="ml-3">
+                          <h3 className="font-semibold text-gray-800">
+                            Los Angeles, USA
+                          </h3>
+                        </div>
+                      </div>
+                      {/* Arrow */}
+                      <div className="pl-3">
+                        <svg
+                          className="w-3.5 h-3.5 text-gray-500"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Card End */}
+                {/* Card End */}
 
-              {/* Card */}
-              <div className="flex flex-col transition bg-white border rounded-md">
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        className="h-14 w-14 rounded-md"
-                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                        alt="Image Description"
-                      />
-                      <div className="ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          London, UK
-                        </h3>
-                      </div>
-                    </div>
-                    {/* Arrow */}
-                    <div className="pl-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-gray-500"
-                        width={16}
-                        height={16}
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
+                {/* Card */}
+                <div className="flex flex-col transition bg-white border rounded-md">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          className="h-14 w-14 rounded-md"
+                          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                          alt="Image Description"
                         />
-                      </svg>
+                        <div className="ml-3">
+                          <h3 className="font-semibold text-gray-800">
+                            London, UK
+                          </h3>
+                        </div>
+                      </div>
+                      {/* Arrow */}
+                      <div className="pl-3">
+                        <svg
+                          className="w-3.5 h-3.5 text-gray-500"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
+                {/* Card End */}
               </div>
-              {/* Card End */}
             </div>
+            {/* End Col */}
           </div>
-          {/* End Col */}
+          {/* End Grid */}
         </div>
-        {/* End Grid */}
       </div>
-
       {/*  Popular Destination  End */}
 
       {/* Flight And Hotels Cards */}

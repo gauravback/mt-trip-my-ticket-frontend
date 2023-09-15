@@ -52,15 +52,31 @@ const Flight = () => {
       fetchFlights();
     }
   }, [location.search]);
-  console.log(flights);
-  console.log(
-    `/api/flights/?departure_airport_city=${origin}&arrival_airport_city=${destination}&departure_time_after=${departure}&departure_time_before=&arrival_time_after=&arrival_time_before=${
-      returnDate ? returnDate : ""
-    }&available_seats_min=${adults ? adults : 0 + children ? children : 0}`
-  );
+  const [flightData, setFlightData] = useState();
+  const fetchFlightData = async () => {
+    try {
+      const res = await api.get(`/api/flights/`);
+      const data = await res.data;
+      const status = await res.status;
+      if (status === 200) {
+        setFlightData(data);
+      } else {
+        toast.error("Something went wrong.", { id: 1 });
+      }
+    } catch (error) {
+      toast.error("Something went wrong.", { id: 1 });
+    }
+  };
+  useEffect(() => {
+    fetchFlightData();
+  }, []);
+
+  const [cabinClass, setCabinClass] = useState("");
+  const [wifiAvailable, setWifiAvailable] = useState();
+  const [inFlightMeal, setInFlightMeal] = useState();
   return (
     <div>
-      <div className="bg-prime">
+      <div className="">
         <Filter />
       </div>
       <div className="flex w-full flex-wrap max-w-[85rem] mx-auto">
@@ -70,60 +86,112 @@ const Flight = () => {
               id="filterSection"
               className="block md:py-10 lg:px-8 md:px-6 py-9 px-4 bg-gray-50 w-full"
             >
-              {/* Material Section */}
               <div>
                 <div className="flex space-x-2 text-gray-800 dark:text-white">
-                  <img
-                    className="dark:hidden"
-                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/filter1-svg4.svg"
-                    alt="materials"
-                  />
-                  <img
-                    className="hidden dark:block"
-                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/filter1-svg4dark.svg"
-                    alt="materials"
-                  />
-                  <p className="lg:text-2xl text-xl lg:leading-6 leading-5 font-medium ">
-                    Material
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    Cabin Class
                   </p>
                 </div>
-                <div className="mt-8 grid grid-cols-1 gap-y-8 flex-wrap">
-                  <div className="flex items-center gap-x-1">
-                    <input
-                      className="w-4 h-4"
-                      type="checkbox"
-                      id="Leather"
-                      name="Leather"
-                      defaultValue="Leather"
-                    />
-                    <div className="inline-block">
-                      <div className="flex ">
-                        <label
-                          className="mr-2 text-sm leading-3 font-normal text-gray-600"
-                          htmlFor="Leather"
-                        >
-                          Leather
-                        </label>
-                      </div>
+                <div className="mt-8 grid grid-cols-1 gap-y-5 flex-wrap">
+                  {[
+                    ...new Set(
+                      flightData?.map(({ cabin_class }) => cabin_class)
+                    ),
+                  ].map((cabin_class) => (
+                    <div className="flex items-center" key={cabin_class}>
+                      <input
+                        type="radio"
+                        name="cabin_class"
+                        defaultChecked={cabinClass === cabin_class && true}
+                        value={cabin_class}
+                        className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out"
+                      />
+                      <p className="ml-3 font-medium text-gray-900">
+                        {cabin_class}
+                      </p>
                     </div>
+                  ))}
+                </div>
+              </div>
+              <hr className="bg-gray-200  w-full md:my-10 my-8" />
+              <div>
+                <div className="flex space-x-2 text-gray-800">
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    WiFi Available
+                  </p>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-x-3 flex-wrap">
+                  <div className="">
+                    <button
+                      onClick={() => {
+                        setWifiAvailable(true);
+                      }}
+                      type="text"
+                      value={true}
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      type="text"
+                      onClick={() => {
+                        setWifiAvailable(false);
+                      }}
+                      value={false}
+                      className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      No
+                    </button>
                   </div>
                 </div>
               </div>
               <hr className="bg-gray-200  w-full md:my-10 my-8" />
+              <div>
+                <div className="flex space-x-2 text-gray-800">
+                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                    In Flight Meal
+                  </p>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-x-3 flex-wrap">
+                  <div className="">
+                    <button
+                      onClick={() => {
+                        inFlightMeal(true);
+                      }}
+                      type="text"
+                      value={true}
+                      className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      onClick={() => {
+                        inFlightMeal(false);
+                      }}
+                      type="text"
+                      value={false}
+                      className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </div>
 
               {/* Apply Filter Button (Large Screen) */}
               <div className="hidden w-full md:block mt-7">
                 <button className=" w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4 ">
-                  Apply Filter
+                  Apply
                 </button>
               </div>
               {/* Apply Filter Button (Table or lower Screen) */}
               <div className="block md:hidden w-full mt-10">
-                <button
-                  onclick="applyFilters()"
-                  className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4"
-                >
-                  Apply Filter
+                <button className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4">
+                  Apply
                 </button>
               </div>
             </div>

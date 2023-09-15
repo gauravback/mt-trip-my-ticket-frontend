@@ -27,7 +27,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [isFixed, setIsFixed] = useState(false);
-  const [showLinks, setShowLinks] = useState(false);
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
@@ -73,9 +72,9 @@ const Navbar = () => {
         style={navbarStyle}
         className={`${
           isFixed
-            ? "fixed min-w-[70%] left-50 w-full mx-auto"
+            ? "fixed min-w-[70%] left-50 w-full mx-auto navbar-bg"
             : "max-w-7xl mx-auto w-full"
-        } top-0 z-10 bg-prime `}
+        } top-0 z-10 transition-all ease-in-out duration-100`}
       >
         <div className="md:mx-8 flex flex-wrap items-center justify-between mx-auto">
           <div className="flex items-center justify-center md:justify-normal w-full md:w-auto">
@@ -84,12 +83,28 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex md:order-2 mx-4 gap-3 items-center justify-center w-full md:w-auto pb-4 md:pb-2 lg:pb-0">
+            <Link
+              to="/offers"
+              className={`${isFixed ? "hidden" : ""} hidden md:block`}
+            >
+              <div className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent text-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all text-sm">
+                <div>
+                  <img src="/icons/sale.png" width={28} alt="" />
+                </div>
+                <div className="text-left">
+                  <p className="text-xs">Super Offers</p>
+                  <p className="text-[0.63rem] text-gray-200">
+                    Explore great deals & offers
+                  </p>
+                </div>
+              </div>
+            </Link>
             {/* Language And Country */}
             <div className="hs-dropdown relative inline-flex [--placement:bottom-right]">
               <button
                 id="hs-dropdown-default"
                 type="button"
-                className="hs-dropdown-toggle py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-800 text-white"
+                className="hs-dropdown-toggle py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-700 text-white"
               >
                 <span
                   dangerouslySetInnerHTML={{
@@ -141,7 +156,7 @@ const Navbar = () => {
               <button
                 id="hs-dropdown-default"
                 type="button"
-                className="hs-dropdown-toggle py-1.5 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-800 text-white"
+                className="hs-dropdown-toggle py-1.5 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-700 text-white"
               >
                 <img
                   src={countryIcon}
@@ -328,7 +343,13 @@ const Navbar = () => {
                       id="hs-dropdown-hover-event"
                       className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
                     >
-                      <AiOutlineCar fontSize={24} className="mx-auto" />
+                      {/* <AiOutlineCar fontSize={24} className="mx-auto" /> */}
+                      <img
+                        src="/icons/car.png"
+                        width={28}
+                        className="mx-auto"
+                        alt=""
+                      />
                       Car Rental
                     </div>
                   </Link>
@@ -387,7 +408,8 @@ const Navbar = () => {
                       id="hs-dropdown-hover-event"
                       className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
                     >
-                      <MdOutlineFlight fontSize={24} className="mx-auto" />
+                      {/* <MdOutlineFlight fontSize={24} className="mx-auto" /> */}
+                      <img src="/icons/plane.png" width={28} alt="" />
                       Flight
                     </div>
                   </Link>
@@ -446,7 +468,8 @@ const Navbar = () => {
                       id="hs-dropdown-hover-event"
                       className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
                     >
-                      <RiHotelLine fontSize={24} className="mx-auto" />
+                      {/* <RiHotelLine fontSize={24} className="mx-auto" /> */}
+                      <img src="/icons/hotel.png" width={28} alt="" />
                       Hotel
                     </div>
                   </Link>
@@ -505,7 +528,8 @@ const Navbar = () => {
                       id="hs-dropdown-hover-event"
                       className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
                     >
-                      <MdDirectionsBus fontSize={24} className="mx-auto" />
+                      {/* <MdDirectionsBus fontSize={24} className="mx-auto" /> */}
+                      <img src="/icons/bus.png" width={28} alt="" />
                       Bus
                     </div>
                   </Link>
@@ -564,7 +588,13 @@ const Navbar = () => {
                       id="hs-dropdown-hover-event"
                       className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
                     >
-                      <TbAirBalloon fontSize={24} className="mx-auto" />
+                      {/* <TbAirBalloon fontSize={24} className="mx-auto" /> */}
+                      <img
+                        src="/icons/luggage.png"
+                        className="mx-auto"
+                        width={28}
+                        alt=""
+                      />
                       Package
                     </div>
                   </Link>
@@ -623,7 +653,8 @@ const Navbar = () => {
                       id="hs-dropdown-hover-event"
                       className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
                     >
-                      <RiStackFill fontSize={24} className="mx-auto" />
+                      {/* <RiStackFill fontSize={24} className="mx-auto" /> */}
+                      <img src="/icons/forex.png" width={28} alt="" />
                       Forex
                     </div>
                   </Link>

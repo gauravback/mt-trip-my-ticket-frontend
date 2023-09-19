@@ -73,13 +73,13 @@ const BookingDetails = () => {
                       <dd className="mt-2 text-gray-700">
                         <span className="block">Make: {booking.car.make}</span>
                         <span className="block">
-                          Model: {booking.car.model}
+                          Model: {booking.car.car.model}
                         </span>
                         <span className="block">
-                          Seats: {booking.car.seats}
+                          Seats: {booking.car.car.seats}
                         </span>
                         <span className="block">
-                          Type: {booking.car.car_type.type}
+                          Type: {booking.car.car.car_type.type}
                         </span>
                       </dd>
                     </div>
@@ -91,18 +91,18 @@ const BookingDetails = () => {
                       </dt>
                       <dd className="mt-2 text-gray-700">
                         <span className="block">
-                          Flight Number: {booking.flight.flight_number}
+                          Flight Number: {booking.flight.flight.flight_number}
                         </span>
                         <span className="block">
-                          Airline Name: {booking.flight.airline.name}
+                          Airline Name: {booking.flight.flight.airline.name}
                         </span>
                         <span className="block">
-                          Flight Name: {booking.flight.name}
+                          Flight Name: {booking.flight.flight.name}
                         </span>
                         <span className="block">
                           Depature Airport:{" "}
-                          {booking.flight.departure_airport.name},
-                          {booking.flight.departure_airport.city}
+                          {booking.flight.flight.departure_airport.name},
+                          {booking.flight.flight.departure_airport.city}
                         </span>
                       </dd>
                     </div>
@@ -114,20 +114,20 @@ const BookingDetails = () => {
                       </dt>
                       <dd className="mt-2 text-gray-700">
                         <span className="block">
-                          Name: {booking.hotel.name}
+                          Name: {booking.hotel.hotel.name}
                         </span>
                         <span className="block">
-                          City: {booking.hotel.city}
+                          City: {booking.hotel.hotel.city}
                         </span>
 
                         <span className="block">
-                          Country: {booking.hotel.country}
+                          Country: {booking.hotel.hotel.country}
                         </span>
                         <span className="block">
-                          Star Category: {booking.hotel.star_category}
+                          Star Category: {booking.hotel.hotel.star_category}
                         </span>
                         <span className="block">
-                          Contact: {booking.hotel.phone_number}
+                          Contact: {booking.hotel.hotel.phone_number}
                         </span>
                       </dd>
                     </div>
@@ -137,24 +137,24 @@ const BookingDetails = () => {
                       <dt className="font-medium text-gray-900">Bus Details</dt>
                       <dd className="mt-2 text-gray-700">
                         <span className="block">
-                          Bus Number: {booking.bus.bus_number}
+                          Bus Number: {booking.bus.bus.bus_number}
                         </span>
                         <span className="block">
-                          Bus Type: {booking.bus.bus_type}
+                          Bus Type: {booking.bus.bus.bus_type}
                         </span>
                         <span className="block">
-                          Operator: {booking.bus.operator}
+                          Operator: {booking.bus.bus.operator}
                         </span>
                         <span className="block">
-                          Depaerture City: {booking.bus.departure_city}
+                          Depaerture City: {booking.bus.bus.departure_city}
                         </span>
                         <span className="block">
-                          Arrival City: {booking.bus.arrival_city}
+                          Arrival City: {booking.bus.bus.arrival_city}
                         </span>
                         <span className="block">
                           Departure Date:{" "}
                           {format(
-                            new Date(booking.bus.departure_time),
+                            new Date(booking.bus.bus.departure_time),
                             "dd MMMM, yyyy"
                           )}
                         </span>
@@ -168,24 +168,25 @@ const BookingDetails = () => {
                       </dt>
                       <dd className="mt-2 text-gray-700">
                         <span className="block">
-                          Name: {booking.package.name}
+                          Name: {booking.package.package.name}
                         </span>
                         <span className="block">
-                          Origin City: {booking.package.origin_city}
+                          Origin City: {booking.package.package.origin_city}
                         </span>
                         <span className="block">
-                          Destination City: {booking.package.destination_city}
+                          Destination City:{" "}
+                          {booking.package.package.destination_city}
                         </span>
                         <span className="block">
                           Departure:{" "}
                           {format(
-                            new Date(booking.package.departure),
+                            new Date(booking.package.package.departure),
                             "dd MMMM, yyyy"
                           )}
                         </span>
                         <span className="block">
                           Flights Included:{" "}
-                          {booking.package.with_flights ? "Yes" : "No"}
+                          {booking.package.package.with_flights ? "Yes" : "No"}
                         </span>
                       </dd>
                     </div>

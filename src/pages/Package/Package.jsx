@@ -1,13 +1,14 @@
 import api from "@/api/api";
 import PackageFilter from "@/components/SearchComponents/PackageFilter/PackageFilter";
+import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineCar } from "react-icons/ai";
 import { BsArrowRight } from "react-icons/bs";
 import { MdHiking, MdOutlineFlight } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Package = () => {
   const [packages, setPackages] = useState();
@@ -15,6 +16,7 @@ const Package = () => {
     (state) => state.countryCurrencyReducer?.symbol
   );
   const priceRate = useSelector((state) => state.currencyRateReducer?.rate);
+
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const origin = searchParams.get("origin");
@@ -22,6 +24,8 @@ const Package = () => {
   const departure = searchParams.get("departure");
   const rooms = searchParams.get("rooms");
   const withFlights = searchParams.get("withFlights");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const fetchPackages = async () => {
     try {
       const res = await api.get(
@@ -39,9 +43,10 @@ const Package = () => {
     }
   };
   useEffect(() => {
-    fetchPackages();
+    if (searchParams.size > 0 && origin && destination && departure) {
+      fetchPackages();
+    }
   }, [location.search]);
-  console.log(packages);
   return (
     <div>
       <div className="">
@@ -106,6 +111,17 @@ const Package = () => {
                     <div className="">
                       <button
                         type="button"
+                        onClick={() => {
+                          dispatch(
+                            addToCart({
+                              id: pkg.id,
+                              type: "package",
+                              price: pkg.price,
+                              maxDate: pkg.departure,
+                            })
+                          );
+                          navigate("/checkout");
+                        }}
                         className="py-2 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold btn-gradient focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 transition-all text-sm"
                       >
                         Book Now

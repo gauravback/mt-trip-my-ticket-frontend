@@ -37,6 +37,8 @@ import MyTrips from "./pages/User/MyTrips";
 import ChangePassword from "./pages/User/ChangePassword";
 import Privacy from "./pages/Privacy/Privacy";
 import DubaiActivities from "./pages/DubaiActivities/DubaiActivities";
+import Checkout from "./pages/Checkout/Checkout";
+import CarDetails from "./pages/Car/CarDetails";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -128,6 +130,14 @@ const App = () => {
                   element={
                     <AnimatedPage>
                       <Car />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/car/:id"
+                  element={
+                    <AnimatedPage>
+                      <CarDetails />
                     </AnimatedPage>
                   }
                 />
@@ -252,6 +262,14 @@ const App = () => {
                     element={
                       <AnimatedPage>
                         <ChangePassword />
+                      </AnimatedPage>
+                    }
+                  />
+                  <Route
+                    path="/checkout"
+                    element={
+                      <AnimatedPage>
+                        <Checkout />
                       </AnimatedPage>
                     }
                   />

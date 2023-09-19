@@ -6,9 +6,12 @@ import { add } from "@/redux/slices/IPSlice";
 async function getIpAndCountry(dispatch, ipAddress = null) {
   try {
     axios.defaults.ssl = false;
-    const response = await axios.get("https://api.ipify.org?format=json");
-    const ip = response.data.ip;
+    const response = await fetch(
+      "https://ipgeolocation.abstractapi.com/v1/?api_key=baa6fc321104453db3aa6a8c5991dfc9"
+    );
 
+    const data = await response.json();
+    const ip = data.ip_address;
     if (!ip || ip != ipAddress) {
       const countryResponse = await axios.get(
         `https://ip-country-checker.vercel.app/${ip}`

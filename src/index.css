@@ -68,3 +68,10 @@ select {
 #room-grid:last-child {
   place-self: center;
 }
+
+.success {
+  @apply text-green-600;
+}
+.error {
+  @apply text-red-600;
+}

@@ -1,11 +1,12 @@
 import api from "@/api/api";
 import BusFilter from "@/components/SearchComponents/BusFilter/BusFilter";
+import { addToCart } from "@/redux/slices/CartSlice";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaBus } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Bus = () => {
   const [buses, setBuses] = useState();
@@ -22,10 +23,17 @@ const Bus = () => {
   const [wifi, setWifi] = useState();
   const [powerOutlet, setPowerOutlet] = useState();
   const [refreshments, setRefreshments] = useState();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const fetchBuses = async () => {
     try {
       const res = await api.get(
-        `/api/buses/?departure_station=${origin}&arrival_station=${destination}&arrival_date_before=${date}`
+        `/api/buses/?departure_station=${origin}&arrival_station=${destination}&arrival_date_before=${date}&bus_type=${
+          busType ? busType : ""
+        }&wifi_available=${wifi === null ? "" : wifi}&power_outlets_available=${
+          powerOutlet === null ? "" : powerOutlet
+        }&refreshments_served=${refreshments === null ? "" : refreshments}`
       );
       const data = await res.data;
       const status = await res.status;
@@ -39,8 +47,10 @@ const Bus = () => {
     }
   };
   useEffect(() => {
-    fetchBuses();
-  }, [location.search]);
+    if (searchParams.size > 0 && origin && destination && date) {
+      fetchBuses();
+    }
+  }, [location.search, busType, wifi, powerOutlet, refreshments]);
 
   const [busData, setBusData] = useState();
   const fetchBusData = async () => {
@@ -110,7 +120,6 @@ const Bus = () => {
                     <button
                       type="text"
                       onClick={() => setWifi(true)}
-                      value={true}
                       className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       Yes
@@ -120,7 +129,6 @@ const Bus = () => {
                     <button
                       type="text"
                       onClick={() => setWifi(false)}
-                      value={false}
                       className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       No
@@ -140,7 +148,6 @@ const Bus = () => {
                     <button
                       type="text"
                       onClick={() => setPowerOutlet(true)}
-                      value={true}
                       className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       Yes
@@ -150,7 +157,6 @@ const Bus = () => {
                     <button
                       type="text"
                       onClick={() => setPowerOutlet(false)}
-                      value={false}
                       className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       No
@@ -170,7 +176,6 @@ const Bus = () => {
                     <button
                       type="text"
                       onClick={() => setRefreshments(true)}
-                      value={true}
                       className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       Yes
@@ -180,26 +185,12 @@ const Bus = () => {
                     <button
                       type="text"
                       onClick={() => setRefreshments(false)}
-                      value={false}
                       className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       No
                     </button>
                   </div>
                 </div>
-              </div>
-
-              {/* Apply Filter Button (Large Screen) */}
-              <div className="hidden w-full md:block mt-7">
-                <button className=" w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4 ">
-                  Apply
-                </button>
-              </div>
-              {/* Apply Filter Button (Table or lower Screen) */}
-              <div className="block md:hidden w-full mt-10">
-                <button className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4">
-                  Apply
-                </button>
               </div>
             </div>
           </div>
@@ -230,7 +221,21 @@ const Bus = () => {
                       {format(new Date(bus.arrival_date), "dd MMM")}
                     </p>
                   </div>
-                  <button className="leading-loose btn-gradient p-1 px-2 rounded-lg uppercase text-xs tracking-wider">
+                  <button
+                    onClick={() => {
+                      dispatch(
+                        addToCart({
+                          minDate: bus.departure_date,
+                          maxDate: bus.arrival_date,
+                          price: bus.price,
+                          id: bus.id,
+                          type: "bus",
+                        })
+                      );
+                      navigate("/checkout");
+                    }}
+                    className="leading-loose btn-gradient p-1 px-2 rounded-lg uppercase text-xs tracking-wider"
+                  >
                     Book Now
                   </button>
                 </div>

@@ -1,11 +1,12 @@
 import api from "@/api/api";
 import Filter from "@/components/SearchComponents/FlightFilter/Filter";
+import { addToCart } from "@/redux/slices/CartSlice";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaPlaneDeparture } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Flight = () => {
   const [flights, setFlights] = useState();
@@ -21,6 +22,12 @@ const Flight = () => {
   const adults = searchParams.get("adults");
   const children = searchParams.get("children");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [cabinClass, setCabinClass] = useState("");
+  const [wifiAvailable, setWifiAvailable] = useState();
+  const [inFlightMeal, setInFlightMeal] = useState();
+
   const priceRate = useSelector((state) => state.currencyRateReducer?.rate);
   const fetchFlights = async () => {
     try {
@@ -29,7 +36,9 @@ const Flight = () => {
           returnDate ? returnDate : ""
         }&arrival_time_before=&available_seats_min=${
           adults ? adults : 0 + children ? children : 0
-        }`
+        }&cabin_class=${cabinClass ? cabinClass : ""}&wifi_available=${
+          wifiAvailable === null ? "" : wifiAvailable
+        }&in_flight_meal=${inFlightMeal === null ? "" : inFlightMeal}`
       );
       const data = await res.data;
       const status = await res.status;
@@ -51,7 +60,7 @@ const Flight = () => {
     ) {
       fetchFlights();
     }
-  }, [location.search]);
+  }, [location.search, cabinClass, inFlightMeal, wifiAvailable]);
   const [flightData, setFlightData] = useState();
   const fetchFlightData = async () => {
     try {
@@ -71,9 +80,6 @@ const Flight = () => {
     fetchFlightData();
   }, []);
 
-  const [cabinClass, setCabinClass] = useState("");
-  const [wifiAvailable, setWifiAvailable] = useState();
-  const [inFlightMeal, setInFlightMeal] = useState();
   return (
     <div>
       <div className="">
@@ -102,6 +108,9 @@ const Flight = () => {
                       <input
                         type="radio"
                         name="cabin_class"
+                        onChange={() => {
+                          setCabinClass(cabin_class);
+                        }}
                         defaultChecked={cabinClass === cabin_class && true}
                         value={cabin_class}
                         className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out"
@@ -127,7 +136,6 @@ const Flight = () => {
                         setWifiAvailable(true);
                       }}
                       type="text"
-                      value={true}
                       className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       Yes
@@ -139,7 +147,6 @@ const Flight = () => {
                       onClick={() => {
                         setWifiAvailable(false);
                       }}
-                      value={false}
                       className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       No
@@ -158,10 +165,9 @@ const Flight = () => {
                   <div className="">
                     <button
                       onClick={() => {
-                        inFlightMeal(true);
+                        setInFlightMeal(true);
                       }}
                       type="text"
-                      value={true}
                       className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       Yes
@@ -170,29 +176,15 @@ const Flight = () => {
                   <div className="">
                     <button
                       onClick={() => {
-                        inFlightMeal(false);
+                        setInFlightMeal(false);
                       }}
                       type="text"
-                      value={false}
                       className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       No
                     </button>
                   </div>
                 </div>
-              </div>
-
-              {/* Apply Filter Button (Large Screen) */}
-              <div className="hidden w-full md:block mt-7">
-                <button className=" w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4 ">
-                  Apply
-                </button>
-              </div>
-              {/* Apply Filter Button (Table or lower Screen) */}
-              <div className="block md:hidden w-full mt-10">
-                <button className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4">
-                  Apply
-                </button>
               </div>
             </div>
           </div>
@@ -227,7 +219,21 @@ const Flight = () => {
                       {format(new Date(flight.arrival_time), "dd MMM")}
                     </p>
                   </div>
-                  <button className="leading-loose btn-gradient p-1 px-2 rounded-lg uppercase text-xs tracking-wider">
+                  <button
+                    onClick={() => {
+                      dispatch(
+                        addToCart({
+                          id: flight.id,
+                          price: flight.price,
+                          typ: "flight",
+                          minDate: flight.departure_time,
+                          maxDate: flight.arrival_time,
+                        })
+                      );
+                      navigate("/checkout");
+                    }}
+                    className="leading-loose btn-gradient p-1 px-2 rounded-lg uppercase text-xs tracking-wider"
+                  >
                     Book Now
                   </button>
                 </div>

@@ -9,6 +9,7 @@ import { persistReducer } from "redux-persist";
 import countryCurrencyReducer from "./slices/countryCurrencySlice";
 import IPReducer from "./slices/IPSlice";
 import currencyRateReducer from "./slices/currencyRateSlice";
+import cartReducer from "./slices/CartSlice";
 const persistConfig = {
   key: "data",
   version: 1,
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   countryCurrencyReducer,
   IPReducer,
   currencyRateReducer,
+  cartReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

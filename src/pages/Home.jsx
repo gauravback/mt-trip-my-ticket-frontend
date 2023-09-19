@@ -2,8 +2,8 @@ import api from "@/api/api";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { RiSendPlaneFill } from "react-icons/ri";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -231,7 +231,7 @@ const Home = () => {
                 <div className="prod-img">
                   <img
                     src={car.images}
-                    className="w-full object-cover object-center h-42"
+                    className="w-full object-cover rounded-md object-center h-[20rem] max-h-[]"
                   />
                 </div>
                 <div className="prod-info grid gap-10">
@@ -264,11 +264,13 @@ const Home = () => {
                           __html: currencySymbol || "",
                         }}
                       />
-                      {car.price * priceRate}
+                      {parseFloat(car.price * priceRate).toFixed(2)}
                     </p>
-                    <button className="px-6 py-2 transition ease-in duration-200 uppercase rounded-full btn-gradient focus:outline-none">
-                      Book Now
-                    </button>
+                    <Link to={`/car/${car.id}`}>
+                      <button className="px-6 py-2 transition ease-in duration-200 uppercase rounded-full btn-gradient focus:outline-none">
+                        Book Now
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

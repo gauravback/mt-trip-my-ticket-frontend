@@ -1,9 +1,10 @@
 import api from "@/api/api";
 import { showRazorpay } from "@/components/Payment/Payment";
+import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
 const HotelDetails = () => {
   const currencySymbol = useSelector(
@@ -11,6 +12,8 @@ const HotelDetails = () => {
   );
   const priceRate = useSelector((state) => state.currencyRateReducer?.rate);
   const token = useSelector((state) => state.authReducer?.value?.token);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const [hotelDetails, setHotelDetails] = useState();
   const fetchHotelDetails = async () => {
@@ -32,13 +35,6 @@ const HotelDetails = () => {
     fetchHotelDetails();
   }, [id]);
 
-  const setImage = (image) => {
-    mainImageRef.current.src = image;
-  };
-
-  const [rooms, setRooms] = useState(1);
-  const [promoCode, setPromoCode] = useState("");
-  console.log(hotelDetails);
   return (
     <div className="mx-auto max-w-2xl  sm:px-6 lg:max-w-7xl lg:px-8">
       {hotelDetails && (
@@ -178,7 +174,10 @@ const HotelDetails = () => {
             >
               {hotelDetails?.rooms.map((room) => (
                 <>
-                  <div className="py-6 sm:flex border border-gray-200 rounded-md p-4">
+                  <div
+                    key={room.id}
+                    className="py-6 sm:flex border border-gray-200 rounded-md p-4"
+                  >
                     <div className="md:flex space-x-4 sm:min-w-0 sm:flex-1 sm:space-x-6 lg:space-x-8">
                       <div className="">
                         <img
@@ -221,6 +220,18 @@ const HotelDetails = () => {
                       </div>
                       <div className="w-48 space-y-4 sm:flex-none flex items-end">
                         <button
+                          onClick={() => {
+                            dispatch(
+                              addToCart({
+                                id: room.id,
+                                type: "hotel",
+                                minDate: hotelDetails.available_from,
+                                maxDate: hotelDetails.available_to,
+                                price: room.price,
+                              })
+                            );
+                            navigate("/checkout");
+                          }}
                           type="button"
                           className="flex w-full items-center justify-center rounded-md border border-transparent py-2 px-2.5 text-sm font-medium btn-gradient shadow-sm focus:outline-none focus:ring-0 sm:w-full sm:flex-grow-0"
                         >
@@ -228,14 +239,6 @@ const HotelDetails = () => {
                         </button>
                       </div>
                     </div>
-                    {/* <div className="mt-6 space-y-4 sm:mt-0 sm:ml-6 sm:w-40 sm:flex-none">
-                      <button
-                        type="button"
-                        className="flex w-full items-center justify-center rounded-md border border-transparent py-2 px-2.5 text-sm font-medium btn-gradient shadow-sm focus:outline-none focus:ring-0 sm:w-full sm:flex-grow-0"
-                      >
-                        Book Now
-                      </button>
-                    </div> */}
                   </div>
                 </>
               ))}

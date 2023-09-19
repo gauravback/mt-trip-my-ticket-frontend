@@ -27,17 +27,19 @@ const Hotel = () => {
   const fetchHotels = async () => {
     try {
       const res = await api.get(
-        `/api/hotels/?city=${
-          city ? city : ""
-        }&pin=&star_category=&amenities=&tax_type=&tax_percent_min=&tax_percent_max=&total_rooms_min=&total_rooms_max=&available_rooms_min=${
+        `/api/hotels/?city=${city ? city : ""}&pin=&star_category=${
+          star ? star : ""
+        }&amenities=&tax_type=&tax_percent_min=&tax_percent_max=&total_rooms_min=&total_rooms_max=&available_rooms_min=${
           room ? room : ""
         }&available_rooms_max=&price_min=${
           price ? price.split("-")[0] : ""
         }&price_max=${price ? price.split("-")[1] : ""}&available_from_after=${
           checkin ? checkin : ""
-        }&available_from_before=&available_to_after=&available_to_before=${
+        }&available_from_before=${
           checkout ? checkout : ""
-        }`
+        }&available_to_after=&available_to_before=&wifi_available=${
+          wifi === null ? "" : wifi
+        }&parking_available=${parking === null ? "" : parking}`
       );
       const data = await res.data;
       const status = await res.status;
@@ -51,8 +53,10 @@ const Hotel = () => {
     }
   };
   useEffect(() => {
-    fetchHotels();
-  }, []);
+    if (searchParams.size > 0 && city && checkin && checkout) {
+      fetchHotels();
+    }
+  }, [location.search, star, wifi, parking]);
 
   const sliceUntilSecondPeriod = (input) => {
     const firstPeriodIndex = input.indexOf(".");
@@ -174,7 +178,6 @@ const Hotel = () => {
                       onClick={() => {
                         setWifi(true);
                       }}
-                      value={true}
                       className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       Yes
@@ -186,7 +189,6 @@ const Hotel = () => {
                       onClick={() => {
                         setWifi(false);
                       }}
-                      value={false}
                       className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       No
@@ -208,7 +210,6 @@ const Hotel = () => {
                       onClick={() => {
                         setParking(true);
                       }}
-                      value={true}
                       className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       Yes
@@ -220,26 +221,12 @@ const Hotel = () => {
                       onClick={() => {
                         setParking(false);
                       }}
-                      value={false}
                       className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       No
                     </button>
                   </div>
                 </div>
-              </div>
-
-              {/* Apply Filter Button (Large Screen) */}
-              <div className="hidden w-full md:block mt-7">
-                <button className=" w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4 ">
-                  Apply
-                </button>
-              </div>
-              {/* Apply Filter Button (Table or lower Screen) */}
-              <div className="block md:hidden w-full mt-10">
-                <button className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4">
-                  Apply
-                </button>
               </div>
             </div>
           </div>

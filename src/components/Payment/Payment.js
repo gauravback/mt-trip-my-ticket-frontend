@@ -1,8 +1,7 @@
 import api from "@/api/api";
-import Logo from "../../../public/logo.png";
 import toast from "react-hot-toast";
-
 const handlePaymentVerification = async (response) => {
+  toast.loading("Please wait...", { id: "1" });
   try {
     const res = await api.post("/api/payment-confirm/", {
       response: response,
@@ -12,7 +11,7 @@ const handlePaymentVerification = async (response) => {
     const status = await res.status;
     if (status === 200) {
       toast.success("payment successful", { id: "1" });
-      window.location.href = "/dashboard";
+      window.location.href = "/my-trips";
     } else {
       toast.error("Something went wrong");
     }
@@ -26,7 +25,11 @@ export const showRazorpay = async (
   packageType,
   packageId,
   promoCode = null,
-  tickets = 1
+  person = 1,
+  email,
+  phone,
+  checkin,
+  checkout = null
 ) => {
   if (!token) {
     toast.error("Please login first", { id: "1" });
@@ -38,7 +41,11 @@ export const showRazorpay = async (
       package_type: packageType,
       package_id: packageId,
       promo_code: promoCode,
-      tickets: tickets,
+      people: person,
+      email: email,
+      phone: phone,
+      start_date: checkin,
+      end_date: checkout,
     },
     {
       headers: {
@@ -54,7 +61,6 @@ export const showRazorpay = async (
     currency: result.payment.currency,
     name: "My Trip My Ticket",
     description: "Book you travel now",
-    image: Logo,
     order_id: result.payment.id,
     handler: function (response) {
       handlePaymentVerification(response);

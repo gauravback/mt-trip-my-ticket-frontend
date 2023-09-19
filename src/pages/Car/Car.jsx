@@ -1,14 +1,20 @@
 import api from "@/api/api";
 import CarFilter from "@/components/SearchComponents/CarFilter/CarFilter";
+import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { TbArmchair, TbWindmill } from "react-icons/tb";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Car = () => {
   const [cars, setCars] = useState();
+  const [carType, setCarType] = useState("Sedan");
+  const [fuelType, setFuelType] = useState("");
+  const [transmission, setTransmission] = useState("");
+  const [Ac, setAc] = useState();
+  const [Bags, setBags] = useState();
   const currencySymbol = useSelector(
     (state) => state.countryCurrencyReducer?.symbol
   );
@@ -19,10 +25,18 @@ const Car = () => {
   const origin = searchParams.get("origin");
   const destination = searchParams.get("destination");
   const departure = searchParams.get("departure");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const fetchCars = async () => {
     try {
       const res = await api.get(
-        `/api/cars/?car_type=&fuel_type=&seats_min=&seats_max=&transmission=&ac=unknown&bags=unknown&price_min=&price_max=&origin_city=${
+        `/api/cars/?car_type=${carType ? carType : ""}&fuel_type=${
+          fuelType ? fuelType : ""
+        }&seats_min=&seats_max=&transmission=${
+          transmission ? transmission : ""
+        }&ac=${Ac === null ? "" : Ac}&bags=${
+          Bags === null ? "" : Bags
+        }&price_min=&price_max=&origin_city=${
           origin ? origin : ""
         }&destination_city=${
           destination ? destination : ""
@@ -31,7 +45,6 @@ const Car = () => {
         }&available_till_before=`
       );
       const data = await res.data;
-      console.log(data);
       const status = await res.status;
       if (status === 200) {
         setCars(data);
@@ -46,7 +59,7 @@ const Car = () => {
     if (searchParams.size > 0 && origin && destination) {
       fetchCars();
     }
-  }, [location.search]);
+  }, [location.search, carType, fuelType, transmission, Ac, Bags]);
 
   const [carsData, setCarsData] = useState();
   const fetchCarData = async () => {
@@ -67,13 +80,6 @@ const Car = () => {
   useEffect(() => {
     fetchCarData();
   }, []);
-
-  const [carType, setCarType] = useState("Sedan");
-  const [fuelType, setFuelType] = useState("");
-  const [transmission, setTransmission] = useState("");
-  const [Ac, setAc] = useState();
-  const [Bags, setBags] = useState();
-  console.log(carType);
   return (
     <div>
       <div className="">
@@ -221,7 +227,6 @@ const Car = () => {
                     <button
                       type="text"
                       onClick={() => setBags(true)}
-                      value={true}
                       className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       Yes
@@ -231,25 +236,12 @@ const Car = () => {
                     <button
                       type="text"
                       onClick={() => setBags(false)}
-                      value={false}
                       className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
                     >
                       No
                     </button>
                   </div>
                 </div>
-              </div>
-              {/* Apply Filter Button (Large Screen) */}
-              <div className="hidden w-full md:block mt-7">
-                <button className=" w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4 ">
-                  Apply
-                </button>
-              </div>
-              {/* Apply Filter Button (Table or lower Screen) */}
-              <div className="block md:hidden w-full mt-10">
-                <button className="w-full btn-gradient focus:ring-0 focus:outline-none text-base rounded-md font-medium py-2 px-4">
-                  Apply
-                </button>
               </div>
             </div>
           </div>
@@ -384,12 +376,14 @@ const Car = () => {
                     </div>
                     <div className="flex items-center">
                       <p className="flex items-center space-x-1 ">
-                        <button
-                          type="button"
-                          className="btn-gradient px-2 p-0.5 rounded-md"
-                        >
-                          Book Now
-                        </button>
+                        <Link to={`/car/${car.id}`}>
+                          <button
+                            type="button"
+                            className="btn-gradient px-2 p-0.5 rounded-md"
+                          >
+                            View Details
+                          </button>
+                        </Link>
                       </p>
                     </div>
                   </div>

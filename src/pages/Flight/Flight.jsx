@@ -225,7 +225,7 @@ const Flight = () => {
                         addToCart({
                           id: flight.id,
                           price: flight.price,
-                          typ: "flight",
+                          type: "flight",
                           minDate: flight.departure_time,
                           maxDate: flight.arrival_time,
                         })

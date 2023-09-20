@@ -102,7 +102,7 @@ const App = () => {
       <>
         {/* <GoogleTranslate /> */}
         <Suspense fallback={<Loader />}>
-          <div className="w-full navbar-bg">
+          <div className="w-full bg-[#081826]">
             <Navbar />
           </div>
           <Login />

@@ -34,13 +34,13 @@ const CarFilter = () => {
     );
   };
   return (
-    <div className="gradient-bg">
+    <div style={{ backgroundImage: `url("/filter-bg.webp")` }}>
       <div className="mx-auto max-w-screen-lg sm:py-12 relative">
         <Navigation />
         <form
           method="POST"
           onSubmit={handleSubmit}
-          className="sm:rounded-xl border border-gray-200 bg-white p-2 shadow-lg"
+          className="sm:rounded-xl border border-gray-200 bg-white p-2 md:shadow-lg"
         >
           <div className="mt-8 grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-3  px-3">
             <div className="flex flex-col">

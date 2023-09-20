@@ -46,7 +46,7 @@ const Checkout = () => {
 
   const handlePayment = async (e) => {
     e.preventDefault();
-    const { email, phone, checkin, checkout, person } = e.target;
+    const { email, phone, checkin, person } = e.target;
     console.log(person.value);
     showRazorpay(
       token,
@@ -57,7 +57,7 @@ const Checkout = () => {
       email.value,
       phone.value,
       checkin.value,
-      checkout.value
+      e.target.checkout ? e.target.checkout.value : ""
     );
   };
   console.log(new Date().toISOString().slice(0, 10));

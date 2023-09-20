@@ -3,6 +3,7 @@ import CarFilter from "@/components/SearchComponents/CarFilter/CarFilter";
 import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { AiOutlinePlus } from "react-icons/ai";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { TbArmchair, TbWindmill } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
@@ -87,7 +88,7 @@ const Car = () => {
       </div>
       <div className="flex w-full flex-wrap max-w-[85rem] mx-auto">
         <div className="w-full md:w-1/3">
-          <div className="2xl:container 2xl:mx-auto">
+          <div className="2xl:container 2xl:mx-auto hidden md:block">
             <div
               id="filterSection"
               className="block md:py-10 lg:px-20 md:px-6 py-9 px-4 bg-gray-50 w-full"
@@ -245,6 +246,194 @@ const Car = () => {
               </div>
             </div>
           </div>
+          <button
+            type="button"
+            className="text-gray-800  flex md:hidden items-center m-3"
+            data-hs-overlay="#application-sidebar"
+            aria-controls="application-sidebar"
+            aria-label="Toggle navigation"
+          >
+            <span className="sr-only">Toggle Navigation</span>
+            <span className="text-lg">Filters</span>
+            <AiOutlinePlus />
+          </button>
+
+          {/* Sidebar */}
+          <div
+            id="application-sidebar"
+            className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 left-0 bottom-0 z-[1000] w-64 bg-white border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y lg:translate-x-0 lg:right-auto lg:bottom-0 dark:scrollbar-y dark:bg-gray-800 dark:border-gray-700"
+          >
+            <div className="px-6">
+              <p className="flex-none text-xl font-semibold dark:text-white">
+                Filters
+              </p>
+            </div>
+            <nav
+              className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
+              data-hs-accordion-always-open
+            >
+              <div className="block md:py-10 lg:px-20 md:px-6 py-9 px-4 bg-gray-50 w-full">
+                {/* Car Type Section */}
+                <div>
+                  <div className="flex space-x-2 text-gray-800">
+                    <p className="text-lg lg:leading-6 leading-5 font-medium ">
+                      Car Type
+                    </p>
+                  </div>
+                  <div className="mt-8 grid grid-cols-1 gap-y-8 flex-wrap">
+                    {[
+                      ...new Set(
+                        carsData?.map(({ car_type }) => car_type.type)
+                      ),
+                    ].map((uniqueCarType) => (
+                      <div className="flex items-center" key={uniqueCarType}>
+                        <input
+                          type="radio"
+                          name="car_type"
+                          onChange={() => {
+                            setCarType(uniqueCarType);
+                          }}
+                          defaultChecked={carType === uniqueCarType && true}
+                          value={uniqueCarType}
+                          className="form-checkbox h-5 w-5 text-sm text-indigo-600 transition duration-150 ease-in-out"
+                        />
+                        <p className="ml-3 font-medium text-gray-900">
+                          {uniqueCarType}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
+                <div>
+                  <div className="flex space-x-2 text-gray-800">
+                    <p className="text-lg lg:leading-6 leading-5 font-medium ">
+                      Fuel Type
+                    </p>
+                  </div>
+                  <div className="mt-4 grid grid-cols-1 gap-y-8 flex-wrap">
+                    {[
+                      ...new Set(carsData?.map(({ fuel_type }) => fuel_type)),
+                    ].map((fuel_type) => (
+                      <div className="flex items-center" key={fuel_type}>
+                        <input
+                          type="radio"
+                          name="fuel_type"
+                          onChange={() => {
+                            setFuelType(fuel_type);
+                          }}
+                          value={fuel_type}
+                          defaultChecked={fuelType === fuel_type && true}
+                          className="form-checkbox h-5 w-5 text-indigo-600 text-sm transition duration-150 ease-in-out"
+                        />
+                        <p className="ml-3 font-medium text-gray-900">
+                          {fuel_type}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
+                <div>
+                  <div className="flex space-x-2 text-gray-800">
+                    <p className="text-lg lg:leading-6 leading-5 font-medium ">
+                      Transmission
+                    </p>
+                  </div>
+                  <div className="mt-4 grid grid-cols-1 gap-y-8 flex-wrap">
+                    {[
+                      ...new Set(
+                        carsData?.map(
+                          ({ transmission_type }) => transmission_type
+                        )
+                      ),
+                    ].map((transmission_type) => (
+                      <div
+                        className="flex items-center"
+                        key={transmission_type}
+                      >
+                        <input
+                          type="radio"
+                          name="transmission"
+                          onChange={() => {
+                            setTransmission(transmission_type);
+                          }}
+                          defaultChecked={
+                            transmission === transmission_type && true
+                          }
+                          value={transmission_type}
+                          className="form-checkbox h-5 w-5 text-indigo-600 text-sm transition duration-150 ease-in-out"
+                        />
+                        <p className="ml-3 font-medium text-gray-900">
+                          {transmission_type}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
+                <div>
+                  <div className="flex space-x-2 text-gray-800">
+                    <p className="text-lg lg:leading-6 leading-5 font-medium ">
+                      Air Conditioner
+                    </p>
+                  </div>
+                  <div className="mt-4 grid grid-cols-2 gap-x-3 flex-wrap">
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => setAc(true)}
+                        value={true}
+                        className="w-full  border rounded-md border-gray-300 text-sm focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                      >
+                        Yes
+                      </button>
+                    </div>
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => setAc(false)}
+                        value={false}
+                        className="w-full  rounded-md  border-gray-300 text-sm border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
+                <div>
+                  <div className="flex space-x-2 text-gray-800">
+                    <p className="text-lg lg:leading-6 leading-5 font-medium ">
+                      Air Bags
+                    </p>
+                  </div>
+                  <div className="mt-4 grid grid-cols-2 gap-x-3 flex-wrap">
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => setBags(true)}
+                        className="w-full  border rounded-md border-gray-300 text-sm focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                      >
+                        Yes
+                      </button>
+                    </div>
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => setBags(false)}
+                        className="w-full  rounded-md  border-gray-300 border text-sm focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          {/* Sidebar End */}
         </div>
         <div className="md:w-2/3 p-3 w-full">
           <div className="grid grid-cols-1 lg:gap-y-4 gap-6">

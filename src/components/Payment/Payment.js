@@ -45,7 +45,7 @@ export const showRazorpay = async (
       email: email,
       phone: phone,
       start_date: checkin,
-      end_date: checkout,
+      end_date: checkout ? checkout : "",
     },
     {
       headers: {

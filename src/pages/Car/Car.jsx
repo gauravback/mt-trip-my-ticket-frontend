@@ -256,7 +256,7 @@ const Car = () => {
               >
                 <div className="border h-full hidden  md:flex items-center justify-center bg-white p-4">
                   <img
-                    src={car.images}
+                    src={car.image}
                     width={250}
                     alt={car.make + " " + car.model}
                     className="rounded-md mix-blend-darken"

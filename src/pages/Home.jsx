@@ -31,8 +31,27 @@ const Home = () => {
     }
   };
 
+  const [activities, setActivities] = useState();
+
+  const fetchDubaiActivities = async () => {
+    try {
+      const response = await api.get("/api/activities/");
+      const result = await response.data;
+      const status = await response.status;
+      if (status === 200) {
+        setActivities(result);
+      } else {
+        toast.error("Something went wrong."), { id: 1 };
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong."), { id: 1 };
+    }
+  };
+
   useEffect(() => {
     fetchCars();
+    fetchDubaiActivities();
   }, []);
 
   const copyTextToClipboard = (text) => {
@@ -218,7 +237,7 @@ const Home = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Card */}
           {cars?.map((car) => (
-            <div className="container mx-auto max-w-sm w-full">
+            <div key={car.id} className="container mx-auto max-w-sm w-full">
               <div className="card flex flex-col justify-center p-5 bg-white rounded-lg">
                 <div className="prod-title">
                   <p className="text-2xl uppercase text-gray-900 font-bold">
@@ -297,105 +316,38 @@ const Home = () => {
         <div className="gap-x-2 gap-y-1">
           {/* Card */}
           <Slider {...settings} className="sapce-x-1">
-            <div className="max-w-[16rem] mx-auto overflow-hidden rounded-lg bg-white shadow-md">
-              <img
-                className="h-44 w-full rounded-t-lg object-cover"
-                src="/abu1.png"
-                alt="product image"
-              />
+            {activities?.map((activity) => (
+              <div
+                key={activity.id}
+                className="max-w-[16rem] mx-auto overflow-hidden rounded-lg bg-white shadow-md"
+              >
+                <img
+                  className="h-44 w-full rounded-t-lg object-cover"
+                  src={activity.image}
+                  alt={activity.name}
+                />
 
-              <div className="mt-4 px-5 pb-5">
-                <h5 className="text-lg font-semibold tracking-tight text-slate-900">
-                  Burj Khalifa At The Top Ticket
-                </h5>
+                <div className="mt-4 px-5 pb-5">
+                  <h5 className="text-lg font-semibold tracking-tight text-slate-900">
+                    {activity.name}
+                  </h5>
 
-                <div className="mt-2.5 mb-5 flex items-center">
-                  <span className="mr-2 rounded px-2.5 py-0.5 text-xs">
-                    At The Top ticket allows you to explore the 124th without
-                    any time restraint.
-                  </span>
+                  <div className="mt-2.5 mb-5 flex items-center">
+                    <span className="mr-2 rounded px-2.5 py-0.5 text-xs">
+                      {activity.description}
+                    </span>
+                  </div>
+                  <div className="mt-2.5 mb-5 flex items-center">
+                    <span
+                      dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                    ></span>
+                    <span className="rounded px-2.5 py-0.5 font-semibold">
+                      {parseFloat(activity.price * priceRate).toFixed(2)}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="max-w-[16rem] mx-auto overflow-hidden rounded-lg bg-white shadow-md">
-              <img
-                className="h-44 w-full rounded-t-lg object-cover"
-                src="/abu2.png"
-                alt="product image"
-              />
-
-              <div className="mt-4 px-5 pb-5">
-                <h5 className="text-lg font-semibold tracking-tight text-slate-900">
-                  Dubai Aquarium and Underwater Zoo
-                </h5>
-
-                <div className="mt-2.5 mb-5 flex items-center">
-                  <span className="mr-2 rounded px-2.5 py-0.5 text-xs">
-                    At Wake, our mission has always been focused on bringing
-                    openness.
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="max-w-[16rem] mx-auto overflow-hidden rounded-lg bg-white shadow-md">
-              <img
-                className="h-44 w-full rounded-t-lg object-cover"
-                src="/abu3.png"
-                alt="product image"
-              />
-
-              <div className="mt-4 px-5 pb-5">
-                <h5 className="text-lg font-semibold tracking-tight text-slate-900">
-                  Dubai Parks and Resorts
-                </h5>
-
-                <div className="mt-2.5 mb-5 flex items-center">
-                  <span className="mr-2 rounded px-2.5 py-0.5 text-xs font-semibold">
-                    Google is constantly updating its consumer AI, Google
-                    Assistant, with new features.
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="max-w-[16rem] mx-auto overflow-hidden rounded-lg bg-white shadow-md">
-              <img
-                className="h-44 w-full rounded-t-lg object-cover"
-                src="/abu4.png"
-                alt="product image"
-              />
-
-              <div className="mt-4 px-5 pb-5">
-                <h5 className="text-lg font-semibold tracking-tight text-slate-900">
-                  Ski Dubai Tickets
-                </h5>
-
-                <div className="mt-2.5 mb-5 flex items-center">
-                  <span className="mr-2 rounded px-2.5 py-0.5 text-xs font-semibold">
-                    Are you an accountant? Are you a company formation advisor?
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="max-w-[16rem] mx-auto overflow-hidden rounded-lg bg-white shadow-md">
-              <img
-                className="h-44 w-full rounded-t-lg object-cover"
-                src="/abu1.png"
-                alt="product image"
-              />
-
-              <div className="mt-4 px-5 pb-5">
-                <h5 className="text-lg font-semibold tracking-tight text-slate-900">
-                  Burj Khalifa At The Top Ticket
-                </h5>
-
-                <div className="mt-2.5 mb-5 flex items-center">
-                  <span className="mr-2 rounded px-2.5 py-0.5 text-xs font-semibold">
-                    At The Top ticket allows you to explore the 124th without
-                    any time restraint.
-                  </span>
-                </div>
-              </div>
-            </div>
+            ))}
           </Slider>
           {/* End Card */}
         </div>

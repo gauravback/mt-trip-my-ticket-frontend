@@ -45,7 +45,7 @@ export const showRazorpay = async (
       email: email,
       phone: phone,
       start_date: checkin,
-      end_date: checkout,
+      end_date: checkout ? checkout : "",
     },
     {
       headers: {
@@ -56,7 +56,7 @@ export const showRazorpay = async (
 
   const result = await response.data;
   var options = {
-    key: "",
+    key: import.meta.env.VITE_APP_RZP_KEY,
     amount: result.payment.amount,
     currency: result.payment.currency,
     name: "My Trip My Ticket",
@@ -66,9 +66,9 @@ export const showRazorpay = async (
       handlePaymentVerification(response);
     },
     prefill: {
-      name: result.user.name,
-      email: result.user.email,
-      contact: result.user.phone,
+      name: "",
+      email: "",
+      contact: "",
     },
     theme: {
       color: "#3399cc",

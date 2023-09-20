@@ -15,7 +15,7 @@ const MyTrips = () => {
   const fetchBookings = async () => {
     try {
       toast.loading("Fetching trips...", { id: 1 });
-      const response = await api.get("/api/bookings/user/?status=confirmed", {
+      const response = await api.get("/api/bookings/user/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -230,7 +230,7 @@ const Home = () => {
                 </div>
                 <div className="prod-img">
                   <img
-                    src={car.images}
+                    src={car.image}
                     className="w-full object-cover rounded-md object-center h-[20rem] max-h-[]"
                   />
                 </div>

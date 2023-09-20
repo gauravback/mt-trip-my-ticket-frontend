@@ -39,6 +39,7 @@ import Privacy from "./pages/Privacy/Privacy";
 import DubaiActivities from "./pages/DubaiActivities/DubaiActivities";
 import Checkout from "./pages/Checkout/Checkout";
 import CarDetails from "./pages/Car/CarDetails";
+import GoogleTranslate from "./utils/GoogleTranslate";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -99,6 +100,7 @@ const App = () => {
   return (
     <div className="">
       <>
+        {/* <GoogleTranslate /> */}
         <Suspense fallback={<Loader />}>
           <div className="w-full navbar-bg">
             <Navbar />

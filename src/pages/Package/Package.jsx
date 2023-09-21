@@ -7,10 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PiAirplaneBold, PiBus } from "react-icons/pi";
 import { LiaHotelSolid } from "react-icons/lia";
-import { AiOutlineCar } from "react-icons/ai";
-import { BsArrowRight } from "react-icons/bs";
-import { MdHiking, MdOutlineFlight } from "react-icons/md";
-import { RiHotelLine } from "react-icons/ri";
+import { MdHiking } from "react-icons/md";
 const Package = () => {
   const [packages, setPackages] = useState();
   const currencySymbol = useSelector(
@@ -25,12 +22,17 @@ const Package = () => {
   const departure = searchParams.get("departure");
   const rooms = searchParams.get("rooms");
   const withFlights = searchParams.get("withFlights");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const fetchPackages = async () => {
     try {
       const res = await api.get(
-        `/api/packages/?origin_city=${origin}&destination_city=${destination}&activities=&departure_after=${departure}&departure_before=&star_category=&price_min=&price_max=&with_flights=${withFlights}&total_rooms_min=${rooms}&total_rooms_max=`
+        `/api/packages/?origin_city=${origin ? origin : ""}&destination_city=${
+          destination ? destination : ""
+        }&activities=&departure_after=${
+          departure ? departure : ""
+        }&departure_before=&star_category=&price_min=&price_max=&with_flights=${
+          withFlights ? withFlights : ""
+        }&total_rooms_min=${rooms ? rooms : ""}&total_rooms_max=`
       );
       const data = await res.data;
       const status = await res.status;
@@ -44,9 +46,7 @@ const Package = () => {
     }
   };
   useEffect(() => {
-    if (searchParams.size > 0 && origin && destination && departure) {
-      fetchPackages();
-    }
+    fetchPackages();
   }, [location.search]);
   return (
     <div>

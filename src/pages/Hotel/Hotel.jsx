@@ -53,9 +53,7 @@ const Hotel = () => {
     }
   };
   useEffect(() => {
-    if (searchParams.size > 0 && city && checkin && checkout) {
-      fetchHotels();
-    }
+    fetchHotels();
   }, [location.search, star, wifi, parking]);
 
   const sliceUntilSecondPeriod = (input) => {
@@ -243,7 +241,7 @@ const Hotel = () => {
                   <img
                     src={hotel.image}
                     alt="tailwind logo"
-                    className="rounded-xl h-full object-cover"
+                    className="rounded-xl h-full object-cover max-h-40"
                   />
                 </div>
                 <div className="w-full md:w-4/5 bg-white flex flex-col space-y-2 p-3">
@@ -276,7 +274,7 @@ const Hotel = () => {
                     {hotel.name}
                   </h3>
                   <p className="md:text-base text-gray-500 text-sm">
-                    {sliceUntilSecondPeriod(hotel.description)}
+                    {hotel.description.slice(0, 150)}...
                   </p>
                   <div className="flex items-center justify-between">
                     <p className="text-lg font-black text-gray-800">

@@ -29,7 +29,11 @@ const Bus = () => {
   const fetchBuses = async () => {
     try {
       const res = await api.get(
-        `/api/buses/?departure_station=${origin}&arrival_station=${destination}&arrival_date_before=${date}&bus_type=${
+        `/api/buses/?departure_station=${
+          origin ? origin : ""
+        }&arrival_station=${
+          destination ? destination : ""
+        }&arrival_date_before=${date ? date : ""}&bus_type=${
           busType ? busType : ""
         }&wifi_available=${wifi === null ? "" : wifi}&power_outlets_available=${
           powerOutlet === null ? "" : powerOutlet
@@ -47,9 +51,7 @@ const Bus = () => {
     }
   };
   useEffect(() => {
-    if (searchParams.size > 0 && origin && destination && date) {
-      fetchBuses();
-    }
+    fetchBuses();
   }, [location.search, busType, wifi, powerOutlet, refreshments]);
 
   const [busData, setBusData] = useState();

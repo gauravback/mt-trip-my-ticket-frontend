@@ -32,7 +32,7 @@ const Flight = () => {
   const fetchFlights = async () => {
     try {
       const res = await api.get(
-        `/api/flights/?departure_airport_city=${origin}&arrival_airport_city=${destination}&departure_time_after=&departure_time_before=${departure}&arrival_time_after=${
+        `/api/flights/?departure_airport_city=${origin?origin:""}&arrival_airport_city=${destination?destination:""}&departure_time_after=&departure_time_before=${departure?departure:""}&arrival_time_after=${
           returnDate ? returnDate : ""
         }&arrival_time_before=&available_seats_min=${
           adults ? adults : 0 + children ? children : 0
@@ -52,14 +52,7 @@ const Flight = () => {
     }
   };
   useEffect(() => {
-    if (
-      (searchParams.size > 0 && origin && destination && departure) ||
-      adults ||
-      children ||
-      returnDate
-    ) {
-      fetchFlights();
-    }
+    fetchFlights();
   }, [location.search, cabinClass, inFlightMeal, wifiAvailable]);
   const [flightData, setFlightData] = useState();
   const fetchFlightData = async () => {

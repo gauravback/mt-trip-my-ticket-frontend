@@ -57,9 +57,7 @@ const Car = () => {
     }
   };
   useEffect(() => {
-    if (searchParams.size > 0 && origin && destination) {
-      fetchCars();
-    }
+    fetchCars();
   }, [location.search, carType, fuelType, transmission, Ac, Bags]);
 
   const [carsData, setCarsData] = useState();
@@ -447,8 +445,9 @@ const Car = () => {
                   <img
                     src={car.image}
                     width={250}
+                    height={10}
                     alt={car.make + " " + car.model}
-                    className="rounded-md mix-blend-darken"
+                    className="rounded-md object-cover mix-blend-darken max-h-44"
                   />
                 </div>
                 <div className="w-full">

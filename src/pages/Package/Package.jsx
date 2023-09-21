@@ -3,13 +3,14 @@ import PackageFilter from "@/components/SearchComponents/PackageFilter/PackageFi
 import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { PiAirplaneBold, PiBus } from "react-icons/pi";
+import { LiaHotelSolid } from "react-icons/lia";
 import { AiOutlineCar } from "react-icons/ai";
 import { BsArrowRight } from "react-icons/bs";
 import { MdHiking, MdOutlineFlight } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-
 const Package = () => {
   const [packages, setPackages] = useState();
   const currencySymbol = useSelector(
@@ -54,82 +55,73 @@ const Package = () => {
       </div>
       <div className="flex w-full flex-wrap max-w-[85rem] mx-auto">
         <div className="p-3 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-1 lg:gap-y-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 lg:gap-y-4 gap-6">
             {/* Card */}
             {packages?.map((pkg) => (
-              <div
-                key={pkg.id}
-                className="flex w-full max-w-xs mx-auto md:mx-0 flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md"
-              >
-                <div className="mx-3 mt-3 flex h-60 overflow-hidden rounded-xl">
-                  <img
-                    className="object-cover"
-                    src={pkg.image}
-                    alt={pkg.name}
-                  />
-                </div>
-                <div className="mt-4 px-5 pb-3">
-                  <h5 className="text-lg tracking-tight font-semibold text-slate-900">
-                    {pkg.name}
-                  </h5>
-                  <div className="space-y-4 mt-2">
-                    <p>
-                      <span className="text-sm inline-flex items-center gap-x-2 font-medium px-2 rounded py-0.5 bg-amber-100 text-slate-900">
-                        {pkg?.origin_city?.split(",")[0]} <BsArrowRight />
-                        {pkg?.destination_city.split(",")[0]}
-                      </span>
-                    </p>
-                    <div className="mt-5 flex justify-between">
-                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
-                        <MdOutlineFlight />
-                        <span className="text-xs font-normal">
+              <div className="relative mx-auto w-full">
+                <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
+                  <div className="shadow p-4 rounded-lg bg-white">
+                    <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
+                      <div className="transition-transform duration-500 transform ease-in-out  w-full">
+                        <img
+                          className="absolute inset-0 bg-black"
+                          src={pkg.image}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <h2 className="font-medium text-lg md:text-xl text-gray-800 line-clamp-1 capitalize">
+                        {pkg.name}
+                      </h2>
+                    </div>
+                    <div className="grid grid-cols-2 grid-rows-2 gap-4 mt-4">
+                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                        <MdHiking fontSize={20} />
+                        <span className="mt-2 xl:mt-0 ml-1.5">
+                          {" "}
+                          {(pkg.activities.match(/\n/g) || []).length + 1}{" "}
+                          Activites
+                        </span>
+                      </p>
+                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                        <PiAirplaneBold fontSize={20} />
+                        <span className="mt-2 xl:mt-0 ml-1.5">
+                          {" "}
                           {pkg.flights.length} Flights
                         </span>
-                      </div>
-                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
-                        <RiHotelLine />
-                        <span className="text-xs font-normal">
+                      </p>
+                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                        <LiaHotelSolid fontSize={20} />
+                        <span className="mt-2 xl:mt-0 ml-1.5">
+                          {" "}
                           {pkg.hotels.length} Hotels
                         </span>
-                      </div>
-                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
-                        <MdHiking />
-                        <span className="text-xs font-normal">
-                          {(pkg.activities.match(/\n/g) || []).length + 1} {""}
-                          activites
-                        </span>
-                      </div>
-                      <div className="flex flex-col cursor-pointer items-center justify-center rounded-md  text-xl font-bold">
-                        <AiOutlineCar />
-                        <span className="text-xs font-normal">
+                      </p>
+                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                        <PiBus fontSize={20} />
+                        <span className="mt-2 xl:mt-0 ml-1.5">
+                          {" "}
                           {pkg.buses.length + pkg.cars.length} Transfers
                         </span>
+                      </p>
+                    </div>
+                    <div className="mt-8">
+                      <div className="flex justify-between items-center">
+                        <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
+                          <span
+                            className="uppercase"
+                            dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                          ></span>
+                          <span className="text-lg">
+                            {parseFloat(pkg.price * priceRate).toFixed(2)}
+                          </span>
+                        </p>
+                        <Link to={`/package/${pkg.id}`}>
+                          <button className="inline-block font-semibold text-theme border border-red-300 p-2 whitespace-nowrap hover:border-red-500 leading-tight rounded-xl">
+                            View Details
+                          </button>
+                        </Link>
                       </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between rounded-md mt-2 pt-1 text-center text-sm font-medium text-gray-950 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                    <div className="">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          dispatch(
-                            addToCart({
-                              id: pkg.id,
-                              type: "package",
-                              price: pkg.price,
-                              maxDate: pkg.departure,
-                            })
-                          );
-                          navigate("/checkout");
-                        }}
-                        className="py-2 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold btn-gradient focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 transition-all text-sm"
-                      >
-                        Book Now
-                      </button>
-                    </div>
-                    <div className="font-semibold ml-1 text-xl">
-                      &#8377;{Math.trunc(pkg.price)}
-                      <p className="text-sm font-normal">per person</p>
                     </div>
                   </div>
                 </div>

@@ -9,6 +9,9 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Filter from "@/components/SearchComponents/FlightFilter/Filter";
 import { IoCopyOutline } from "react-icons/io5";
+import { MdHiking } from "react-icons/md";
+import { PiAirplaneBold, PiBus } from "react-icons/pi";
+import { LiaHotelSolid } from "react-icons/lia";
 const Home = () => {
   const [cars, setCars] = useState();
   const currencySymbol = useSelector(
@@ -35,7 +38,7 @@ const Home = () => {
 
   const fetchDubaiActivities = async () => {
     try {
-      const response = await api.get("/api/activities/");
+      const response = await api.get("/api/packages/?destination_city=dubai");
       const result = await response.data;
       const status = await response.status;
       if (status === 200) {
@@ -236,7 +239,7 @@ const Home = () => {
         {/* Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Card */}
-          {cars?.map((car) => (
+          {cars?.slice(0, 6).map((car) => (
             <div key={car.id} className="container mx-auto max-w-sm w-full">
               <div className="card flex flex-col justify-center p-5 bg-white rounded-lg">
                 <div className="prod-title">
@@ -315,35 +318,75 @@ const Home = () => {
         {/* Grid */}
         <div className="gap-x-2 gap-y-1">
           {/* Card */}
-          <Slider {...settings} className="sapce-x-1">
+          <Slider {...settings} className="">
             {activities?.map((activity) => (
-              <div
-                key={activity.id}
-                className="max-w-[16rem] mx-auto overflow-hidden rounded-lg bg-white shadow-md"
-              >
-                <img
-                  className="h-44 w-full rounded-t-lg object-cover"
-                  src={activity.image}
-                  alt={activity.name}
-                />
-
-                <div className="mt-4 px-5 pb-5">
-                  <h5 className="text-lg font-semibold tracking-tight text-slate-900">
-                    {activity.name}
-                  </h5>
-
-                  <div className="mt-2.5 mb-5 flex items-center">
-                    <span className="mr-2 rounded px-2.5 py-0.5 text-xs">
-                      {activity.description}
-                    </span>
-                  </div>
-                  <div className="mt-2.5 mb-5 flex items-center">
-                    <span
-                      dangerouslySetInnerHTML={{ __html: currencySymbol }}
-                    ></span>
-                    <span className="rounded px-2.5 py-0.5 font-semibold">
-                      {parseFloat(activity.price * priceRate).toFixed(2)}
-                    </span>
+              <div className="relative mx-auto w-full border border-gray-300 rounded-md">
+                <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
+                  <div className="shadow p-4 rounded-lg bg-white">
+                    <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
+                      <div className="transition-transform duration-500 transform ease-in-out  w-full">
+                        <img
+                          className="absolute inset-0 bg-black"
+                          src={activity.image}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <h2 className="font-medium text-lg md:text-xl text-gray-800 line-clamp-1 capitalize">
+                        {activity.name}
+                      </h2>
+                    </div>
+                    <div className="grid grid-cols-2 grid-rows-2 gap-4 mt-4">
+                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                        <MdHiking fontSize={20} />
+                        <span className="mt-2 xl:mt-0 ml-1.5">
+                          {" "}
+                          {(activity.activities.match(/\n/g) || []).length +
+                            1}{" "}
+                          Activites
+                        </span>
+                      </p>
+                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                        <PiAirplaneBold fontSize={20} />
+                        <span className="mt-2 xl:mt-0 ml-1.5">
+                          {" "}
+                          {activity.flights.length} Flights
+                        </span>
+                      </p>
+                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                        <LiaHotelSolid fontSize={20} />
+                        <span className="mt-2 xl:mt-0 ml-1.5">
+                          {" "}
+                          {activity.hotels.length} Hotels
+                        </span>
+                      </p>
+                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                        <PiBus fontSize={20} />
+                        <span className="mt-2 xl:mt-0 ml-1.5">
+                          {" "}
+                          {activity.buses.length + activity.cars.length}{" "}
+                          Transfers
+                        </span>
+                      </p>
+                    </div>
+                    <div className="mt-8">
+                      <div className="flex justify-between items-center">
+                        <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
+                          <span
+                            className="uppercase"
+                            dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                          ></span>
+                          <span className="text-lg">
+                            {parseFloat(activity.price * priceRate).toFixed(2)}
+                          </span>
+                        </p>
+                        <Link to={`/package/${activity.id}`}>
+                          <button className="inline-block font-semibold text-theme border border-red-300 p-2 whitespace-nowrap hover:border-red-500 leading-tight rounded-xl">
+                            View Details
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

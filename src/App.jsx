@@ -40,6 +40,7 @@ import DubaiActivities from "./pages/DubaiActivities/DubaiActivities";
 import Checkout from "./pages/Checkout/Checkout";
 import CarDetails from "./pages/Car/CarDetails";
 import GoogleTranslate from "./utils/GoogleTranslate";
+import PackageDetails from "./pages/Package/PackageDetails";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -172,6 +173,14 @@ const App = () => {
                   element={
                     <AnimatedPage>
                       <Package />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/package/:id"
+                  element={
+                    <AnimatedPage>
+                      <PackageDetails />
                     </AnimatedPage>
                   }
                 />

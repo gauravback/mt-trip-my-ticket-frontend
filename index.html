@@ -4,9 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .skiptranslate {
+        display: none !important;
+      }
+
+      body {
+        top: 0px !important;
+      }
+    </style>
     <title>My Trip My Ticket</title>
   </head>
   <body>
+    <div id="google_translate_element"></div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script
@@ -15,5 +26,42 @@
       src="https://res.cloudinary.com/rohanphulkar/raw/upload/v1673963494/synfert/preline_norz6c.js"
     ></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script type="text/javascript">
+      function getCookieValue(cookieName) {
+        const cookies = document.cookie.split(";");
+
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          const cookieParts = cookie.split("=");
+
+          if (cookieParts.length === 2 && cookieParts[0] === cookieName) {
+            return decodeURIComponent(cookieParts[1]);
+          }
+        }
+
+        // Return null if the cookie doesn't exist
+        return null;
+      }
+      const cookieName = "googtrans";
+
+      const cookieValue = getCookieValue(cookieName);
+      console.log((cookieValue = "/en/hi"));
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          },
+          "google_translate_element"
+        );
+      }
+    </script>
+
+    <!-- Script code for google translator API -->
+    <script
+      type="text/javascript"
+      src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    ></script>
   </body>
 </html>

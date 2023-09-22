@@ -19,7 +19,14 @@ function getCurrencyAndSymbolCode(searchValue, searchType) {
     const symbolCode = entry.symbolCode;
     const abbreviation = entry.abbreviation;
     const country = entry.country;
-    return { country, currency, symbolCode, abbreviation };
+    const languageAbbreviation = entry.languageAbbreviation;
+    return {
+      country,
+      currency,
+      symbolCode,
+      abbreviation,
+      languageAbbreviation,
+    };
   } else {
     return null; // No matching entry found
   }

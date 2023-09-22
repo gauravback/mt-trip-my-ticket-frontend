@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 
 const Checkout = () => {
   const cart = useSelector((state) => state.cartReducer);
+  const offerCode = useSelector((state) => state.OfferReducer);
+  console.log(offerCode);
   const currencySymbol = useSelector(
     (state) => state.countryCurrencyReducer?.symbol
   );
@@ -60,7 +62,6 @@ const Checkout = () => {
       e.target.checkout ? e.target.checkout.value : ""
     );
   };
-  console.log(new Date().toISOString().slice(0, 10));
   return (
     <div>
       <section className="py-16">
@@ -84,6 +85,7 @@ const Checkout = () => {
                         type="text"
                         name="coupon"
                         id="coupon"
+                        defaultValue={offerCode ? offerCode : ""}
                         placeholder="Coupon Code"
                         className={`p-2 border rounded-md w-full focus:outline-none focus:ring-0 ${
                           disableCouponInput ? "pointer-events-none" : ""

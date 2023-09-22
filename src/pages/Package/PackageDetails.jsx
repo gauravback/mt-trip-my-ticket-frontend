@@ -1,13 +1,15 @@
 import api from "@/api/api";
 import { addToCart } from "@/redux/slices/CartSlice";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { HiOutlineLocationMarker } from "react-icons/hi";
 import { LiaHotelSolid } from "react-icons/lia";
 import { MdHiking } from "react-icons/md";
-import { PiAirplaneBold, PiAirplaneDuotone, PiBus } from "react-icons/pi";
+import { PiAirplaneBold, PiBus } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 const PackageDetails = () => {
   const [packageDetails, setPackageDetails] = useState();
@@ -36,6 +38,62 @@ const PackageDetails = () => {
   useEffect(() => {
     fetchPackageDetails();
   }, [id]);
+  const [packages, setPackages] = useState();
+
+  const fetchPackages = async () => {
+    try {
+      const res = await api.get(`/api/packages/`);
+      const data = await res.data;
+      const status = await res.status;
+      if (status === 200) {
+        setPackages(data);
+      } else {
+        toast.error("Something went wrong.", { id: 1 });
+      }
+    } catch (error) {
+      toast.error("Something went wrong.", { id: 1 });
+    }
+  };
+  useEffect(() => {
+    fetchPackages();
+  }, []);
+
+  const settings = {
+    infinite: true,
+    autoplay: true,
+    speed: 500,
+    autoplaySpeed: 2000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+
+    centerPadding: "50px",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   return (
     <div>
@@ -73,7 +131,7 @@ const PackageDetails = () => {
                       </span>
                     </p>
                   </div>
-                  <div className>
+                  <div className="">
                     <p className="mb-4 text-lg font-semibold">
                       Duration : {packageDetails.duration}
                     </p>
@@ -161,6 +219,95 @@ const PackageDetails = () => {
                     </button>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div>
+              <h1 className="text-2xl font-semibold">You might also like.</h1>
+              <div className="grid grid-cols-1  lg:gap-y-4 gap-6">
+                {/* Card */}
+                <Slider {...settings} className="">
+                  {packages
+                    ?.filter(
+                      (pkg) =>
+                        pkg.destination_city === packageDetails.destination_city
+                    )
+                    ?.map((pkg) => (
+                      <div className="relative mx-auto w-full">
+                        <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
+                          <div className="shadow p-4 rounded-lg bg-white">
+                            <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
+                              <div className="transition-transform duration-500 transform ease-in-out  w-full">
+                                <img
+                                  className="absolute inset-0 bg-black"
+                                  src={pkg.image}
+                                />
+                              </div>
+                            </div>
+                            <div className="mt-4">
+                              <h2 className="font-medium text-lg md:text-xl text-gray-800 line-clamp-1 capitalize">
+                                {pkg.name}
+                              </h2>
+                            </div>
+                            <div className="grid grid-cols-2 grid-rows-2 gap-4 mt-4">
+                              <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                                <MdHiking fontSize={20} />
+                                <span className="mt-2 xl:mt-0 ml-1.5">
+                                  {" "}
+                                  {(pkg.activities.match(/\n/g) || []).length +
+                                    1}{" "}
+                                  Activites
+                                </span>
+                              </p>
+                              <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                                <PiAirplaneBold fontSize={20} />
+                                <span className="mt-2 xl:mt-0 ml-1.5">
+                                  {" "}
+                                  {pkg.flights.length} Flights
+                                </span>
+                              </p>
+                              <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                                <LiaHotelSolid fontSize={20} />
+                                <span className="mt-2 xl:mt-0 ml-1.5">
+                                  {" "}
+                                  {pkg.hotels.length} Hotels
+                                </span>
+                              </p>
+                              <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                                <PiBus fontSize={20} />
+                                <span className="mt-2 xl:mt-0 ml-1.5">
+                                  {" "}
+                                  {pkg.buses.length + pkg.cars.length} Transfers
+                                </span>
+                              </p>
+                            </div>
+                            <div className="mt-8">
+                              <div className="flex justify-between items-center">
+                                <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
+                                  <span
+                                    className="uppercase"
+                                    dangerouslySetInnerHTML={{
+                                      __html: currencySymbol,
+                                    }}
+                                  ></span>
+                                  <span className="text-lg">
+                                    {parseFloat(pkg.price * priceRate).toFixed(
+                                      2
+                                    )}
+                                  </span>
+                                </p>
+                                <Link to={`/package/${pkg.id}`}>
+                                  <button className="inline-block font-semibold text-theme border border-red-300 p-2 whitespace-nowrap hover:border-red-500 leading-tight rounded-xl">
+                                    View Details
+                                  </button>
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </Slider>
+                {/* End Card */}
               </div>
             </div>
           </div>

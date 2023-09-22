@@ -14,7 +14,8 @@ const countryCurrencySlice = createSlice({
   initialState,
   reducers: {
     setCountryCurrency: (state, action) => {
-      const { country, currency, symbol, abbreviation } = action.payload;
+      const { country, currency, symbol, abbreviation, langauge } =
+        action.payload;
       state.country = country;
       state.currency = currency;
       state.symbol = symbol;

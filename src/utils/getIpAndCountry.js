@@ -2,6 +2,7 @@ import { setCountryCurrency } from "@/redux/slices/countryCurrencySlice";
 import axios from "axios";
 import { getCurrencyAndSymbolCode } from "./getCurrencyAndSymbolCode";
 import { add } from "@/redux/slices/IPSlice";
+import Cookies from "js-cookie";
 
 async function getIpAndCountry(dispatch, ipAddress = null) {
   try {
@@ -17,10 +18,8 @@ async function getIpAndCountry(dispatch, ipAddress = null) {
         `https://ip-country-checker.vercel.app/${ip}`
       );
       const country = countryResponse.data.country;
-      const { currency, symbolCode, abbreviation } = getCurrencyAndSymbolCode(
-        country,
-        "country"
-      );
+      const { currency, symbolCode, abbreviation, languageAbbreviation } =
+        getCurrencyAndSymbolCode(country, "country");
 
       dispatch(
         setCountryCurrency({
@@ -30,6 +29,10 @@ async function getIpAndCountry(dispatch, ipAddress = null) {
           abbreviation,
         })
       );
+      console.log(languageAbbreviation);
+      if (!Cookies.get("googtrans") || Cookies.get("googtrans") === undefined) {
+        Cookies.set("googtrans", `/en/${languageAbbreviation}`);
+      }
     }
     dispatch(add(ip));
   } catch (error) {

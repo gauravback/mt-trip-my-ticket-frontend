@@ -18,12 +18,16 @@ import { setCountry, setCurrency } from "@/redux/slices/countryCurrencySlice";
 import { RiStackFill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import Cookies from "js-cookie";
+import { Logger } from "sass";
 
 const Navbar = () => {
   const user = useSelector((state) => state.authReducer?.value);
-  const { country, abbreviation } = useSelector(
-    (state) => state.countryCurrencyReducer
+  const country = useSelector((state) => state.countryCurrencyReducer?.country);
+  const abbreviation = useSelector(
+    (state) => state.countryCurrencyReducer?.abbreviation
   );
+
   const dispatch = useDispatch();
   const location = useLocation();
   const [isFixed, setIsFixed] = useState(false);
@@ -66,6 +70,29 @@ const Navbar = () => {
     (elem) => elem.abbreviation === abbreviation
   )?.symbolCode;
 
+  const languageCookie = Cookies.get("googtrans");
+
+  const defaultLanguage = languageCookie ? languageCookie.split("/")[2] : "en";
+  const selectedLanguage = countryCurrencySymbols.find(
+    (elem) => elem.country === country
+  )?.languageAbbreviation;
+
+  console.log(Cookies.get("googtrans") === "");
+  const changeLanguage = (language) => {
+    if (defaultLanguage === "en") {
+      Cookies.set("googtrans", "");
+    } else {
+      Cookies.set("googtrans", `/en/${language}`);
+      console.log(Cookies.get("googtrans"));
+    }
+  };
+
+  // useEffect(() => {
+  //   if (selectedLanguage) {
+  //     changeLanguage(selectedLanguage);
+  //   }
+  // }, [country]);
+
   return (
     <div className="w-full">
       <nav
@@ -88,8 +115,14 @@ const Navbar = () => {
               className={`${isFixed ? "hidden" : ""} hidden md:block`}
             >
               <div className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent text-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all text-sm">
-                <div>
-                  <img src="/icons/sale.png" width={28} alt="" />
+                <div className="animate-pulse duration-[3000ms]">
+                  <img
+                    className=""
+                    id="superoffers"
+                    src="/icons/sale.png"
+                    width={28}
+                    alt=""
+                  />
                 </div>
                 <div className="text-left">
                   <p className="text-xs">Super Offers</p>
@@ -100,97 +133,175 @@ const Navbar = () => {
               </div>
             </Link>
             {/* Language And Country */}
-            <div className="hs-dropdown relative inline-flex [--placement:bottom-right]">
-              <button
-                id="hs-dropdown-default"
+
+            <div className="relative inline-flex [--placement:bottom-right]">
+              <select
                 type="button"
-                className="hs-dropdown-toggle py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-700 text-white"
+                defaultValue={abbreviation}
+                onChange={(e) => {
+                  dispatch(setCurrency(e.target.value));
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000);
+                }}
+                className="py-1.5 space-y-4 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm uppercase align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-700 text-white"
               >
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: currencySymbol || "",
-                  }}
-                />
+                {Array.from(
+                  new Set(
+                    countryCurrencySymbols.map((entry) => entry.abbreviation)
+                  )
+                )?.map((elem) => {
+                  var matchingEntry = countryCurrencySymbols.find(
+                    (entry) => entry.abbreviation === elem
+                  );
 
-                {abbreviation}
-
-                <BiSolidDownArrow />
-              </button>
-              <div
-                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-[21rem] md:w-96 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
-                aria-labelledby="hs-dropdown-default"
-              >
-                <div className="grid grid-cols-2 gap-2">
-                  {Array.from(
-                    new Set(
-                      countryCurrencySymbols.map((entry) => entry.abbreviation)
-                    )
-                  )?.map((elem) => {
-                    const matchingEntry = countryCurrencySymbols.find(
-                      (entry) => entry.abbreviation === elem
-                    );
-
-                    return (
-                      <button
-                        key={elem}
-                        onClick={(e) => {
-                          dispatch(setCurrency(matchingEntry.abbreviation));
+                  return (
+                    <option className="my-4" value={matchingEntry.abbreviation}>
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: matchingEntry.symbolCode || "",
                         }}
-                        className="flex items-center bg-white hover:bg-gray-100"
-                      >
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: matchingEntry.symbolCode || "",
-                          }}
-                        />
-                        <span className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm focus:ring-2 focus:ring-blue-500">
-                          {matchingEntry.abbreviation}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+                      />
+                      {matchingEntry.abbreviation}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
-            <div className="hs-dropdown relative inline-flex [--placement:bottom-right]">
+
+            <div className="hs-dropdown relative inline-flex [--placement:bottom-right] [--auto-close:false]">
               <button
-                id="hs-dropdown-default"
+                id="hs-dropdown-auto-close-false"
                 type="button"
                 className="hs-dropdown-toggle py-1.5 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-700 text-white"
               >
-                <img
-                  src={countryIcon}
-                  alt={country}
-                  className="rounded-full"
-                  width={24}
-                />
-                {country}
+                {defaultLanguage.toUpperCase()} - {country}
                 <BiSolidDownArrow className="text-white" />
               </button>
               <div
-                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-[21rem] md:w-96 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
+                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-[21rem] md:w-[27rem] hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
                 aria-labelledby="hs-dropdown-default"
               >
-                <div className="grid grid-cols-2 gap-2">
-                  {countryCurrencySymbols?.map((elem) => (
-                    <button
-                      key={elem.country}
-                      onClick={(e) => {
-                        dispatch(setCountry(elem.country));
-                      }}
-                      className="flex items-center bg-white hover:bg-gray-100"
+                <div className="flex flex-wrap items-center space-x-4 md:space-y-0 space-y-3 justify-center">
+                  <div>
+                    <label
+                      htmlFor="languageSelect"
+                      className="text-sm text-gray-700"
                     >
-                      <img
-                        src={elem.icon}
-                        alt={elem.country}
-                        className="rounded-full"
-                        width={24}
-                      />
-                      <span className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm focus:ring-2 focus:ring-blue-500">
-                        {elem.country}
-                      </span>
-                    </button>
-                  ))}
+                      Language
+                    </label>
+                    <select
+                      type="button"
+                      id="languageSelect"
+                      defaultValue={defaultLanguage}
+                      onChange={(e) => {
+                        changeLanguage(e.target.value);
+                        setTimeout(() => {
+                          window.location.reload();
+                        }, 1000);
+                      }}
+                      className="py-1.5 w-full px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm uppercase align-middle focus:outline-none focus:ring-0 transition-all text-sm border border-gray-300"
+                    >
+                      <option selected hidden value="">
+                        {defaultLanguage?.toUpperCase()}
+                      </option>
+                      {Array.from(
+                        new Set(
+                          countryCurrencySymbols.map((entry) => entry.language)
+                        )
+                      )?.map((elem) => {
+                        var matchingEntry = countryCurrencySymbols.find(
+                          (entry) => entry.language === elem
+                        );
+
+                        return (
+                          <option
+                            className="my-4"
+                            value={matchingEntry.languageAbbreviation}
+                          >
+                            {matchingEntry.language}
+                          </option>
+                        );
+                      })}
+
+                      <option value="es">Spanish</option>
+                      <option value="nl">Dutch</option>
+                      <option value="ru">Russian</option>
+                      <option value="zh">Chinese</option>
+                      <option value="ja">Japanese</option>
+                      <option value="ko">Korean</option>
+                      <option value="bn">Bengali</option>
+                      <option value="ur">Urdu</option>
+                      <option value="tr">Turkish</option>
+                      <option value="el">Greek</option>
+                      <option value="sv">Swedish</option>
+                      <option value="no">Norwegian</option>
+                      <option value="da">Danish</option>
+                      <option value="fi">Finnish</option>
+                      <option value="pl">Polish</option>
+                      <option value="hu">Hungarian</option>
+                      <option value="cs">Czech</option>
+                      <option value="sk">Slovak</option>
+                      <option value="ro">Romanian</option>
+                      <option value="bg">Bulgarian</option>
+                      <option value="hr">Croatian</option>
+                      <option value="sr">Serbian</option>
+                      <option value="sl">Slovenian</option>
+                      <option value="uk">Ukrainian</option>
+                      <option value="he">Hebrew</option>
+                      <option value="th">Thai</option>
+                      <option value="vi">Vietnamese</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="countrySelect"
+                      className="text-sm text-gray-700"
+                    >
+                      Country
+                    </label>
+                    <select
+                      type="button"
+                      id="countrySelect"
+                      defaultValue={defaultLanguage}
+                      onChange={(e) => {
+                        dispatch(setCountry(e.target.value));
+
+                        setTimeout(() => {
+                          window.location.reload();
+                        }, 1000);
+                      }}
+                      className="py-1.5 px-3 w-full inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm uppercase align-middle focus:outline-none focus:ring-0 transition-all text-sm border border-gray-300"
+                    >
+                      <option selected hidden value="">
+                        {country?.toUpperCase()}
+                      </option>
+                      {Array.from(
+                        new Set(
+                          countryCurrencySymbols.map((entry) => entry.country)
+                        )
+                      )?.map((elem) => {
+                        var matchingEntry = countryCurrencySymbols.find(
+                          (entry) => entry.country === elem
+                        );
+
+                        return (
+                          <option
+                            className="my-4"
+                            value={matchingEntry.country}
+                          >
+                            <img
+                              src={elem.icon}
+                              alt={elem.country}
+                              className="rounded-full"
+                              width={24}
+                            />
+                            {matchingEntry.country}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -710,6 +821,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      <div id="google_translate_element"></div>
     </div>
   );
 };

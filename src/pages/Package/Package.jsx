@@ -58,7 +58,7 @@ const Package = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 lg:gap-y-4 gap-6">
             {/* Card */}
             {packages?.map((pkg) => (
-              <div className="relative mx-auto w-full">
+              <div className="relative mx-auto w-full border border-gray-300 rounded-md">
                 <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
                   <div className="shadow p-4 rounded-lg bg-white">
                     <div className="flex justify-center relative rounded-lg overflow-hidden h-52">

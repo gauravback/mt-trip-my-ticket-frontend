@@ -10,6 +10,7 @@ import countryCurrencyReducer from "./slices/countryCurrencySlice";
 import IPReducer from "./slices/IPSlice";
 import currencyRateReducer from "./slices/currencyRateSlice";
 import cartReducer from "./slices/CartSlice";
+import OfferReducer from "./slices/OfferSlice";
 const persistConfig = {
   key: "data",
   version: 1,
@@ -22,6 +23,7 @@ const reducer = combineReducers({
   IPReducer,
   currencyRateReducer,
   cartReducer,
+  OfferReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

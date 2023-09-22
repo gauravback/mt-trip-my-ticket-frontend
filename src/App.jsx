@@ -41,6 +41,7 @@ import Checkout from "./pages/Checkout/Checkout";
 import CarDetails from "./pages/Car/CarDetails";
 import GoogleTranslate from "./utils/GoogleTranslate";
 import PackageDetails from "./pages/Package/PackageDetails";
+import Offers from "./pages/Offers/Offers";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -106,6 +107,7 @@ const App = () => {
           <div className="w-full bg-[#081826]">
             <Navbar />
           </div>
+
           <Login />
           <Toaster />
           <AnimatePresence mode="wait">
@@ -246,6 +248,14 @@ const App = () => {
                   element={
                     <AnimatedPage>
                       <About />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/offers"
+                  element={
+                    <AnimatedPage>
+                      <Offers />
                     </AnimatedPage>
                   }
                 />

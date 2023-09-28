@@ -45,7 +45,7 @@ const CarFilter = () => {
 
   return (
     <div
-      style={{ background: `url("/test/1.png")` }}
+      style={{ background: `url("/banner.jpeg")`, backgroundSize: "100%" }}
       className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 md:pt-12"
     >
       <div className="mx-auto max-w-screen-lg sm:py-12 relative">

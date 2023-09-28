@@ -11,7 +11,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Car = () => {
   const [cars, setCars] = useState();
-  const [carType, setCarType] = useState("Sedan");
+  const [carType, setCarType] = useState("");
   const [fuelType, setFuelType] = useState("");
   const [transmission, setTransmission] = useState("");
   const [Ac, setAc] = useState();
@@ -441,9 +441,9 @@ const Car = () => {
               ?.map((car) => (
                 <div
                   key={car.id}
-                  className="bg-white border flex items-center border-gray-300 rounded-lg overflow-hidden"
+                  className="bg-white border flex items-center  rounded-lg overflow-hidden"
                 >
-                  <div className="border h-full hidden  md:flex items-center justify-center bg-white p-4">
+                  <div className="h-full hidden  md:flex items-center justify-center bg-white p-4">
                     <img
                       src={car.image}
                       width={250}
@@ -551,7 +551,7 @@ const Car = () => {
                       </div>
                     </div>
                     <div className="flex justify-between items-center py-1 px-4  text-gray-900">
-                      <div className="flex items-center">
+                      {/* <div className="flex items-center">
                         <p className="flex items-center space-x-1 ">
                           <span
                             dangerouslySetInnerHTML={{
@@ -563,13 +563,13 @@ const Car = () => {
                             {Math.round(car.price * priceRate * 100) / 100}
                           </span>
                         </p>
-                      </div>
-                      <div className="flex items-center">
-                        <p className="flex items-center space-x-1 ">
-                          <Link to={`/car/${car.id}`}>
+                      </div> */}
+                      <div className="flex items-center justify-end w-full mb-2">
+                        <p className="flex items-center space-x-1 justify-end">
+                          <Link to={`/car/${car.id}`} className="justify-end">
                             <button
                               type="button"
-                              className="btn-gradient px-2 p-0.5 rounded-md"
+                              className="btn-gradient px-2 p-1 rounded-md"
                             >
                               View Details
                             </button>

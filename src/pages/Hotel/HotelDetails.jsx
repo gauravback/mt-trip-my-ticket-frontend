@@ -1,4 +1,5 @@
 import api from "@/api/api";
+import BackButton from "@/components/Button/BackButton";
 import { showRazorpay } from "@/components/Payment/Payment";
 import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useRef, useState } from "react";
@@ -37,6 +38,7 @@ const HotelDetails = () => {
 
   return (
     <div className="mx-auto max-w-2xl  sm:px-6 lg:max-w-7xl lg:px-8">
+      <BackButton />
       {hotelDetails && (
         <div className="bg-white">
           <div className="pt-6">

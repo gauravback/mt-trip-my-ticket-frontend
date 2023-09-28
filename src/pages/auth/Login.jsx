@@ -23,6 +23,7 @@ const Login = () => {
       const status = await response.status;
       toast.success("Done...", { id: "1" });
       if (status === 200) {
+        console.log(result);
         dispatch(login({ token: result.token, email: result.email }));
         toast.success("Login Successful", { id: "1" });
         window.location.reload();

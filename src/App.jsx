@@ -1,11 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
-import {
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
@@ -42,6 +36,9 @@ import CarDetails from "./pages/Car/CarDetails";
 import GoogleTranslate from "./utils/GoogleTranslate";
 import PackageDetails from "./pages/Package/PackageDetails";
 import Offers from "./pages/Offers/Offers";
+import Visa from "./pages/Visa/Visa";
+import { BsWhatsapp } from "react-icons/bs";
+import { SiChatbot } from "react-icons/si";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -100,7 +97,7 @@ const App = () => {
   const location = useLocation();
   const pathname = location.pathname;
   return (
-    <div className="">
+    <div className="md:relative">
       <>
         {/* <GoogleTranslate /> */}
         <Suspense fallback={<Loader />}>
@@ -260,6 +257,14 @@ const App = () => {
                   }
                 />
                 <Route
+                  path="/visa"
+                  element={
+                    <AnimatedPage>
+                      <Visa />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
                   element={<ProtectedRoute token={token} pathname={pathname} />}
                 >
                   <Route
@@ -302,6 +307,12 @@ const App = () => {
           <Footer />
         </Suspense>
       </>
+      <a className="fixed bottom-0 right-0 m-8 bg-green-600 text-white p-2.5 rounded-full">
+        <BsWhatsapp fontSize={32} />
+      </a>
+      <a className="fixed bottom-0 right-16 m-8 bg-blue-600 text-white p-2.5 rounded-full">
+        <SiChatbot fontSize={32} />
+      </a>
     </div>
   );
 };

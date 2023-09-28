@@ -2,6 +2,7 @@ import api from "@/api/api";
 import Filter from "@/components/SearchComponents/HotelFilter/Filter";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { AiOutlinePlus } from "react-icons/ai";
 import { MdOutlineStar } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -76,7 +77,7 @@ const Hotel = () => {
           <div className="2xl:container 2xl:mx-auto">
             <div
               id="filterSection"
-              className="block md:py-10 lg:px-20 md:px-6 py-9 px-4 bg-gray-50 w-full"
+              className="hidden md:block md:py-10 lg:px-20 md:px-6 py-9 px-4 bg-gray-50 w-full"
             >
               <div>
                 <div className="flex space-x-2 text-gray-800">
@@ -228,6 +229,186 @@ const Hotel = () => {
               </div>
             </div>
           </div>
+          <button
+            type="button"
+            className="text-gray-800  flex md:hidden items-center m-3"
+            data-hs-overlay="#application-sidebar"
+            aria-controls="application-sidebar"
+            aria-label="Toggle navigation"
+          >
+            <span className="sr-only">Toggle Navigation</span>
+            <span className="text-lg">Filters</span>
+            <AiOutlinePlus />
+          </button>
+
+          {/* Sidebar */}
+          <div
+            id="application-sidebar"
+            className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 left-0 bottom-0 z-[1000] w-64 bg-white border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y lg:translate-x-0 lg:right-auto lg:bottom-0"
+          >
+            <div className="px-6">
+              <p className="flex-none text-xl font-semibold dark:text-white">
+                Filters
+              </p>
+            </div>
+            <nav
+              className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
+              data-hs-accordion-always-open
+            >
+              <div className="block md:py-10 lg:px-20 md:px-6 py-9 px-4 bg-gray-50 w-full">
+                <div>
+                  <div className="flex space-x-2 text-gray-800">
+                    <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                      Star
+                    </p>
+                  </div>
+                  <div className="mt-4 grid grid-cols-3 gap-3 flex-wrap">
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => {
+                          setStar(1);
+                        }}
+                        className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out flex items-center justify-center text-"
+                      >
+                        1{" "}
+                        <MdOutlineStar
+                          className="text-yellow-400"
+                          fontSize={18}
+                        />
+                      </button>
+                    </div>
+                    <div className="">
+                      <button
+                        onClick={() => {
+                          setStar(2);
+                        }}
+                        type="text"
+                        className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out flex items-center justify-center text-"
+                      >
+                        2{" "}
+                        <MdOutlineStar
+                          className="text-yellow-400"
+                          fontSize={18}
+                        />
+                      </button>
+                    </div>
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => {
+                          setStar(3);
+                        }}
+                        className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out flex items-center justify-center text-"
+                      >
+                        3{" "}
+                        <MdOutlineStar
+                          className="text-yellow-400"
+                          fontSize={18}
+                        />
+                      </button>
+                    </div>
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => {
+                          setStar(4);
+                        }}
+                        className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out flex items-center justify-center text-"
+                      >
+                        4{" "}
+                        <MdOutlineStar
+                          className="text-yellow-400"
+                          fontSize={18}
+                        />
+                      </button>
+                    </div>
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => {
+                          setStar(5);
+                        }}
+                        className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out flex items-center justify-center text-"
+                      >
+                        5{" "}
+                        <MdOutlineStar
+                          className="text-yellow-400"
+                          fontSize={18}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <hr className="bg-gray-200  w-full md:my-10 my-8" />
+                <div>
+                  <div className="flex space-x-2 text-gray-800">
+                    <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                      WiFi Available
+                    </p>
+                  </div>
+                  <div className="mt-4 grid grid-cols-2 gap-x-3 flex-wrap">
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => {
+                          setWifi(true);
+                        }}
+                        className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                      >
+                        Yes
+                      </button>
+                    </div>
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => {
+                          setWifi(false);
+                        }}
+                        className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <hr className="bg-gray-200  w-full md:my-10 my-8" />
+                <div>
+                  <div className="flex space-x-2 text-gray-800">
+                    <p className="text-xl lg:leading-6 leading-5 font-medium ">
+                      Parking Available
+                    </p>
+                  </div>
+                  <div className="mt-4 grid grid-cols-2 gap-x-3 flex-wrap">
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => {
+                          setParking(true);
+                        }}
+                        className="w-full  border rounded-md border-gray-300 focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                      >
+                        Yes
+                      </button>
+                    </div>
+                    <div className="">
+                      <button
+                        type="text"
+                        onClick={() => {
+                          setParking(false);
+                        }}
+                        className="w-full  rounded-md  border-gray-300 border focus:outline-none focus:ring-0 p-2 transition duration-150 ease-in-out"
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          {/* Sidebar End */}
         </div>
         <div className="md:w-2/3 p-3 w-full">
           <div className="grid grid-cols-1 e-full lg:gap-y-4 gap-6">

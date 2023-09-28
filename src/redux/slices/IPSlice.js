@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   ip: "",
+  countryCode: "",
 };
 
 export const ipAddress = createSlice({
@@ -13,7 +14,8 @@ export const ipAddress = createSlice({
     },
     add: (state, action) => {
       return {
-        ip: action.payload,
+        ip: action.payload.ip,
+        countryCode: action.payload.countryCode,
       };
     },
   },

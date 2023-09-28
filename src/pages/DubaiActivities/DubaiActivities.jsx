@@ -16,7 +16,6 @@ const DubaiActivities = () => {
     slidesToShow: 1,
     adaptiveHeight: true,
     slidesToScroll: 1,
-    centerPadding: "50px",
     arrows: true,
     // responsive: [
     //   {
@@ -95,7 +94,7 @@ const DubaiActivities = () => {
   return (
     <div>
       <div className="">
-        <Slider {...settings}>
+        <Slider {...settings} className="mx-0 px-0">
           <div>
             <img
               src="/carousel/1.avif"

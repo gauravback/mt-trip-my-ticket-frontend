@@ -18,6 +18,7 @@ async function getIpAndCountry(dispatch, ipAddress = null) {
         `https://ip-country-checker.vercel.app/${ip}`
       );
       const country = countryResponse.data.country;
+      var countryCode = countryResponse.data.countryCode;
       const { currency, symbolCode, abbreviation, languageAbbreviation } =
         getCurrencyAndSymbolCode(country, "country");
 
@@ -29,12 +30,11 @@ async function getIpAndCountry(dispatch, ipAddress = null) {
           abbreviation,
         })
       );
-      console.log(languageAbbreviation);
       if (!Cookies.get("googtrans") || Cookies.get("googtrans") === undefined) {
         Cookies.set("googtrans", `/en/${languageAbbreviation}`);
       }
+      dispatch(add({ ip, countryCode }));
     }
-    dispatch(add(ip));
   } catch (error) {
     console.error("Error:", error);
     return "Unknown";

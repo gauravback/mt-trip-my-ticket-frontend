@@ -8,7 +8,8 @@ import {
   MdDirectionsBus,
   MdOutlineModeOfTravel,
 } from "react-icons/md";
-import { RiHotelLine, RiLockPasswordLine } from "react-icons/ri";
+import { FcDatabase, FcPhone } from "react-icons/fc";
+import { RiHotelLine, RiLockPasswordLine, RiMenu3Line } from "react-icons/ri";
 import { AiOutlineCar } from "react-icons/ai";
 import { TbAirBalloon } from "react-icons/tb";
 import { countryCurrencySymbols } from "@/utils/countryCurrencySymbols";
@@ -77,21 +78,9 @@ const Navbar = () => {
     (elem) => elem.country === country
   )?.languageAbbreviation;
 
-  console.log(Cookies.get("googtrans") === "");
   const changeLanguage = (language) => {
-    if (defaultLanguage === "en") {
-      Cookies.set("googtrans", "");
-    } else {
-      Cookies.set("googtrans", `/en/${language}`);
-      console.log(Cookies.get("googtrans"));
-    }
+    Cookies.set("googtrans", `/en/${language}`);
   };
-
-  // useEffect(() => {
-  //   if (selectedLanguage) {
-  //     changeLanguage(selectedLanguage);
-  //   }
-  // }, [country]);
 
   return (
     <div className="w-full">
@@ -104,12 +93,34 @@ const Navbar = () => {
         } top-0 z-10 transition-all ease-in-out duration-100`}
       >
         <div className="md:mx-8 flex flex-wrap items-center justify-between mx-auto">
-          <div className="flex items-center justify-center md:justify-normal w-full md:w-auto">
+          <div className="flex flex-col md:flex-row items-center justify-center md:justify-normal w-full md:w-auto">
             <Link to="/">
               <img src="/logo-white.png" alt="logo" width={120} />
             </Link>
+            <button
+              type="button"
+              class=" text-white  px-2 py-1 m-0 flex items-center"
+              data-hs-overlay="#docs-sidebar"
+              aria-controls="docs-sidebar"
+              aria-label="Toggle navigation"
+            >
+              <RiMenu3Line />
+              <span className="">All Categories</span>
+            </button>
           </div>
-          <div className="flex md:order-2 mx-4 gap-3 items-center justify-center w-full md:w-auto pb-4 md:pb-2 lg:pb-0">
+          <div className="flex flex-wrap md:order-2 mx-4 gap-3 items-center justify-center w-full md:w-auto pb-4 md:pb-2 lg:pb-0">
+            <a
+              href="tel:+919804480448"
+              className="w-full md:w-auto text-center"
+            >
+              <span className="flex items-center justify-center space-x-1">
+                <img src="/icons/phone-icon.png" alt="" width={18} />
+                <span className="text-white text-sm"> Call Us On:</span>
+              </span>
+              <span className="text-white font-bold text-sm">
+                +91 9804480448
+              </span>
+            </a>
             <Link
               to="/offers"
               className={`${isFixed ? "hidden" : ""} hidden md:block`}
@@ -133,175 +144,135 @@ const Navbar = () => {
               </div>
             </Link>
             {/* Language And Country */}
-
-            <div className="relative inline-flex [--placement:bottom-right]">
-              <select
-                type="button"
-                defaultValue={abbreviation}
-                onChange={(e) => {
-                  dispatch(setCurrency(e.target.value));
-                  setTimeout(() => {
-                    window.location.reload();
-                  }, 1000);
-                }}
-                className="py-1.5 space-y-4 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm uppercase align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-700 text-white"
-              >
-                {Array.from(
-                  new Set(
-                    countryCurrencySymbols.map((entry) => entry.abbreviation)
-                  )
-                )?.map((elem) => {
-                  var matchingEntry = countryCurrencySymbols.find(
-                    (entry) => entry.abbreviation === elem
-                  );
-
-                  return (
-                    <option className="my-4" value={matchingEntry.abbreviation}>
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: matchingEntry.symbolCode || "",
-                        }}
-                      />
-                      {matchingEntry.abbreviation}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-
-            <div className="hs-dropdown relative inline-flex [--placement:bottom-right] [--auto-close:false]">
+            <div className="hs-dropdown relative inline-flex [--placement:bottom-right]">
               <button
-                id="hs-dropdown-auto-close-false"
+                id="hs-dropdown-default"
                 type="button"
-                className="hs-dropdown-toggle py-1.5 px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm align-middle focus:outline-none focus:ring-0 transition-all text-sm bg-slate-700 text-white"
+                className="hs-dropdown-toggle py-1 px-4 inline-flex justify-center items-center gap-2 rounded-full border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-0 transition-all text-sm"
               >
-                {defaultLanguage.toUpperCase()} - {country}
-                <BiSolidDownArrow className="text-white" />
+                {abbreviation}
+                <svg
+                  className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
               </button>
               <div
-                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-[21rem] md:w-[27rem] hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
+                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-full sm:w-[40rem] hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
                 aria-labelledby="hs-dropdown-default"
               >
-                <div className="flex flex-wrap items-center space-x-4 md:space-y-0 space-y-3 justify-center">
-                  <div>
-                    <label
-                      htmlFor="languageSelect"
-                      className="text-sm text-gray-700"
-                    >
-                      Language
-                    </label>
-                    <select
-                      type="button"
-                      id="languageSelect"
-                      defaultValue={defaultLanguage}
-                      onChange={(e) => {
-                        changeLanguage(e.target.value);
-                        setTimeout(() => {
-                          window.location.reload();
-                        }, 1000);
-                      }}
-                      className="py-1.5 w-full px-3 inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm uppercase align-middle focus:outline-none focus:ring-0 transition-all text-sm border border-gray-300"
-                    >
-                      <option selected hidden value="">
-                        {defaultLanguage?.toUpperCase()}
-                      </option>
-                      {Array.from(
-                        new Set(
-                          countryCurrencySymbols.map((entry) => entry.language)
-                        )
-                      )?.map((elem) => {
-                        var matchingEntry = countryCurrencySymbols.find(
-                          (entry) => entry.language === elem
-                        );
+                <div className="grid grid-cols-2 md:grid-cols-2 w-full">
+                  {Array.from(
+                    new Set(
+                      countryCurrencySymbols.map((entry) => entry.abbreviation)
+                    )
+                  )?.map((elem) => {
+                    var matchingEntry = countryCurrencySymbols.find(
+                      (entry) => entry.abbreviation === elem
+                    );
 
-                        return (
-                          <option
-                            className="my-4"
-                            value={matchingEntry.languageAbbreviation}
-                          >
-                            {matchingEntry.language}
-                          </option>
-                        );
-                      })}
+                    return (
+                      <button
+                        onClick={() => {
+                          dispatch(setCurrency(matchingEntry.abbreviation));
+                          setTimeout(() => {
+                            window.location.reload();
+                          }, 1000);
+                        }}
+                        className={`flex items-center gap-x-3.5 py-2 px-3 rounded-md text-xs text-gray-800 hover:text-theme hover:font-semibold focus:ring-0 focus:outline-none ${
+                          abbreviation === matchingEntry.abbreviation
+                            ? "font-semibold text-theme"
+                            : ""
+                        }`}
+                      >
+                        <span className="text-xs">
+                          {matchingEntry.abbreviation}
+                        </span>{" "}
+                        {matchingEntry.currency}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
 
-                      <option value="es">Spanish</option>
-                      <option value="nl">Dutch</option>
-                      <option value="ru">Russian</option>
-                      <option value="zh">Chinese</option>
-                      <option value="ja">Japanese</option>
-                      <option value="ko">Korean</option>
-                      <option value="bn">Bengali</option>
-                      <option value="ur">Urdu</option>
-                      <option value="tr">Turkish</option>
-                      <option value="el">Greek</option>
-                      <option value="sv">Swedish</option>
-                      <option value="no">Norwegian</option>
-                      <option value="da">Danish</option>
-                      <option value="fi">Finnish</option>
-                      <option value="pl">Polish</option>
-                      <option value="hu">Hungarian</option>
-                      <option value="cs">Czech</option>
-                      <option value="sk">Slovak</option>
-                      <option value="ro">Romanian</option>
-                      <option value="bg">Bulgarian</option>
-                      <option value="hr">Croatian</option>
-                      <option value="sr">Serbian</option>
-                      <option value="sl">Slovenian</option>
-                      <option value="uk">Ukrainian</option>
-                      <option value="he">Hebrew</option>
-                      <option value="th">Thai</option>
-                      <option value="vi">Vietnamese</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="countrySelect"
-                      className="text-sm text-gray-700"
-                    >
-                      Country
-                    </label>
-                    <select
-                      type="button"
-                      id="countrySelect"
-                      defaultValue={defaultLanguage}
-                      onChange={(e) => {
-                        dispatch(setCountry(e.target.value));
+            <div className="hs-dropdown relative inline-flex">
+              <button
+                id="hs-dropdown-default"
+                type="button"
+                className="hs-dropdown-toggle py-1 px-4 inline-flex justify-center items-center gap-2 rounded-full border font-medium bg-white text-gray-700 shadow-sm align-middle  focus:outline-none focus:ring-0 transition-all text-sm"
+              >
+                <img
+                  src={countryIcon}
+                  alt={country}
+                  className="rounded-full"
+                  width={22}
+                />
+                <svg
+                  className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+              <div
+                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-full md:w-[40rem] hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
+                aria-labelledby="hs-dropdown-default"
+              >
+                {" "}
+                <div className="grid grid-cols-2 md:grid-cols-3 w-full">
+                  {Array.from(
+                    new Set(
+                      countryCurrencySymbols.map((entry) => entry.language)
+                    )
+                  )?.map((elem) => {
+                    var matchingEntry = countryCurrencySymbols.find(
+                      (entry) => entry.language === elem
+                    );
 
-                        setTimeout(() => {
-                          window.location.reload();
-                        }, 1000);
-                      }}
-                      className="py-1.5 px-3 w-full inline-flex justify-center items-center gap-2 rounded-md  font-medium  shadow-sm uppercase align-middle focus:outline-none focus:ring-0 transition-all text-sm border border-gray-300"
-                    >
-                      <option selected hidden value="">
-                        {country?.toUpperCase()}
-                      </option>
-                      {Array.from(
-                        new Set(
-                          countryCurrencySymbols.map((entry) => entry.country)
-                        )
-                      )?.map((elem) => {
-                        var matchingEntry = countryCurrencySymbols.find(
-                          (entry) => entry.country === elem
-                        );
-
-                        return (
-                          <option
-                            className="my-4"
-                            value={matchingEntry.country}
-                          >
-                            <img
-                              src={elem.icon}
-                              alt={elem.country}
-                              className="rounded-full"
-                              width={24}
-                            />
-                            {matchingEntry.country}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
+                    return (
+                      <button
+                        onClick={() => {
+                          changeLanguage(matchingEntry.languageAbbreviation);
+                          setTimeout(() => {
+                            window.location.reload();
+                          }, 1000);
+                        }}
+                        className={`flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:text-theme focus:ring-0 hover:font-semibold ${
+                          matchingEntry.languageAbbreviation === defaultLanguage
+                            ? "font-semibold text-theme"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src={matchingEntry.icon}
+                          alt={country}
+                          className="rounded-full"
+                          width={20}
+                        />
+                        {matchingEntry.language}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -514,6 +485,35 @@ const Navbar = () => {
               </li>
               <li>
                 <div class="hs-dropdown relative inline-flex [--trigger:hover]">
+                  <Link to="/dubai-activities/">
+                    <div
+                      id="hs-dropdown-hover-event"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                    >
+                      {/* <MdDirectionsBus fontSize={24} className="mx-auto" /> */}
+                      <img
+                        src="/icons/adventurer.png"
+                        width={28}
+                        alt=""
+                        className="mx-auto"
+                      />
+                      Attractions
+                    </div>
+                  </Link>
+                  <div
+                    className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
+                    aria-labelledby="hs-dropdown-hover-event"
+                  >
+                    <Link to="/bus/city-bus">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Dubai Delight
+                      </p>
+                    </Link>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="hs-dropdown relative inline-flex [--trigger:hover]">
                   <Link to="/flight/">
                     <div
                       id="hs-dropdown-hover-event"
@@ -632,66 +632,7 @@ const Navbar = () => {
                   </div>
                 </div>
               </li>
-              <li>
-                <div class="hs-dropdown relative inline-flex [--trigger:hover]">
-                  <Link to="/bus/">
-                    <div
-                      id="hs-dropdown-hover-event"
-                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
-                    >
-                      {/* <MdDirectionsBus fontSize={24} className="mx-auto" /> */}
-                      <img src="/icons/bus.png" width={28} alt="" />
-                      Bus
-                    </div>
-                  </Link>
-                  <div
-                    className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
-                    aria-labelledby="hs-dropdown-hover-event"
-                  >
-                    <Link to="/bus/city-bus">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        City Bus
-                      </p>
-                    </Link>
 
-                    <Link to="/bus/intercity-bus">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Intercity Bus
-                      </p>
-                    </Link>
-
-                    <Link to="/bus/sleeper-bus">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Sleeper Bus
-                      </p>
-                    </Link>
-
-                    <Link to="/bus/luxury-bus">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Luxury Bus
-                      </p>
-                    </Link>
-
-                    <Link to="/bus/coach-bus">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Coach Bus
-                      </p>
-                    </Link>
-
-                    <Link to="/bus/double-decker-bus">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Double-Decker Bus
-                      </p>
-                    </Link>
-
-                    <Link to="/bus/shuttle-bus">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Shuttle Bus
-                      </p>
-                    </Link>
-                  </div>
-                </div>
-              </li>
               <li>
                 <div class="hs-dropdown relative inline-flex [--trigger:hover]">
                   <Link to="/package/">
@@ -821,7 +762,292 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+
       <div id="google_translate_element"></div>
+
+      {/* All Categories Sidebar */}
+
+      <div
+        id="docs-sidebar"
+        className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 left-0 bottom-0 z-[510] md:w-[70rem] bg-white border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y"
+      >
+        <div className="px-6">
+          <img src="/logo.png" alt="logo" width={120} />
+        </div>
+        <nav
+          className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
+          data-hs-accordion-always-open
+        >
+          <div className="sm:grid grid-cols-1 sm:grid-cols-3 gap-6 space-y-8 md:space-y-0">
+            <div className="flex flex-col space-y-2">
+              <h1 className="text-lg font-bold px-3">Car Rental</h1>
+              <div to="/car/economy-car">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Economy Car
+                </p>
+              </div>
+
+              <div to="/car/compact-car">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Compact Car
+                </p>
+              </div>
+
+              <div to="/car/midsize-car">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Midsize Car
+                </p>
+              </div>
+
+              <div to="/car/full-size-car">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Full-Size Car
+                </p>
+              </div>
+
+              <div to="/car/suv">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  SUV
+                </p>
+              </div>
+
+              <div to="/car/luxury-car">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Luxury Car
+                </p>
+              </div>
+
+              <div to="/car/convertible">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Convertible
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col space-y-2">
+              <h1 className="text-lg font-bold px-3">Tourist Attractions</h1>
+              <div to="/car/economy-car">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Burj Khalifa Observation Deck
+                </p>
+              </div>
+
+              <div to="/car/compact-car">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Desert Safari
+                </p>
+              </div>
+
+              <div to="/car/midsize-car">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Dubai Mall and Fountain Show
+                </p>
+              </div>
+
+              <div to="/car/full-size-car">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Dubai Mall and Fountain Show
+                </p>
+              </div>
+
+              <div to="/car/suv">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Dubai Parks and Resorts
+                </p>
+              </div>
+
+              <div to="/car/luxury-car">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Dubai Aquarium and Underwater Zoo
+                </p>
+              </div>
+
+              <div to="/car/convertible">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Old Dubai and Heritage Tour
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col space-y-2">
+              <h1 className="text-lg font-bold px-3">Hotels</h1>
+              <div to="/hotel/budget-hotel">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Budget Hotel
+                </p>
+              </div>
+
+              <div to="/hotel/boutique-hotel">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Boutique Hotel
+                </p>
+              </div>
+
+              <div to="/hotel/luxury-hotel">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Luxury Hotel
+                </p>
+              </div>
+
+              <div to="/hotel/resort">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Resort
+                </p>
+              </div>
+
+              <div to="/hotel/motel">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Motel
+                </p>
+              </div>
+
+              <div to="/hotel/bed-and-breakfast">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Bed and Breakfast
+                </p>
+              </div>
+
+              <div to="/hotel/extended-stay-hotel">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Extended Stay Hotel
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col space-y-2">
+              <h1 className="text-lg font-bold px-3">Flight</h1>
+              <div to="/flight/economy-class">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Economy Class
+                </p>
+              </div>
+
+              <div to="/flight/premium-economy-class">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Premium Economy Class
+                </p>
+              </div>
+
+              <div to="/flight/business-class">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Business Class
+                </p>
+              </div>
+
+              <div to="/flight/first-class">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  First Class
+                </p>
+              </div>
+
+              <div to="/flight/domestic-flight">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Domestic Flight
+                </p>
+              </div>
+
+              <div to="/flight/international-flight">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  International Flight
+                </p>
+              </div>
+
+              <div to="/flight/round-trip-flight">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Round-Trip Flight
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col space-y-2">
+              <h1 className="text-lg font-bold px-3">Holiday Packages</h1>
+              <div to="/package/beach-vacation-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Beach Vacation Package
+                </p>
+              </div>
+
+              <div to="/package/adventure-travel-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Adventure Travel Package
+                </p>
+              </div>
+
+              <div to="/package/honeymoon-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover.bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Honeymoon Package
+                </p>
+              </div>
+
+              <div to="/package/cultural-tour-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Cultural Tour Package
+                </p>
+              </div>
+
+              <div to="/package/ski-vacation-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Ski Vacation Package
+                </p>
+              </div>
+
+              <div to="/package/wildlife-safari-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Wildlife Safari Package
+                </p>
+              </div>
+
+              <div to="/package/cruise-vacation-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover.bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                  Cruise Vacation Package
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col space-y-2">
+              <h1 className="text-lg font-bold px-3">Yatches and Safari</h1>
+              <div to="/attraction/yachts-luxury-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+                  Yachts Luxury Package
+                </p>
+              </div>
+
+              <div to="/attraction/yachts-adventure-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+                  Yachts Adventure Package
+                </p>
+              </div>
+
+              <div to="/attraction/marina-dhow-cruise-family-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+                  Marina Dhow Cruise Family Package
+                </p>
+              </div>
+
+              <div to="/attraction/desert-safari-overnight-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+                  Desert Safari Overnight Package
+                </p>
+              </div>
+
+              <div to="/attraction/yachts-romantic-getaway">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+                  Yachts Romantic Getaway
+                </p>
+              </div>
+
+              <div to="/attraction/marina-dhow-cruise-sunset-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+                  Marina Dhow Cruise Sunset Package
+                </p>
+              </div>
+
+              <div to="/attraction/desert-safari-adrenaline-package">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+                  Desert Safari Adrenaline Package
+                </p>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      {/* All Categories Sidebar End */}
     </div>
   );
 };

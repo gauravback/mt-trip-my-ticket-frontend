@@ -10,6 +10,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import BackButton from "@/components/Button/BackButton";
 
 const PackageDetails = () => {
   const [packageDetails, setPackageDetails] = useState();
@@ -97,6 +98,7 @@ const PackageDetails = () => {
 
   return (
     <div>
+      <BackButton />
       {packageDetails && (
         <section className="py-20 font-poppins dark:bg-gray-800">
           <div className="max-w-6xl px-4 mx-auto">

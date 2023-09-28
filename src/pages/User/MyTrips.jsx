@@ -133,17 +133,21 @@ const MyTrips = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="flex items-center justify-end space-x-6">
+                  <div className="flex flex-wrap items-center justify-end space-y-2 md:space-y-0 md:space-x-6">
                     {trip.status === "confirmed" && (
                       <a
-                        href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                        className="w-full px-4 py-2 border border-gray-700 bg-gray-700 text-white rounded-md text-gray-90 md:w-auto  "
+                        href={trip.pdf}
+                        download
+                        className="w-full px-4 py-2 border border-gray-700 bg-gray-700 text-white rounded-md text-gray-90 md:w-auto text-center md:text-left"
                       >
                         Download Ticket
                       </a>
                     )}
-                    <Link to={`/booking/${trip.id}`}>
-                      <button className="w-full px-4 py-2 border border-gray-700 hover:bg-gray-700 hover:text-white rounded-md text-gray-90 md:w-auto  ">
+                    <Link
+                      className="w-full md:w-auto"
+                      to={`/booking/${trip.id}`}
+                    >
+                      <button className="w-full px-4 py-2 border border-gray-700 hover:bg-gray-700 hover:text-white rounded-md text-gray-90 md:w-auto">
                         View Details
                       </button>
                     </Link>

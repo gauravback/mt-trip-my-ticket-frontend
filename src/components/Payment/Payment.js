@@ -1,13 +1,14 @@
 import api from "@/api/api";
 import toast from "react-hot-toast";
 const handlePaymentVerification = async (response) => {
+  console.log(response);
   toast.loading("Please wait...", { id: "1" });
   try {
     const res = await api.post("/api/payment-confirm/", {
       response: response,
     });
+
     const result = await res.data;
-    console.log(result);
     const status = await res.status;
     if (status === 200) {
       toast.success("payment successful", { id: "1" });
@@ -16,6 +17,7 @@ const handlePaymentVerification = async (response) => {
       toast.error("Something went wrong");
     }
   } catch (error) {
+    console.log(error);
     toast.error("server error", { id: "1" });
   }
 };

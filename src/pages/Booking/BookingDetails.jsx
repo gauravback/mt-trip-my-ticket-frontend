@@ -1,4 +1,5 @@
 import api from "@/api/api";
+import BackButton from "@/components/Button/BackButton";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -27,6 +28,7 @@ const BookingDetails = () => {
   console.log(booking);
   return (
     <div>
+      <BackButton />
       {booking && (
         <main className="bg-white px-4 pt-16 pb-24 sm:px-6 sm:pt-5 lg:px-8 lg:py-12">
           <div className="mx-auto max-w-3xl">

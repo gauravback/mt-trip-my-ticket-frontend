@@ -208,7 +208,7 @@ const App = () => {
                   }
                 />
                 <Route
-                  path="/dubai-activities"
+                  path="/attractions"
                   element={
                     <AnimatedPage>
                       <DubaiActivities />

@@ -485,7 +485,7 @@ const Navbar = () => {
               </li>
               <li>
                 <div class="hs-dropdown relative inline-flex [--trigger:hover]">
-                  <Link to="/dubai-activities/">
+                  <Link to="/attractions/">
                     <div
                       id="hs-dropdown-hover-event"
                       className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"

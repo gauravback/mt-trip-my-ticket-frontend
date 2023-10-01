@@ -375,10 +375,12 @@ const Home = () => {
               <div className="relative mx-auto w-full border border-gray-300 rounded-md">
                 <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
                   <div className="shadow p-4 rounded-lg bg-white">
-                    <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
-                      <div className="transition-transform duration-500 transform ease-in-out  w-full">
+                    <div className="flex justify-center rounded-lg overflow-hidden h-52">
+                      <div className=" duration-500 transform ease-in-out  w-full h-full">
                         <img
-                          className="absolute inset-0 bg-black"
+                          className="bg-black w-full h-full"
+                          width={"100%"}
+                          height={"100%"}
                           src={activity.image}
                         />
                       </div>

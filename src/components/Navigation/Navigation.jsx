@@ -44,7 +44,7 @@ const Navigation = () => {
                 <p className="pb-1.5 text-sm font-semibold">Car Rental</p>
               </div>
             </Link>{" "}
-            <Link to="/dubai-activities/">
+            <Link to="/attractions/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded h-16 sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 md:hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
                   {/* <RiRidingFill className="w-7 h-7" /> */}

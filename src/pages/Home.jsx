@@ -2,18 +2,18 @@ import api from "@/api/api";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { RiSendPlaneFill } from "react-icons/ri";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import Filter from "@/components/SearchComponents/FlightFilter/Filter";
 import { IoCopyOutline } from "react-icons/io5";
 import { MdHiking } from "react-icons/md";
 import { PiAirplaneBold, PiBus } from "react-icons/pi";
 import { LiaHotelSolid } from "react-icons/lia";
 import { TbArmchair, TbWindmill } from "react-icons/tb";
 import { LuFuel } from "react-icons/lu";
+import CarFilter from "@/components/SearchComponents/CarFilter/CarFilter";
 const Home = () => {
   const [cars, setCars] = useState();
   const currencySymbol = useSelector(
@@ -138,9 +138,9 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="relative">
       <div className="gradient-bg">
-        <Filter />
+        <CarFilter />
       </div>
 
       {/*  Cars  */}
@@ -231,23 +231,26 @@ const Home = () => {
       </div>
       {/*  Cars  End */}
       {/*  Cars  */}
+      <div className="flex items-center w-full justify-between h-full">
+        <div className="max-w-[85rem] px-4 py-6 sm:px-6 lg:px-8 mx-auto w-full">
+          <div className="mx-auto text-center flex items-center space-x-12 w-full">
+            <h2 className="text-2xl md:text-4xl md:leading-tight">
+              Car Rental
+            </h2>
+          </div>
+        </div>{" "}
+      </div>
       <div className="max-w-[85rem] px-4 py-8 sm:px-6 lg:px-8 mx-auto w-full">
-        <div className="mx-auto text-center mb-10 lg:mb-14 flex items-center space-x-12 w-full">
-          <h2 className="text-2xl md:text-4xl md:leading-tight">
-            Car <span className="font-bold">Rental</span>
-          </h2>
-        </div>
-
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card */}
           {cars
             ?.filter((car) => car.available_cars > 0)
-            ?.slice(0, 6)
+            ?.slice(0, 8)
             .map((car) => (
               <div className="relative mx-auto w-full border rounded-md border-gray-100">
                 <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
-                  <div className="shadow p-4 rounded-lg bg-white">
+                  <div className="shadow-sm shadow-blue-100 p-4 rounded-lg bg-white">
                     <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
                       <div className="transition-transform duration-500 transform ease-in-out  w-full">
                         <img
@@ -326,8 +329,8 @@ const Home = () => {
                       </p>
                     </div>
                     <div className="mt-8">
-                      <div className="flex justify-between items-center">
-                        <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
+                      <div className="flex justify-end items-center">
+                        {/* <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
                           <span
                             className="uppercase"
                             dangerouslySetInnerHTML={{
@@ -337,9 +340,9 @@ const Home = () => {
                           <span className="text-lg">
                             {parseFloat(car.price * priceRate).toFixed(2)}
                           </span>
-                        </p>
+                        </p> */}
                         <Link to={`/car/${car.id}`}>
-                          <button className="inline-block font-semibold text-theme border border-red-300 p-2 whitespace-nowrap hover:border-red-500 leading-tight rounded-xl">
+                          <button className="inline-block font-semibold  p-2 whitespace-nowrap  text-gradient leading-tight rounded-xl">
                             View Details
                           </button>
                         </Link>
@@ -361,9 +364,7 @@ const Home = () => {
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         {/* Title */}
         <div className="max-w-2xl  mb-10 lg:mb-14">
-          <h2 className="text-xl font-bold md:text-3xl md:leading-tight">
-            Dubai Activity
-          </h2>
+          <h2 className="text-2xl md:text-4xl">Dubai Activity</h2>
         </div>
         {/* End Title */}
         {/* Grid */}
@@ -374,10 +375,12 @@ const Home = () => {
               <div className="relative mx-auto w-full border border-gray-300 rounded-md">
                 <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
                   <div className="shadow p-4 rounded-lg bg-white">
-                    <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
-                      <div className="transition-transform duration-500 transform ease-in-out  w-full">
+                    <div className="flex justify-center rounded-lg overflow-hidden h-52">
+                      <div className=" duration-500 transform ease-in-out  w-full h-full">
                         <img
-                          className="absolute inset-0 bg-black"
+                          className="bg-black w-full h-full"
+                          width={"100%"}
+                          height={"100%"}
                           src={activity.image}
                         />
                       </div>
@@ -432,7 +435,7 @@ const Home = () => {
                           </span>
                         </p>
                         <Link to={`/package/${activity.id}`}>
-                          <button className="inline-block font-semibold text-theme border border-red-300 p-2 whitespace-nowrap hover:border-red-500 leading-tight rounded-xl">
+                          <button className="inline-block font-semibold text-gradient p-2 whitespace-nowrap  leading-tight rounded-xl">
                             View Details
                           </button>
                         </Link>
@@ -453,9 +456,7 @@ const Home = () => {
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         {/* Title */}
         <div className="max-w-2xl  mb-10 lg:mb-14">
-          <h2 className="text-xl font-bold md:text-3xl md:leading-tight">
-            Plan Your Perfect Trip At
-          </h2>
+          <h2 className="text-2xl md:text-4xl">Plan Your Perfect Trip At</h2>
         </div>
         {/* End Title */}
         {/* Grid */}
@@ -519,16 +520,14 @@ const Home = () => {
       {/* Exclusive Deals */}
       <div className="max-w-[85rem] px-4 border-b py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto w-full">
         <div className="mx-auto text-center mb-10 lg:mb-14 flex items-center justify-between w-full">
-          <h2 className="text-2xl md:text-4xl md:leading-tight">
-            Exclusive <span className="font-bold">Deals</span>
-          </h2>
+          <h2 className="text-2xl md:text-4xl">Exclusive Deals</h2>
           <select class="py-2 px-3 pr-9 block w-auto bg-white border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:hidden">
             <option>All</option>
           </select>
           <div className="hidden sm:flex justify-end space-x-6">
             <button
               type="button"
-              className="font-semibold py-2 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-lg whitespace-nowrap text-gray-500 hover:text-theme"
+              className="font-semibold py-2 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-lg whitespace-nowrap text-gray-500"
             >
               All
             </button>
@@ -547,7 +546,7 @@ const Home = () => {
               />
               <div className="p-4 pl-20 w-full flex flex-col gap-y-2">
                 <div className="flex items-center justify-end">
-                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-red-100 text-red-700">
+                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium btn">
                     ABC123
                   </div>
                 </div>
@@ -584,7 +583,7 @@ const Home = () => {
                     </div>
                   </div>
                   <button
-                    className="text-sm items-self-end font-semibold text-theme"
+                    className="text-sm items-self-end font-semibold blue-gradient"
                     type="button"
                   >
                     Book Now
@@ -604,7 +603,7 @@ const Home = () => {
               />
               <div className="p-4 pl-20 w-full flex flex-col gap-y-2">
                 <div className="flex items-center justify-end">
-                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-red-100 text-red-700">
+                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium btn">
                     ABC123
                   </div>
                 </div>
@@ -641,7 +640,7 @@ const Home = () => {
                     </div>
                   </div>
                   <button
-                    className="text-sm items-self-end font-semibold text-theme"
+                    className="text-sm items-self-end font-semibold blue-gradient"
                     type="button"
                   >
                     Book Now
@@ -661,7 +660,7 @@ const Home = () => {
               />
               <div className="p-4 pl-20 w-full flex flex-col gap-y-2">
                 <div className="flex items-center justify-end">
-                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-red-100 text-red-700">
+                  <div class="flex justify-end  items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium btn">
                     ABC123
                   </div>
                 </div>
@@ -698,7 +697,7 @@ const Home = () => {
                     </div>
                   </div>
                   <button
-                    className="text-sm items-self-end font-semibold text-theme"
+                    className="text-sm items-self-end font-semibold blue-gradient"
                     type="button"
                   >
                     Book Now
@@ -716,9 +715,7 @@ const Home = () => {
       <div className="bg-gray-100">
         <div className="max-w-[85rem] px-4 py-8 sm:px-6 lg:px-8 mx-auto w-full bg-white rounded-md">
           <div className="mx-auto text-center mb-10 lg:mb-14 flex items-center space-x-12 w-full">
-            <h2 className="text-2xl md:text-4xl md:leading-tight">
-              Popular <span className="font-bold">Destinations</span>
-            </h2>
+            <h2 className="text-2xl md:text-4xl">Popular Destinations</h2>
             <select class="py-2 px-3 pr-9 block w-auto bg-white border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:hidden">
               <option>All</option>
             </select>

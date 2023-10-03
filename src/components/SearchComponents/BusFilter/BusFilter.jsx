@@ -31,7 +31,7 @@ const BusFilter = () => {
     );
   };
   return (
-    <div style={{ backgroundImage: `url("/filter-bg.webp")` }}>
+    <div className="btn-gradient">
       <div className="mx-auto max-w-screen-lg sm:py-12 relative">
         <Navigation />
         <form

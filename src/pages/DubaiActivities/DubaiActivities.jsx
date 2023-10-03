@@ -16,7 +16,6 @@ const DubaiActivities = () => {
     slidesToShow: 1,
     adaptiveHeight: true,
     slidesToScroll: 1,
-    centerPadding: "50px",
     arrows: true,
     // responsive: [
     //   {
@@ -95,7 +94,7 @@ const DubaiActivities = () => {
   return (
     <div>
       <div className="">
-        <Slider {...settings}>
+        <Slider {...settings} className="mx-0 px-0">
           <div>
             <img
               src="/carousel/1.avif"
@@ -134,13 +133,15 @@ const DubaiActivities = () => {
         <h1 className="text-2xl font-bold mb-5">Top Attractions in Dubai</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
           {activities?.map((activity) => (
-            <div className="relative mx-auto w-full border border-gray-300 rounded-md">
-              <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
+            <div className="mx-auto w-full border border-gray-300 rounded-md">
+              <div className="inline-block duration-300 ease-in-out w-full">
                 <div className="shadow p-4 rounded-lg bg-white">
-                  <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
-                    <div className="transition-transform duration-500 transform ease-in-out  w-full">
+                  <div className="flex justify-center rounded-lg overflow-hidden h-52">
+                    <div className=" duration-500 transform ease-in-out  w-full h-full">
                       <img
-                        className="absolute inset-0 bg-black"
+                        className="bg-black w-full h-full"
+                        width={"100%"}
+                        height={"100%"}
                         src={activity.image}
                       />
                     </div>

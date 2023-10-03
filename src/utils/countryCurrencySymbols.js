@@ -19,8 +19,8 @@ export const countryCurrencySymbols = [
   },
   {
     country: "India",
-    language: "Hindi",
-    languageAbbreviation: "hi",
+    language: "English",
+    languageAbbreviation: "en",
     currency: "Indian Rupee",
     symbolCode: "&#8377;", // Indian Rupee (₹)
     abbreviation: "INR",
@@ -69,7 +69,7 @@ export const countryCurrencySymbols = [
     currency: "Afghani",
     symbolCode: "&#8387;", // Afghani sign (؋)
     abbreviation: "AFN",
-    icon: "https://img.icons8.com/color/96/afghanistan-circular.png",
+    icon: "https://img.icons8.com/color/96/afghanistan-flag-circle.png",
   },
   {
     country: "Albania",
@@ -96,7 +96,7 @@ export const countryCurrencySymbols = [
     currency: "Euro",
     symbolCode: "&#8364;", // Euro sign (€)
     abbreviation: "EUR",
-    icon: "https://img.icons8.com/color/96/andorra-circular.png",
+    icon: "https://phoenix.sirv.com/aragon-flag.png",
   },
   {
     country: "Angola",
@@ -115,5 +115,14 @@ export const countryCurrencySymbols = [
     symbolCode: "&#8378;", // East Caribbean Dollar sign (XCD)
     abbreviation: "XCD",
     icon: "https://img.icons8.com/color/96/antigua-and-barbuda-circular.png",
+  },
+  {
+    country: "India",
+    language: "Hindi",
+    languageAbbreviation: "hi",
+    currency: "Indian Rupee",
+    symbolCode: "&#8377;", // Indian Rupee (₹)
+    abbreviation: "INR",
+    icon: "https://img.icons8.com/color/96/india-circular.png",
   },
 ];

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { LiaHotelSolid } from "react-icons/lia";
-import { MdHiking } from "react-icons/md";
+import { MdArrowBack, MdHiking } from "react-icons/md";
 import { PiAirplaneBold, PiBus } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -14,6 +14,7 @@ import Slider from "react-slick";
 
 import { LuFuel } from "react-icons/lu";
 import { TbArmchair, TbWindmill } from "react-icons/tb";
+import BackButton from "@/components/Button/BackButton";
 
 const CarDetails = () => {
   const [carDetails, setCarDetails] = useState();
@@ -109,6 +110,8 @@ const CarDetails = () => {
 
   return (
     <div>
+      <BackButton />
+
       {carDetails && (
         <section className="py-10 font-poppins dark:bg-gray-800">
           <div className="max-w-7xl px-4 mx-auto">

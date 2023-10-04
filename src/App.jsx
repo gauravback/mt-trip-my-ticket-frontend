@@ -39,6 +39,7 @@ import Offers from "./pages/Offers/Offers";
 import Visa from "./pages/Visa/Visa";
 import { BsWhatsapp } from "react-icons/bs";
 import { SiChatbot } from "react-icons/si";
+import EconomyCar from "./pages/Car/EconomyCar";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -132,6 +133,14 @@ const App = () => {
                   element={
                     <AnimatedPage>
                       <Car />
+                    </AnimatedPage>
+                  }
+                />
+                 <Route
+                  path="/economycar"
+                  element={
+                    <AnimatedPage>
+                      <EconomyCar />
                     </AnimatedPage>
                   }
                 />

@@ -76,7 +76,7 @@ const Filter = () => {
   return (
     <div
       style={{
-        background: `url("/banner-2.png")`,
+        background: `url("/banner-new.jpg")`,
         margin: "0 auto",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",

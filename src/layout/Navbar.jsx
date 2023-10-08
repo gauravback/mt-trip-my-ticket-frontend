@@ -92,38 +92,28 @@ const Navbar = () => {
             : "max-w-7xl mx-auto w-full"
         } top-0 z-10 transition-all ease-in-out duration-100`}
       >
-        <div className="md:mx-8 flex flex-wrap items-center justify-between mx-auto">
+        <div className="md:mx-8 flex flex-wrap md:flex-nowrap items-center justify-between mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-center md:justify-normal w-full md:w-auto">
             <Link to="/">
               <img src="/logo-white.png" alt="logo" width={120} />
             </Link>
-            <button
-              type="button"
-              class=" text-white  px-2 py-1 m-0 flex items-center"
-              data-hs-overlay="#docs-sidebar"
-              aria-controls="docs-sidebar"
-              aria-label="Toggle navigation"
-            >
-              <RiMenu3Line />
-              <span className="">All Categories</span>
-            </button>
           </div>
-          <div className="flex flex-wrap md:order-2 mx-4 gap-3 items-center justify-center w-full md:w-auto pb-4 md:pb-2 lg:pb-0">
+          <div className="flex flex-wrap md:flex-nowrap md:order-2 mx-4 gap-3 items-center justify-center w-full md:w-auto pb-4 md:pb-2 lg:pb-0">
             <a
               href="tel:+919804480448"
               className="w-full md:w-auto text-center"
             >
               <span className="flex items-center justify-center space-x-1">
                 <img src="/icons/phone-icon.png" alt="" width={18} />
-                <span className="text-white text-sm"> Call Us On:</span>
+                <span className="text-white text-xs"> Call Us On:</span>
               </span>
-              <span className="text-white font-bold text-sm">
+              <span className="text-white font-bold text-xs">
                 +91 9804480448
               </span>
             </a>
             <Link
               to="/offers"
-              className={`${isFixed ? "hidden" : ""} hidden md:block`}
+              className={`${isFixed ? "hidden " : "md:block"} hidden `}
             >
               <div className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent text-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all text-sm">
                 <div className="animate-pulse duration-[3000ms]">
@@ -205,7 +195,6 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-
             <div className="hs-dropdown relative inline-flex">
               <button
                 id="hs-dropdown-default"
@@ -276,8 +265,17 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-
-            {/* Language And Country End */}
+            {/* Language And Country End */}{" "}
+            <button
+              type="button"
+              class=" btn-gradient rounded-md px-2 py-1 m-0 flex items-center w-40"
+              data-hs-overlay="#docs-sidebar"
+              aria-controls="docs-sidebar"
+              aria-label="Toggle navigation"
+            >
+              <RiMenu3Line />
+              <span className="">All Categories</span>
+            </button>
             {user ? (
               <div
                 className="hs-dropdown inline-flex mr-2"
@@ -288,7 +286,7 @@ const Navbar = () => {
                   type="button"
                   className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-md font-medium bg- align-middle hover:bg-gray-800 focus:outline-none focus:ring-0 transition-all text-xs"
                 >
-                  <div className="truncate overflow-ellipsis rounded-md gap-1 btn-gradient flex items-center justify-center text-sm px-3 py-2 focus:outline-none focus:ring-0">
+                  <div className="truncate overflow-ellipsis rounded-md gap-1 btn-gradient flex items-center justify-center text-sm px-3 py-2 md:py-1 focus:outline-none focus:ring-0">
                     <svg
                       className="w-4 h-4 font-bold"
                       xmlns="http://www.w3.org/2000/svg"
@@ -305,6 +303,7 @@ const Navbar = () => {
                 </button>
 
                 {/* New Menu */}
+
                 <div
                   aria-labelledby="hs-dropdown-with-header"
                   className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow "
@@ -359,7 +358,7 @@ const Navbar = () => {
                 type="button"
                 id="login-btn"
                 data-hs-overlay="#hs-modal-signin"
-                className="flex items-center gap-x-2 font-medium transition-all duration-500 px-3 py-3 md:py-2 rounded-md btn-gradient"
+                className="flex items-center gap-x-2 font-medium transition-all duration-500 px-3 py-3 md:py-1 rounded-md btn-gradient"
               >
                 <svg
                   className="w-4 h-4 font-bold"
@@ -375,7 +374,6 @@ const Navbar = () => {
                 <span className="hidden md:block">Login</span>
               </button>
             )}
-
             <div className="hidden">
               <button
                 type="button"
@@ -769,7 +767,7 @@ const Navbar = () => {
 
       <div
         id="docs-sidebar"
-        className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 left-0 bottom-0 z-[510] md:w-[70rem] bg-white border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y"
+        className="hs-overlay hs-overlay-open:-translate-x-0 translate-x-full transition-all duration-300 transform hidden fixed top-0 right-0 bottom-0 z-[510] md:w-[70rem] bg-white border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y"
       >
         <div className="px-6">
           <img src="/logo.png" alt="logo" width={120} />
@@ -781,47 +779,35 @@ const Navbar = () => {
           <div className="sm:grid grid-cols-1 sm:grid-cols-3 gap-6 space-y-8 md:space-y-0">
             <div className="flex flex-col space-y-2">
               <h1 className="text-lg font-bold px-3">Car Rental</h1>
-              <div to="/car/economy-car">
+              <Link to="/car/?category=economy">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                  Economy Car
+                  Economy
                 </p>
-              </div>
+              </Link>
 
-              <div to="/car/compact-car">
+              <Link to="/car/?category=suv">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                  Compact Car
+                  SUV/MUV
                 </p>
-              </div>
+              </Link>
 
-              <div to="/car/midsize-car">
+              <Link to="/car/?category=luxury">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                  Midsize Car
+                  Luxury
                 </p>
-              </div>
+              </Link>
 
-              <div to="/car/full-size-car">
+              <Link to="/car/?category=wedding">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                  Full-Size Car
+                  Wedding Vintage
                 </p>
-              </div>
+              </Link>
 
-              <div to="/car/suv">
+              <Link to="/car/?category=tempo">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                  SUV
+                  Tempo travelers and commuters
                 </p>
-              </div>
-
-              <div to="/car/luxury-car">
-                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                  Luxury Car
-                </p>
-              </div>
-
-              <div to="/car/convertible">
-                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                  Convertible
-                </p>
-              </div>
+              </Link>
             </div>
             <div className="flex flex-col space-y-2">
               <h1 className="text-lg font-bold px-3">Tourist Attractions</h1>
@@ -1001,11 +987,11 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col space-y-2">
               <h1 className="text-lg font-bold px-3">Yatches and Safari</h1>
-              <div to="/attraction/yachts-luxury-package">
+              <Link to="/yacht">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
                   Yachts Luxury Package
                 </p>
-              </div>
+              </Link>
 
               <div to="/attraction/yachts-adventure-package">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">

@@ -26,6 +26,8 @@ const Car = () => {
   const origin = searchParams.get("origin");
   const destination = searchParams.get("destination");
   const departure = searchParams.get("departure");
+  const car_type = searchParams.get("category");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fetchCars = async () => {
@@ -57,6 +59,9 @@ const Car = () => {
     }
   };
   useEffect(() => {
+    if (car_type) {
+      setCarType(car_type);
+    }
     fetchCars();
   }, [location.search, carType, fuelType, transmission, Ac, Bags]);
 

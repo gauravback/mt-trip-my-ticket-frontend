@@ -39,6 +39,8 @@ import Offers from "./pages/Offers/Offers";
 import Visa from "./pages/Visa/Visa";
 import { BsWhatsapp } from "react-icons/bs";
 import { SiChatbot } from "react-icons/si";
+import Yacht from "./pages/Yacht/Yacht";
+import YachtDetails from "./pages/Yacht/YachtDetails";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -261,6 +263,22 @@ const App = () => {
                   element={
                     <AnimatedPage>
                       <Visa />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/yacht"
+                  element={
+                    <AnimatedPage>
+                      <Yacht />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/yacht/:id"
+                  element={
+                    <AnimatedPage>
+                      <YachtDetails />
                     </AnimatedPage>
                   }
                 />

@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        prime: "#07162d",
-        theme: "#d32f2f",
+        prime: "#3b82f6",
+        theme: "#38bdf8",
       },
     },
   },

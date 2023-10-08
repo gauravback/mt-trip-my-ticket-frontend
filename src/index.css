@@ -184,3 +184,8 @@ select {
 .react-datepicker-time__input:focus {
   outline: none;
 }
+
+.slick-prev:before,
+.slick-next:before {
+  color: #000;
+}

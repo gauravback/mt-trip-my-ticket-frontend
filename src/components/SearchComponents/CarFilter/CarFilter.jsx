@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import DateInput from "../DatePicker/DateInput";
 import { format } from "date-fns";
 import { cities } from "@/components/cities/cities";
+import { useSelector } from "react-redux";
 
 const CarFilter = () => {
   const [search, setSearch] = useState("");
@@ -14,6 +15,8 @@ const CarFilter = () => {
     format(new Date(), "yyy-MM-dd")
   );
 
+  const country = useSelector((state) => state.countryCurrencyReducer?.country);
+
   const [departureTime, setDepartureTime] = useState(
     format(new Date(), "hh:mm aa")
   );
@@ -21,13 +24,15 @@ const CarFilter = () => {
   const [fromCityInput, setFromCityInput] = useState("");
   const [toCityInput, setToCityInput] = useState("");
 
-  console.log("From", fromCity);
-  console.log("To", toCity);
-  console.log("Departure", departureDate);
+  const countryAbbreviation = country && country === "India" ? "IN" : "AE";
+
+  const CategorizeCities = cities?.filter((city) => {
+    return city.country_code === countryAbbreviation;
+  });
 
   const searchedCity = [
     ...new Set(
-      cities?.filter((place) => {
+      CategorizeCities?.filter((place) => {
         return (
           !/^\d+$/.test(place.name) &&
           place.name.toLowerCase().includes(search.toLowerCase())
@@ -46,7 +51,7 @@ const CarFilter = () => {
   return (
     <div
       style={{
-        background: `url("/banner-2.png")`,
+        background: `url("/banner-new.jpg")`,
         margin: "0 auto",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",

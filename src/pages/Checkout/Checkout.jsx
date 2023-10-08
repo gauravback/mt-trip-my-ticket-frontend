@@ -48,15 +48,14 @@ const Checkout = () => {
 
   const handlePayment = async (e) => {
     e.preventDefault();
-    const { email, phone, checkin, person } = e.target;
-    console.log(person.value);
+    const { checkoutEmail, phone, checkin, person } = e.target;
     showRazorpay(
       token,
       cart.type,
       cart.id,
       couponCode,
       person.value,
-      email.value,
+      checkoutEmail.value,
       phone.value,
       checkin.value,
       e.target.checkout ? e.target.checkout.value : ""
@@ -134,8 +133,8 @@ const Checkout = () => {
                     </label>
                     <input
                       type="email"
-                      id="email"
-                      name="email"
+                      id="checkoutEmail"
+                      name="checkoutEmail"
                       className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-0 focus:outline-none block w-full p-2.5"
                       required
                     />
@@ -244,7 +243,7 @@ const Checkout = () => {
                             dangerouslySetInnerHTML={{ __html: currencySymbol }}
                           ></span>
                           {parseFloat(
-                            cart?.price ? cart.price : 0 * priceRate
+                            (cart?.price ? cart.price : 0) * priceRate
                           ).toFixed(2)}
                         </p>
                       </div>
@@ -256,9 +255,10 @@ const Checkout = () => {
                           <span
                             dangerouslySetInnerHTML={{ __html: currencySymbol }}
                           ></span>
-                          {cart.price -
+                          {(cart.price * priceRate).toFixed(2) -
                             parseFloat(
-                              cart?.price - (discount * cart?.price) / 100
+                              (cart?.price - (discount * cart?.price) / 100) *
+                                priceRate
                             ).toFixed(2)}
                         </p>
                       </div>
@@ -274,7 +274,8 @@ const Checkout = () => {
                           ></span>
                           {cart.price
                             ? parseFloat(
-                                cart?.price - (discount * cart?.price) / 100
+                                (cart?.price - (discount * cart?.price) / 100) *
+                                  priceRate
                               ).toFixed(2)
                             : 0}
                         </p>

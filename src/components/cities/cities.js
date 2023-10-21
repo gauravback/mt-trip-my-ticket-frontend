@@ -4509,4 +4509,109 @@ export const cities = [
     canonical_name: "Tamil Nadu,India",
     country_code: "IN",
   },
+  {
+    name: "Dubai",
+    canonical_name: "Dubai",
+    country_code: "AE",
+  },
+  {
+    name: "Abu Dhabi",
+    canonical_name: "Abu Dhabi",
+    country_code: "AE",
+  },
+  {
+    name: "Sharjah",
+    canonical_name: "Sharjah",
+    country_code: "AE",
+  },
+  {
+    name: "Al Ain",
+    canonical_name: "Al Ain",
+    country_code: "AE",
+  },
+  {
+    name: "Ajman",
+    canonical_name: "Ajman",
+    country_code: "AE",
+  },
+  {
+    name: "Ras Al Khaimah",
+    canonical_name: "Ras Al Khaimah",
+    country_code: "AE",
+  },
+  {
+    name: "Fujairah",
+    canonical_name: "Fujairah",
+    country_code: "AE",
+  },
+  {
+    name: "Umm Al Quwain",
+    canonical_name: "Umm Al Quwain",
+    country_code: "AE",
+  },
+  {
+    name: "Khor Fakkan",
+    canonical_name: "Khor Fakkan",
+    country_code: "AE",
+  },
+  {
+    name: "Kalba",
+    canonical_name: "Kalba",
+    country_code: "AE",
+  },
+  {
+    name: "Madinat Zayed",
+    canonical_name: "Madinat Zayed",
+    country_code: "AE",
+  },
+  {
+    name: "Dibba Al-Fujairah",
+    canonical_name: "Dibba Al-Fujairah",
+    country_code: "AE",
+  },
+  {
+    name: "Ruwais",
+    canonical_name: "Ruwais",
+    country_code: "AE",
+  },
+  {
+    name: "Ghayathi",
+    canonical_name: "Ghayathi",
+    country_code: "AE",
+  },
+  {
+    name: "Dhaid",
+    canonical_name: "Dhaid",
+    country_code: "AE",
+  },
+  {
+    name: "Jebel Ali",
+    canonical_name: "Jebel Ali",
+    country_code: "AE",
+  },
+  {
+    name: "Liwa Oasis",
+    canonical_name: "Liwa Oasis",
+    country_code: "AE",
+  },
+  {
+    name: "Hatta",
+    canonical_name: "Hatta",
+    country_code: "AE",
+  },
+  {
+    name: "Ar-Rams",
+    canonical_name: "Ar-Rams",
+    country_code: "AE",
+  },
+  {
+    name: "Dibba Al-Hisn",
+    canonical_name: "Dibba Al-Hisn",
+    country_code: "AE",
+  },
+  {
+    name: "Al Jazirah Al Hamra",
+    canonical_name: "Al Jazirah Al Hamra",
+    country_code: "AE",
+  },
 ];

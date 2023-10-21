@@ -1,6 +1,6 @@
 import api from "@/api/api";
 import Filter from "@/components/SearchComponents/HotelFilter/Filter";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdOutlineStar } from "react-icons/md";
@@ -39,8 +39,10 @@ const Hotel = () => {
         }&available_from_before=${
           checkout ? checkout : ""
         }&available_to_after=&available_to_before=&wifi_available=${
-          wifi === null ? "" : wifi
-        }&parking_available=${parking === null ? "" : parking}`
+          wifi === null || wifi === undefined ? "" : wifi
+        }&parking_available=${
+          parking === null || parking === undefined ? "" : parking
+        }`
       );
       const data = await res.data;
       const status = await res.status;
@@ -57,16 +59,6 @@ const Hotel = () => {
     fetchHotels();
   }, [location.search, star, wifi, parking]);
 
-  const sliceUntilSecondPeriod = (input) => {
-    const firstPeriodIndex = input.indexOf(".");
-    if (firstPeriodIndex !== -1) {
-      const secondPeriodIndex = input.indexOf(".", firstPeriodIndex + 1);
-      if (secondPeriodIndex !== -1) {
-        return input.slice(0, secondPeriodIndex + 1);
-      }
-    }
-    return input;
-  };
   return (
     <div>
       <div className="">

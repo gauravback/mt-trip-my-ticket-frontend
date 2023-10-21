@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/slices/AuthSlice";
 import { Link } from "react-router-dom";
+import { login } from "../../redux/slices/AuthSlice";
 
 import api from "@/api/api";
 import { GoogleLogin } from "@react-oauth/google";
@@ -31,7 +31,13 @@ const Login = () => {
         toast.error("Invalid credentials", { id: "1" });
       }
     } catch (error) {
-      toast.error("Something went wrong", { id: "1" });
+      if (error) {
+        if (error.response.status === 401) {
+          toast.error(error.response.data.error, { id: "1" });
+        }
+      } else {
+        toast.error("Something went wrong", { id: "1" });
+      }
     }
   };
 
@@ -51,7 +57,13 @@ const Login = () => {
         toast.error("Invalid credentials", { id: "1" });
       }
     } catch (error) {
-      toast.error("Something went wrong", { id: "1" });
+      if (error) {
+        if (error.response.status === 401) {
+          toast.error(error.response.data.error, { id: "1" });
+        }
+      } else {
+        toast.error("Something went wrong", { id: "1" });
+      }
     }
   };
 
@@ -72,7 +84,13 @@ const Login = () => {
         toast.error("Something went wrong", { id: "1" });
       }
     } catch (error) {
-      toast.error("Something went wrong", { id: "1" });
+      if (error) {
+        if (error.response.status === 401) {
+          toast.error(error.response.data.error, { id: "1" });
+        }
+      } else {
+        toast.error("Something went wrong", { id: "1" });
+      }
     }
   };
   const verifyOTP = async (e) => {

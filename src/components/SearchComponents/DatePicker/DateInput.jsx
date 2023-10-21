@@ -1,53 +1,11 @@
-// import { format } from "date-fns";
-// import React, { useState, useRef, forwardRef } from "react";
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-
-// function MyDatePicker() {
-//   const [selectedDate, setSelectedDate] = useState(null);
-//   const datePickerRef = useRef();
-
-//   const openDatePicker = () => {
-//     console.log(datePickerRef.current);
-//   };
-
-//   const formatDate = (date) => {
-//     const formattedDate = format(new Date(date), "dd MMM");
-//     setSelectedDate(formattedDate);
-//   };
-
-//   return (
-//     <div>
-//       <input
-//         id="hs-dropdown-default"
-//         type="text"
-//         value={selectedDate ? formatDate(selectedDate) : ""}
-//         onClick={openDatePicker}
-//         readOnly
-//         className="hs-dropdown-toggle mt-2 block w-full rounded-md px-4 outline-none focus:ring-0 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold bg-white text-4xl font-medium"
-//       />
-
-//       <DatePicker
-//         selected={selectedDate}
-//         onChange={(date) => {
-//           formatDate(date); // Close the date picker after a date is selected
-//         }}
-//         className="date-picker" // Add any additional props and styling for the date picker here
-//       />
-//     </div>
-//   );
-// }
-
-// export default MyDatePicker;
-
 import { format } from "date-fns";
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-function MyDatePicker({ setDate, setTime }) {
+function DateInput({ setDate, setTime }) {
   const [selectedDate, setSelectedDate] = useState(
-    format(new Date(), "dd MMM yyyy, hh:mm aa")
+    format(new Date(), "dd MMM yyyy, HH:mm")
   );
   const datePickerRef = useRef();
 
@@ -57,11 +15,11 @@ function MyDatePicker({ setDate, setTime }) {
 
   const formatDate = (date) => {
     const formattedDate = date
-      ? format(new Date(date), "dd MMM yyyy, hh:mm aa")
+      ? format(new Date(date), "dd MMM yyyy, HH:mm")
       : "";
     setSelectedDate(formattedDate);
     setDate(format(new Date(date), "yyy-MM-dd"));
-    setTime(format(new Date(date), "hh:mm aa"));
+    setTime(format(new Date(date), "HH:mm"));
   };
 
   return (
@@ -83,6 +41,7 @@ function MyDatePicker({ setDate, setTime }) {
         ref={datePickerRef} // Assign the ref to the DatePicker
         minDate={new Date()}
         showTimeInput
+        timeFormat="a"
         popperClassName="custom-popper"
         popperModifiers={[
           {
@@ -105,4 +64,4 @@ function MyDatePicker({ setDate, setTime }) {
   );
 }
 
-export default MyDatePicker;
+export default DateInput;

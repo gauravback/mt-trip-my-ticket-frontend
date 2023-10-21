@@ -1,12 +1,11 @@
 import api from "@/api/api";
-import { showRazorpay } from "@/components/Payment/Payment";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 const Checkout = () => {
   const cart = useSelector((state) => state.cartReducer);
   const offerCode = useSelector((state) => state.OfferReducer);
-  console.log(offerCode);
   const currencySymbol = useSelector(
     (state) => state.countryCurrencyReducer?.symbol
   );
@@ -48,18 +47,38 @@ const Checkout = () => {
 
   const handlePayment = async (e) => {
     e.preventDefault();
-    const { checkoutEmail, phone, checkin, person } = e.target;
-    showRazorpay(
-      token,
-      cart.type,
-      cart.id,
-      couponCode,
-      person.value,
-      checkoutEmail.value,
-      phone.value,
-      checkin.value,
-      e.target.checkout ? e.target.checkout.value : ""
-    );
+    try {
+      const { checkoutEmail, phone, checkin, person } = e.target;
+      const response = await api.post(
+        "/api/payment/",
+        {
+          token,
+          package_type: cart.type,
+          package_id: cart.id,
+          promo_code: couponCode,
+          people: person.value,
+          email: checkoutEmail.value,
+          phone: phone.value,
+          start_date: checkin.value,
+          end_date: e.target.checkout ? e.target.checkout.value : "",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const result = await response.data;
+      const status = await response.status;
+      if (status === 200) {
+        window.open(result.url);
+      } else {
+        toast.error("Something went wrong", { id: 1 });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong.", { id: 1 });
+    }
   };
   return (
     <div>

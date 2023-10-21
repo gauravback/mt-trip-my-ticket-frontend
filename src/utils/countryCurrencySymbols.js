@@ -36,6 +36,15 @@ export const countryCurrencySymbols = [
     icon: "https://img.icons8.com/color/96/saudi-arabia-circular.png",
   },
   {
+    country: "United Arab Emirates",
+    language: "Arabic",
+    languageAbbreviation: "ar",
+    currency: "UAE Dirham",
+    symbolCode: "&#x62f;&#x2e;&#x625;", // Dirham sign (د.إ)
+    abbreviation: "AED",
+    icon: "https://img.icons8.com/color/96/united-arab-emirates-circular.png",
+  },
+  {
     country: "Germany",
     language: "German",
     languageAbbreviation: "de",

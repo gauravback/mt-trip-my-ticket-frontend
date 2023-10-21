@@ -1,28 +1,26 @@
+import CityModal from "@/components/CityModal/CarCityModal";
 import Navigation from "@/components/Navigation/Navigation";
+import { cities } from "@/components/cities/cities";
+import { format } from "date-fns";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DateInput from "../DatePicker/DateInput";
-import { format } from "date-fns";
-import { cities } from "@/components/cities/cities";
-import { useSelector } from "react-redux";
 
 const CarFilter = () => {
   const [search, setSearch] = useState("");
   const [route, setRoute] = useState("oneway");
   const [fromCity, setFromCity] = useState("");
   const [toCity, setToCity] = useState("");
+
   const [departureDate, setDepartureDate] = useState(
     format(new Date(), "yyy-MM-dd")
   );
 
-  const country = useSelector((state) => state.countryCurrencyReducer?.country);
-
   const [departureTime, setDepartureTime] = useState(
     format(new Date(), "hh:mm aa")
   );
-
-  const [fromCityInput, setFromCityInput] = useState("");
-  const [toCityInput, setToCityInput] = useState("");
+  const country = useSelector((state) => state.countryCurrencyReducer?.country);
 
   const countryAbbreviation = country && country === "India" ? "IN" : "AE";
 
@@ -70,91 +68,38 @@ const CarFilter = () => {
               >
                 From
               </label>
-              <div className="hs-dropdown relative inline-flex [--auto-close:outside]">
-                <input
-                  id="hs-dropdown-auto-close-inside"
+              <div className="">
+                <button
+                  data-hs-overlay="#hs-notifications-1"
                   required
                   autoComplete=""
                   name="from"
-                  placeholder={"Origin City"}
-                  value={fromCity}
-                  onChange={(e) => {
-                    setFromCity(e.target.value);
-                    setSearch(e.target.value);
-                  }}
-                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-2xl placeholder:text-gray-800 placeholder:font-medium bg-white text-2xl font-medium capitalize"
-                />
-                <div
-                  className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-80 hidden z-10 h-72 overflow-y-scroll mt-2 min-w-[15rem] bg-white  shadow-md rounded-lg p-2 border border-gray-300"
-                  aria-labelledby="hs-dropdown-auto-close-inside"
+                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-2xl placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-2xl font-medium capitalize"
                 >
-                  <div>
-                    {searchedCity?.map((city) => (
-                      <button
-                        type="button"
-                        key={city.name}
-                        onClick={() => {
-                          setFromCity(city.name.toLowerCase());
-                          setFromCityInput(city.name);
-                          setSearch("");
-                        }}
-                        className={`w-full text-left gap-x-3.5 py-2 px-3 rounded-md text-gray-800 hover-gradient focus:ring-0`}
-                      >
-                        {city.name}
-                        <br />
-                        <span className="text-xs">{city.country_code}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                  {fromCity ? fromCity : "Origin City"}
+                </button>
               </div>
             </div>
-            <div className="flex flex-col pl-2  pt-2">
+            <div className="flex flex-col pl-2 pt-2">
               <label
                 htmlFor="name"
-                className="text-stone-600 text-sm uppercase font-medium"
+                className="text-stone-600 uppercase text-sm font-medium"
               >
                 To
               </label>
-              <div className="hs-dropdown relative inline-flex [--auto-close:outside]">
-                <input
-                  id="hs-dropdown-auto-close-inside"
+              <div className="">
+                <button
+                  data-hs-overlay="#hs-notifications-2"
                   required
-                  name="from"
                   autoComplete=""
-                  placeholder={"Destination City"}
-                  value={toCity}
-                  onChange={(e) => {
-                    setToCity(e.target.value);
-                    setSearch(e.target.value);
-                  }}
-                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md  outline-none  focus:ring-0 placeholder:text-2xl placeholder:text-gray-800 placeholder:font-medium bg-white text-2xl font-medium capitalize"
-                />
-                <div
-                  className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-80 hidden z-10 h-72 overflow-y-scroll mt-2 min-w-[15rem] bg-white  shadow-md rounded-lg p-2 border border-gray-300"
-                  aria-labelledby="hs-dropdown-auto-close-inside"
+                  name="to"
+                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-2xl placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-2xl font-medium capitalize"
                 >
-                  <div>
-                    {searchedCity?.map((city) => (
-                      <button
-                        type="button"
-                        key={city.name}
-                        onClick={() => {
-                          setToCity(city.name.toLowerCase());
-                          setToCityInput(city.name);
-                          setSearch("");
-                        }}
-                        className="w-full text-left gap-x-3.5 py-2 px-3 rounded-md text-gray-800 hover-gradient focus:ring-0"
-                      >
-                        {city.name}
-                        <br />
-                        <span className="text-xs">{city.country_code}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                  {toCity ? toCity : "Destination City"}
+                </button>
               </div>
             </div>
+
             <div className="flex flex-col pl-2  pt-2 ">
               <label
                 htmlFor="name"
@@ -215,6 +160,18 @@ const CarFilter = () => {
           </div>
         </div>
       </div>
+      <CityModal
+        cities={searchedCity}
+        setSearch={setSearch}
+        action={setFromCity}
+        id={1}
+      />
+      <CityModal
+        cities={searchedCity}
+        setSearch={setSearch}
+        action={setToCity}
+        id={2}
+      />
     </div>
   );
 };

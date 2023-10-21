@@ -8,13 +8,15 @@ import { MdArrowBack, MdHiking } from "react-icons/md";
 import { PiAirplaneBold, PiBus } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
+import BackButton from "@/components/Button/BackButton";
+import Loader from "@/components/Loader/Loader";
+import Reviews from "@/components/Reviews/Reviews";
 import { LuFuel } from "react-icons/lu";
 import { TbArmchair, TbWindmill } from "react-icons/tb";
-import BackButton from "@/components/Button/BackButton";
 
 const CarDetails = () => {
   const [carDetails, setCarDetails] = useState();
@@ -112,7 +114,7 @@ const CarDetails = () => {
     <div>
       <BackButton />
 
-      {carDetails && (
+      {carDetails ? (
         <section className="py-10 font-poppins dark:bg-gray-800">
           <div className="max-w-7xl px-4 mx-auto">
             <div className="">
@@ -326,7 +328,6 @@ const CarDetails = () => {
                     </div>
                   </div>
                 </div>
-                <div></div>
               </div>
               <div className="grid grid-cols-1  lg:gap-y-4 gap-6">
                 <Slider {...settings} className="">
@@ -429,7 +430,7 @@ const CarDetails = () => {
                                   </span>
                                 </p>
                                 <Link to={`/car/${car.id}`}>
-                                  <button className="inline-block font-semibold text-theme border border-red-300 p-2 whitespace-nowrap hover:border-red-500 leading-tight rounded-xl">
+                                  <button className="inline-block font-semibold text-gradient p-2 whitespace-nowrap  leading-tight rounded-xl">
                                     View Details
                                   </button>
                                 </Link>
@@ -443,7 +444,17 @@ const CarDetails = () => {
               </div>
             </div>
           </div>
+          <div className="w-full">
+            <Reviews
+              reviews={carDetails?.reviews}
+              packageType="car"
+              packageId={carDetails?.id}
+              fetchPackage={fetchCarDetails}
+            />
+          </div>
         </section>
+      ) : (
+        <Loader />
       )}
     </div>
   );

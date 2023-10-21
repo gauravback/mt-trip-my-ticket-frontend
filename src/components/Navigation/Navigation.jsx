@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { MdOutlineFlight, MdDirectionsBus, MdMoreHoriz } from "react-icons/md";
-import { RiHotelLine } from "react-icons/ri";
 import { AiOutlineCar } from "react-icons/ai";
+import { MdDirectionsBus, MdMoreHoriz, MdOutlineFlight } from "react-icons/md";
+import { RiHotelLine, RiRidingFill, RiStackFill } from "react-icons/ri";
 import { TbAirBalloon } from "react-icons/tb";
-import { RiStackFill, RiRidingFill } from "react-icons/ri";
+import { Link, useLocation } from "react-router-dom";
 const Navigation = () => {
   const flightNavBtnRef = useRef();
   const location = useLocation();
@@ -33,7 +32,7 @@ const Navigation = () => {
         <div className="container">
           <div
             id="navigation"
-            className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-7 gap-0 sm:gap-2 w-full divide-x-0 divide-y-0 divide-gray-200 justify-center lg:justify-between  rounded-t-lg md:max-w-[85%] mx-auto"
+            className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-8 gap-0 sm:gap-2 w-full divide-x-0 divide-y-0 divide-gray-200 justify-center lg:justify-between  rounded-t-lg md:max-w-[85%] mx-auto"
           >
             <Link to="/car/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded h-16 sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 md:hover:scale-105 transition-all duration-500 bg-white">
@@ -43,7 +42,16 @@ const Navigation = () => {
                 </div>
                 <p className="pb-1.5 text-sm font-semibold">Car Rental</p>
               </div>
-            </Link>{" "}
+            </Link>
+            <Link to="/self-drive/">
+              <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded h-16 sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 md:hover:scale-105 transition-all duration-500 bg-white">
+                <div className="pt-1.5 text-sm">
+                  {/* <AiOutlineCar className="w-7 h-7" /> */}
+                  <img src="/icons/self-drive.png" width={24} alt="" />
+                </div>
+                <p className="pb-1.5 text-sm font-semibold">Self Drive</p>
+              </div>
+            </Link>
             <Link to="/attractions/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded h-16 sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 md:hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
@@ -75,6 +83,15 @@ const Navigation = () => {
                 <p className="pb-1.5 text-sm font-semibold">Hotel</p>
               </div>
             </Link>
+            <Link to="/yacht/">
+              <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded h-16 sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 md:hover:scale-105 transition-all duration-500 bg-white">
+                <div className="pt-1.5 text-sm">
+                  {/* <MdDirectionsBus className="w-7 h-7 " /> */}
+                  <img src="/icons/yacht.png" width={24} alt="" />
+                </div>
+                <p className="pb-1.5 text-sm font-semibold">Yacht</p>
+              </div>
+            </Link>
             <Link to="/visa/">
               <div className="flex gap-y-0 flex-col text-gray-600 items-center sm:rounded h-16 sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 md:hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
@@ -84,10 +101,10 @@ const Navigation = () => {
                 <p className="pb-1.5 text-sm font-semibold">Visa</p>
               </div>
             </Link>
-            <div class="hs-dropdown relative inline-flex md:hidden">
+            <div class="hidden hs-dropdown relative md:inline-flex">
               <div
                 id="hs-dropdown-default"
-                className="hs-dropdown-toggle flex w-full gap-y-0 flex-col text-gray-600 h-16 items-center sm:rounded   transition-all duration-500 bg-white"
+                className="hs-dropdown-toggle flex w-full gap-y-0 flex-col sm:shadow-lg text-gray-600 h-16 items-center sm:rounded   transition-all duration-500 bg-white"
               >
                 <div className="pt-1.5 text-sm">
                   {/* <MdMoreHoriz className="w-7 h-7" /> */}
@@ -120,7 +137,7 @@ const Navigation = () => {
               </div>
             </div>
             <Link to="/package/">
-              <div className="hidden md:flex gap-y-0 flex-col text-gray-600 items-center sm:rounded h-16 sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 md:hover:scale-105 transition-all duration-500 bg-white">
+              <div className="md:hidden flex gap-y-0 flex-col text-gray-600 items-center sm:rounded h-16 sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 md:hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
                   {/* <MdDirectionsBus className="w-7 h-7 " /> */}
                   <img src="/icons/luggage.png" width={24} alt="" />
@@ -129,7 +146,7 @@ const Navigation = () => {
               </div>
             </Link>
             <Link to="/forex/">
-              <div className="hidden md:flex gap-y-0 flex-col text-gray-600 items-center sm:rounded h-16 sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 md:hover:scale-105 transition-all duration-500 bg-white">
+              <div className="md:hidden flex gap-y-0 flex-col text-gray-600 items-center sm:rounded h-16 sm:shadow-lg hover:shadow-2xl hover:shadow-gray-500 md:hover:scale-105 transition-all duration-500 bg-white">
                 <div className="pt-1.5 text-sm">
                   {/* <MdDirectionsBus className="w-7 h-7 " /> */}
                   <img src="/icons/forex.png" width={24} alt="" />

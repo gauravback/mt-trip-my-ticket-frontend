@@ -1,4 +1,5 @@
 import api from "@/api/api";
+import Loader from "@/components/Loader/Loader";
 import Filter from "@/components/SearchComponents/FlightFilter/Filter";
 import { addToCart } from "@/redux/slices/CartSlice";
 import { format } from "date-fns";
@@ -14,6 +15,7 @@ const Flight = () => {
   const currencySymbol = useSelector(
     (state) => state.countryCurrencyReducer?.symbol
   );
+  const token = useSelector((state) => state.authReducer?.value?.token);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const origin = searchParams.get("origin");
@@ -79,6 +81,47 @@ const Flight = () => {
   useEffect(() => {
     fetchFlightData();
   }, []);
+
+  const handleBooking = async (
+    token,
+    packageType,
+    packageId,
+    promoCode = null,
+    person = 1,
+    email = "rohanphulkar936@gmail.com",
+    phone = 7400779162,
+    checkin = "2023-10-09",
+    checkout = null
+  ) => {
+    console.log(token, packageType, packageId);
+    try {
+      const response = await api.post(
+        "/api/payment/",
+        {
+          package_type: packageType,
+          package_id: packageId,
+          promo_code: promoCode,
+          people: person,
+          email: email,
+          phone: phone,
+          start_date: checkin,
+          end_date: checkout ? checkout : "",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const result = await response.data;
+      const status = await response.status;
+      if (status === 200) {
+        window.open(result.url);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -316,88 +359,94 @@ const Flight = () => {
           {/* Sidebar End */}
         </div>
         <div className="md:w-3/4 p-3 w-full">
-          <div className="grid grid-cols-1 lg:gap-y-4 gap-6">
-            {/* Card */}
-            {flights?.map((flight) => (
-              <div
-                key={flight.id}
-                className="bg-white border rounded-lg overflow-hidden"
-              >
-                <div className="px-4 pb-3 pt-4 border-b border-gray-300 bg-gray-100 flex justify-between">
-                  <div className="text-lg uppercase font-bold text-gray-900 tracking-wide flex items-center gap-x-2">
-                    <FaPlaneDeparture fontSize={28} />
-                    {flight.name}
-                  </div>
-                  <p className="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg">
-                    {flight.departure_airport.code}
-                    <span className="tracking-normal">--&gt;</span>{" "}
-                    {flight.arrival_airport.code}
-                  </p>
-                </div>
-                <div className="p-4 text-gray-700 flex justify-between items-start">
-                  <div>
-                    <p className="text-2xl text-gray-900 leading-none my-1">
-                      {flight.flight_number}
-                    </p>
-                    <p className="text-xs w-56">{flight.airline.name} </p>
-                    <p className="text-sm w-56">
-                      {format(new Date(flight.departure_time), "dd MMM")} --&gt;{" "}
-                      {format(new Date(flight.arrival_time), "dd MMM")}
+          {flights ? (
+            <div className="grid grid-cols-1 lg:gap-y-4 gap-6">
+              {/* Card */}
+              {flights?.map((flight) => (
+                <div
+                  key={flight.id}
+                  className="bg-white border rounded-lg overflow-hidden"
+                >
+                  <div className="px-4 pb-3 pt-4 border-b border-gray-300 bg-gray-100 flex justify-between">
+                    <div className="text-lg uppercase font-bold text-gray-900 tracking-wide flex items-center gap-x-2">
+                      <FaPlaneDeparture fontSize={28} />
+                      {flight.name}
+                    </div>
+                    <p className="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg">
+                      {flight.departure_airport.code}
+                      <span className="tracking-normal">--&gt;</span>{" "}
+                      {flight.arrival_airport.code}
                     </p>
                   </div>
-                  <button
-                    onClick={() => {
-                      dispatch(
-                        addToCart({
-                          id: flight.id,
-                          price: flight.price,
-                          type: "flight",
-                          minDate: flight.departure_time,
-                          maxDate: flight.arrival_time,
-                        })
-                      );
-                      navigate("/checkout");
-                    }}
-                    className="leading-loose btn-gradient p-1 px-2 rounded-lg uppercase text-xs tracking-wider"
-                  >
-                    Book Now
-                  </button>
-                </div>
-                <div className="flex justify-between items-center p-4 border-t border-gray-300 text-gray-600">
-                  <div className="flex items-center space-x-2">
-                    <div className="flex items-center space-x-1">
-                      <p>
-                        <span className="text-sm pr-1">From</span>
-                        <span className="text-gray-900 font-bold">
-                          {flight.departure_airport.city}
-                        </span>
+                  <div className="p-4 text-gray-700 flex justify-between items-start">
+                    <div>
+                      <p className="text-2xl text-gray-900 leading-none my-1">
+                        {flight.flight_number}
                       </p>
+                      <p className="text-xs w-56">{flight.airline.name} </p>
+                      <p className="text-sm w-56">
+                        {format(new Date(flight.departure_time), "dd MMM")}{" "}
+                        --&gt; {format(new Date(flight.arrival_time), "dd MMM")}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        dispatch(
+                          addToCart({
+                            id: flight.id,
+                            price: flight.price,
+                            type: "flight",
+                            minDate: flight.departure_time,
+                            maxDate: flight.arrival_time,
+                          })
+                        );
+                        navigate("/checkout");
+                      }}
+                      className="leading-loose btn-gradient p-1 px-2 rounded-lg uppercase text-xs tracking-wider"
+                    >
+                      Book Now
+                    </button>
+                  </div>
+                  <div className="flex justify-between items-center p-4 border-t border-gray-300 text-gray-600">
+                    <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-1">
+                        <p>
+                          <span className="text-sm pr-1">From</span>
+                          <span className="text-gray-900 font-bold">
+                            {flight.departure_airport.city}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p>
+                          <span className="text-sm pr-1">To</span>
+                          <span className="text-gray-900 font-bold">
+                            {flight.arrival_airport.city}
+                          </span>
+                        </p>
+                      </div>
                     </div>
                     <div className="flex items-center">
-                      <p>
-                        <span className="text-sm pr-1">To</span>
-                        <span className="text-gray-900 font-bold">
-                          {flight.arrival_airport.city}
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <div>
-                      <span className="text-sm pr-1">Price</span>
-                      <p className="text-gray-900 text-lg font-bold inline-flex items-center">
-                        <span
-                          dangerouslySetInnerHTML={{ __html: currencySymbol }}
-                        ></span>
-                        {parseFloat(flight.price * priceRate).toFixed(2)}
-                      </p>
+                      <div>
+                        <span className="text-sm pr-1">Price</span>
+                        <p className="text-gray-900 text-lg font-bold inline-flex items-center">
+                          <span
+                            dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                          ></span>
+                          {parseFloat(flight.price * priceRate).toFixed(2)}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-            {/* End Card */}
-          </div>
+              ))}
+              {/* End Card */}
+            </div>
+          ) : (
+            <div className="py-24">
+              <Loader />
+            </div>
+          )}
         </div>
       </div>
     </div>

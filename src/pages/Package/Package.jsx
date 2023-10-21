@@ -3,11 +3,11 @@ import PackageFilter from "@/components/SearchComponents/PackageFilter/PackageFi
 import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { PiAirplaneBold, PiBus } from "react-icons/pi";
 import { LiaHotelSolid } from "react-icons/lia";
 import { MdHiking } from "react-icons/md";
+import { PiAirplaneBold, PiBus } from "react-icons/pi";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const Package = () => {
   const [packages, setPackages] = useState();
   const currencySymbol = useSelector(
@@ -61,10 +61,12 @@ const Package = () => {
               <div className="relative mx-auto w-full border border-gray-300 rounded-md">
                 <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
                   <div className="shadow p-4 rounded-lg bg-white">
-                    <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
-                      <div className="transition-transform duration-500 transform ease-in-out  w-full">
+                    <div className="flex justify-center rounded-lg overflow-hidden h-52">
+                      <div className=" duration-500 transform ease-in-out  w-full h-full">
                         <img
-                          className="absolute inset-0 bg-black"
+                          className="bg-black w-full h-full"
+                          width={"100%"}
+                          height={"100%"}
                           src={pkg.image}
                         />
                       </div>
@@ -117,7 +119,7 @@ const Package = () => {
                           </span>
                         </p>
                         <Link to={`/package/${pkg.id}`}>
-                          <button className="inline-block font-semibold text-theme border border-red-300 p-2 whitespace-nowrap hover:border-red-500 leading-tight rounded-xl">
+                          <button className="inline-block font-semibold  p-2 whitespace-nowrap text-gradient leading-tight rounded-xl">
                             View Details
                           </button>
                         </Link>

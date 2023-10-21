@@ -1,26 +1,26 @@
+import { setCountry, setCurrency } from "@/redux/slices/countryCurrencySlice";
+import { countryCurrencySymbols } from "@/utils/countryCurrencySymbols";
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { logout } from "../redux/slices/AuthSlice";
-import { HiOutlineLogout } from "react-icons/hi";
+
+import { FcAbout } from "react-icons/fc";
+import { HiOutlineDocumentText } from "react-icons/hi";
 import {
-  MdOutlineFlight,
-  MdDirectionsBus,
+  MdOutlineArticle,
+  MdOutlineContactPage,
   MdOutlineModeOfTravel,
 } from "react-icons/md";
-import { FcDatabase, FcPhone } from "react-icons/fc";
-import { RiHotelLine, RiLockPasswordLine, RiMenu3Line } from "react-icons/ri";
-import { AiOutlineCar } from "react-icons/ai";
-import { TbAirBalloon } from "react-icons/tb";
-import { countryCurrencySymbols } from "@/utils/countryCurrencySymbols";
-import { BiSolidDownArrow } from "react-icons/bi";
-import { setCountry, setCurrency } from "@/redux/slices/countryCurrencySlice";
+import { RiLockPasswordLine, RiMenu3Line } from "react-icons/ri";
+import { TbCategory } from "react-icons/tb";
+import { TiThMenu } from "react-icons/ti";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { logout } from "../redux/slices/AuthSlice";
 
-import { RiStackFill } from "react-icons/ri";
-import { FaRegUser } from "react-icons/fa";
-import { FiLogOut } from "react-icons/fi";
 import Cookies from "js-cookie";
-import { Logger } from "sass";
+import { FaRegUser } from "react-icons/fa";
+import { FaCircleUser } from "react-icons/fa6";
+import { FiLogOut } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
 
 const Navbar = () => {
   const user = useSelector((state) => state.authReducer?.value);
@@ -72,15 +72,24 @@ const Navbar = () => {
   )?.symbolCode;
 
   const languageCookie = Cookies.get("googtrans");
+  const selectedLanguage = Cookies.get("language");
 
   const defaultLanguage = languageCookie ? languageCookie.split("/")[2] : "en";
-  const selectedLanguage = countryCurrencySymbols.find(
-    (elem) => elem.country === country
-  )?.languageAbbreviation;
+  // const selectedLanguage = countryCurrencySymbols.find(
+  //   (elem) => elem.abbreviation === abbreviation
+  // )?.language;
 
-  const changeLanguage = (language) => {
-    Cookies.set("googtrans", `/en/${language}`);
+  const changeLanguage = (languageAbbreviation, language) => {
+    Cookies.set("googtrans", `/en/${languageAbbreviation}`);
+    Cookies.set("language", `${language}`);
   };
+
+  useEffect(() => {
+    const setLanguage = countryCurrencySymbols.find(
+      (elem) => elem.languageAbbreviation === defaultLanguage
+    )?.language;
+    Cookies.set("language", setLanguage);
+  }, []);
 
   return (
     <div className="w-full">
@@ -88,20 +97,46 @@ const Navbar = () => {
         style={navbarStyle}
         className={`${
           isFixed
-            ? "fixed min-w-[70%] left-50 w-full mx-auto navbar-bg"
-            : "max-w-7xl mx-auto w-full"
-        } top-0 z-10 transition-all ease-in-out duration-100`}
+            ? "fixed min-w-[70%] left-50 w-full mx-auto "
+            : "max-w-7xl mx-auto w-full "
+        } top-0 z-10 transition-all ease-in-out duration-100 nav-gradient`}
       >
-        <div className="md:mx-8 flex flex-wrap md:flex-nowrap items-center justify-between mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-center md:justify-normal w-full md:w-auto">
-            <Link to="/">
-              <img src="/logo-white.png" alt="logo" width={120} />
-            </Link>
-          </div>
-          <div className="flex flex-wrap md:flex-nowrap md:order-2 mx-4 gap-3 items-center justify-center w-full md:w-auto pb-4 md:pb-2 lg:pb-0">
+        <div className="md:mx-8 flex flex-wrap md:flex-nowrap items-center justify-between mx-0">
+          <div className="flex md:block justify-between md:justify-normal w-full md:w-auto my-3 md:my-0 items-center">
+            <div className="flex  md:flex-row items-center justify-center w-full md:w-auto">
+              <button
+                type="button"
+                className="md:hidden bg-white rounded-md p-0.5"
+                data-hs-overlay="#side-menu"
+                aria-controls="side-menu"
+                aria-label="Toggle navigation"
+              >
+                <TiThMenu
+                  fontSize={20}
+                  className="text-gray-900 shadow-gray-800"
+                />
+              </button>
+              <Link to="/">
+                <img src="/logo-white.png" alt="logo" width={120} />
+              </Link>
+            </div>
             <a
               href="tel:+919804480448"
-              className="w-full md:w-auto text-center"
+              className="w-full md:w-auto text-center  mr-0 md:hidden"
+            >
+              <span className="flex items-center justify-center space-x-1">
+                <img src="/icons/phone-icon.png" alt="" width={18} />
+                <span className="text-white text-xs"> Call Us On:</span>
+              </span>
+              <span className="text-white font-bold text-xs">
+                +91 9804480448
+              </span>
+            </a>
+          </div>
+          <div className=" hidden md:flex flex-wrap md:flex-nowrap md:order-2 mx-4 gap-3 items-center justify-center w-full md:w-auto pb-4 md:pb-2 lg:pb-0">
+            <a
+              href="tel:+919804480448"
+              className="w-full md:w-auto text-center md:block hidden"
             >
               <span className="flex items-center justify-center space-x-1">
                 <img src="/icons/phone-icon.png" alt="" width={18} />
@@ -138,7 +173,7 @@ const Navbar = () => {
               <button
                 id="hs-dropdown-default"
                 type="button"
-                className="hs-dropdown-toggle py-1 px-4 inline-flex justify-center items-center gap-2 rounded-full border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-0 transition-all text-sm"
+                className="hs-dropdown-toggle py-1 px-4 inline-flex justify-center items-center gap-2  rounded-full border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-0 transition-all text-sm"
               >
                 {abbreviation}
                 <svg
@@ -268,13 +303,13 @@ const Navbar = () => {
             {/* Language And Country End */}{" "}
             <button
               type="button"
-              class=" btn-gradient rounded-md px-2 py-1 m-0 flex items-center w-40"
+              class="bg-white  md:btn-gradient rounded-full px-1.5 md:px-2 py-1.5 m-0 flex items-center md:w-40 w-12"
               data-hs-overlay="#docs-sidebar"
               aria-controls="docs-sidebar"
               aria-label="Toggle navigation"
             >
-              <RiMenu3Line />
-              <span className="">All Categories</span>
+              <TbCategory fontSize={22} className="mx-auto" />
+              <span className="hidden text-sm md:block">All Categories</span>
             </button>
             {user ? (
               <div
@@ -286,19 +321,9 @@ const Navbar = () => {
                   type="button"
                   className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-md font-medium bg- align-middle hover:bg-gray-800 focus:outline-none focus:ring-0 transition-all text-xs"
                 >
-                  <div className="truncate overflow-ellipsis rounded-md gap-1 btn-gradient flex items-center justify-center text-sm px-3 py-2 md:py-1 focus:outline-none focus:ring-0">
-                    <svg
-                      className="w-4 h-4 font-bold"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width={16}
-                      height={16}
-                      fontWeight="700"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                    </svg>
-                    Account
+                  <div className="truncate overflow-ellipsis rounded-full gap-1 btn-gradient flex items-center justify-center text-sm px-3 py-2 md:py-1.5 focus:outline-none focus:ring-0">
+                    <FaCircleUser fontSize={22} />
+                    <span className="hidden md:block">Account</span>
                   </div>
                 </button>
 
@@ -358,22 +383,13 @@ const Navbar = () => {
                 type="button"
                 id="login-btn"
                 data-hs-overlay="#hs-modal-signin"
-                className="flex items-center gap-x-2 font-medium transition-all duration-500 px-3 py-3 md:py-1 rounded-md btn-gradient"
+                className="flex items-center gap-x-2 font-medium transition-all duration-500 px-3 py-3 md:py-1 rounded-md text-white"
               >
-                <svg
-                  className="w-4 h-4 font-bold"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={16}
-                  height={16}
-                  fontWeight="700"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                </svg>
+                <FaCircleUser fontSize={22} />
                 <span className="hidden md:block">Login</span>
               </button>
             )}
+            {/* User buttons End */}
             <div className="hidden">
               <button
                 type="button"
@@ -1034,6 +1050,293 @@ const Navbar = () => {
       </div>
 
       {/* All Categories Sidebar End */}
+
+      {/* Side Menu Sidebar */}
+      <div
+        id="side-menu"
+        className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 left-0 bottom-0 z-[2000] w-72 bg-white border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y md:hidden "
+      >
+        <div className="flex items-center justify-end w-[90%]">
+          <button
+            type="button"
+            data-hs-overlay="#side-menu"
+            aria-controls="side-menu"
+            aria-label="Toggle navigation"
+          >
+            <IoClose fontSize={22} />
+          </button>
+        </div>
+        <nav
+          className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
+          data-hs-accordion-always-open
+        >
+          <ul className="space-y-5">
+            <li
+              className="hs-accordion border rounded-md"
+              id="account-accordion"
+            >
+              <button className="hs-accordion-toggle flex items-center gap-x-3.5 py-2 px-2.5  hs-accordion-active:hover:bg-transparent w-full text-slate-700 rounded-md hover:bg-gray-100">
+                <span
+                  dangerouslySetInnerHTML={{ __html: currencySymbol }}
+                  className="text-xl font-semibold"
+                ></span>
+                {abbreviation}
+                <svg
+                  className="hs-accordion-active:block ml-auto hidden w-3 h-3 text-gray-600 group-hover:text-gray-500 dark:text-gray-400"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 11L8.16086 5.31305C8.35239 5.13625 8.64761 5.13625 8.83914 5.31305L15 11"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <svg
+                  className="hs-accordion-active:hidden ml-auto block w-3 h-3 text-gray-600 group-hover:text-gray-500 dark:text-gray-400"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+              <div
+                id="account-accordion"
+                className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden"
+              >
+                <ul className="pt-2 pl-2 divide-y divide-gray-300">
+                  {Array.from(
+                    new Set(
+                      countryCurrencySymbols.map((entry) => entry.abbreviation)
+                    )
+                  )?.map((elem) => {
+                    var matchingEntry = countryCurrencySymbols.find(
+                      (entry) => entry.abbreviation === elem
+                    );
+
+                    return (
+                      <li>
+                        <button
+                          onClick={() => {
+                            dispatch(setCurrency(matchingEntry.abbreviation));
+                            setTimeout(() => {
+                              window.location.reload();
+                            }, 1000);
+                          }}
+                          className={`flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800  w-full hover:text-theme hover:font-semibold focus:ring-0 focus:outline-none ${
+                            abbreviation === matchingEntry.abbreviation
+                              ? "font-semibold text-theme"
+                              : ""
+                          }`}
+                        >
+                          <span className="">{matchingEntry.abbreviation}</span>{" "}
+                          {matchingEntry.currency}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </li>
+            <li
+              className="hs-accordion border rounded-md"
+              id="account-accordion"
+            >
+              <button className="hs-accordion-toggle flex items-center gap-x-3.5 py-2 px-2.5  hs-accordion-active:hover:bg-transparent w-full text-slate-700 rounded-md hover:bg-gray-100">
+                <img
+                  src={countryIcon}
+                  alt={country}
+                  className="rounded-full"
+                  width={22}
+                />
+                <span className="capitalize">{selectedLanguage}</span>
+                <svg
+                  className="hs-accordion-active:block ml-auto hidden w-3 h-3 text-gray-600 group-hover:text-gray-500 dark:text-gray-400"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 11L8.16086 5.31305C8.35239 5.13625 8.64761 5.13625 8.83914 5.31305L15 11"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <svg
+                  className="hs-accordion-active:hidden ml-auto block w-3 h-3 text-gray-600 group-hover:text-gray-500 dark:text-gray-400"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+              <div
+                id="account-accordion"
+                className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden"
+              >
+                <ul className="pt-2 pl-2 divide-y divide-gray-300">
+                  {Array.from(
+                    new Set(
+                      countryCurrencySymbols.map((entry) => entry.language)
+                    )
+                  )?.map((elem) => {
+                    var matchingEntry = countryCurrencySymbols.find(
+                      (entry) => entry.language === elem
+                    );
+
+                    return (
+                      <li>
+                        <button
+                          onClick={() => {
+                            changeLanguage(
+                              matchingEntry.languageAbbreviation,
+                              matchingEntry.language
+                            );
+                            setTimeout(() => {
+                              window.location.reload();
+                            }, 1000);
+                          }}
+                          className={`flex items-center gap-x-3.5 py-2 px-3 rounded-md text-gray-800  w-full hover:text-theme hover:font-semibold focus:ring-0 focus:outline-none ${
+                            matchingEntry.languageAbbreviation ===
+                            defaultLanguage
+                              ? "font-semibold text-theme"
+                              : ""
+                          }`}
+                        >
+                          <img
+                            src={matchingEntry.icon}
+                            alt={country}
+                            className="rounded-full"
+                            width={20}
+                          />
+                          {matchingEntry.language}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </li>
+            <li
+              className="hs-accordion border rounded-md"
+              id="projects-accordion"
+            >
+              <button className="hs-accordion-toggle flex items-center gap-x-3.5 py-2 px-2.5  hs-accordion-active:hover:bg-transparent w-full text-slate-700 rounded-md hover:bg-gray-100">
+                <HiOutlineDocumentText fontSize={20} />
+                Legal
+                <svg
+                  className="hs-accordion-active:block ml-auto hidden w-3 h-3 text-gray-600 group-hover:text-gray-500 dark:text-gray-400"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 11L8.16086 5.31305C8.35239 5.13625 8.64761 5.13625 8.83914 5.31305L15 11"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <svg
+                  className="hs-accordion-active:hidden ml-auto block w-3 h-3 text-gray-600 group-hover:text-gray-500 dark:text-gray-400"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+              <div
+                id="projects-accordion"
+                className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden"
+              >
+                <ul className="pt-2 pl-2">
+                  <li>
+                    <Link to="/privacy-policy">
+                      <button className="flex items-center gap-x-3.5 w-full py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100">
+                        Privacy Policy
+                      </button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/terms-of-service">
+                      <button className="flex items-center gap-x-3.5 w-full py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100">
+                        Terms of Service
+                      </button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/refund-policy">
+                      <button className="flex items-center gap-x-3.5 w-full py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100">
+                        Refund Policy
+                      </button>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li>
+              <Link to="/blog">
+                <button className="flex items-center gap-x-3.5 py-2 px-2.5 w-full text-slate-700 rounded-md hover:bg-gray-100 ">
+                  <MdOutlineArticle fontSize={20} />
+                  Blog
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact">
+                <button className="flex items-center gap-x-3.5 py-2 px-2.5 w-full text-slate-700 rounded-md hover:bg-gray-100 ">
+                  <MdOutlineContactPage fontSize={20} />
+                  Contact Us
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link to="/about">
+                <button className="flex items-center gap-x-3.5 py-2 px-2.5 w-full text-slate-700 rounded-md hover:bg-gray-100 ">
+                  <FcAbout fontSize={20} className="" />
+                  About Us
+                </button>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* Side Menu Sidebar End */}
     </div>
   );
 };

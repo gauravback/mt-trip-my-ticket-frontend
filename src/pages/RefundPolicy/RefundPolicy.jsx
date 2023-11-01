@@ -55,11 +55,11 @@ const RefundPolicy = () => {
               <strong>Website</strong> refers to My Trip My Ticket, accessible
               from{" "}
               <a
-                href="https://mytripmyticket.com"
+                href="https://taketotrip.com"
                 rel="external nofollow noopener"
                 target="_blank"
               >
-                https://mytripmyticket.com
+                https://taketotrip.com
               </a>
             </p>
           </li>
@@ -88,17 +88,17 @@ const RefundPolicy = () => {
         </p>
         <ul>
           <li>
-            <p>By email: contact@mytripmyticket.com</p>
+            <p>By email: contact@taketotrip.com</p>
           </li>
           <li>
             <p>
               By visiting this page on our website:{" "}
               <a
-                href="https://mytripmyticket.com/contact"
+                href="https://taketotrip.com/contact"
                 rel="external nofollow noopener"
                 target="_blank"
               >
-                https://mytripmyticket.com/contact
+                https://taketotrip.com/contact
               </a>
             </p>
           </li>
@@ -177,17 +177,17 @@ const RefundPolicy = () => {
         </p>
         <ul>
           <li>
-            <p>By email: contact@mytripmyticket.com</p>
+            <p>By email: support@taketotrip.com</p>
           </li>
           <li>
             <p>
               By visiting this page on our website:{" "}
               <a
-                href="https://mytripmyticket.com/contact"
+                href="https://taketotrip.com/contact"
                 rel="external nofollow noopener"
                 target="_blank"
               >
-                https://mytripmyticket.com/contact
+                https://taketotrip.com/contact
               </a>
             </p>
           </li>

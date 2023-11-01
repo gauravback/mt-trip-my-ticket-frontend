@@ -3,7 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import React, { Suspense, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiCategory } from "react-icons/bi";
-import { BsWhatsapp } from "react-icons/bs";
+import { BsTelephone, BsTelephoneFill, BsWhatsapp } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
 import { FaCircleUser } from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
@@ -33,6 +33,8 @@ import Bus from "./pages/Bus/Bus";
 import CarDetails from "./pages/Car/CarDetails";
 import Checkout from "./pages/Checkout/Checkout";
 import Contact from "./pages/Contact/Contact";
+import CityTourDetails from "./pages/DubaiActivities/CityTourDetails";
+import DesertSafariDetails from "./pages/DubaiActivities/DesertSafariDetails";
 import DubaiActivities from "./pages/DubaiActivities/DubaiActivities";
 import Forex from "./pages/Forex/Forex";
 import Home from "./pages/Home";
@@ -99,7 +101,7 @@ const App = () => {
     try {
       dispatch(add("Loading"));
       const response = await axios.get(
-        `https://forex-tracker.vercel.app/convert/${currency.toLowerCase()}`
+        `https://forex-tracker.vercel.app/convert/${currency.toLowerCase()}/dPdXSB`
       );
       const result = await response.data;
       const actionDispatch = await dispatch(add(result.exchangeRate));
@@ -340,6 +342,22 @@ const App = () => {
                     </AnimatedPage>
                   }
                 />
+                <Route
+                  path="/desert-safari/:id"
+                  element={
+                    <AnimatedPage>
+                      <DesertSafariDetails />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/city-tour/:id"
+                  element={
+                    <AnimatedPage>
+                      <CityTourDetails />
+                    </AnimatedPage>
+                  }
+                />
 
                 <Route
                   element={<ProtectedRoute token={token} pathname={pathname} />}
@@ -458,11 +476,14 @@ const App = () => {
           </div>
         </div>
       </nav>
-      <a className="hidden md:fixed bottom-16 z-[1000] md:bottom-0 right-0  bg-green-600 text-white p-2.5 rounded-full">
+      <a className="block fixed  z-[1000] bottom-14 md:bottom-5 right-5   bg-green-600 text-white p-2.5 rounded-full">
         <BsWhatsapp fontSize={32} />
       </a>
-      <a className="hidden md:fixed bottom-16 z-[1000] md:bottom-0 right-16  bg-blue-600 text-white p-2.5 rounded-full">
+      <a className="block fixed  z-[1000] bottom-28 md:bottom-20 right-5   bg-blue-600 text-white p-2.5 rounded-full">
         <SiChatbot fontSize={32} />
+      </a>
+      <a className="block fixed  z-[1000] bottom-44 md:bottom-36 right-5   bg-cyan-600 text-white p-2.5 rounded-full">
+        <BsTelephone fontSize={28} />
       </a>
     </div>
   );

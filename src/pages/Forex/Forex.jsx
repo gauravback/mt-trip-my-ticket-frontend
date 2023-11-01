@@ -1,7 +1,7 @@
 import api from "@/api/api";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 function Forex() {
   const [action, setAction] = useState("buy");
@@ -221,6 +221,20 @@ function Forex() {
                         id="email"
                         name="email"
                         placeholder="Email Address"
+                        class="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:ring-0 focus:outline-none"
+                      />
+                    </div>
+                    <div class="">
+                      <label class="block mb-2 text-sm text-gray-600">
+                        Phone Number{" "}
+                        <span className="text-red-600 font-bold">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        id="phone"
+                        name="phone"
+                        placeholder="Phone Number"
                         class="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:ring-0 focus:outline-none"
                       />
                     </div>

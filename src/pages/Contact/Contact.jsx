@@ -106,6 +106,36 @@ const Contact = () => {
               Submit
             </button>
           </form>
+          <div className="mt-12 grid sm:grid-cols-2  items-center">
+            <div className="flex flex-col h-full text-center rounded-md  p-4 sm:p-6">
+              <div className="grow">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Booking Queries
+                </h3>
+
+                <a
+                  href="mailto:booking@taketotrip.com"
+                  className="mt-1 inline-flex items-center gap-x-2 font-medium text-blue-600"
+                >
+                  booking@taketotrip.com
+                </a>
+              </div>
+            </div>
+            <div className="flex flex-col h-full text-center rounded-md  p-4 sm:p-6">
+              <div className="grow">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Technical Support
+                </h3>
+
+                <a
+                  href="mailto:support@taketotrip.com"
+                  className="mt-1 inline-flex items-center gap-x-2 font-medium text-blue-600"
+                >
+                  support@taketotrip.com
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

@@ -276,13 +276,13 @@ const Home = () => {
                       </div>
                       <div className="mt-4">
                         <h2 className="font-medium text-lg md:text-xl text-gray-800 line-clamp-1 capitalize">
-                          {car.make} {car.model}{" "}
+                          {car.name}
                         </h2>
                         <span className="text-sm text-gray-600">
                           {car.car_type.type}
                         </span>
                       </div>
-                      <div className="grid grid-cols-2 grid-rows-2 gap-4 mt-4">
+                      <div className="grid grid-cols-2  gap-4 mt-4">
                         <p className="inline-flex flex-row items-center text-gray-800">
                           <TbArmchair fontSize={20} />
                           <span className="mt-2 xl:mt-0 ml-1.5">
@@ -290,7 +290,7 @@ const Home = () => {
                             {car.seats} Seats
                           </span>
                         </p>
-                        <p className="inline-flex flex-row items-center text-gray-800">
+                        {/* <p className="inline-flex flex-row items-center text-gray-800">
                           <LuFuel fontSize={20} />
                           <span className="mt-2 xl:mt-0 ml-1.5">
                             {car.fuel_type}
@@ -341,9 +341,9 @@ const Home = () => {
                           <span className="mt-2 xl:mt-0 ml-1.5">
                             {car.bags ? "Yes" : "No"}
                           </span>
-                        </p>
+                        </p> */}
                       </div>
-                      <div className="mt-8">
+                      <div className="mt-4">
                         <div className="flex justify-end items-center">
                           {/* <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
                           <span
@@ -356,7 +356,7 @@ const Home = () => {
                             {parseFloat(car.price * priceRate).toFixed(2)}
                           </span>
                         </p> */}
-                          <Link to={`/car/${car.id}`}>
+                          <Link to={`/car/${car.id}`} className="w-full">
                             <button className="inline-block font-semibold  p-2 whitespace-nowrap  text-gradient leading-tight rounded-xl">
                               View Details
                             </button>
@@ -443,8 +443,8 @@ const Home = () => {
                         </p>
                       </div>
                       <div className="mt-8">
-                        <div className="flex justify-between items-center">
-                          <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
+                        <div className="flex justify-end items-center">
+                          {/* <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
                             <span
                               className="uppercase"
                               dangerouslySetInnerHTML={{
@@ -456,7 +456,7 @@ const Home = () => {
                                 2
                               )}
                             </span>
-                          </p>
+                          </p> */}
                           <Link to={`/package/${activity.id}`}>
                             <button className="inline-block font-semibold text-gradient p-2 whitespace-nowrap  leading-tight rounded-xl">
                               View Details
@@ -1265,6 +1265,28 @@ const Home = () => {
                 <p className="mt-1 inline-flex flex-wrap items-center gap-x-1 text-gray-500 text-sm">
                   <Link to="/blog">
                     <span className="hover:text-gray-700">Blog</span>
+                  </Link>
+                  |
+                  <Link to="/contact">
+                    <span className="hover:text-gray-700">Contact Us</span>
+                  </Link>
+                  |
+                  <Link to="/about">
+                    <span className="hover:text-gray-700">About Us</span>
+                  </Link>
+                  |
+                  <Link to="/privacy-policy">
+                    <span className="hover:text-gray-700">Privacy Policy</span>
+                  </Link>
+                  |
+                  <Link to="/terms-of-service">
+                    <span className="hover:text-gray-700">
+                      Terms Of Service
+                    </span>
+                  </Link>
+                  |
+                  <Link to="/refund-policy">
+                    <span className="hover:text-gray-700">Refund Policy</span>
                   </Link>
                   |
                   <a href="#" className="hover:text-gray-700">

@@ -99,7 +99,7 @@ const Filter = () => {
                   required
                   autoComplete=""
                   name="from"
-                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-lg placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-2xl font-medium capitalize"
+                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-lg placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-xl md:text-2xl font-medium capitalize"
                 >
                   {fromCity ? fromCity : "Origin City"}
                 </button>
@@ -118,7 +118,7 @@ const Filter = () => {
                   required
                   autoComplete=""
                   name="to"
-                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-2xl placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-2xl font-medium capitalize"
+                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-2xl placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-xl md:text-2xl font-medium capitalize"
                 >
                   {toCity ? toCity : "Destination City"}
                 </button>

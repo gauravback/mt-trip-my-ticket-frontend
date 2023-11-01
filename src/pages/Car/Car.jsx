@@ -13,8 +13,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const Car = () => {
   const [cars, setCars] = useState();
   const [carType, setCarType] = useState("");
-  const [fuelType, setFuelType] = useState("");
-  const [transmission, setTransmission] = useState("");
   const [Ac, setAc] = useState();
   const [Bags, setBags] = useState();
   const [loading, setLoading] = useState(true);
@@ -29,11 +27,9 @@ const Car = () => {
   const fetchCars = async () => {
     try {
       const res = await api.get(
-        `/api/cars/?car_type=${carType ? carType : ""}&fuel_type=${
-          fuelType ? fuelType : ""
-        }&seats_min=&seats_max=&transmission=${
-          transmission ? transmission : ""
-        }&ac=${Ac === null ? "" : Ac}&bags=${
+        `/api/cars/?car_type=${
+          carType ? carType : ""
+        }&seats_min=&seats_max=&ac=${Ac === null ? "" : Ac}&bags=${
           Bags === null ? "" : Bags
         }&price_min=&price_max=&origin_city=${
           origin ? origin : ""
@@ -61,7 +57,7 @@ const Car = () => {
       setCarType(car_type);
     }
     fetchCars();
-  }, [location.search, carType, fuelType, transmission, Ac, Bags]);
+  }, [location.search, carType, Ac, Bags]);
 
   const [carsData, setCarsData] = useState();
   const fetchCarData = async () => {
@@ -123,70 +119,7 @@ const Car = () => {
                   ))}
                 </div>
               </div>
-              <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
-              <div>
-                <div className="flex space-x-2 text-gray-800">
-                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
-                    Fuel Type
-                  </p>
-                </div>
-                <div className="mt-4 grid grid-cols-1 gap-y-8 flex-wrap">
-                  {[
-                    ...new Set(carsData?.map(({ fuel_type }) => fuel_type)),
-                  ].map((fuel_type) => (
-                    <div className="flex items-center" key={fuel_type}>
-                      <input
-                        type="radio"
-                        name="fuel_type"
-                        onChange={() => {
-                          setFuelType(fuel_type);
-                        }}
-                        value={fuel_type}
-                        defaultChecked={fuelType === fuel_type && true}
-                        className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out"
-                      />
-                      <p className="ml-3 font-medium text-gray-900">
-                        {fuel_type}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
-              <div>
-                <div className="flex space-x-2 text-gray-800">
-                  <p className="text-xl lg:leading-6 leading-5 font-medium ">
-                    Transmission
-                  </p>
-                </div>
-                <div className="mt-4 grid grid-cols-1 gap-y-8 flex-wrap">
-                  {[
-                    ...new Set(
-                      carsData?.map(
-                        ({ transmission_type }) => transmission_type
-                      )
-                    ),
-                  ].map((transmission_type) => (
-                    <div className="flex items-center" key={transmission_type}>
-                      <input
-                        type="radio"
-                        name="transmission"
-                        onChange={() => {
-                          setTransmission(transmission_type);
-                        }}
-                        defaultChecked={
-                          transmission === transmission_type && true
-                        }
-                        value={transmission_type}
-                        className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out"
-                      />
-                      <p className="ml-3 font-medium text-gray-900">
-                        {transmission_type}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+
               <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
               <div>
                 <div className="flex space-x-2 text-gray-800">
@@ -306,72 +239,7 @@ const Car = () => {
                   </div>
                 </div>
                 <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
-                <div>
-                  <div className="flex space-x-2 text-gray-800">
-                    <p className="text-lg lg:leading-6 leading-5 font-medium ">
-                      Fuel Type
-                    </p>
-                  </div>
-                  <div className="mt-4 grid grid-cols-1 gap-y-8 flex-wrap">
-                    {[
-                      ...new Set(carsData?.map(({ fuel_type }) => fuel_type)),
-                    ].map((fuel_type) => (
-                      <div className="flex items-center" key={fuel_type}>
-                        <input
-                          type="radio"
-                          name="fuel_type"
-                          onChange={() => {
-                            setFuelType(fuel_type);
-                          }}
-                          value={fuel_type}
-                          defaultChecked={fuelType === fuel_type && true}
-                          className="form-checkbox h-5 w-5 text-indigo-600 text-sm transition duration-150 ease-in-out"
-                        />
-                        <p className="ml-3 font-medium text-gray-900">
-                          {fuel_type}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
-                <div>
-                  <div className="flex space-x-2 text-gray-800">
-                    <p className="text-lg lg:leading-6 leading-5 font-medium ">
-                      Transmission
-                    </p>
-                  </div>
-                  <div className="mt-4 grid grid-cols-1 gap-y-8 flex-wrap">
-                    {[
-                      ...new Set(
-                        carsData?.map(
-                          ({ transmission_type }) => transmission_type
-                        )
-                      ),
-                    ].map((transmission_type) => (
-                      <div
-                        className="flex items-center"
-                        key={transmission_type}
-                      >
-                        <input
-                          type="radio"
-                          name="transmission"
-                          onChange={() => {
-                            setTransmission(transmission_type);
-                          }}
-                          defaultChecked={
-                            transmission === transmission_type && true
-                          }
-                          value={transmission_type}
-                          className="form-checkbox h-5 w-5 text-indigo-600 text-sm transition duration-150 ease-in-out"
-                        />
-                        <p className="ml-3 font-medium text-gray-900">
-                          {transmission_type}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+
                 <hr className="bg-gray-200 lg:w-6/12 w-full md:my-6 my-4" />
                 <div>
                   <div className="flex space-x-2 text-gray-800">
@@ -438,7 +306,7 @@ const Car = () => {
         </div>
         <div className="md:w-2/3 p-3 w-full">
           {!loading ? (
-            <div className="grid grid-cols-1 lg:gap-y-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:gap-y-4 gap-6 place-items-center">
               {/* Card */}
               {cars.length > 0 ? (
                 cars
@@ -446,19 +314,19 @@ const Car = () => {
                   ?.map((car) => (
                     <div
                       key={car.id}
-                      className="bg-white border flex items-center  rounded-lg overflow-hidden"
+                      className="bg-white max-w-sm w-full  border flex flex-col items-center  rounded-lg overflow-hidden"
                     >
-                      <div className="h-full hidden  md:flex items-center justify-center bg-white p-4">
+                      <div className="h-full flex items-center justify-center bg-white p-4">
                         <img
                           src={car.image}
                           width={250}
                           height={10}
-                          alt={car.make + " " + car.model}
+                          alt={car.name}
                           className="rounded-md object-cover mix-blend-darken max-h-44"
                         />
                       </div>
                       <div className="w-full">
-                        <div className="flex">
+                        {/* <div className="flex">
                           <div className="text-sm mx-2 flex items-center justify-between p-1 rounded text-gray-950 font-bold mt-1 ">
                             <div className="flex items-center space-x-1">
                               <HiOutlineLocationMarker />
@@ -470,43 +338,33 @@ const Car = () => {
                               <span>{car.destination_city}</span>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
                         <div className="px-3 text-gray-700 md:flex justify-between">
                           <div>
                             <p className="text-xl text-gray-900 font-semibold">
-                              {car.make + " " + car.model}{" "}
+                              {car.name}
                               <span className="text-sm">
                                 ({car.car_type.type})
                               </span>
                             </p>
                           </div>
-                          <div className="leading-loose text-sm">
-                            <p className="flex items-center md:justify-end space-x-1">
-                              <span className="text-xs">Transmission: </span>
-                              <span className="font-semibold">
-                                {car.transmission_type}
-                              </span>
-                            </p>
-                            <p className="flex items-center md:justify-end space-x-1">
-                              <span className="text-xs">Fuel: </span>
-                              <span className="font-semibold">
-                                {car.fuel_type}
-                              </span>
-                            </p>
-                          </div>
                         </div>
-                        <div className="flex justify-between items-center p-4  text-gray-600">
-                          <div className="flex items-center">
-                            <p className="flex items-center space-x-1 ">
-                              <span className="text-gray-900 font-bold">
-                                <TbArmchair fontSize={20} fontWeight={"bold"} />
-                              </span>
-                              <span className="text-sm font-bold">
-                                {car.seats} Seats
-                              </span>
-                            </p>
-                          </div>
-                          <div className="flex items-center">
+                        <div className="flex items-center justify-between md:block">
+                          <div className="flex justify-between items-center p-4  text-gray-600">
+                            <div className="flex items-center">
+                              <p className="flex items-center space-x-1 ">
+                                <span className="text-gray-900 font-bold">
+                                  <TbArmchair
+                                    fontSize={20}
+                                    fontWeight={"bold"}
+                                  />
+                                </span>
+                                <span className="text-sm font-bold">
+                                  {car.seats} Seats
+                                </span>
+                              </p>
+                            </div>
+                            {/* <div className="flex items-center">
                             <p className="flex items-center space-x-1 ">
                               <span className="text-gray-900 font-bold">
                                 <TbWindmill fontSize={20} fontWeight={"bold"} />
@@ -557,10 +415,10 @@ const Car = () => {
                                 Airbags: {car.bags ? "Yes" : "No"}
                               </span>
                             </p>
+                          </div> */}
                           </div>
-                        </div>
-                        <div className="flex justify-between items-center py-1 px-4  text-gray-900">
-                          {/* <div className="flex items-center">
+                          <div className="flex justify-between items-center py-1 px-4  text-gray-900">
+                            {/* <div className="flex items-center">
                         <p className="flex items-center space-x-1 ">
                           <span
                             dangerouslySetInnerHTML={{
@@ -573,20 +431,21 @@ const Car = () => {
                           </span>
                         </p>
                       </div> */}
-                          <div className="flex items-center justify-end w-full mb-2">
-                            <p className="flex items-center space-x-1 justify-end">
-                              <Link
-                                to={`/car/${car.id}`}
-                                className="justify-end"
-                              >
-                                <button
-                                  type="button"
-                                  className="btn-gradient px-2 p-1 rounded-md"
+                            <div className="flex items-center w-full mb-2">
+                              <p className="flex items-center space-x-1 justify-end">
+                                <Link
+                                  to={`/car/${car.id}`}
+                                  className="justify-end"
                                 >
-                                  View Details
-                                </button>
-                              </Link>
-                            </p>
+                                  <button
+                                    type="button"
+                                    className="btn-gradient px-2 p-1 rounded-md"
+                                  >
+                                    View Details
+                                  </button>
+                                </Link>
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>

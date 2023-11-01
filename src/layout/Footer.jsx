@@ -5,19 +5,50 @@ const Footer = () => {
     <div>
       <div className="mx-auto  max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
         <div className="md:flex items-center justify-center md:justify-between">
-          <div className="flex space-x-6 justify-center md:justify-normal">
-            <a href="#" className="text-gray-400 hover:text-gray-500">
-              <span className="sr-only">Facebook</span>
-              <BsFacebook fontSize={26} />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-gray-500">
-              <span className="sr-only">Facebook</span>
-              <BsTwitter fontSize={26} />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-gray-500">
-              <span className="sr-only">Facebook</span>
-              <BsInstagram fontSize={26} />
-            </a>
+          <div>
+            <div className="flex space-x-6 justify-center md:justify-normal">
+              <a href="#" className="text-gray-400 hover:text-gray-500">
+                <span className="sr-only">Facebook</span>
+                <BsFacebook fontSize={26} />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-gray-500">
+                <span className="sr-only">Facebook</span>
+                <BsTwitter fontSize={26} />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-gray-500">
+                <span className="sr-only">Facebook</span>
+                <BsInstagram fontSize={26} />
+              </a>
+            </div>
+            <div className="mt-5">
+              <p className="font-semibold">India Address: </p>
+              <p className="text-gray-500 ">
+                M-12/12, FIRST FLOOR, DLF PHASE -2, GURUGRAM, PIN CODE -122008.
+                NEAR DLF SQUARE BUILDING
+              </p>
+            </div>
+            <div className="mt-5">
+              <p className="font-semibold">Dubai Address: </p>
+              <p className="text-gray-500 ">
+                107-B , BANIYAS COMPLEX, BANIYAS SQUARE DEIRA DUBAI,UAE
+              </p>
+            </div>
+            <div className="mt-5">
+              <p className="font-semibold">Email Address: </p>
+              <a
+                href="mailto:booking@taketotrip.com"
+                className="text-gray-500 "
+              >
+                booking@taketotrip.com
+              </a>
+              <br />
+              <a
+                href="mailto:support@taketotrip.com"
+                className="text-gray-500 "
+              >
+                support@taketotrip.com
+              </a>
+            </div>
           </div>
           <div className="space-y-4 xl:ml-auto mt-7 md:mt-0">
             <div className="flex items-center justify-center md:justify-end flex-wrap gap-x-3">

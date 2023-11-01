@@ -46,7 +46,7 @@ const Filter = () => {
 
   const searchedCity = [
     ...new Set(
-      CategorizeCities?.filter((place) => {
+      cities?.filter((place) => {
         return (
           !/^\d+$/.test(place.name) &&
           place.name.toLowerCase().includes(search.toLowerCase())

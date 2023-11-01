@@ -22,15 +22,15 @@ const CarFilter = () => {
   );
   const country = useSelector((state) => state.countryCurrencyReducer?.country);
 
-  const countryAbbreviation = country && country === "India" ? "IN" : "AE";
+  // const countryAbbreviation = country && country === "India" ? "IN" : "AE";
 
-  const CategorizeCities = cities?.filter((city) => {
-    return city.country_code === countryAbbreviation;
-  });
+  // const CategorizeCities = cities?.filter((city) => {
+  //   return city.country_code === countryAbbreviation;
+  // });
 
   const searchedCity = [
     ...new Set(
-      CategorizeCities?.filter((place) => {
+      cities?.filter((place) => {
         return (
           !/^\d+$/.test(place.name) &&
           place.name.toLowerCase().includes(search.toLowerCase())

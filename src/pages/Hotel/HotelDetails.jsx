@@ -55,7 +55,9 @@ const HotelDetails = () => {
                   {hotelDetails?.hotel_images.map((image) => (
                     <div key={image.id} className="overflow-hidden rounded-lg">
                       <img
-                        src={image.image}
+                        src={`${import.meta.env.VITE_APP_API_URL}${
+                          image.image
+                        }`}
                         alt="Model wearing plain black basic tee."
                         className="w-full object-cover object-center h-48"
                       />
@@ -73,12 +75,12 @@ const HotelDetails = () => {
                 {/* Options */}
                 <div className="mt-4 lg:row-span-3 lg:mt-0">
                   <h2 className="sr-only">Product information</h2>
-                  <p className="text-3xl tracking-tight text-gray-900">
+                  {/* <p className="text-3xl tracking-tight text-gray-900">
                     <span
                       dangerouslySetInnerHTML={{ __html: currencySymbol }}
                     ></span>
                     {parseFloat(hotelDetails?.price * priceRate).toFixed(2)}
-                  </p>
+                  </p> */}
                   <div className="mt-12">
                     <h3 className="text-sm font-medium text-gray-900">
                       Amenities

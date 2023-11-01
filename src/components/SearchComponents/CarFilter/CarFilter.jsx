@@ -22,15 +22,15 @@ const CarFilter = () => {
   );
   const country = useSelector((state) => state.countryCurrencyReducer?.country);
 
-  const countryAbbreviation = country && country === "India" ? "IN" : "AE";
+  // const countryAbbreviation = country && country === "India" ? "IN" : "AE";
 
-  const CategorizeCities = cities?.filter((city) => {
-    return city.country_code === countryAbbreviation;
-  });
+  // const CategorizeCities = cities?.filter((city) => {
+  //   return city.country_code === countryAbbreviation;
+  // });
 
   const searchedCity = [
     ...new Set(
-      CategorizeCities?.filter((place) => {
+      cities?.filter((place) => {
         return (
           !/^\d+$/.test(place.name) &&
           place.name.toLowerCase().includes(search.toLowerCase())
@@ -74,7 +74,7 @@ const CarFilter = () => {
                   required
                   autoComplete=""
                   name="from"
-                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-2xl placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-2xl font-medium capitalize"
+                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-2xl placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-xl md:text-2xl font-medium capitalize"
                 >
                   {fromCity ? fromCity : "Origin City"}
                 </button>
@@ -93,7 +93,7 @@ const CarFilter = () => {
                   required
                   autoComplete=""
                   name="to"
-                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-2xl placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-2xl font-medium capitalize"
+                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-2xl placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-xl md:text-2xl font-medium capitalize"
                 >
                   {toCity ? toCity : "Destination City"}
                 </button>

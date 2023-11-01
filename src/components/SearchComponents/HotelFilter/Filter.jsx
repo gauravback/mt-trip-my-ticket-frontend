@@ -46,7 +46,7 @@ const Filter = () => {
 
   const searchedCity = [
     ...new Set(
-      CategorizeCities?.filter((place) => {
+      cities?.filter((place) => {
         return (
           !/^\d+$/.test(place.name) &&
           place.name.toLowerCase().includes(search.toLowerCase())
@@ -83,7 +83,7 @@ const Filter = () => {
                   required
                   autoComplete=""
                   name="from"
-                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-lg placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-2xl font-medium capitalize"
+                  className=" hs-dropdown-toggle mt-2 block w-full rounded-md   outline-none  focus:ring-0 placeholder:text-lg placeholder:text-gray-800 placeholder:font-medium text-left bg-white text-xl md:text-2xl font-medium capitalize"
                 >
                   {city ? city : "Select City"}
                 </button>

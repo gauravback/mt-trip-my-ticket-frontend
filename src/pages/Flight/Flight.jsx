@@ -426,7 +426,7 @@ const Flight = () => {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center">
+                    {/* <div className="flex items-center">
                       <div>
                         <span className="text-sm pr-1">Price</span>
                         <p className="text-gray-900 text-lg font-bold inline-flex items-center">
@@ -436,7 +436,7 @@ const Flight = () => {
                           {parseFloat(flight.price * priceRate).toFixed(2)}
                         </p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))}

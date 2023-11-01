@@ -17,6 +17,7 @@ import { Link, useLocation } from "react-router-dom";
 import { logout } from "../redux/slices/AuthSlice";
 
 import Cookies from "js-cookie";
+import { BiSolidDownArrow } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa";
 import { FaCircleUser } from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
@@ -24,7 +25,11 @@ import { IoClose } from "react-icons/io5";
 
 const Navbar = () => {
   const user = useSelector((state) => state.authReducer?.value);
-  const country = useSelector((state) => state.countryCurrencyReducer?.country);
+  var defaultCountry = useSelector(
+    (state) => state.countryCurrencyReducer?.country
+  );
+
+  console.log("Country", defaultCountry);
   const abbreviation = useSelector(
     (state) => state.countryCurrencyReducer?.abbreviation
   );
@@ -63,10 +68,6 @@ const Navbar = () => {
     zIndex: isFixed ? 500 : "auto",
   };
 
-  const countryIcon = countryCurrencySymbols.find(
-    (elem) => elem.country === country
-  )?.icon;
-
   const currencySymbol = countryCurrencySymbols.find(
     (elem) => elem.abbreviation === abbreviation
   )?.symbolCode;
@@ -75,6 +76,9 @@ const Navbar = () => {
   const selectedLanguage = Cookies.get("language");
 
   const defaultLanguage = languageCookie ? languageCookie.split("/")[2] : "en";
+  const countryIcon = countryCurrencySymbols.find(
+    (elem) => elem.languageAbbreviation === defaultLanguage
+  )?.icon;
   // const selectedLanguage = countryCurrencySymbols.find(
   //   (elem) => elem.abbreviation === abbreviation
   // )?.language;
@@ -90,6 +94,8 @@ const Navbar = () => {
     )?.language;
     Cookies.set("language", setLanguage);
   }, []);
+
+  const countriesToMap = ["India", "United Arab Emirates"];
 
   return (
     <div className="w-full">
@@ -117,7 +123,7 @@ const Navbar = () => {
                 />
               </button>
               <Link to="/">
-                <img src="/logo-white.png" alt="logo" width={120} />
+                <img src="/logo-white-1.png" alt="logo" width={80} />
               </Link>
             </div>
             <a
@@ -129,7 +135,7 @@ const Navbar = () => {
                 <span className="text-white text-xs"> Call Us On:</span>
               </span>
               <span className="text-white font-bold text-xs">
-                +91 9804480448
+                +919804480448
               </span>
             </a>
           </div>
@@ -238,7 +244,7 @@ const Navbar = () => {
               >
                 <img
                   src={countryIcon}
-                  alt={country}
+                  alt={defaultCountry}
                   className="rounded-full"
                   width={22}
                 />
@@ -289,7 +295,7 @@ const Navbar = () => {
                       >
                         <img
                           src={matchingEntry.icon}
-                          alt={country}
+                          alt={defaultCountry}
                           className="rounded-full"
                           width={20}
                         />
@@ -300,15 +306,83 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
+            <div className="hs-dropdown relative inline-flex">
+              <button
+                id="hs-dropdown-default"
+                type="button"
+                className="hs-dropdown-toggle py-1 px-4 inline-flex justify-center items-center gap-2 rounded-full border font-medium bg-white text-gray-700 shadow-sm align-middle  focus:outline-none focus:ring-0 transition-all text-sm"
+              >
+                <p>{defaultCountry}</p>
+                <svg
+                  className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+              <div
+                className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-full md:w-24 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2"
+                aria-labelledby="hs-dropdown-default"
+              >
+                {" "}
+                <div className="grid grid-cols-1 w-full">
+                  {[
+                    ...new Set(
+                      countryCurrencySymbols
+                        .filter((elem) => countriesToMap.includes(elem.country))
+                        .map((elem) => elem.country)
+                    ),
+                  ].map((country) => {
+                    const elem = countryCurrencySymbols.find(
+                      (item) => item.country === country
+                    );
+
+                    return (
+                      <button
+                        onClick={() => {
+                          dispatch(setCountry(elem.country));
+                          setTimeout(() => {
+                            window.location.reload();
+                          }, 1000);
+                        }}
+                        key={elem.country}
+                        className={`flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:text-theme focus:ring-0 hover:font-semibold ${
+                          elem.country === defaultCountry
+                            ? "font-semibold text-theme"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src={elem.icon}
+                          alt={elem.country}
+                          className="rounded-full"
+                          width={20}
+                        />
+                        {elem.country}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
             {/* Language And Country End */}{" "}
             <button
               type="button"
-              class="bg-white  md:btn-gradient rounded-full px-1.5 md:px-2 py-1.5 m-0 flex items-center md:w-40 w-12"
+              class="bg-white  md:btn-gradient rounded-full px-1.5 md:px-2 py-1.5 m-0 flex items-center justify-center md:w-40 w-12"
               data-hs-overlay="#docs-sidebar"
               aria-controls="docs-sidebar"
               aria-label="Toggle navigation"
             >
-              <TbCategory fontSize={22} className="mx-auto" />
+              <TbCategory fontSize={22} className="" />
               <span className="hidden text-sm md:block">All Categories</span>
             </button>
             {user ? (
@@ -430,7 +504,7 @@ const Navbar = () => {
           >
             <ul
               id="navbar"
-              className="flex p-2 md:p-0 mt-4 font-semibold justify-evenly md:flex-row md:gap-x-10 md:mt-0 md:border-0"
+              className="flex p-2 md:p-0 mt-4 font-semibold justify-around md:flex-row md:gap-x-5 md:mt-0 md:border-0"
             >
               <li>
                 <div class="hs-dropdown relative inline-flex [--trigger:hover]">
@@ -786,7 +860,7 @@ const Navbar = () => {
         className="hs-overlay hs-overlay-open:-translate-x-0 translate-x-full transition-all duration-300 transform hidden fixed top-0 right-0 bottom-0 z-[510] md:w-[70rem] bg-white border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y"
       >
         <div className="px-6">
-          <img src="/logo.png" alt="logo" width={120} />
+          <img src="/logo-1.png" alt="logo" width={120} />
         </div>
         <nav
           className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
@@ -827,223 +901,223 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col space-y-2">
               <h1 className="text-lg font-bold px-3">Tourist Attractions</h1>
-              <div to="/car/economy-car">
+              <Link to="/attractions/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Burj Khalifa Observation Deck
                 </p>
-              </div>
+              </Link>
 
-              <div to="/car/compact-car">
+              <Link to="/attractions/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Desert Safari
                 </p>
-              </div>
+              </Link>
 
-              <div to="/car/midsize-car">
+              <Link to="/attractions/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Dubai Mall and Fountain Show
                 </p>
-              </div>
+              </Link>
 
-              <div to="/car/full-size-car">
+              <Link to="/attractions/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Dubai Mall and Fountain Show
                 </p>
-              </div>
+              </Link>
 
-              <div to="/car/suv">
+              <Link to="/attractions/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Dubai Parks and Resorts
                 </p>
-              </div>
+              </Link>
 
-              <div to="/car/luxury-car">
+              <Link to="/attractions/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Dubai Aquarium and Underwater Zoo
                 </p>
-              </div>
+              </Link>
 
-              <div to="/car/convertible">
+              <Link to="/attractions/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Old Dubai and Heritage Tour
                 </p>
-              </div>
+              </Link>
             </div>
             <div className="flex flex-col space-y-2">
               <h1 className="text-lg font-bold px-3">Hotels</h1>
-              <div to="/hotel/budget-hotel">
+              <Link to="/hotel/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Budget Hotel
                 </p>
-              </div>
+              </Link>
 
-              <div to="/hotel/boutique-hotel">
+              <Link to="/hotel/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Boutique Hotel
                 </p>
-              </div>
+              </Link>
 
-              <div to="/hotel/luxury-hotel">
+              <Link to="/hotel/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Luxury Hotel
                 </p>
-              </div>
+              </Link>
 
-              <div to="/hotel/resort">
+              <Link to="/hotel/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Resort
                 </p>
-              </div>
+              </Link>
 
-              <div to="/hotel/motel">
+              <Link to="/hotel/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Motel
                 </p>
-              </div>
+              </Link>
 
-              <div to="/hotel/bed-and-breakfast">
+              <Link to="/hotel/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Bed and Breakfast
                 </p>
-              </div>
+              </Link>
 
-              <div to="/hotel/extended-stay-hotel">
+              <Link to="/hotel/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Extended Stay Hotel
                 </p>
-              </div>
+              </Link>
             </div>
             <div className="flex flex-col space-y-2">
               <h1 className="text-lg font-bold px-3">Flight</h1>
-              <div to="/flight/economy-class">
+              <Link to="/flight/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Economy Class
                 </p>
-              </div>
+              </Link>
 
-              <div to="/flight/premium-economy-class">
+              <Link to="/flight/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Premium Economy Class
                 </p>
-              </div>
+              </Link>
 
-              <div to="/flight/business-class">
+              <Link to="/flight/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Business Class
                 </p>
-              </div>
+              </Link>
 
-              <div to="/flight/first-class">
+              <Link to="/flight/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   First Class
                 </p>
-              </div>
+              </Link>
 
-              <div to="/flight/domestic-flight">
+              <Link to="/flight/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Domestic Flight
                 </p>
-              </div>
+              </Link>
 
-              <div to="/flight/international-flight">
+              <Link to="/flight/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   International Flight
                 </p>
-              </div>
+              </Link>
 
-              <div to="/flight/round-trip-flight">
+              <Link to="/flight/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Round-Trip Flight
                 </p>
-              </div>
+              </Link>
             </div>
             <div className="flex flex-col space-y-2">
               <h1 className="text-lg font-bold px-3">Holiday Packages</h1>
-              <div to="/package/beach-vacation-package">
+              <Link to="/package/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Beach Vacation Package
                 </p>
-              </div>
+              </Link>
 
-              <div to="/package/adventure-travel-package">
+              <Link to="/package/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Adventure Travel Package
                 </p>
-              </div>
+              </Link>
 
-              <div to="/package/honeymoon-package">
+              <Link to="/package/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover.bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Honeymoon Package
                 </p>
-              </div>
+              </Link>
 
-              <div to="/package/cultural-tour-package">
+              <Link to="/package/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Cultural Tour Package
                 </p>
-              </div>
+              </Link>
 
-              <div to="/package/ski-vacation-package">
+              <Link to="/package/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Ski Vacation Package
                 </p>
-              </div>
+              </Link>
 
-              <div to="/package/wildlife-safari-package">
+              <Link to="/package/">
                 <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Wildlife Safari Package
                 </p>
-              </div>
+              </Link>
 
-              <div to="/package/cruise-vacation-package">
-                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover.bg-gray-100 focus:ring-2 focus:ring-blue-500">
+              <Link to="/package/">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
                   Cruise Vacation Package
                 </p>
-              </div>
+              </Link>
             </div>
             <div className="flex flex-col space-y-2">
               <h1 className="text-lg font-bold px-3">Yatches and Safari</h1>
-              <Link to="/yacht">
-                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+              <Link to="/yacht/">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus-ring-2 focus-ring-blue-500">
                   Yachts Luxury Package
                 </p>
               </Link>
 
-              <div to="/attraction/yachts-adventure-package">
-                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+              <Link to="/yacht/">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus-ring-2 focus-ring-blue-500">
                   Yachts Adventure Package
                 </p>
-              </div>
+              </Link>
 
-              <div to="/attraction/marina-dhow-cruise-family-package">
-                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+              <Link to="/yacht/">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus-ring-2 focus-ring-blue-500">
                   Marina Dhow Cruise Family Package
                 </p>
-              </div>
+              </Link>
 
-              <div to="/attraction/desert-safari-overnight-package">
-                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+              <Link to="/yacht/">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus-ring-2 focus-ring-blue-500">
                   Desert Safari Overnight Package
                 </p>
-              </div>
+              </Link>
 
-              <div to="/attraction/yachts-romantic-getaway">
-                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+              <Link to="/yacht/">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus-ring-2 focus-ring-blue-500">
                   Yachts Romantic Getaway
                 </p>
-              </div>
+              </Link>
 
-              <div to="/attraction/marina-dhow-cruise-sunset-package">
-                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+              <Link to="/yacht/">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus-ring-2 focus-ring-blue-500">
                   Marina Dhow Cruise Sunset Package
                 </p>
-              </div>
+              </Link>
 
-              <div to="/attraction/desert-safari-adrenaline-package">
-                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover-bg-gray-100 focus-ring-2 focus-ring-blue-500">
+              <Link to="/yacht/">
+                <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus-ring-2 focus-ring-blue-500">
                   Desert Safari Adrenaline Package
                 </p>
-              </div>
+              </Link>
             </div>
           </div>
         </nav>
@@ -1157,7 +1231,7 @@ const Navbar = () => {
               <button className="hs-accordion-toggle flex items-center gap-x-3.5 py-2 px-2.5  hs-accordion-active:hover:bg-transparent w-full text-slate-700 rounded-md hover:bg-gray-100">
                 <img
                   src={countryIcon}
-                  alt={country}
+                  alt={defaultCountry}
                   className="rounded-full"
                   width={22}
                 />
@@ -1228,7 +1302,7 @@ const Navbar = () => {
                         >
                           <img
                             src={matchingEntry.icon}
-                            alt={country}
+                            alt={defaultCountry}
                             className="rounded-full"
                             width={20}
                           />

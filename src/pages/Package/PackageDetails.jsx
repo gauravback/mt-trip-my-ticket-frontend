@@ -1,4 +1,5 @@
 import api from "@/api/api";
+import BackButton from "@/components/Button/BackButton";
 import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -7,10 +8,9 @@ import { MdHiking } from "react-icons/md";
 import { PiAirplaneBold, PiBus } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import BackButton from "@/components/Button/BackButton";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 const PackageDetails = () => {
   const [packageDetails, setPackageDetails] = useState();
@@ -120,7 +120,7 @@ const PackageDetails = () => {
                     <h2 className="max-w-xl mt-2 mb-4 text-3xl font-bold md:text-4xl font-heading">
                       {packageDetails.name}
                     </h2>
-                    <p className="max-w-md flex items-center mb-4 text-2xl font-semibold text-gray-500">
+                    {/* <p className="max-w-md flex items-center mb-4 text-2xl font-semibold text-gray-500">
                       <span
                         dangerouslySetInnerHTML={{
                           __html: currencySymbol,
@@ -131,7 +131,7 @@ const PackageDetails = () => {
                           2
                         )}
                       </span>
-                    </p>
+                    </p> */}
                   </div>
                   <div className="">
                     <p className="mb-4 text-lg font-semibold">
@@ -203,7 +203,7 @@ const PackageDetails = () => {
                   </div>
 
                   <div className="mt-6 ">
-                    <button
+                    {/* <button
                       onClick={() => {
                         dispatch(
                           addToCart({
@@ -218,7 +218,22 @@ const PackageDetails = () => {
                       className="w-full px-4 py-2 font-bold rounded-md  lg:w-96 btn-gradient"
                     >
                       Book Now
-                    </button>
+                    </button> */}
+                    <div className="flex items-center w-full space-x-2">
+                      <a
+                        href={`https://api.whatsapp.com/send?phone=+919804480448&text=${packageDetails.name}`}
+                        className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-md border-2 border-green-200 font-semibold text-green-500 hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-0 transition-all text-sm "
+                      >
+                        WhatsApp
+                      </a>
+
+                      <a
+                        href="tel:+919804480448"
+                        className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-md border-2 border-blue-200 font-semibold text-blue-500 hover:text-white hover:bg-blue-500 hover:border-blue-500 focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all text-sm"
+                      >
+                        Call Now
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -237,10 +252,12 @@ const PackageDetails = () => {
                       <div className="relative mx-auto w-full">
                         <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
                           <div className="shadow p-4 rounded-lg bg-white">
-                            <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
-                              <div className="transition-transform duration-500 transform ease-in-out  w-full">
+                            <div className="flex justify-center rounded-lg overflow-hidden h-52">
+                              <div className=" duration-500 transform ease-in-out  w-full h-full">
                                 <img
-                                  className="absolute inset-0 bg-black"
+                                  className="bg-black w-full h-full"
+                                  width={"100%"}
+                                  height={"100%"}
                                   src={pkg.image}
                                 />
                               </div>
@@ -283,8 +300,8 @@ const PackageDetails = () => {
                               </p>
                             </div>
                             <div className="mt-8">
-                              <div className="flex justify-between items-center">
-                                <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
+                              <div className="flex w-full items-center">
+                                {/* <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
                                   <span
                                     className="uppercase"
                                     dangerouslySetInnerHTML={{
@@ -296,9 +313,12 @@ const PackageDetails = () => {
                                       2
                                     )}
                                   </span>
-                                </p>
-                                <Link to={`/package/${pkg.id}`}>
-                                  <button className="inline-block font-semibold text-theme border border-red-300 p-2 whitespace-nowrap hover:border-red-500 leading-tight rounded-xl">
+                                </p> */}
+                                <Link
+                                  to={`/package/${pkg.id}`}
+                                  className="w-full"
+                                >
+                                  <button className="inline-block w-full font-semibold text-gradient p-2 whitespace-nowrap hover:border-red-500 leading-tight rounded-xl">
                                     View Details
                                   </button>
                                 </Link>

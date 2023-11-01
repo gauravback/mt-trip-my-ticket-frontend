@@ -449,8 +449,8 @@ const Hotel = () => {
                   <p className="md:text-base text-gray-500 text-sm">
                     {hotel.description.slice(0, 150)}...
                   </p>
-                  <div className="flex items-center justify-between">
-                    <p className="text-lg font-black text-gray-800">
+                  <div className="flex items-center justify-end">
+                    {/* <p className="text-lg font-black text-gray-800">
                       {priceRate === "Loading" ? (
                         "Loading..."
                       ) : (
@@ -464,7 +464,7 @@ const Hotel = () => {
                           </span>
                         </>
                       )}
-                    </p>
+                    </p> */}
                     <Link to={`/hotel/${hotel.id}`}>
                       <button
                         className="btn-gradient px-2.5 py-1 rounded-md"

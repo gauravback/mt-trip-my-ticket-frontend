@@ -108,8 +108,8 @@ const Package = () => {
                       </p>
                     </div>
                     <div className="mt-8">
-                      <div className="flex justify-between items-center">
-                        <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
+                      <div className="flex  items-center w-full">
+                        {/* <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
                           <span
                             className="uppercase"
                             dangerouslySetInnerHTML={{ __html: currencySymbol }}
@@ -117,9 +117,9 @@ const Package = () => {
                           <span className="text-lg">
                             {parseFloat(pkg.price * priceRate).toFixed(2)}
                           </span>
-                        </p>
-                        <Link to={`/package/${pkg.id}`}>
-                          <button className="inline-block font-semibold  p-2 whitespace-nowrap text-gradient leading-tight rounded-xl">
+                        </p> */}
+                        <Link to={`/package/${pkg.id}`} className="w-full">
+                          <button className="inline-block w-full font-semibold  p-2 whitespace-nowrap text-gradient leading-tight rounded-xl">
                             View Details
                           </button>
                         </Link>

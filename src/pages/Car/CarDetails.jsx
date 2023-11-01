@@ -3,9 +3,6 @@ import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { LiaHotelSolid } from "react-icons/lia";
-import { MdArrowBack, MdHiking } from "react-icons/md";
-import { PiAirplaneBold, PiBus } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Slider from "react-slick";
@@ -15,7 +12,6 @@ import "slick-carousel/slick/slick.css";
 import BackButton from "@/components/Button/BackButton";
 import Loader from "@/components/Loader/Loader";
 import Reviews from "@/components/Reviews/Reviews";
-import { LuFuel } from "react-icons/lu";
 import { TbArmchair, TbWindmill } from "react-icons/tb";
 
 const CarDetails = () => {
@@ -153,10 +149,16 @@ const CarDetails = () => {
                           >
                             <img
                               className="h-full w-full object-cover"
-                              src={image.image}
+                              src={`${import.meta.env.VITE_APP_API_URL}${
+                                image.image
+                              }`}
                               alt={`${carDetails.make} ${carDetails.model}`}
                               onClick={() => {
-                                changeImage(image.image);
+                                changeImage(
+                                  `${import.meta.env.VITE_APP_API_URL}${
+                                    image.image
+                                  }`
+                                );
                               }}
                             />
                           </button>
@@ -170,10 +172,10 @@ const CarDetails = () => {
               <div className="mx-auto max-w-2xl px-4 pt-10  sm:px-6 lg:grid lg:max-w-7xl lg:gap-x-8 lg:px-8 lg:pt-16">
                 <div className="lg:col-span-2 md:flex items-center justify-between lg:border-r lg:border-gray-200 lg:pr-8">
                   <h1 className="text-2xl font-bold tracking-tight capitalize text-gray-900 sm:text-3xl">
-                    {carDetails?.make} {carDetails.model}
+                    {carDetails?.name}
                   </h1>
-                  <div className="flex items-center justify-between  max-w-lg text-gray-800 rounded-md">
-                    {/* Card */}
+                  {/* <div className="flex items-center justify-between  max-w-lg text-gray-800 rounded-md">
+                 
                     <div className="flex items-center justify-center  py-3 font-medium leading-8  rounded-md font-heading">
                       <span className="flex items-center  justify-center">
                         <span className="ml-3 mr-1">
@@ -184,12 +186,12 @@ const CarDetails = () => {
                         </span>
                       </span>
                     </div>
-                    {/* Card end */}
+               
 
                     <div className="text-sm md:text-xl flex items-center">
                       ---&gt;
                     </div>
-                    {/* Card */}
+                  
                     <div className="flex items-center justify-center py-3 font-medium leading-8  rounded-md font-heading">
                       <span className="flex items-center justify-center">
                         <span className="ml-3 mr-1">
@@ -200,8 +202,8 @@ const CarDetails = () => {
                         </span>
                       </span>
                     </div>
-                    {/* Card end */}
-                  </div>
+                 
+                  </div> */}
                 </div>
                 <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-1 lg:pb-16 lg:pr-8">
                   {/* Description and details */}
@@ -230,31 +232,8 @@ const CarDetails = () => {
                             </span>
                           </span>
                         </div>
-                        {/* Card end */}
-                        {/* Card */}
-                        <div className="flex items-center justify-between px-10 py-3 font-medium leading-8 bg-white rounded-md border border-gray-300 font-heading">
-                          <span>Transmission</span>
-                          <span className="flex items-center">
-                            <span className="ml-3 mr-1 text-sm"></span>
-                            <span className="text-xl capitalize">
-                              {carDetails.transmission_type}
-                            </span>
-                          </span>
-                        </div>
-                        {/* Card end */}
-                        {/* Card */}
-                        <div className="flex items-center justify-between px-10 py-3 font-medium leading-8 bg-white rounded-md border border-gray-300 font-heading">
-                          <span>Fuel</span>
-                          <span className="flex items-center">
-                            <span className="ml-3 mr-1 text-sm"></span>
-                            <span className="text-xl capitalize">
-                              {carDetails.fuel_type}
-                            </span>
-                          </span>
-                        </div>
-                        {/* Card end */}
-                        {/* Card */}
-                        <div className="flex items-center justify-between px-10 py-3 font-medium leading-8 bg-white rounded-md border border-gray-300 font-heading">
+
+                        {/* <div className="flex items-center justify-between px-10 py-3 font-medium leading-8 bg-white rounded-md border border-gray-300 font-heading">
                           <span>AC</span>
                           <span className="flex items-center">
                             <span className="ml-3 mr-1 text-sm"></span>
@@ -263,8 +242,7 @@ const CarDetails = () => {
                             </span>
                           </span>
                         </div>
-                        {/* Card end */}
-                        {/* Card */}
+                        
                         <div className="flex items-center justify-between px-10 py-3 font-medium leading-8 bg-white rounded-md border border-gray-300 font-heading">
                           <span>Air Bags</span>
                           <span className="flex items-center">
@@ -273,9 +251,8 @@ const CarDetails = () => {
                               {carDetails.bags ? "Yes" : "No"}
                             </span>
                           </span>
-                        </div>
-                        {/* Card end */}
-                        {/* Card */}
+                        </div> */}
+
                         <div className="flex items-center justify-between px-10 py-3 font-medium leading-8 bg-white rounded-md border border-gray-300 font-heading">
                           <span>Available Cars</span>
                           <span className="flex items-center">
@@ -287,7 +264,7 @@ const CarDetails = () => {
                         </div>
                         {/* Card end */}
                         {/* Card */}
-                        <div className="md:col-span-2 flex items-center justify-end">
+                        {/* <div className="md:col-span-2 flex items-center justify-end">
                           <div className="flex  items-center justify-end md:pl-10 py-3 font-medium leading-8 bg-white rounded-md  font-heading">
                             <span>Price</span>
                             <span className="flex items-center">
@@ -304,7 +281,7 @@ const CarDetails = () => {
                               </span>
                             </span>
                           </div>
-                        </div>
+                        </div> */}
                         {/* Card end */}
                       </div>
                       <div className="my-5 flex justify-end items-center">
@@ -361,12 +338,7 @@ const CarDetails = () => {
                                   {car.seats} Seats
                                 </span>
                               </p>
-                              <p className="inline-flex flex-row items-center text-gray-800">
-                                <LuFuel fontSize={20} />
-                                <span className="mt-2 xl:mt-0 ml-1.5">
-                                  {car.fuel_type}
-                                </span>
-                              </p>
+
                               <p
                                 title="air-conditioner"
                                 className="inline-flex flex-row items-center text-gray-800"
@@ -415,8 +387,8 @@ const CarDetails = () => {
                               </p>
                             </div>
                             <div className="mt-8">
-                              <div className="flex justify-between items-center">
-                                <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
+                              <div className="flex justify-end items-center">
+                                {/* <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
                                   <span
                                     className="uppercase"
                                     dangerouslySetInnerHTML={{
@@ -428,7 +400,7 @@ const CarDetails = () => {
                                       2
                                     )}
                                   </span>
-                                </p>
+                                </p> */}
                                 <Link to={`/car/${car.id}`}>
                                   <button className="inline-block font-semibold text-gradient p-2 whitespace-nowrap  leading-tight rounded-xl">
                                     View Details

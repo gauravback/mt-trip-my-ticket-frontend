@@ -30,7 +30,7 @@ function DateInput({ setDate, setTime }) {
         value={selectedDate || ""}
         onClick={openDatePicker}
         readOnly
-        className="hs-dropdown-toggle mt-2 block w-full rounded-md outline-none focus:ring-0 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold bg-white text-2xl font-medium"
+        className="hs-dropdown-toggle mt-2 block w-full rounded-md outline-none focus:ring-0 placeholder:text-xl placeholder:text-gray-900 placeholder:font-bold bg-white text-xl md:text-2xl font-medium"
       />
 
       <DatePicker

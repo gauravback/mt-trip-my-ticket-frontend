@@ -84,8 +84,12 @@ const Navbar = () => {
   // )?.language;
 
   const changeLanguage = (languageAbbreviation, language) => {
-    Cookies.set("googtrans", `/en/${languageAbbreviation}`);
-    Cookies.set("language", `${language}`);
+    Cookies.remove("googtrans");
+    Cookies.remove("language");
+    setTimeout(() => {
+      Cookies.set("googtrans", `/en/${languageAbbreviation}`);
+      Cookies.set("language", `${language}`);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -112,20 +116,46 @@ const Navbar = () => {
             <div className="flex  md:flex-row items-center justify-center w-full md:w-auto">
               <button
                 type="button"
-                className="md:hidden bg-white rounded-md p-0.5"
+                className="md:hidden rounded-md p-0.5 "
                 data-hs-overlay="#side-menu"
                 aria-controls="side-menu"
                 aria-label="Toggle navigation"
               >
                 <TiThMenu
                   fontSize={20}
-                  className="text-gray-900 shadow-gray-800"
+                  className="text-gray-50 shadow-gray-50"
                 />
               </button>
               <Link to="/">
-                <img src="/logo-white-1.png" alt="logo" width={80} />
+                <img
+                  src="/logo-white-1.png"
+                  alt="logo"
+                  className="w-48 md:hidden"
+                />
+              </Link>
+              <Link to="/">
+                <img
+                  src="/logo-1.png"
+                  alt="logo"
+                  className="w-48 hidden md:block"
+                />
               </Link>
             </div>
+            <Link to="/offers" className="md:hidden">
+              <div className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent text-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all text-sm">
+                <div className="animate-pulse duration-[3000ms]">
+                  <img
+                    id="superoffers"
+                    src="/icons/sale.png"
+                    width={200}
+                    alt=""
+                  />
+                </div>
+                <div className="text-left">
+                  <p className="text-xs">Super Offers</p>
+                </div>
+              </div>
+            </Link>
             <a
               href="tel:+919804480448"
               className="w-full md:w-auto text-center  mr-0 md:hidden"
@@ -146,21 +176,19 @@ const Navbar = () => {
             >
               <span className="flex items-center justify-center space-x-1">
                 <img src="/icons/phone-icon.png" alt="" width={18} />
-                <span className="text-white text-xs"> Call Us On:</span>
+                <span className=" text-xs"> Call Us On:</span>
               </span>
-              <span className="text-white font-bold text-xs">
-                +91 9804480448
-              </span>
+              <span className=" font-bold text-xs">+91 9804480448</span>
             </a>
             <Link
               to="/offers"
               className={`${isFixed ? "hidden " : "md:block"} hidden `}
             >
-              <div className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent text-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all text-sm">
+              <div className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent  focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all text-sm">
                 <div className="animate-pulse duration-[3000ms]">
                   <img
                     className=""
-                    id="superoffers"
+                    id="superoffers-desktop"
                     src="/icons/sale.png"
                     width={28}
                     alt=""
@@ -168,7 +196,7 @@ const Navbar = () => {
                 </div>
                 <div className="text-left">
                   <p className="text-xs">Super Offers</p>
-                  <p className="text-[0.63rem] text-gray-200">
+                  <p className="text-[0.63rem] ">
                     Explore great deals & offers
                   </p>
                 </div>
@@ -393,7 +421,7 @@ const Navbar = () => {
                 <button
                   id="hs-dropdown-with-header"
                   type="button"
-                  className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-md font-medium bg- align-middle hover:bg-gray-800 focus:outline-none focus:ring-0 transition-all text-xs"
+                  className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-md font-medium  align-middle  focus:outline-none focus:ring-0 transition-all text-xs"
                 >
                   <div className="truncate overflow-ellipsis rounded-full gap-1 btn-gradient flex items-center justify-center text-sm px-3 py-2 md:py-1.5 focus:outline-none focus:ring-0">
                     <FaCircleUser fontSize={22} />
@@ -457,7 +485,7 @@ const Navbar = () => {
                 type="button"
                 id="login-btn"
                 data-hs-overlay="#hs-modal-signin"
-                className="flex items-center gap-x-2 font-medium transition-all duration-500 px-3 py-3 md:py-1 rounded-md text-white"
+                className="flex items-center gap-x-2 font-medium transition-all duration-500 px-3 py-3 md:py-1 rounded-full btn-gradient"
               >
                 <FaCircleUser fontSize={22} />
                 <span className="hidden md:block">Login</span>
@@ -511,7 +539,7 @@ const Navbar = () => {
                   <Link to="/car/">
                     <div
                       id="hs-dropdown-hover-event"
-                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center  sm:py-2 nav-link"
                     >
                       {/* <AiOutlineCar fontSize={24} className="mx-auto" /> */}
                       <img
@@ -573,10 +601,75 @@ const Navbar = () => {
               </li>
               <li>
                 <div class="hs-dropdown relative inline-flex [--trigger:hover]">
+                  <Link to="/forex/">
+                    <div
+                      id="hs-dropdown-hover-event"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 justify-center items-center  sm:py-2 nav-link"
+                    >
+                      {/* <RiStackFill fontSize={24} className="mx-auto" /> */}
+                      <img
+                        src="/icons/self-drive.png"
+                        width={28}
+                        alt=""
+                        className="mx-auto"
+                      />
+                      Self Drive
+                    </div>
+                  </Link>
+                  <div
+                    className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
+                    aria-labelledby="hs-dropdown-hover-event"
+                  >
+                    <Link to="/forex/us-dollar">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        US Dollar (USD)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/euro">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Euro (EUR)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/british-pound">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        British Pound (GBP)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/japanese-yen">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Japanese Yen (JPY)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/australian-dollar">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Australian Dollar (AUD)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/canadian-dollar">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Canadian Dollar (CAD)
+                      </p>
+                    </Link>
+
+                    <Link to="/forex/swiss-franc">
+                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
+                        Swiss Franc (CHF)
+                      </p>
+                    </Link>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="hs-dropdown relative inline-flex [--trigger:hover]">
                   <Link to="/attractions/">
                     <div
                       id="hs-dropdown-hover-event"
-                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center  sm:py-2 nav-link"
                     >
                       {/* <MdDirectionsBus fontSize={24} className="mx-auto" /> */}
                       <img
@@ -605,7 +698,7 @@ const Navbar = () => {
                   <Link to="/flight/">
                     <div
                       id="hs-dropdown-hover-event"
-                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center  sm:py-2 nav-link"
                     >
                       {/* <MdOutlineFlight fontSize={24} className="mx-auto" /> */}
                       <img src="/icons/plane.png" width={28} alt="" />
@@ -665,7 +758,7 @@ const Navbar = () => {
                   <Link to="/hotel/">
                     <div
                       id="hs-dropdown-hover-event"
-                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center  sm:py-2 nav-link"
                     >
                       {/* <RiHotelLine fontSize={24} className="mx-auto" /> */}
                       <img src="/icons/hotel.png" width={28} alt="" />
@@ -726,7 +819,7 @@ const Navbar = () => {
                   <Link to="/package/">
                     <div
                       id="hs-dropdown-hover-event"
-                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
+                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center  sm:py-2 nav-link"
                     >
                       {/* <TbAirBalloon fontSize={24} className="mx-auto" /> */}
                       <img
@@ -781,66 +874,6 @@ const Navbar = () => {
                     <Link to="/package/cruise-vacation-package">
                       <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover.bg-gray-100 focus:ring-2 focus:ring-blue-500">
                         Cruise Vacation Package
-                      </p>
-                    </Link>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="hs-dropdown relative inline-flex [--trigger:hover]">
-                  <Link to="/forex/">
-                    <div
-                      id="hs-dropdown-hover-event"
-                      className="hs-dropdown-toggle text-center text-xs gap-x-1 items-center text-gray-50 sm:py-2 nav-link"
-                    >
-                      {/* <RiStackFill fontSize={24} className="mx-auto" /> */}
-                      <img src="/icons/forex.png" width={28} alt="" />
-                      Forex
-                    </div>
-                  </Link>
-                  <div
-                    className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
-                    aria-labelledby="hs-dropdown-hover-event"
-                  >
-                    <Link to="/forex/us-dollar">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        US Dollar (USD)
-                      </p>
-                    </Link>
-
-                    <Link to="/forex/euro">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Euro (EUR)
-                      </p>
-                    </Link>
-
-                    <Link to="/forex/british-pound">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        British Pound (GBP)
-                      </p>
-                    </Link>
-
-                    <Link to="/forex/japanese-yen">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Japanese Yen (JPY)
-                      </p>
-                    </Link>
-
-                    <Link to="/forex/australian-dollar">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Australian Dollar (AUD)
-                      </p>
-                    </Link>
-
-                    <Link to="/forex/canadian-dollar">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Canadian Dollar (CAD)
-                      </p>
-                    </Link>
-
-                    <Link to="/forex/swiss-franc">
-                      <p className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                        Swiss Franc (CHF)
                       </p>
                     </Link>
                   </div>

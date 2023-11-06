@@ -84,11 +84,8 @@ const Navbar = () => {
   // )?.language;
 
   const changeLanguage = (languageAbbreviation, language) => {
-   
-   
-      Cookies.set("googtrans", `/en/${languageAbbreviation}`);
-      Cookies.set("language", `${language}`);
-   
+    Cookies.set("googtrans", `/en/${languageAbbreviation}`);
+    Cookies.set("language", `${language}`);
   };
 
   useEffect(() => {
@@ -309,7 +306,10 @@ const Navbar = () => {
                     return (
                       <button
                         onClick={() => {
-                          changeLanguage(matchingEntry.languageAbbreviation);
+                          changeLanguage(
+                            matchingEntry.languageAbbreviation,
+                            matchingEntry.language
+                          );
                           setTimeout(() => {
                             window.location.reload();
                           }, 1000);
@@ -600,7 +600,7 @@ const Navbar = () => {
               </li>
               <li>
                 <div class="hs-dropdown relative inline-flex [--trigger:hover]">
-                  <Link to="/forex/">
+                  <Link to="/self-drive/">
                     <div
                       id="hs-dropdown-hover-event"
                       className="hs-dropdown-toggle text-center text-xs gap-x-1 justify-center items-center  sm:py-2 nav-link"
@@ -615,7 +615,7 @@ const Navbar = () => {
                       Self Drive
                     </div>
                   </Link>
-                  <div
+                  {/* <div
                     className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full"
                     aria-labelledby="hs-dropdown-hover-event"
                   >
@@ -660,7 +660,7 @@ const Navbar = () => {
                         Swiss Franc (CHF)
                       </p>
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
               </li>
               <li>

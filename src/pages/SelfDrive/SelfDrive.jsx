@@ -1,6 +1,9 @@
 import api from "@/api/api";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { CgDetailsMore } from "react-icons/cg";
+import { RiPhoneLine } from "react-icons/ri";
+import { SiWhatsapp } from "react-icons/si";
 import { TbArmchair } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
@@ -34,32 +37,44 @@ const SelfDrive = () => {
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {selfDrive?.map((drive) => (
-          <div
-            key={drive.id}
-            className="group flex flex-col h-full border border-gray-200 hover:border-transparent transition-all duration-300 rounded-xl p-5"
-          >
-            <div className="aspect-w-16 aspect-h-11">
-              <img
-                className="w-full object-cover rounded-xl"
-                src={drive.image}
-                alt="Image Description"
-              />
-            </div>
-            <div className="my-6">
-              <h3 className="text-xl font-semibold text-gray-800">
-                {drive.name}
-              </h3>
-              <p className="font-medium">Mileage</p>
-            </div>
-            <div className="mt-auto flex items-center gap-x-3">
-              <Link to={`/self-drive/${drive.id}`}>
-                <button
-                  type="button"
-                  className="btn-gradient px-4 py-2 rounded-lg"
+          <div className="max-w-sm w-full py-6 px-3">
+            <div className="bg-white shadow border rounded-lg overflow-hidden">
+              <div
+                className="bg-cover bg-center h-96 p-4"
+                style={{
+                  backgroundImage: `url(${drive.image})`,
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div>
+              <div className="p-4">
+                <p
+                  title={drive.name}
+                  className="truncate uppercase tracking-wide  font-bold text-gray-700"
                 >
-                  View Details
-                </button>
-              </Link>
+                  {drive.name}
+                </p>
+              </div>
+              <div className="flex space-x-2 p-4 border-t border-gray-300 text-gray-700">
+                <a
+                  href={`https://api.whatsapp.com/send?phone=+919804480448&text=${drive.name}`}
+                  className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-full border-2 border-green-200 font-semibold text-green-500 hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-0 transition-all text-sm "
+                >
+                  <SiWhatsapp fontSize={24} />
+                </a>
+                <a
+                  href="tel:+919804480448"
+                  className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-full border-2 border-blue-200 font-semibold text-blue-500 hover:text-white hover:bg-blue-500 hover:border-blue-500 focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all text-sm"
+                >
+                  <RiPhoneLine fontSize={24} />
+                </a>{" "}
+                <Link to={`/self-drive/${drive.id}`} className="w-full">
+                  <button className="py-3 w-full  px-4 inline-flex justify-center items-center gap-2 rounded-full  font-semibold btn-gradient  focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all">
+                    <CgDetailsMore fontSize={28} />
+                    Details
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         ))}

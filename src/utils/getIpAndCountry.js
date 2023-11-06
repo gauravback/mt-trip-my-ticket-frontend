@@ -35,12 +35,7 @@ async function getIpAndCountry(dispatch, ipAddress = null) {
           abbreviation,
         })
       );
-      if (
-        !Cookies.get("googtrans") === null ||
-        (Cookies.get("googtrans") === undefined &&
-          !Cookies.get("language") === null) ||
-        Cookies.get("language") === undefined
-      ) {
+      if (!Cookies.get("googtrans") || !Cookies.get("language")) {
         Cookies.set("googtrans", `/en/${languageAbbreviation}`);
         console.log("Language in getCurrencyAndSymbolCode", language);
         Cookies.set("language", language);

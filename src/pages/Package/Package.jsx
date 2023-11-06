@@ -3,9 +3,11 @@ import PackageFilter from "@/components/SearchComponents/PackageFilter/PackageFi
 import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { LiaHotelSolid } from "react-icons/lia";
+import { CgDetailsMore } from "react-icons/cg";
 import { MdHiking } from "react-icons/md";
 import { PiAirplaneBold, PiBus } from "react-icons/pi";
+import { RiPhoneLine } from "react-icons/ri";
+import { SiWhatsapp } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 const Package = () => {
@@ -58,73 +60,41 @@ const Package = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 lg:gap-y-4 gap-6">
             {/* Card */}
             {packages?.map((pkg) => (
-              <div className="relative mx-auto w-full border border-gray-300 rounded-md">
-                <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
-                  <div className="shadow p-4 rounded-lg bg-white">
-                    <div className="flex justify-center rounded-lg overflow-hidden h-52">
-                      <div className=" duration-500 transform ease-in-out  w-full h-full">
-                        <img
-                          className="bg-black w-full h-full"
-                          width={"100%"}
-                          height={"100%"}
-                          src={pkg.image}
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <h2 className="font-medium text-lg md:text-xl text-gray-800 line-clamp-1 capitalize">
-                        {pkg.name}
-                      </h2>
-                    </div>
-                    <div className="grid grid-cols-2 grid-rows-2 gap-4 mt-4">
-                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
-                        <MdHiking fontSize={20} />
-                        <span className="mt-2 xl:mt-0 ml-1.5">
-                          {" "}
-                          {(pkg.activities.match(/\n/g) || []).length + 1}{" "}
-                          Activites
-                        </span>
-                      </p>
-                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
-                        <PiAirplaneBold fontSize={20} />
-                        <span className="mt-2 xl:mt-0 ml-1.5">
-                          {" "}
-                          {pkg.flights.length} Flights
-                        </span>
-                      </p>
-                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
-                        <LiaHotelSolid fontSize={20} />
-                        <span className="mt-2 xl:mt-0 ml-1.5">
-                          {" "}
-                          {pkg.hotels.length} Hotels
-                        </span>
-                      </p>
-                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
-                        <PiBus fontSize={20} />
-                        <span className="mt-2 xl:mt-0 ml-1.5">
-                          {" "}
-                          {pkg.buses.length + pkg.cars.length} Transfers
-                        </span>
-                      </p>
-                    </div>
-                    <div className="mt-8">
-                      <div className="flex  items-center w-full">
-                        {/* <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
-                          <span
-                            className="uppercase"
-                            dangerouslySetInnerHTML={{ __html: currencySymbol }}
-                          ></span>
-                          <span className="text-lg">
-                            {parseFloat(pkg.price * priceRate).toFixed(2)}
-                          </span>
-                        </p> */}
-                        <Link to={`/package/${pkg.id}`} className="w-full">
-                          <button className="inline-block w-full font-semibold  p-2 whitespace-nowrap text-gradient leading-tight rounded-xl">
-                            View Details
-                          </button>
-                        </Link>
-                      </div>
-                    </div>
+              <div key={pkg.id} className="max-w-sm w-full py-6 px-3">
+                <div className="bg-white shadow border rounded-lg overflow-hidden">
+                  <div
+                    className="bg-cover bg-center h-56 p-4"
+                    style={{
+                      backgroundImage: `url(${pkg.image})`,
+                    }}
+                  ></div>
+                  <div className="p-4">
+                    <p
+                      title={pkg.name}
+                      className="truncate uppercase tracking-wide  font-bold text-gray-700"
+                    >
+                      {pkg.name}
+                    </p>
+                  </div>
+                  <div className="flex space-x-2 p-4 border-t border-gray-300 text-gray-700">
+                    <a
+                      href={`https://api.whatsapp.com/send?phone=+919804480448&text=${pkg.name}`}
+                      className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-full border-2 border-green-200 font-semibold text-green-500 hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-0 transition-all text-sm "
+                    >
+                      <SiWhatsapp fontSize={24} />
+                    </a>
+                    <a
+                      href="tel:+919804480448"
+                      className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-full border-2 border-blue-200 font-semibold text-blue-500 hover:text-white hover:bg-blue-500 hover:border-blue-500 focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all text-sm"
+                    >
+                      <RiPhoneLine fontSize={24} />
+                    </a>{" "}
+                    <Link to={`/package/${pkg.id}`} className="w-full">
+                      <button className="py-3 w-full  px-4 inline-flex justify-center items-center gap-2 rounded-full  font-semibold btn-gradient  focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all">
+                        <CgDetailsMore fontSize={28} />
+                        Details
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

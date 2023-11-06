@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import { LiaHotelSolid } from "react-icons/lia";
 import { MdHiking } from "react-icons/md";
 import { PiAirplaneBold, PiBus } from "react-icons/pi";
+import { RiPhoneLine } from "react-icons/ri";
+import { SiWhatsapp } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Slider from "react-slick";
@@ -224,13 +226,14 @@ const PackageDetails = () => {
                         href={`https://api.whatsapp.com/send?phone=+919804480448&text=${packageDetails.name}`}
                         className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-md border-2 border-green-200 font-semibold text-green-500 hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-0 transition-all text-sm "
                       >
-                        WhatsApp
+                        <SiWhatsapp fontSize={24} /> WhatsApp
                       </a>
 
                       <a
                         href="tel:+919804480448"
                         className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-md border-2 border-blue-200 font-semibold text-blue-500 hover:text-white hover:bg-blue-500 hover:border-blue-500 focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all text-sm"
                       >
+                        <RiPhoneLine fontSize={24} />
                         Call Now
                       </a>
                     </div>

@@ -84,12 +84,11 @@ const Navbar = () => {
   // )?.language;
 
   const changeLanguage = (languageAbbreviation, language) => {
-    Cookies.remove("googtrans");
-    Cookies.remove("language");
-    setTimeout(() => {
+   
+   
       Cookies.set("googtrans", `/en/${languageAbbreviation}`);
       Cookies.set("language", `${language}`);
-    }, 2000);
+   
   };
 
   useEffect(() => {

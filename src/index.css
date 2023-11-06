@@ -41,20 +41,12 @@
 }
 
 .nav-gradient {
-  background: radial-gradient(
-    circle at -12.9% 51.2%,
-    rgb(255, 124, 0) 0%,
-    rgb(255, 124, 0) 15.9%,
-    rgb(255, 163, 77) 15.9%,
-    rgb(255, 163, 77) 24.4%,
-    rgb(23, 132, 178) 24.5%,
-    rgb(46, 94, 171) 66%
-  );
+  @apply bg-gradient-to-b from-purple-900 to-violet-600;
 }
 
 @media (min-width: 768px) {
   .nav-gradient {
-    background: #081826;
+    background: white;
   }
 }
 
@@ -104,6 +96,9 @@ select {
 
 #superoffers {
   filter: drop-shadow(0 0 0.75rem rgb(236, 237, 238));
+}
+#superofferssuperoffers-desktop {
+  filter: drop-shadow(0 0 0.75rem rgb(34, 34, 34));
 }
 
 .custom-popper {

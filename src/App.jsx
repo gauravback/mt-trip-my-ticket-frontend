@@ -48,6 +48,7 @@ import Success from "./pages/Payment/Success";
 import Privacy from "./pages/Privacy/Privacy";
 import RefundPolicy from "./pages/RefundPolicy/RefundPolicy";
 import SelfDrive from "./pages/SelfDrive/SelfDrive";
+import SelfDriveDetails from "./pages/SelfDrive/SelfDriveDetails";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import ChangePassword from "./pages/User/ChangePassword";
 import MyTrips from "./pages/User/MyTrips";
@@ -123,7 +124,7 @@ const App = () => {
       <>
         {/* <GoogleTranslate /> */}
         <Suspense fallback={<Loader />}>
-          <div className="w-full bg-[#081826]">
+          <div className="w-full bg-white">
             <Navbar />
           </div>
 
@@ -331,6 +332,14 @@ const App = () => {
                   element={
                     <AnimatedPage>
                       <SelfDrive />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/self-drive/:id"
+                  element={
+                    <AnimatedPage>
+                      <SelfDriveDetails />
                     </AnimatedPage>
                   }
                 />

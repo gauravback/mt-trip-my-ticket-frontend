@@ -36,9 +36,9 @@ async function getIpAndCountry(dispatch, ipAddress = null) {
         })
       );
       if (
-        !Cookies.get("googtrans") ||
-        Cookies.get("googtrans") === undefined ||
-        !Cookies.get("language") ||
+        !Cookies.get("googtrans") === null ||
+        (Cookies.get("googtrans") === undefined &&
+          !Cookies.get("language") === null) ||
         Cookies.get("language") === undefined
       ) {
         Cookies.set("googtrans", `/en/${languageAbbreviation}`);

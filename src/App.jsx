@@ -36,6 +36,7 @@ import Contact from "./pages/Contact/Contact";
 import CityTourDetails from "./pages/DubaiActivities/CityTourDetails";
 import DesertSafariDetails from "./pages/DubaiActivities/DesertSafariDetails";
 import DubaiActivities from "./pages/DubaiActivities/DubaiActivities";
+import SightSeeingDetails from "./pages/DubaiActivities/SightSeeingDetails";
 import Forex from "./pages/Forex/Forex";
 import Home from "./pages/Home";
 import HotelDetails from "./pages/Hotel/HotelDetails";
@@ -364,6 +365,14 @@ const App = () => {
                   element={
                     <AnimatedPage>
                       <CityTourDetails />
+                    </AnimatedPage>
+                  }
+                />
+                <Route
+                  path="/sightseeing/:id"
+                  element={
+                    <AnimatedPage>
+                      <SightSeeingDetails />
                     </AnimatedPage>
                   }
                 />

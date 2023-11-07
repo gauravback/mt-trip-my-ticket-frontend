@@ -117,7 +117,9 @@ const YachtDetails = () => {
                   <div className="outline-none ">
                     <img
                       onClick={() => {
-                        changeImage(image.image);
+                        changeImage(
+                          `${import.meta.env.VITE_APP_API_URL}${image.image}`
+                        );
                       }}
                       src={`${import.meta.env.VITE_APP_API_URL}${image.image}`}
                       alt=""

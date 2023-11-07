@@ -86,6 +86,12 @@ const Navbar = () => {
   const changeLanguage = (languageAbbreviation, language) => {
     Cookies.set("googtrans", `/en/${languageAbbreviation}`);
     Cookies.set("language", `${language}`);
+    Cookies.remove("googtrans", {
+      domain: `.${window.location.origin}`,
+    });
+    Cookies.set("googtrans", `/en/${languageAbbreviation}`, {
+      domain: `.${window.location.origin}`,
+    });
   };
 
   useEffect(() => {

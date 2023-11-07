@@ -5,7 +5,10 @@ import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlinePlus } from "react-icons/ai";
+import { CgDetailsMore } from "react-icons/cg";
 import { HiOutlineLocationMarker } from "react-icons/hi";
+import { RiPhoneLine } from "react-icons/ri";
+import { SiWhatsapp } from "react-icons/si";
 import { TbArmchair, TbWindmill } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -306,147 +309,50 @@ const Car = () => {
         </div>
         <div className="md:w-2/3 p-3 w-full">
           {!loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:gap-y-4 gap-6 place-items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-y-4 gap-6 place-items-center">
               {/* Card */}
               {cars.length > 0 ? (
                 cars
                   ?.filter((car) => car.available_cars > 0)
                   ?.map((car) => (
-                    <div
-                      key={car.id}
-                      className="bg-white max-w-sm w-full  border flex flex-col items-center  rounded-lg overflow-hidden"
-                    >
-                      <div className="h-full flex items-center justify-center bg-white p-4">
-                        <img
-                          src={car.image}
-                          width={250}
-                          height={10}
-                          alt={car.name}
-                          className="rounded-md object-cover mix-blend-darken max-h-44"
-                        />
-                      </div>
-                      <div className="w-full">
-                        {/* <div className="flex">
-                          <div className="text-sm mx-2 flex items-center justify-between p-1 rounded text-gray-950 font-bold mt-1 ">
-                            <div className="flex items-center space-x-1">
-                              <HiOutlineLocationMarker />
-                              <span>{car.origin_city}</span>
-                            </div>
-                            <div className="mx-3">--&gt;</div>
-                            <div className="flex items-center space-x-1">
-                              <HiOutlineLocationMarker />
-                              <span>{car.destination_city}</span>
-                            </div>
-                          </div>
-                        </div> */}
-                        <div className="px-3 text-gray-700 md:flex justify-between">
-                          <div>
-                            <p className="text-xl text-gray-900 font-semibold">
-                              {car.name}
-                              <span className="text-sm">
-                                ({car.car_type.type})
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-between md:block">
-                          <div className="flex justify-between items-center p-4  text-gray-600">
-                            <div className="flex items-center">
-                              <p className="flex items-center space-x-1 ">
-                                <span className="text-gray-900 font-bold">
-                                  <TbArmchair
-                                    fontSize={20}
-                                    fontWeight={"bold"}
-                                  />
-                                </span>
-                                <span className="text-sm font-bold">
-                                  {car.seats} Seats
-                                </span>
-                              </p>
-                            </div>
-                            {/* <div className="flex items-center">
-                            <p className="flex items-center space-x-1 ">
-                              <span className="text-gray-900 font-bold">
-                                <TbWindmill fontSize={20} fontWeight={"bold"} />
-                              </span>
-                              <span className="text-sm font-bold">
-                                AC: {car.ac ? "Yes" : "No"}
-                              </span>
-                            </p>
-                          </div>
-
-                          <div className="flex items-center">
-                            <p className="flex items-center space-x-1 ">
-                              <span className="text-gray-900 font-bold">
-                                <svg
-                                  fill="#000000"
-                                  height="16"
-                                  width="16"
-                                  version="1.1"
-                                  id="Capa_1"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  xmlnsXlink="http://www.w3.org/1999/xlink"
-                                  viewBox="0 0 181.43 181.43"
-                                  xmlSpace="preserve"
-                                  stroke="#000000"
-                                  strokeWidth="5.080012000000001"
-                                  transform="rotate(0)"
-                                >
-                                  <g id="SVGRepo_bgCarrier" strokeWidth={0} />
-                                  <g
-                                    id="SVGRepo_tracerCarrier"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    stroke="#CCCCCC"
-                                    strokeWidth="0.362858"
-                                  />
-                                  <g id="SVGRepo_iconCarrier">
-                                    {" "}
-                                    <g>
-                                      {" "}
-                                      <path d="M134.045,66.614c-3.707-1.853-8.211-0.35-10.063,3.354l-23.078,46.156H75.92c-2.841,0-5.438,1.605-6.708,4.146 l-25.151,50.302c-1.853,3.705-0.351,8.21,3.354,10.062c1.077,0.539,2.221,0.794,3.348,0.794c2.751,0,5.4-1.52,6.714-4.148 l23.079-46.156h24.985c2.841,0,5.438-1.605,6.708-4.146l25.15-50.302C139.252,72.972,137.75,68.467,134.045,66.614z" />{" "}
-                                      <path d="M143.162,0.718c-13.832,0-25.045,11.212-25.045,25.044c0,13.831,11.213,25.043,25.045,25.043 c13.831,0,25.043-11.212,25.043-25.043C168.205,11.931,156.993,0.718,143.162,0.718z M143.162,35.806 c-5.539,0-10.045-4.505-10.045-10.043c0-5.538,4.506-10.044,10.045-10.044c5.538,0,10.043,4.506,10.043,10.044 C153.205,31.3,148.7,35.806,143.162,35.806z" />{" "}
-                                      <path d="M104.121,45.446C104.121,20.387,83.732,0,58.671,0c-25.06,0-45.447,20.387-45.447,45.446 c0,25.061,20.388,45.449,45.447,45.449C83.732,90.895,104.121,70.507,104.121,45.446z M28.224,45.446 C28.224,28.658,41.883,15,58.671,15c16.79,0,30.449,13.658,30.449,30.446c0,16.79-13.66,30.449-30.449,30.449 C41.883,75.895,28.224,62.236,28.224,45.446z" />{" "}
-                                    </g>{" "}
-                                  </g>
-                                </svg>
-                              </span>
-                              <span className="text-sm font-bold">
-                                Airbags: {car.bags ? "Yes" : "No"}
-                              </span>
-                            </p>
-                          </div> */}
-                          </div>
-                          <div className="flex justify-between items-center py-1 px-4  text-gray-900">
-                            {/* <div className="flex items-center">
-                        <p className="flex items-center space-x-1 ">
-                          <span
-                            dangerouslySetInnerHTML={{
-                              __html: currencySymbol,
-                            }}
-                            className="text-xl"
-                          ></span>
-                          <span className="text-xl font-bold">
-                            {Math.round(car.price * priceRate * 100) / 100}
+                    <div key={car.id} className="max-w-sm w-full py-6 px-3">
+                      <div className="bg-white shadow border rounded-lg overflow-hidden">
+                        <div
+                          className="bg-cover bg-center h-56 p-4"
+                          style={{
+                            backgroundImage: `url(${car.image})`,
+                          }}
+                        ></div>
+                        <div className="p-4">
+                          <p
+                            title={car.name}
+                            className="truncate uppercase tracking-wide  font-bold text-gray-700"
+                          >
+                            {car.name}
+                          </p>
+                          <span className="text-gray-500 font-semibold">
+                            {car.car_type.type}
                           </span>
-                        </p>
-                      </div> */}
-                            <div className="flex items-center w-full mb-2">
-                              <p className="flex items-center space-x-1 justify-end">
-                                <Link
-                                  to={`/car/${car.id}`}
-                                  className="justify-end"
-                                >
-                                  <button
-                                    type="button"
-                                    className="btn-gradient px-2 p-1 rounded-md"
-                                  >
-                                    View Details
-                                  </button>
-                                </Link>
-                              </p>
-                            </div>
-                          </div>
+                        </div>
+                        <div className="flex space-x-2 p-4 border-t border-gray-300 text-gray-700">
+                          <a
+                            href={`https://api.whatsapp.com/send?phone=+919804480448&text=${car.name}`}
+                            className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-full border-2 border-green-200 font-semibold text-green-500 hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-0 transition-all text-sm "
+                          >
+                            <SiWhatsapp fontSize={24} />
+                          </a>
+                          <a
+                            href="tel:+919804480448"
+                            className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-full border-2 border-blue-200 font-semibold text-blue-500 hover:text-white hover:bg-blue-500 hover:border-blue-500 focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all text-sm"
+                          >
+                            <RiPhoneLine fontSize={24} />
+                          </a>{" "}
+                          <Link to={`/car/${car.id}`} className="w-full">
+                            <button className="py-3 w-full  px-4 inline-flex justify-center items-center gap-2 rounded-full  font-semibold btn-gradient  focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all">
+                              <CgDetailsMore fontSize={28} />
+                              Details
+                            </button>
+                          </Link>
                         </div>
                       </div>
                     </div>

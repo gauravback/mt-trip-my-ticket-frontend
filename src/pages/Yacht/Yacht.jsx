@@ -2,9 +2,12 @@ import api from "@/api/api";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BsPeople } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import { SlSizeFullscreen } from "react-icons/sl";
+import { CgDetailsMore } from "react-icons/cg";
 import { MdCabin, MdOutlineBathroom } from "react-icons/md";
+import { RiPhoneLine } from "react-icons/ri";
+import { SiWhatsapp } from "react-icons/si";
+import { SlSizeFullscreen } from "react-icons/sl";
+import { Link } from "react-router-dom";
 const Yacht = () => {
   const [yachts, setYachts] = useState();
   const fetchYachts = async () => {
@@ -36,68 +39,41 @@ const Yacht = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 lg:gap-y-4 gap-6">
             {/* Card */}
             {yachts?.map((yacht) => (
-              <div className="relative mx-auto w-full border border-gray-300 rounded-md">
-                <div className="relative inline-block duration-300 ease-in-out transition-transform transform  w-full">
-                  <div className="shadow p-4 rounded-lg bg-white">
-                    <div className="flex justify-center rounded-lg overflow-hidden h-52">
-                      <div className=" duration-500 transform ease-in-out  w-full h-full">
-                        <img
-                          className="bg-black w-full h-full"
-                          width={"100%"}
-                          height={"100%"}
-                          src={yacht.image}
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <h2 className="font-medium text-lg md:text-xl text-gray-800 line-clamp-1 capitalize">
-                        {yacht.name}
-                      </h2>
-                    </div>
-                    <div className="grid grid-cols-2 grid-rows-2 gap-4 mt-4">
-                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
-                        <BsPeople fontSize={20} />
-                        <span className="mt-2 xl:mt-0 ml-1.5">
-                          {yacht.capacity} People
-                        </span>
-                      </p>
-                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
-                        <SlSizeFullscreen />
-                        <span className="mt-2 xl:mt-0 ml-1.5">
-                          {yacht.size} Size
-                        </span>
-                      </p>
-                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
-                        <MdCabin fontSize={20} />
-                        <span className="mt-2 xl:mt-0 ml-1.5">
-                          {yacht.cabins} Cabins
-                        </span>
-                      </p>
-                      <p className="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
-                        <MdOutlineBathroom fontSize={20} />
-                        <span className="mt-2 xl:mt-0 ml-1.5">
-                          {yacht.bathrooms} Bathrooms
-                        </span>
-                      </p>
-                    </div>
-                    <div className="mt-8">
-                      <div className="flex justify-between items-center">
-                        <p className="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
-                          {/* <span
-                            className="uppercase"
-                            dangerouslySetInnerHTML={{ __html: currencySymbol }}
-                          ></span> */}
-                          <span className="text-lg">
-                            {/* {parseFloat(pkg.price * priceRate).toFixed(2)} */}
-                          </span>
-                        </p>
-                        <Link to={`/yacht/${yacht.id}`}>
-                          <button className="inline-block font-semibold text-gradient p-2 whitespace-nowrap  leading-tight rounded-xl">
-                            View Details
-                          </button>
-                        </Link>
-                      </div>
-                    </div>
+              <div key={yacht.id} className="max-w-sm w-full py-6 px-3">
+                <div className="bg-white shadow border rounded-lg overflow-hidden">
+                  <div
+                    className="bg-cover bg-center h-56 p-4"
+                    style={{
+                      backgroundImage: `url(${yacht.image})`,
+                    }}
+                  ></div>
+                  <div className="p-4">
+                    <p
+                      title={yacht.name}
+                      className="truncate uppercase tracking-wide  font-bold text-gray-700"
+                    >
+                      {yacht.name}
+                    </p>
+                  </div>
+                  <div className="flex space-x-2 p-4 border-t border-gray-300 text-gray-700">
+                    <a
+                      href={`https://api.whatsapp.com/send?phone=+919804480448&text=${yacht.name}`}
+                      className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-full border-2 border-green-200 font-semibold text-green-500 hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-0 transition-all text-sm "
+                    >
+                      <SiWhatsapp fontSize={24} />
+                    </a>
+                    <a
+                      href="tel:+919804480448"
+                      className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-full border-2 border-blue-200 font-semibold text-blue-500 hover:text-white hover:bg-blue-500 hover:border-blue-500 focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all text-sm"
+                    >
+                      <RiPhoneLine fontSize={24} />
+                    </a>{" "}
+                    <Link to={`/yacht/${yacht.id}`} className="w-full">
+                      <button className="py-3 w-full  px-4 inline-flex justify-center items-center gap-2 rounded-full  font-semibold btn-gradient  focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all">
+                        <CgDetailsMore fontSize={28} />
+                        Details
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

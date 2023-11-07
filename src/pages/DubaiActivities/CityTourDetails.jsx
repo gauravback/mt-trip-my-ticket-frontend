@@ -4,7 +4,8 @@ import { addToCart } from "@/redux/slices/CartSlice";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { ImArrowLeft2, ImArrowRight2 } from "react-icons/im";
-import { SiPandas } from "react-icons/si";
+import { RiPhoneLine } from "react-icons/ri";
+import { SiPandas, SiWhatsapp } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Slider from "react-slick";
@@ -153,6 +154,22 @@ const CityTourDetails = () => {
                   )}
                   /Hour
                 </p> */}
+                <div className="flex items-center w-full space-x-2">
+                  <a
+                    href={`https://api.whatsapp.com/send?phone=+919804480448&text=${cityTour.name}`}
+                    className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-md border-2 border-green-200 font-semibold text-green-500 hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-0 transition-all text-sm "
+                  >
+                    <SiWhatsapp fontSize={24} /> WhatsApp
+                  </a>
+
+                  <a
+                    href="tel:+919804480448"
+                    className="py-3 w-full md:w-1/2 px-4 inline-flex justify-center items-center gap-2 rounded-md border-2 border-blue-200 font-semibold text-blue-500 hover:text-white hover:bg-blue-500 hover:border-blue-500 focus:outline-none focus:ring-0 focus:ring-blue-200 focus:ring-offset-2 transition-all text-sm"
+                  >
+                    <RiPhoneLine fontSize={24} />
+                    Call Now
+                  </a>
+                </div>
                 <div className="mt-12">
                   <h3 className="font-semibold text-gray-900">Inclusions</h3>
                   <div className="mt-4">
@@ -195,22 +212,6 @@ const CityTourDetails = () => {
                   </div>
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  dispatch(
-                    addToCart({
-                      id: cityTour?.id,
-                      type: "city-tour",
-                      price: cityTour?.price,
-                    })
-                  );
-                  navigate("/checkout");
-                }}
-                className="btn-gradient w-full p-2 rounded-md"
-              >
-                Book Now
-              </button>
             </div>
           </div>
         </div>
